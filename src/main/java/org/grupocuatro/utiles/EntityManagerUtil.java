@@ -10,9 +10,4 @@ public class EntityManagerUtil {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistencia");
         return factory.createEntityManager();
     }
-
-    public static void main(String [] args ){
-        EntityManager manager = EntityManagerUtil.getEntityManager();
-        System.out.println("EntityManager class ==> " + manager.getClass().getCanonicalName());
-    }
 }
