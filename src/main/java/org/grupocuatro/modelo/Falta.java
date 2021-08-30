@@ -5,19 +5,24 @@ import javax.persistence.*;
 @Entity
 @Table(name="faltas")
 public class Falta {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idFalta")
 	private Integer idFalta;
+
 	@ManyToOne
-	@Column(name = "idJugador" )
+	//@Column(name = "idJugador" )
 	private Jugador jugador;
+
 	@ManyToOne
-	@Column(name = "idPartido")
+	//@Column(name = "idPartido")
 	private Partido partido;
+
 	@ManyToOne
-	@Column(name = "idCampeonato")
+	//@Column(name = "idCampeonato")
 	private Campeonato campeonato;
+
 	private int minuto;
 	private String tipo;
 	

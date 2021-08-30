@@ -16,7 +16,7 @@ public class Responsable implements Comparable<Responsable> {
     private String nombre;
 
     @ManyToOne
-    @Column(name = "idClub")
+    //@Column(name = "idClub")
     private Club club;
 
 

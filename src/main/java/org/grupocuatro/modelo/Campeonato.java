@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,15 +13,20 @@ public class Campeonato implements Comparable<Campeonato>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idCampeonato")
 	private Integer idCampeonato;
+
 	private String descripcion;
 	private Date fechaInicio;
 	private Date fechaFin;
 	private String estado;
+
 	@ManyToMany
 	private List<Club> inscriptos;
 
-	@OneToMany(mappedBy = "campeonato")
+	@OneToMany(mappedBy = "idCampeonato")
 	private List<Partido> partidos;
+
+	@OneToMany(mappedBy = "idCampeonato")
+	private List<Falta> faltas;
 	
 	public Campeonato(String descripcion, Date fechaInicio, Date fechaFin, String estado) {
 		this.idCampeonato = null;
@@ -31,7 +37,9 @@ public class Campeonato implements Comparable<Campeonato>{
 	}
 
 	public Campeonato() {
-
+		partidos = new ArrayList<>();
+		inscriptos = new ArrayList<>();
+		faltas = new ArrayList<>();
 	}
 
 	public Integer getIdCampeonato() {

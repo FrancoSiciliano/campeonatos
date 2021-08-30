@@ -9,13 +9,17 @@ public class Gol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idGol")
     private Integer idGol;
+
     @ManyToOne
-    @Column(name = "idJugador")
+    //@Column(name = "idJugador")
     private Jugador jugador;
+
     @ManyToOne
-    @Column(name = "idPartido")
+    //@Column(name = "idPartido")
     private Partido partido;
+
     private int minuto;
+
     @Column(name = "sentido")
     private String tipo;
 

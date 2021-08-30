@@ -21,18 +21,17 @@ public class Jugador implements Comparable<Jugador> {
     private String nombre;
 
     @ManyToOne
-    @Column(name = "idClub")
     private Club club;
     private Date fechaNacimiento;
     private int categoria;
 
-    @OneToMany(mappedBy = "jugador")
+    @OneToMany(mappedBy = "idPartido")
     private List<Gol> goles;
 
-    @OneToMany(mappedBy = "jugador")
+    @OneToMany(mappedBy = "idJugador")
     private List<Falta> faltas;
 
-    @OneToMany(mappedBy = "jugador")
+    @OneToMany(mappedBy = "idJugador")
     private List<Miembro> partidos;
 
     public Jugador(String tipoDocumento, int documento, String nombre, Club club, Date fechaNacimiento) {
@@ -53,7 +52,9 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     public Jugador() {
-
+        goles = new ArrayList<>();
+        faltas = new ArrayList<>();
+        partidos = new ArrayList<>();
     }
 
     public Integer getIdJugador() {

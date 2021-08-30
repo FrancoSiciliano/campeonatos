@@ -1,6 +1,5 @@
 package org.grupocuatro.modelo;
 
-import jdk.jfr.Enabled;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,11 +19,11 @@ public class Partido {
     private int categoria;
 
     @ManyToOne
-    @Column(name = "idClubLocal")
+    //@Column(name = "idClubLocal")
     private Club clubLocal;
 
     @ManyToOne
-    @Column(name = "idClubVisitante")
+    //@Column(name = "idClubVisitante")
     private Club clubVisitante;
 
     private Integer golesLocal;
@@ -38,20 +37,21 @@ public class Partido {
     private boolean convalidaVisitante;
 
     @ManyToOne
-    @Column(name = "idCampeonato")
+    //@Column(name = "idCampeonato")
     private Campeonato campeonato;
 
-    @OneToMany(mappedBy = "partido")
+    @OneToMany(mappedBy = "idPartido")
     private List<Miembro> jugadoresLocales;
 
-    @OneToMany(mappedBy = "partido")
+    @OneToMany(mappedBy = "idPartido")
     private List<Miembro> jugadoresVisitantes;
 
     //agregamos lista de faltas del partido
-    @OneToMany(mappedBy = "partido")
+    @OneToMany(mappedBy = "idPartido")
     private List<Falta> faltas;
+
     //agregamos lista de goles del partido
-    @OneToMany(mappedBy = "partido")
+    @OneToMany(mappedBy = "idPartido")
     private List<Gol> goles;
 
     public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante,
@@ -70,7 +70,10 @@ public class Partido {
     }
 
     public Partido() {
-
+        jugadoresLocales = new ArrayList<>();
+        jugadoresVisitantes = new ArrayList<>();
+        faltas = new ArrayList<>();
+        goles = new ArrayList<>();
     }
 
     public Integer getIdPartido() {
