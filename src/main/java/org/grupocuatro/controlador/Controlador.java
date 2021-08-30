@@ -7,8 +7,16 @@ import java.util.Date;
 
 public class Controlador {
 
-	public Controlador() { }
-	
+	private static Controlador instancia;
+
+	private Controlador() { }
+
+	public static Controlador getInstancia(){
+		if (instancia == null)
+			instancia = new Controlador();
+		return instancia;
+	}
+
 	/*
 	 * Notas:
 	 * 
