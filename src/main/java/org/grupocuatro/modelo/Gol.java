@@ -11,11 +11,11 @@ public class Gol {
     private Integer idGol;
 
     @ManyToOne
-    //@Column(name = "idJugador")
+    @JoinColumn(name = "idJugador")
     private Jugador jugador;
 
     @ManyToOne
-    //@Column(name = "idPartido")
+    @JoinColumn(name = "idPartido")
     private Partido partido;
 
     private int minuto;

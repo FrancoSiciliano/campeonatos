@@ -19,25 +19,37 @@ public class Jugador implements Comparable<Jugador> {
     @Column(name = "numeroDocumento")
     private Integer documento;
     private String nombre;
+    private String apellido;
 
     @ManyToOne
+    @JoinColumn(name = "idClub") //FIXME hola pa
     private Club club;
     private Date fechaNacimiento;
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
     private int categoria;
 
-    @OneToMany(mappedBy = "idPartido")
+    @OneToMany(mappedBy = "jugador")
     private List<Gol> goles;
 
-    @OneToMany(mappedBy = "idJugador")
+    @OneToMany(mappedBy = "jugador")
     private List<Falta> faltas;
 
-    @OneToMany(mappedBy = "idJugador")
+    @OneToMany(mappedBy = "jugador")
     private List<Miembro> partidos;
 
-    public Jugador(String tipoDocumento, int documento, String nombre, Club club, Date fechaNacimiento) {
+    public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, Date fechaNacimiento) {
         this.idJugador = null;
         this.documento = documento;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.club = club;
         this.fechaNacimiento = fechaNacimiento;
         this.tipoDocumento = tipoDocumento;

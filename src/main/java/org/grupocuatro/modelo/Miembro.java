@@ -12,15 +12,15 @@ public class Miembro {
 	private Integer idLista;
 
 	@ManyToOne
-	//@Column(name = "idClub")
+	@JoinColumn(name = "idClub")
 	private Club club;
 
 	@ManyToOne
-	//@Column(name = "idPartido")
+	@JoinColumn(name = "idPartido")
 	private Partido partido;
 
 	@ManyToOne
-	//@Column(name = "idJugador")
+	@JoinColumn(name = "idJugador")
 	private Jugador jugador;
 
 	private Integer ingreso;

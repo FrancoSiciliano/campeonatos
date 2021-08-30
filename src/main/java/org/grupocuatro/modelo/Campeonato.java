@@ -19,13 +19,19 @@ public class Campeonato implements Comparable<Campeonato>{
 	private Date fechaFin;
 	private String estado;
 
+	@JoinTable (
+			name = "clubesCampeonato",
+			joinColumns = @JoinColumn(name = "idCampeonato", nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "idClub", nullable = false)
+	)
+
 	@ManyToMany
 	private List<Club> inscriptos;
 
-	@OneToMany(mappedBy = "idCampeonato")
+	@OneToMany(mappedBy = "campeonato")
 	private List<Partido> partidos;
 
-	@OneToMany(mappedBy = "idCampeonato")
+	@OneToMany(mappedBy = "campeonato")
 	private List<Falta> faltas;
 	
 	public Campeonato(String descripcion, Date fechaInicio, Date fechaFin, String estado) {

@@ -12,15 +12,15 @@ public class Falta {
 	private Integer idFalta;
 
 	@ManyToOne
-	//@Column(name = "idJugador" )
+	@JoinColumn(name = "idJugador")
 	private Jugador jugador;
 
 	@ManyToOne
-	//@Column(name = "idPartido")
+	@JoinColumn(name = "idPartido")
 	private Partido partido;
 
 	@ManyToOne
-	//@Column(name = "idCampeonato")
+	@JoinColumn(name = "idCampeonato")
 	private Campeonato campeonato;
 
 	private int minuto;
