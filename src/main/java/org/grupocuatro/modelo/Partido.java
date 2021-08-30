@@ -27,6 +27,12 @@ public class Partido {
 	private Campeonato campeonato;
 	private List<Miembro> jugadoresLocales;
 	private List<Miembro> jugadoresVisitantes;
+	//agregamos lista de faltas del partido
+	@OneToMany(mappedBy = "partido")
+	private List<Falta> faltas;
+	//agregamos lista de goles del partido
+	@OneToMany(mappedBy = "partido")
+	private List<Gol> goles;
 
 	public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante, 
 			       Date fechaPartido, Campeonato campeonato) {

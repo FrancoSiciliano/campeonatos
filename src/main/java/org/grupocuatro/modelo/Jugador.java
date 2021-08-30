@@ -18,6 +18,7 @@ public class Jugador implements Comparable<Jugador>{
 	private Club club;
 	private Date fechaNacimiento;
 	private int categoria;
+	@OneToMany(mappedBy = "jugador")
 	private List<Gol> goles;
 	@OneToMany(mappedBy = "jugador")
 	private List<Falta> faltas;

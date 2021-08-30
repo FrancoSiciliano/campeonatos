@@ -10,8 +10,13 @@ public class Falta {
 	@Column(name = "idFalta")
 	private Integer idFalta;
 	@ManyToOne
+	@Column(name = "idJugador" )
 	private Jugador jugador;
+	@ManyToOne
+	@Column(name = "idPartido")
 	private Partido partido;
+	@ManyToOne
+	@Column(name = "idCampeonato")
 	private Campeonato campeonato;
 	private int minuto;
 	private String tipo;

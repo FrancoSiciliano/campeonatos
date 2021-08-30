@@ -10,7 +10,6 @@ import java.util.List;
 public class Club implements Comparable<Club>{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idClub")
 	private Integer idClub;
 	private String nombre;
