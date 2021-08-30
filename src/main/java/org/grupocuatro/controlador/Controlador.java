@@ -1,9 +1,9 @@
-package controlador;
+package org.grupocuatro.controlador;
+
+import org.grupocuatro.modelo.Club;
+import org.grupocuatro.modelo.Partido;
 
 import java.util.Date;
-
-import modelo.Club;
-import modelo.Partido;
 
 public class Controlador {
 
@@ -28,7 +28,7 @@ public class Controlador {
 	
 	public void habilitarJugador(int idJugador, int idClub, int idCampeonato) {	}
 	
-	public Integer crearListaJugadores(Club club, Partido partido) { return null;}	
+	public Integer crearListaJugadores(Club club, Partido partido) { return null;}
 	
 	public void agregarJugadoresEnLista() {}
 }

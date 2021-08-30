@@ -1,4 +1,4 @@
-package modelo;
+package org.grupocuatro.modelo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

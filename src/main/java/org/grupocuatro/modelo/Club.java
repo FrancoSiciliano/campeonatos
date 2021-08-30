@@ -1,4 +1,5 @@
-package modelo;
+package org.grupocuatro.modelo;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,15 +8,15 @@ public class Club implements Comparable<Club>{
 
 	private Integer idClub;
 	private String nombre;
-	private String dirección;
+	private String direccion;
 	private List<Responsable> responsables;
 	private List<Jugador> jugadores;
 	private List<Campeonato> participanciones;
 	
-	public Club(int idClub, String nombre, String dirección) {
+	public Club(int idClub, String nombre, String direccion) {
 		this.idClub = idClub;
 		this.nombre = nombre;
-		this.dirección = dirección;
+		this.direccion = direccion;
 		jugadores = new ArrayList<Jugador>();
 	}
 	
@@ -35,8 +36,8 @@ public class Club implements Comparable<Club>{
 		return nombre;
 	}
 
-	public String getDirección() {
-		return dirección;
+	public String getDireccion() {
+		return direccion;
 	}
 
 	public List<Responsable> getResponsable() {

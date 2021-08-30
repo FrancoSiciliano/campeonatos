@@ -1,4 +1,4 @@
-package modelo;
+package org.grupocuatro.modelo;
 
 import java.util.Date;
 import java.util.List;

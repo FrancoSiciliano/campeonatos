@@ -1,4 +1,4 @@
-package modelo;
+package org.grupocuatro.modelo;
 
 public class Responsable implements Comparable<Responsable>{
 
