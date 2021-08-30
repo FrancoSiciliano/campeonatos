@@ -48,6 +48,6 @@ public class Campeonato implements Comparable<Campeonato>{
 	public void inscribirClub(Club club) {
 		inscriptos.add(club);
 		if(!club.participa(this))
-			club.participa(this);
+			club.participar(this);
 	}
 }
