@@ -9,6 +9,7 @@ public class Falta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idFalta")
 	private Integer idFalta;
+	@ManyToOne
 	private Jugador jugador;
 	private Partido partido;
 	private Campeonato campeonato;

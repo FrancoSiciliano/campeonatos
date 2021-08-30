@@ -16,6 +16,7 @@ public class Campeonato implements Comparable<Campeonato>{
 	private Date fechaInicio;
 	private Date fechaFin;
 	private String estado;
+	@ManyToMany
 	private List<Club> inscriptos;
 	
 	public Campeonato(String descripcion, Date fechaInicio, Date fechaFin, String estado) {
