@@ -18,6 +18,9 @@ public class Campeonato implements Comparable<Campeonato>{
 	private String estado;
 	@ManyToMany
 	private List<Club> inscriptos;
+
+	@OneToMany(mappedBy = "campeonato")
+	private List<Partido> partidos;
 	
 	public Campeonato(String descripcion, Date fechaInicio, Date fechaFin, String estado) {
 		this.idCampeonato = null;
@@ -25,6 +28,10 @@ public class Campeonato implements Comparable<Campeonato>{
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.estado = estado;
+	}
+
+	public Campeonato() {
+
 	}
 
 	public Integer getIdCampeonato() {

@@ -30,6 +30,10 @@ public class Falta {
 		this.tipo = tipo;
 	}
 
+	public Falta() {
+
+	}
+
 	public Jugador getJugador() {
 		return jugador;
 	}

@@ -9,10 +9,20 @@ public class Miembro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idLista")
-	private Integer idLista; 
+	private Integer idLista;
+
+	@ManyToOne
+	@Column(name = "idClub")
 	private Club club;
+
+	@ManyToOne
+	@Column(name = "idPartido")
 	private Partido partido;
+
+	@ManyToOne
+	@Column(name = "idJugador")
 	private Jugador jugador;
+
 	private Integer ingreso;
 	private Integer egreso;
 
@@ -23,6 +33,10 @@ public class Miembro {
 		this.jugador = jugador;
 		this.ingreso = null;
 		this.egreso = null;
+	}
+
+	public Miembro() {
+
 	}
 
 	public Jugador getJugador() {

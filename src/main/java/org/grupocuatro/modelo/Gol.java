@@ -27,6 +27,10 @@ public class Gol {
         this.tipo = tipo;
     }
 
+    public Gol() {
+
+    }
+
     public Jugador getJugador() {
         return jugador;
     }

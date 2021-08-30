@@ -14,11 +14,24 @@ public class Club implements Comparable<Club>{
 	private Integer idClub;
 	private String nombre;
 	private String direccion;
+
 	@OneToMany(mappedBy = "club")
 	private List<Responsable> responsables;
+
+	@OneToMany(mappedBy = "club")
 	private List<Jugador> jugadores;
+
 	@ManyToMany(mappedBy = "inscriptos")
 	private List<Campeonato> participaciones;
+
+	@OneToMany(mappedBy = "clubLocal")
+	private List<Partido> partidosLocal;
+
+	@OneToMany(mappedBy = "clubVisitante")
+	private List<Partido> partidosVisitante;
+
+	@OneToMany(mappedBy = "club")
+	private List<Miembro> miembros;
 	
 	public Club(int idClub, String nombre, String direccion) {
 		this.idClub = idClub;
@@ -26,7 +39,11 @@ public class Club implements Comparable<Club>{
 		this.direccion = direccion;
 		jugadores = new ArrayList<Jugador>();
 	}
-	
+
+	public Club() {
+
+	}
+
 	public void asignarResponsable(Responsable responsable) {
 		responsables.add(responsable);
 	}
