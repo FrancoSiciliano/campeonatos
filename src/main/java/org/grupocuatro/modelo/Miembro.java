@@ -1,7 +1,14 @@
 package org.grupocuatro.modelo;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="listaJugadoresPartido")
 public class Miembro {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idLista")
 	private Integer idLista; 
 	private Club club;
 	private Partido partido;

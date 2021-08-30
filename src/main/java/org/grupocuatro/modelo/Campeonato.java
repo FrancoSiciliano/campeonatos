@@ -1,10 +1,16 @@
 package org.grupocuatro.modelo;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "campeonatos")
 public class Campeonato implements Comparable<Campeonato>{
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idCampeonato")
 	private Integer idCampeonato;
 	private String descripcion;
 	private Date fechaInicio;

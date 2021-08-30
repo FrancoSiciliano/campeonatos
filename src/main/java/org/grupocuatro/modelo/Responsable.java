@@ -1,10 +1,19 @@
 package org.grupocuatro.modelo;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="representantes")
 public class Responsable implements Comparable<Responsable>{
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idRepresentante")
 	private Integer legajo;
 	private String documento;
 	private String nombre;
+	@ManyToOne
 	private Club club;
 	
 	

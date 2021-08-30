@@ -1,14 +1,21 @@
 package org.grupocuatro.modelo;
 
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="clubes")
 public class Club implements Comparable<Club>{
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idClub")
 	private Integer idClub;
 	private String nombre;
 	private String direccion;
+	@OneToMany(mappedBy = "club")
 	private List<Responsable> responsables;
 	private List<Jugador> jugadores;
 	private List<Campeonato> participanciones;

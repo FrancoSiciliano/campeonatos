@@ -1,12 +1,17 @@
 package org.grupocuatro.modelo;
 
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@Entity
+@Table(name="jugadores")
 public class Jugador implements Comparable<Jugador>{
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idJugador")
 	private Integer idJugador;
 	private String documento;
 	private String nombre;

@@ -1,7 +1,13 @@
 package org.grupocuatro.modelo;
 
-public class Falta {
+import javax.persistence.*;
 
+@Entity
+@Table(name="faltas")
+public class Falta {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idFalta")
 	private Integer idFalta;
 	private Jugador jugador;
 	private Partido partido;

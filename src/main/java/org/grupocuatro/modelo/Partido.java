@@ -1,10 +1,18 @@
 package org.grupocuatro.modelo;
 
+import jdk.jfr.Enabled;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name="partidos")
 public class Partido {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idPartido")
 	private Integer idPartido;
 	private int nroFecha;
 	private int nroZona;
