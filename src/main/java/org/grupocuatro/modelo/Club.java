@@ -62,10 +62,10 @@ public class Club implements Comparable<Club>{
 	}
 	
 	public boolean participa(Campeonato campeonato) {
-		return participanciones.contains(campeonato);
+		return participaciones.contains(campeonato);
 	}
 	public void participar(Campeonato campeonato) {
-		participanciones.add(campeonato);
+		participaciones.add(campeonato);
 	}
 	
 	public void agregarJugadoresToListaLocal(Jugador jugador, Partido partido) {
