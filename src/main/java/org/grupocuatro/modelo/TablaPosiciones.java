@@ -28,7 +28,9 @@ public class TablaPosiciones implements Serializable {
     private int puntos;
     private float  promedio;
 
-    public TablaPosiciones(Club id){
+    public TablaPosiciones(Club id, Campeonato campeonato){
+        this.id = id;
+        this.campeonato = campeonato;
         cantidadEmpatados = 0;
         cantidadGanados = 0;
         cantidadJugados = 0;
