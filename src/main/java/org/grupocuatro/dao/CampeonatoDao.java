@@ -26,7 +26,10 @@ public class CampeonatoDao extends AbstractDao {
 
     }
 
-    public List<Campeonato> getCampeonatos() {
-        return getEntityManager().createQuery("SELECT c FROM Campeonato c").getResultList();
+    public List<Campeonato> getCampeonatos() throws CampeonatoException {
+        List<Campeonato> campeonatos = getEntityManager().createQuery("SELECT c FROM Campeonato c").getResultList();
+        if(campeonatos != null)
+            return campeonatos;
+        throw new CampeonatoException("No existen campeonatos");
     }
 }
