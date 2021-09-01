@@ -33,6 +33,10 @@ public class Campeonato implements Comparable<Campeonato>{
 
 	@OneToMany(mappedBy = "campeonato")
 	private List<Falta> faltas;
+
+
+	@OneToOne(mappedBy = "campeonato")
+	private TablaPosiciones tablaPosiciones;
 	
 	public Campeonato(String descripcion, Date fechaInicio, Date fechaFin, String estado) {
 		this.idCampeonato = null;

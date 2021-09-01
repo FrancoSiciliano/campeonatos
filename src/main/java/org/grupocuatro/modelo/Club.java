@@ -32,7 +32,15 @@ public class Club implements Comparable<Club>{
 
 	@OneToMany(mappedBy = "club")
 	private List<Miembro> miembros;
-	
+
+	@OneToMany(mappedBy = "id")
+	private List<TablaPosiciones> tablasPosiciones;
+
+
+	public List<Responsable> getResponsables() {
+		return responsables;
+	}
+
 	public Club(int idClub, String nombre, String direccion) {
 		this.idClub = idClub;
 		this.nombre = nombre;
