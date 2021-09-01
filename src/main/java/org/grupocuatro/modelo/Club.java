@@ -21,7 +21,7 @@ public class Club implements Comparable<Club>{
 	@OneToMany(mappedBy = "club")
 	private List<Jugador> jugadores;
 
-	@ManyToMany(mappedBy = "inscriptos")
+	@OneToMany(mappedBy = "idCampeonato")
 	private List<Campeonato> participaciones;
 
 	@OneToMany(mappedBy = "clubLocal")

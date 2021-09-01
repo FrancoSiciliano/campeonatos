@@ -36,7 +36,7 @@ public class Jugador implements Comparable<Jugador> {
 
     private int categoria;
 
-    @OneToMany(mappedBy = "jugador")
+    @OneToMany(mappedBy = "jugador") // ACÁ CREO QUE ES CON LA TABLA "JUGADORES", NO CON JUGADOR.
     private List<Gol> goles;
 
     @OneToMany(mappedBy = "jugador")
@@ -51,6 +51,7 @@ public class Jugador implements Comparable<Jugador> {
         this.nombre = nombre;
         this.apellido = apellido;
         this.club = club;
+        this.faltas = new ArrayList<>();
         this.fechaNacimiento = fechaNacimiento;
         this.tipoDocumento = tipoDocumento;
         SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
@@ -59,8 +60,7 @@ public class Jugador implements Comparable<Jugador> {
             this.categoria = auxCategoria - 1900;
         else
             this.categoria = auxCategoria - 2000;
-        this.goles = new ArrayList<Gol>();
-        this.faltas = new ArrayList<Falta>();
+        this.goles = new ArrayList<>();
     }
 
     public Jugador() {
