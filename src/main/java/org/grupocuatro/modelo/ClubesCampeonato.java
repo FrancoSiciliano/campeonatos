@@ -12,10 +12,10 @@ public class ClubesCampeonato {
     private Integer idClubesCampeonatos;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "idClub")
     private Club idClub;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "idCampeonato")
     private Campeonato idCampeonato;
 
     public ClubesCampeonato() {
