@@ -1,86 +1,127 @@
 package org.grupocuatro.modelo;
 
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Jugador implements Comparable<Jugador>{
+@Entity
+@Table(name = "jugadores")
+public class Jugador implements Comparable<Jugador> {
 
-	private Integer idJugador;
-	private String documento;
-	private String nombre;
-	private Club club;
-	private Date fechaNacimiento;
-	private int categoria;
-	private List<Gol> goles;
-	private List<Falta> faltas;
-	
-	public Jugador(String documento, String nombre, Club club, Date fechaNacimiento) {
-		this.idJugador = null;
-		this.documento = documento;
-		this.nombre = nombre;
-		this.club = club;
-		this.fechaNacimiento = fechaNacimiento;
-		SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
-		int auxCategoria = Integer.parseInt(getYearFormat.format(this.fechaNacimiento));
-        if(auxCategoria > 1999)
-        	this.categoria = auxCategoria - 1900;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idJugador")
+    private Integer idJugador;
+    private String tipoDocumento;
+
+    @Column(name = "numeroDocumento")
+    private Integer documento;
+    private String nombre;
+    private String apellido;
+
+    @ManyToOne
+    @JoinColumn(name = "idClub") //FIXME hola pa
+    private Club club;
+    private Date fechaNacimiento;
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    private int categoria;
+
+    @OneToMany(mappedBy = "jugador") // ACÁ CREO QUE ES CON LA TABLA "JUGADORES", NO CON JUGADOR.
+    private List<Gol> goles;
+
+    @OneToMany(mappedBy = "jugador")
+    private List<Falta> faltas;
+
+    @OneToMany(mappedBy = "jugador")
+    private List<Miembro> partidos;
+
+    public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, Date fechaNacimiento) {
+        this.idJugador = null;
+        this.documento = documento;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.club = club;
+        this.faltas = new ArrayList<>();
+        this.fechaNacimiento = fechaNacimiento;
+        this.tipoDocumento = tipoDocumento;
+        SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
+        int auxCategoria = Integer.parseInt(getYearFormat.format(this.fechaNacimiento));
+        if (auxCategoria > 1999)
+            this.categoria = auxCategoria - 1900;
         else
-        	this.categoria = auxCategoria - 2000;
-        this.goles = new ArrayList<Gol>();
-        this.faltas = new ArrayList<Falta>();
-	}
+            this.categoria = auxCategoria - 2000;
+        this.goles = new ArrayList<>();
+    }
 
-	public Integer getIdJugador() {
-		return idJugador;
-	}
+    public Jugador() {
+        goles = new ArrayList<>();
+        faltas = new ArrayList<>();
+        partidos = new ArrayList<>();
+    }
 
-	public String getDocumento() {
-		return documento;
-	}
+    public Integer getIdJugador() {
+        return idJugador;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public int getDocumento() {
+        return documento;
+    }
 
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
 
-	public int getCategoria() {
-		return categoria;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public List<Gol> getGoles() {
-		return goles;
-	}
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
 
-	public void agregarGol(Gol gol) {
-		goles.add(gol);
-	}
-	
-	public List<Falta> getFaltas() {
-		return faltas;
-	}
-	
-	public void agregarFalta(Falta falta) {
-		faltas.add(falta);
-	}
+    public int getCategoria() {
+        return categoria;
+    }
 
-	
-	public Club getClub() {
-		return club;
-	}
+    public List<Gol> getGoles() {
+        return goles;
+    }
 
-	public void setClub(Club club) {
-		this.club = club;
-	}
+    public void agregarGol(Gol gol) {
+        goles.add(gol);
+    }
 
-	@Override
-	public int compareTo(Jugador o) {
-		return this.documento.compareTo(o.getDocumento());
-	}
-	
-	
+    public List<Falta> getFaltas() {
+        return faltas;
+    }
+
+    public void agregarFalta(Falta falta) {
+        faltas.add(falta);
+    }
+
+
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
+    }
+
+    @Override
+    public int compareTo(Jugador o) {
+        return this.documento.compareTo(o.getDocumento());
+    }
+
+
 }

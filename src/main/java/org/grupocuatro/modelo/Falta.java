@@ -1,11 +1,28 @@
 package org.grupocuatro.modelo;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="faltas")
 public class Falta {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idFalta")
 	private Integer idFalta;
+
+	@ManyToOne
+	@JoinColumn(name = "idJugador")
 	private Jugador jugador;
+
+	@ManyToOne
+	@JoinColumn(name = "idPartido")
 	private Partido partido;
+
+	@ManyToOne
+	@JoinColumn(name = "idCampeonato")
 	private Campeonato campeonato;
+
 	private int minuto;
 	private String tipo;
 	
@@ -16,6 +33,10 @@ public class Falta {
 		this.campeonato = campeonato;
 		this.minuto = minuto;
 		this.tipo = tipo;
+	}
+
+	public Falta() {
+
 	}
 
 	public Jugador getJugador() {
