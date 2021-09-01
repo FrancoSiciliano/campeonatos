@@ -37,10 +37,6 @@ public class Club implements Comparable<Club>{
 	private List<TablaPosiciones> tablasPosiciones;
 
 
-	public List<Responsable> getResponsables() {
-		return responsables;
-	}
-
 	public Club(int idClub, String nombre, String direccion) {
 		this.idClub = idClub;
 		this.nombre = nombre;
@@ -54,6 +50,10 @@ public class Club implements Comparable<Club>{
 		miembros = new ArrayList<>();
 		partidosLocal = new ArrayList<>();
 		tablasPosiciones = new ArrayList<>();
+	}
+
+	public List<Responsable> getResponsables() {
+		return responsables;
 	}
 
 	public void asignarResponsable(Responsable responsable) {
