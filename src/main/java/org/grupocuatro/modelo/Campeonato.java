@@ -84,4 +84,15 @@ public class Campeonato implements Comparable<Campeonato>{
 		if(!club.participa(this))
 			club.participar(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Campeonato{" +
+				"idCampeonato=" + idCampeonato +
+				", descripcion='" + descripcion + '\'' +
+				", fechaInicio=" + fechaInicio +
+				", fechaFin=" + fechaFin +
+				", estado='" + estado + '\'' +
+				'}';
+	}
 }
