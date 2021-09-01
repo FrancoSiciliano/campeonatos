@@ -1,12 +1,10 @@
 package org.grupocuatro.dao;
 
-import excepciones.PartidoException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
 
-import javax.persistence.EntityManager;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 

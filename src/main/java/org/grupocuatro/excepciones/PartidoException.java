@@ -1,4 +1,4 @@
-package excepciones;
+package org.grupocuatro.excepciones;
 
 public class PartidoException extends Exception {
 
