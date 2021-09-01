@@ -22,7 +22,7 @@ public class Jugador implements Comparable<Jugador> {
     private String apellido;
 
     @ManyToOne
-    @JoinColumn(name = "idClub") //FIXME hola pa
+    @JoinColumn(name = "idClub")
     private Club club;
     private Date fechaNacimiento;
 
