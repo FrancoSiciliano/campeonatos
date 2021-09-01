@@ -53,6 +53,7 @@ public class Club implements Comparable<Club>{
 		partidosVisitante = new ArrayList<>();
 		miembros = new ArrayList<>();
 		partidosLocal = new ArrayList<>();
+		tablasPosiciones = new ArrayList<>();
 	}
 
 	public void asignarResponsable(Responsable responsable) {

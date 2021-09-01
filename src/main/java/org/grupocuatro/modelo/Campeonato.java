@@ -52,6 +52,14 @@ public class Campeonato implements Comparable<Campeonato>{
 		faltas = new ArrayList<>();
 	}
 
+	public TablaPosiciones getTablaPosiciones(){
+		return tablaPosiciones;
+	}
+
+	public void setTablaPosiciones(TablaPosiciones tablaPosiciones) {
+		this.tablaPosiciones = tablaPosiciones;
+	}
+
 	public Integer getIdCampeonato() {
 		return idCampeonato;
 	}
