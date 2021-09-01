@@ -1,5 +1,6 @@
 package org.grupocuatro.dao;
 
+import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.modelo.Campeonato;
 
 import java.util.List;
@@ -17,12 +18,15 @@ public class CampeonatoDao extends AbstractDao {
         return instancia;
     }
 
-    public Campeonato getCampeonato(Integer id) {
-        return (Campeonato) getEntityManager().createQuery("FROM Campeonato WHERE id = " + id).getSingleResult();
+    public Campeonato getCampeonato(Integer id) throws CampeonatoException{
+        Campeonato campeonato = (Campeonato) getEntityManager().createQuery("FROM Campeonato WHERE id = " + id).getSingleResult();
+        if (campeonato != null)
+            return campeonato;
+        throw new CampeonatoException("El campeonato no existe");
+
     }
 
     public List<Campeonato> getCampeonatos() {
-
         return getEntityManager().createQuery("SELECT c FROM Campeonato c").getResultList();
     }
 }
