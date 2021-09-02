@@ -9,8 +9,7 @@ public class CampeonatoDao extends AbstractDao {
 
     private static CampeonatoDao instancia;
 
-    private CampeonatoDao() {
-    }
+    private CampeonatoDao() {}
 
     public static CampeonatoDao getInstancia() {
         if (instancia == null)
@@ -22,7 +21,7 @@ public class CampeonatoDao extends AbstractDao {
         Campeonato campeonato = (Campeonato) getEntityManager().createQuery("FROM Campeonato WHERE id = " + id).getSingleResult();
         if (campeonato != null)
             return campeonato;
-        throw new CampeonatoException("El campeonato no existe");
+        throw new CampeonatoException("El campeonato de id:  " + id + " no existe");
 
     }
 
