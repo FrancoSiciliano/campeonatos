@@ -1,5 +1,6 @@
 package org.grupocuatro.dao;
 
+import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
@@ -24,7 +25,7 @@ public class PartidoDao extends AbstractDao {
         this.save(partido);
     }
 
-    public Campeonato getCampeonato(Integer idCampeonato) {
+    public Campeonato getCampeonato(Integer idCampeonato) throws CampeonatoException {
         Campeonato campeonato = (Campeonato) getEntityManager().createQuery("from Partido e where e.idCampeonato =" + idCampeonato);
         if (campeonato != null) {
             return campeonato;
