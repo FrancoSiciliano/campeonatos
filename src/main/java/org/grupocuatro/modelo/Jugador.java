@@ -109,6 +109,9 @@ public class Jugador implements Comparable<Jugador> {
         faltas.add(falta);
     }
 
+    public boolean isClub(int idClub) {
+        return getClub().getIdClub() == idClub;
+    }
 
     public Club getClub() {
         return club;

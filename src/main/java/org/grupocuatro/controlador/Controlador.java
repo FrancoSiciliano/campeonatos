@@ -40,11 +40,12 @@ public class Controlador {
 	// Se agregó el throw de la excepción del ClubDAO.
 
 	public void modificarClub(String nombre, String direccion) throws ClubException {
-		Club club = ClubDao.getInstancia().getClubPorNombre(nombre);
+		ClubDao dao = ClubDao.getInstancia();
+		Club club = dao.getClubPorNombre(nombre);
 		if (club != null) {
 			club.setNombre(nombre);
 			club.setDireccion(direccion);
-			ClubDao.getInstancia().update(club);
+			dao.update(club);
 		}
 	}
 
@@ -54,22 +55,24 @@ public class Controlador {
 	// El método figuraba que devolvía un Integer como retorno.
 
 	public void agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, int idClub, Date fechaNacimiento) throws ClubException, JugadorException {
-		if (JugadorDao.getInstancia().getJugadorByDocumento(documento, tipoDocumento) == null) {
+		JugadorDao dao = JugadorDao.getInstancia();
+		if (dao.getJugadorByDocumento(documento, tipoDocumento) == null) {
 			Club club = ClubDao.getInstancia().getClubPorId(idClub);
 			if (club != null)
-				JugadorDao.getInstancia().save(new Jugador(tipoDocumento, documento, nombre, apellido, club, fechaNacimiento));
+				dao.save(new Jugador(tipoDocumento, documento, nombre, apellido, club, fechaNacimiento));
 		}
 	}
 
 
 	public void eliminarJugador(int idJugador, int idClub) throws JugadorException {
-		Jugador player = JugadorDao.getInstancia().getJugadorByID(idJugador);
+		JugadorDao dao = JugadorDao.getInstancia();
+		Jugador player = dao.getJugadorByID(idJugador);
 		if(player != null){
-			if(player.getClub().getIdClub() == idClub)
-				JugadorDao.getInstancia().delete(player);
+			if(player.isClub(idClub))
+				dao.delete(player);
 		}
 	}
-	
+
 	public void habilitarJugador(int idJugador, int idClub, int idCampeonato) {	}
 	
 	public Integer crearListaJugadores(Club club, Partido partido) { return null;}
