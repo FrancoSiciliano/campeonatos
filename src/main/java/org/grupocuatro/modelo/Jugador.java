@@ -36,7 +36,7 @@ public class Jugador implements Comparable<Jugador> {
 
     private int categoria;
 
-    @OneToMany(mappedBy = "jugador") // ACÁ CREO QUE ES CON LA TABLA "JUGADORES", NO CON JUGADOR.
+    @OneToMany(mappedBy = "jugador")
     private List<Gol> goles;
 
     @OneToMany(mappedBy = "jugador")
