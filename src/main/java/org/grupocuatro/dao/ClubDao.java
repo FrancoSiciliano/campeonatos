@@ -29,8 +29,8 @@ public class ClubDao extends AbstractDao{
         throw new ClubException("No existe un club con nombre " + nombre);
     }
 
-    public List<Club> getClubesPorId(Integer id) {
-        return (List<Club>) getEntityManager().createQuery("FROM clubes").getResultList();
+    public List<Club> getClubes() {
+        return (List<Club>) getEntityManager().createQuery("SELECT c FROM Club c").getResultList();
     }
 
 
