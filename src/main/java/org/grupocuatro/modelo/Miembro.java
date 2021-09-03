@@ -46,6 +46,10 @@ public class Miembro {
 
 	public Miembro() {}
 
+	public Integer getIdLista(){
+		return idLista;
+	}
+
 	public Jugador getJugador() {
 		return jugador;
 	}
@@ -53,7 +57,6 @@ public class Miembro {
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
 	}
-
 	
 	public Club getClub() {
 		return club;
