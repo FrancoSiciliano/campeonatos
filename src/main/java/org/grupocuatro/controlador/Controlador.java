@@ -79,11 +79,13 @@ public class Controlador {
 	}
 
 	// El método vino con el Integer como retorno, pero se lo cambió a void.
+	// Agregar el retorno como Integer
 
 	public void crearListaJugadores(Club club, Partido partido) {
 		MiembroDao dao = MiembroDao.getInstancia();
 		if (dao.getListaByClubAndPartido(club.getIdClub(), partido.getIdPartido()) == null) {
-			dao.save(new Miembro(club, partido));
+			Miembro m = new Miembro(club, partido);
+			dao.save(m);
 		}
 	}
 
