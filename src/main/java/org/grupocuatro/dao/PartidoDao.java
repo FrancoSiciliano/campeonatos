@@ -21,19 +21,6 @@ public class PartidoDao extends AbstractDao {
         return instancia;
     }
 
-    public void grabarPartido(Partido partido) {
-        this.save(partido);
-    }
-
-    public Campeonato getCampeonato(Integer idCampeonato) throws CampeonatoException {
-        Campeonato campeonato = (Campeonato) getEntityManager().createQuery("from Partido e where e.idCampeonato =" + idCampeonato);
-        if (campeonato != null) {
-            return campeonato;
-        }
-        throw new CampeonatoException("No hay un campeonato con el Id " + idCampeonato);
-    }
-
-
     public List<Partido> getAllPartidos() {
         List<Partido> partidos = new ArrayList<>();
         partidos = (List<Partido>) getEntityManager().createQuery("from Partido").getResultList();
@@ -76,22 +63,5 @@ public class PartidoDao extends AbstractDao {
         List<Partido> partidos = new ArrayList<>();
         partidos = (List<Partido>) getEntityManager().createQuery("from Partido e where e.idClubVisitante =" + idClub).getResultList();
         return partidos;
-    }
-
-
-    public Club getClubLocal(Integer idClub) throws PartidoException {
-        Club club = (Club) getEntityManager().createQuery("from Partido e where e.idClubLocal =" + idClub);
-        if (club != null) {
-            return club;
-        }
-        throw new PartidoException("No hay un club visitante con el Id " + idClub);
-    }
-
-    public Club getClubVisitante(Integer idClub) throws PartidoException {
-        Club club = (Club) getEntityManager().createQuery("from Partido e where e.idClubVisitante =" + idClub);
-        if (club != null) {
-            return club;
-        }
-        throw new PartidoException("No hay un club visitante con el Id " + idClub);
     }
 }
