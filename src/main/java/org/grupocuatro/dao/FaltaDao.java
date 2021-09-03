@@ -91,4 +91,11 @@ public class FaltaDao extends AbstractDao {
 
     }
 
+    public List<Falta> getFaltasByTipoAndPartido(Integer partido, String tipo) throws FaltaException {
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idPartido = " + partido + " AND tipo = " + tipo ).getResultList();
+        if (faltas != null) return faltas;
+        throw new FaltaException("No hay faltas correspondientes al partido y tipo especificados");
+
+    }
+
 }
