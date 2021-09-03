@@ -62,7 +62,13 @@ public class Controlador {
 	}
 
 
-	public void eliminarJugador(int idJugador, int idClub) { }
+	public void eliminarJugador(int idJugador, int idClub) throws JugadorException {
+		Jugador player = JugadorDao.getInstancia().getJugadorByID(idJugador);
+		if(player != null){
+			if(player.getClub().getIdClub() == idClub)
+				JugadorDao.getInstancia().delete(player);
+		}
+	}
 	
 	public void habilitarJugador(int idJugador, int idClub, int idCampeonato) {	}
 	
