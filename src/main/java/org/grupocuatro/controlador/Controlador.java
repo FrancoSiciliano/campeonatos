@@ -44,6 +44,7 @@ public class Controlador {
 		if (club != null) {
 			club.setNombre(nombre);
 			club.setDireccion(direccion);
+			ClubDao.getInstancia().update(club);
 		}
 	}
 
