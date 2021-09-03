@@ -1,6 +1,11 @@
 package org.grupocuatro.controlador;
 
+import org.grupocuatro.dao.ClubDao;
+import org.grupocuatro.dao.JugadorDao;
+import org.grupocuatro.excepciones.ClubException;
+import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.modelo.Club;
+import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Partido;
 
 import java.util.Date;
@@ -28,10 +33,34 @@ public class Controlador {
 	 *  
 	 * -En la segunda parate del trabajo deber'an agragar los metodos y controles que 
 	 *  considen necesarios. */
-	public void modificarClub(String nombre, String direccion) { }
-	
-	public Integer agregarJugador(String documento, String nombre, int idClub, Date fechaNacimiento) { return null; }
-	
+
+
+
+	// Se agregaron 2 setters en el Club para poder modificar el nombre y la dirección.
+	// Se agregó el throw de la excepción del ClubDAO.
+
+	public void modificarClub(String nombre, String direccion) throws ClubException {
+		Club club = ClubDao.getInstancia().getClubPorNombre(nombre);
+		if (club != null) {
+			club.setNombre(nombre);
+			club.setDireccion(direccion);
+		}
+	}
+
+
+	// No estaba el tipoDocumento, el documento era un String, no estaba el apellido.
+	// Hay que agregarle el throw al método para que pueda manejar las excepciones
+	// El método figuraba que devolvía un Integer como retorno.
+
+	public void agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, int idClub, Date fechaNacimiento) throws ClubException, JugadorException {
+		if (JugadorDao.getInstancia().getJugadorByDocumento(documento, tipoDocumento) == null) {
+			Club club = ClubDao.getInstancia().getClubPorId(idClub);
+			if (club != null)
+				JugadorDao.getInstancia().save(new Jugador(tipoDocumento, documento, nombre, apellido, club, fechaNacimiento));
+		}
+	}
+
+
 	public void eliminarJugador(int idJugador, int idClub) { }
 	
 	public void habilitarJugador(int idJugador, int idClub, int idCampeonato) {	}
