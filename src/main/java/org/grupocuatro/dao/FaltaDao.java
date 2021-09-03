@@ -44,17 +44,33 @@ public class FaltaDao extends AbstractDao {
         return null;
     }
 
-    public List<Falta> getFaltasByTipo(String tipo) {
-        return null;
+    public List<Falta> getFaltasByTipo(String tipo) throws FaltaException {
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE tipo = " + tipo).getResultList();
+        if (faltas != null) return faltas;
+        throw new FaltaException("No existen faltas del tipo " + tipo);
+    }
+
+    public List<Falta> getFaltaByMinuto(Integer min) throws FaltaException {
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE miuto = " + min).getResultList();
+        if (faltas != null) return faltas;
+        throw new FaltaException("No hay faltas en dicho minuto");
     }
 
     public List<Falta> getFaltasByJugadorAndPartido(Integer jugador, Integer partido) { return null;}
 
-    public List<Falta> getFaltasByJugadorAndTipo(Integer jugador, String tipo) {return null;}
+    public List<Falta> getFaltasByJugadorAndTipo(Integer jugador, String tipo) throws FaltaException {
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " and tipo = " + tipo).getResultList();
+        if (faltas != null) return faltas;
+        throw new FaltaException("El jugador de id " + jugador + " no posee faltas del tipo " + tipo );
+    }
 
     public List<Falta> getFaltasByJugadorAndCampeonato(Integer jugador, Integer campeonato) {return null;}
 
-    public List<Falta> getFaltasByJugadorAndTipoAndPartido(Integer jugador, Integer partido, String tipo) {return null;}
+    public List<Falta> getFaltasByJugadorAndTipoAndPartido(Integer jugador, Integer partido, String tipo) throws FaltaException {
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " and idPartido = " + partido + " and tipo = " + tipo).getResultList();
+        if (faltas != null) return faltas;
+        throw new FaltaException("El jugador de id " + jugador + " de tipo " + tipo + " en el partido de id " + partido);
+    }
 
     public List<Falta> getFaltasByJugadorAndTipoAndPartidoAndCampeonato(Integer jugador, Integer partido, String tipo, Integer campeonato) {return null;}
 
