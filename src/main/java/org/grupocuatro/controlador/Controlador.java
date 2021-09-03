@@ -6,9 +6,11 @@ import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Jugador;
+import org.grupocuatro.modelo.Miembro;
 import org.grupocuatro.modelo.Partido;
 
 import java.util.Date;
+import java.util.List;
 
 public class Controlador {
 
@@ -73,9 +75,31 @@ public class Controlador {
 		}
 	}
 
-	public void habilitarJugador(int idJugador, int idClub, int idCampeonato) {	}
-	
-	public Integer crearListaJugadores(Club club, Partido partido) { return null;}
-	
-	public void agregarJugadoresEnLista() {}
+	public void habilitarJugador(int idJugador, int idClub, int idCampeonato) {
+	}
+
+	// El método vino con el Integer como retorno, pero se lo cambió a void.
+	// Agregar el retorno como Integer
+
+	public void crearListaJugadores(Club club, Partido partido) {
+		MiembroDao dao = MiembroDao.getInstancia();
+		if (dao.getListaByClubAndPartido(club.getIdClub(), partido.getIdPartido()) == null) {
+			Miembro m = new Miembro(club, partido);
+			dao.save(m);
+		}
+	}
+
+
+	// REVISAR ESTE METODO!
+
+	public void agregarJugadoresEnLista(int idMiembro, Jugador jugador) {
+		MiembroDao dao = MiembroDao.getInstancia();
+		Miembro lista = dao.getListaById(idMiembro);
+		if (lista.getJugador() == null) {
+			dao.save(lista.setJugador(jugador));
+		}
+		throw new MiembroException("No existe una lista de jugadores con el id: " + idMiembro);
+	}
+
+
 }

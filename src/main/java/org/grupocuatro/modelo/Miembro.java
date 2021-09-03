@@ -35,9 +35,16 @@ public class Miembro {
 		this.egreso = null;
 	}
 
-	public Miembro() {
-
+	public Miembro(Club club, Partido partido) {
+		this.club = club;
+		this.partido = partido;
+		this.jugador = null;
+		this.ingreso = null;
+		this.egreso = null;
 	}
+
+
+	public Miembro() {}
 
 	public Jugador getJugador() {
 		return jugador;
