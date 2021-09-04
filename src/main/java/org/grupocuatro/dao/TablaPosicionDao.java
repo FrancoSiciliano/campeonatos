@@ -12,7 +12,7 @@ public class TablaPosicionDao extends AbstractDao {
     private TablaPosicionDao() {
     }
 
-    public TablaPosicionDao getInstancia() {
+    public static TablaPosicionDao getInstancia() {
         if (instancia == null) instancia = new TablaPosicionDao();
         return instancia;
     }

@@ -14,7 +14,7 @@ public class PartidoDao extends AbstractDao {
     private static PartidoDao instancia;
     private PartidoDao() {}
 
-    public static PartidoDao getInstance() {
+    public static PartidoDao getInstancia() {
         if (instancia == null) {
             instancia = new PartidoDao();
         }

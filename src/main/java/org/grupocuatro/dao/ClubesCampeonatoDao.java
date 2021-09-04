@@ -8,25 +8,25 @@ import org.grupocuatro.modelo.ClubesCampeonato;
 import java.util.List;
 
 public class ClubesCampeonatoDao extends AbstractDao{
-    private static ClubesCampeonato instancia;
+    private static ClubesCampeonatoDao instancia;
     private ClubesCampeonatoDao(){}
 
-    public ClubesCampeonato getInstancia(){
+    public static ClubesCampeonatoDao getInstancia(){
         if (instancia == null)
-            instancia = new ClubesCampeonato();
+            instancia = new ClubesCampeonatoDao();
         return instancia;
     }
 
 
     public List<Club> getClubesEnCampeonato(Integer idCampeonato) throws ClubesCampeonatoException {
-        List<Club> result = (List<Club>) getEntityManager().createQuery("FROM clubesCampeonato WHERE idCampeonato = " + idCampeonato).getResultList();
+        List<Club> result = (List<Club>) getEntityManager().createQuery("FROM ClubesCampeonato WHERE idCampeonato = " + idCampeonato).getResultList();
         if(!result.isEmpty())
             return result;
         throw new ClubesCampeonatoException("No existen clubes registrados en este campeonato");
     }
 
     public List<Campeonato> getCampeonatosClub(Integer idClub) throws ClubesCampeonatoException {
-        List<Campeonato> result = (List<Campeonato>) getEntityManager().createQuery("FROM clubesCampeonato WHERE idClub = " + idClub).getResultList();
+        List<Campeonato> result = (List<Campeonato>) getEntityManager().createQuery("FROM ClubesCampeonato WHERE idClub = " + idClub).getResultList();
         if(!result.isEmpty())
             return result;
         throw new ClubesCampeonatoException("El club ingresado no esta registrado en ningun campeonato");
