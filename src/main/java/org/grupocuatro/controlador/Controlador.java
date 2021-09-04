@@ -2,8 +2,10 @@ package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.ClubDao;
 import org.grupocuatro.dao.JugadorDao;
+import org.grupocuatro.dao.MiembroDao;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.JugadorException;
+import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Miembro;
@@ -96,22 +98,20 @@ public class Controlador {
 
     public Integer crearListaJugadores(Club club, Partido partido) {
         MiembroDao dao = MiembroDao.getInstancia();
-        if (dao.getListaByClubAndPartido(club.getIdClub(), partido.getIdPartido()) == null) { //FIXME esto nunca podria ser null, habría que meterlo en un try catch
-            Miembro m = new Miembro(club, partido);
-            dao.save(m);
-            return m.getIdLista();
-        }
-        throw new MiembroException("No se puede crear la lista deseada");
+        Miembro m = new Miembro(club,partido);
+        dao.save(m);
+        return m.getIdLista();
     }
 
 
     // REVISAR ESTE METODO!
 
-    public void agregarJugadoresEnLista(int idMiembro, Jugador jugador) {
+    public void agregarJugadoresEnLista(int idMiembro, Jugador jugador) throws MiembroException {
         MiembroDao dao = MiembroDao.getInstancia();
-        Miembro lista = dao.getListaById(idMiembro);
-        if (lista.getJugador() == null) {
-            dao.save(lista.setJugador(jugador));
+        Miembro miembro = dao.getMiembroById(idMiembro);
+        if (miembro.getJugador() == null) {
+            miembro.setJugador(jugador);
+            dao.update(miembro);
         }
         throw new MiembroException("No existe una lista de jugadores con el id: " + idMiembro);
     }
