@@ -14,7 +14,7 @@ public class TablaPosiciones implements Serializable {
     @JoinColumn(name = "idClub")
     private Club id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idCampeonato")
     private Campeonato campeonato;
 
