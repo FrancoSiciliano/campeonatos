@@ -22,8 +22,8 @@ public class AppTest {
         Club c = null, c2 = null;
 
         try {
-            c = ClubDao.getInstancia().getClubPorId(1);
-            c2 = ClubDao.getInstancia().getClubPorId(2);
+            c = ClubDao.getInstancia().getClubById(1);
+            c2 = ClubDao.getInstancia().getClubById(2);
         } catch (ClubException e) {
             e.printStackTrace();
         }
