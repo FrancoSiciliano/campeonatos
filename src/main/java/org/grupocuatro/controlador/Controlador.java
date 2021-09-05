@@ -46,7 +46,7 @@ public class Controlador {
         ClubDao dao = ClubDao.getInstancia();
         Club club = null;
         try {
-            club = dao.getClubPorNombre(nombre);
+            club = dao.getClubByNombre(nombre);
             club.setNombre(nombre);
             club.setDireccion(direccion);
             dao.update(club);
@@ -67,7 +67,7 @@ public class Controlador {
             System.out.println("Ya existe el jugador que se esta intentando agregar");
         } catch (JugadorException e) {
             try {
-                Club club = ClubDao.getInstancia().getClubPorId(idClub);
+                Club club = ClubDao.getInstancia().getClubById(idClub);
                 Jugador j = new Jugador(tipoDocumento, documento, nombre, apellido, club, fechaNacimiento);
                 dao.save(j);
                 return j.getIdJugador();
