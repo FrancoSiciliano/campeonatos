@@ -55,6 +55,17 @@ public class Gol {
         return idGol;
     }
 
+    @Override
+    public String toString() {
+        return "Gol{" +
+                "idGol=" + idGol +
+                ", jugador=" + jugador +
+                ", partido=" + partido +
+                ", minuto=" + minuto +
+                ", tipo='" + tipo + '\'' +
+                '}';
+    }
+
     public void setIdGol(Integer idGol) {
         this.idGol = idGol;
     }

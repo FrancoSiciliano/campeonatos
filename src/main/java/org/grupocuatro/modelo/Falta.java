@@ -19,6 +19,18 @@ public class Falta {
 	@JoinColumn(name = "idPartido")
 	private Partido partido;
 
+	@Override
+	public String toString() {
+		return "Falta{" +
+				"idFalta=" + idFalta +
+				", jugador=" + jugador +
+				", partido=" + partido +
+				", campeonato=" + campeonato +
+				", minuto=" + minuto +
+				", tipo='" + tipo + '\'' +
+				'}';
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "idCampeonato")
 	private Campeonato campeonato;

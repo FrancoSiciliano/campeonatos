@@ -23,6 +23,18 @@ public class Miembro {
 	@JoinColumn(name = "idJugador")
 	private Jugador jugador;
 
+	@Override
+	public String toString() {
+		return "Miembro{" +
+				"idLista=" + idLista +
+				", club=" + club +
+				", partido=" + partido +
+				", jugador=" + jugador +
+				", ingreso=" + ingreso +
+				", egreso=" + egreso +
+				'}';
+	}
+
 	private Integer ingreso;
 	private Integer egreso;
 

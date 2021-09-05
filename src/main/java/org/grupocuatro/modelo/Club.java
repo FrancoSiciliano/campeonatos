@@ -78,6 +78,15 @@ public class Club implements Comparable<Club>{
 		return direccion;
 	}
 
+	@Override
+	public String toString() {
+		return "Club{" +
+				"idClub=" + idClub +
+				", nombre='" + nombre + '\'' +
+				", direccion='" + direccion + '\'' +
+				'}';
+	}
+
 	public void setDireccion(String direccion) {this.direccion = direccion;}
 
 	public List<Responsable> getResponsable() {

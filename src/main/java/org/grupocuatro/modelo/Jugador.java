@@ -63,6 +63,20 @@ public class Jugador implements Comparable<Jugador> {
         this.goles = new ArrayList<>();
     }
 
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "idJugador=" + idJugador +
+                ", tipoDocumento='" + tipoDocumento + '\'' +
+                ", documento=" + documento +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", club=" + club +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", categoria=" + categoria +
+                '}';
+    }
+
     public Jugador() {
         goles = new ArrayList<>();
         faltas = new ArrayList<>();

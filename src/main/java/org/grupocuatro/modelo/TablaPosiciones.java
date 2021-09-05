@@ -128,6 +128,23 @@ public class TablaPosiciones implements Serializable {
         return promedio;
     }
 
+    @Override
+    public String toString() {
+        return "TablaPosiciones{" +
+                "id=" + id +
+                ", campeonato=" + campeonato +
+                ", cantidadJugados=" + cantidadJugados +
+                ", cantidadGanados=" + cantidadGanados +
+                ", cantidadEmpatados=" + cantidadEmpatados +
+                ", cantidadPerdidos=" + cantidadPerdidos +
+                ", golesFavor=" + golesFavor +
+                ", golesContra=" + golesContra +
+                ", diferenciaGoles=" + diferenciaGoles +
+                ", puntos=" + puntos +
+                ", promedio=" + promedio +
+                '}';
+    }
+
     public void setPromedio(float promedio) {
         this.promedio = promedio;
     }

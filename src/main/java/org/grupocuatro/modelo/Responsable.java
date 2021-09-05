@@ -55,4 +55,14 @@ public class Responsable implements Comparable<Responsable> {
     public Integer getLegajo() {
         return legajo;
     }
+
+    @Override
+    public String toString() {
+        return "Responsable{" +
+                "legajo=" + legajo +
+                ", documento='" + documento + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", club=" + club +
+                '}';
+    }
 }

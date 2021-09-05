@@ -76,6 +76,24 @@ public class Partido {
         goles = new ArrayList<>();
     }
 
+    @Override
+    public String toString() {
+        return "Partido{" +
+                "idPartido=" + idPartido +
+                ", nroFecha=" + nroFecha +
+                ", nroZona=" + nroZona +
+                ", categoria=" + categoria +
+                ", clubLocal=" + clubLocal +
+                ", clubVisitante=" + clubVisitante +
+                ", golesLocal=" + golesLocal +
+                ", golesVisitante=" + golesVisitante +
+                ", fechaPartido=" + fechaPartido +
+                ", convalidaLocal=" + convalidaLocal +
+                ", convalidaVisitante=" + convalidaVisitante +
+                ", campeonato=" + campeonato +
+                '}';
+    }
+
     public Integer getIdPartido() {
         return idPartido;
     }
