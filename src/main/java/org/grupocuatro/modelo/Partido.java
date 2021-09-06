@@ -2,8 +2,8 @@ package org.grupocuatro.modelo;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -28,7 +28,7 @@ public class Partido {
 
     private Integer golesLocal;
     private Integer golesVisitante;
-    private Date fechaPartido;
+    private LocalDate fechaPartido;
 
     @Column(name = "validadoLocal")
     private boolean convalidaLocal;
@@ -54,8 +54,7 @@ public class Partido {
     @OneToMany(mappedBy = "partido")
     private List<Gol> goles;
 
-    public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante,
-                   Date fechaPartido, Campeonato campeonato) {
+    public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante, Campeonato campeonato) {
         this.nroFecha = nroFecha;
         this.nroZona = nroZona;
         this.categoria = categoria;
@@ -63,7 +62,7 @@ public class Partido {
         this.clubVisitante = clubVisitante;
         this.golesLocal = null;
         this.golesVisitante = null;
-        this.fechaPartido = fechaPartido;
+        this.fechaPartido = LocalDate.now();
         this.convalidaLocal = false;
         this.convalidaVisitante = false;
         this.campeonato = campeonato;
@@ -74,6 +73,24 @@ public class Partido {
         jugadoresVisitantes = new ArrayList<>();
         faltas = new ArrayList<>();
         goles = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Partido{" +
+                "idPartido=" + idPartido +
+                ", nroFecha=" + nroFecha +
+                ", nroZona=" + nroZona +
+                ", categoria=" + categoria +
+                ", clubLocal=" + clubLocal +
+                ", clubVisitante=" + clubVisitante +
+                ", golesLocal=" + golesLocal +
+                ", golesVisitante=" + golesVisitante +
+                ", fechaPartido=" + fechaPartido +
+                ", convalidaLocal=" + convalidaLocal +
+                ", convalidaVisitante=" + convalidaVisitante +
+                ", campeonato=" + campeonato +
+                '}';
     }
 
     public Integer getIdPartido() {
@@ -108,7 +125,7 @@ public class Partido {
         return golesVisitante;
     }
 
-    public Date getFechaPartido() {
+    public LocalDate getFechaPartido() {
         return fechaPartido;
     }
 
@@ -152,7 +169,7 @@ public class Partido {
         this.clubVisitante = clubVisitante;
     }
 
-    public void setFechaPartido(Date fechaPartido) {
+    public void setFechaPartido(LocalDate fechaPartido) {
         this.fechaPartido = fechaPartido;
     }
 
@@ -164,6 +181,10 @@ public class Partido {
         this.convalidaVisitante = true;
     }
 
+    public void setGolesLocal(int golesLocal) {this.golesLocal = golesLocal;}
+
+    public void setGolesVisitante(int golesVisitante) {this.golesVisitante = golesVisitante;}
+
     public void agregarJugadoresLocales(Miembro miembro) {
         this.jugadoresLocales.add(miembro);
     }
@@ -171,5 +192,9 @@ public class Partido {
     public void agregarJugadoresVisitantes(Miembro miembro) {
         this.jugadoresVisitantes.add(miembro);
     }
+
+    public void agregarGol(Gol g) {this.goles.add(g);}
+
+    public void agregarFalta(Falta f) {this.faltas.add(f);}
 
 }

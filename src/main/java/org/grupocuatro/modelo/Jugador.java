@@ -36,7 +36,7 @@ public class Jugador implements Comparable<Jugador> {
 
     private int categoria;
 
-    @OneToMany(mappedBy = "jugador") // ACÁ CREO QUE ES CON LA TABLA "JUGADORES", NO CON JUGADOR.
+    @OneToMany(mappedBy = "jugador")
     private List<Gol> goles;
 
     @OneToMany(mappedBy = "jugador")
@@ -61,6 +61,20 @@ public class Jugador implements Comparable<Jugador> {
         else
             this.categoria = auxCategoria - 2000;
         this.goles = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "idJugador=" + idJugador +
+                ", tipoDocumento='" + tipoDocumento + '\'' +
+                ", documento=" + documento +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", club=" + club +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", categoria=" + categoria +
+                '}';
     }
 
     public Jugador() {
@@ -109,6 +123,9 @@ public class Jugador implements Comparable<Jugador> {
         faltas.add(falta);
     }
 
+    public boolean isClub(int idClub) {
+        return getClub().getIdClub() == idClub;
+    }
 
     public Club getClub() {
         return club;

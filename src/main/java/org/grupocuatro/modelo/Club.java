@@ -1,6 +1,8 @@
 package org.grupocuatro.modelo;
 
 
+import org.grupocuatro.dao.ClubDao;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +39,6 @@ public class Club implements Comparable<Club>{
 	private List<TablaPosiciones> tablasPosiciones;
 
 
-	public List<Responsable> getResponsables() {
-		return responsables;
-	}
-
 	public Club(int idClub, String nombre, String direccion) {
 		this.idClub = idClub;
 		this.nombre = nombre;
@@ -54,6 +52,10 @@ public class Club implements Comparable<Club>{
 		miembros = new ArrayList<>();
 		partidosLocal = new ArrayList<>();
 		tablasPosiciones = new ArrayList<>();
+	}
+
+	public List<Responsable> getResponsables() {
+		return responsables;
 	}
 
 	public void asignarResponsable(Responsable responsable) {
@@ -72,9 +74,22 @@ public class Club implements Comparable<Club>{
 		return nombre;
 	}
 
+	public void setNombre(String nombre) {this.nombre = nombre;}
+
 	public String getDireccion() {
 		return direccion;
 	}
+
+	@Override
+	public String toString() {
+		return "Club{" +
+				"idClub=" + idClub +
+				", nombre='" + nombre + '\'' +
+				", direccion='" + direccion + '\'' +
+				'}';
+	}
+
+	public void setDireccion(String direccion) {this.direccion = direccion;}
 
 	public List<Responsable> getResponsable() {
 		return responsables;
@@ -102,5 +117,13 @@ public class Club implements Comparable<Club>{
 	
 	public void agregarJugadoresToListaVisitante(Jugador jugador, Partido partido) {
 		partido.agregarJugadoresVisitantes(new Miembro(this, partido, jugador));
+	}
+
+	public void save() {
+		ClubDao.getInstancia().save(this);
+	}
+
+	public void update() {
+		ClubDao.getInstancia().update(this);
 	}
 }

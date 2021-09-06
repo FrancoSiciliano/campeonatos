@@ -23,6 +23,18 @@ public class Miembro {
 	@JoinColumn(name = "idJugador")
 	private Jugador jugador;
 
+	@Override
+	public String toString() {
+		return "Miembro{" +
+				"idLista=" + idLista +
+				", club=" + club +
+				", partido=" + partido +
+				", jugador=" + jugador +
+				", ingreso=" + ingreso +
+				", egreso=" + egreso +
+				'}';
+	}
+
 	private Integer ingreso;
 	private Integer egreso;
 
@@ -35,8 +47,19 @@ public class Miembro {
 		this.egreso = null;
 	}
 
-	public Miembro() {
+	public Miembro(Club club, Partido partido) {
+		this.club = club;
+		this.partido = partido;
+		this.jugador = null;
+		this.ingreso = null;
+		this.egreso = null;
+	}
 
+
+	public Miembro() {}
+
+	public Integer getIdLista(){
+		return idLista;
 	}
 
 	public Jugador getJugador() {
@@ -46,7 +69,6 @@ public class Miembro {
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
 	}
-
 	
 	public Club getClub() {
 		return club;

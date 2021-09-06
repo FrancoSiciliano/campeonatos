@@ -11,18 +11,18 @@ public abstract class AbstractDao<T> implements Dao<T> {
     EntityManager manager = EntityManagerUtil.getEntityManager();
 
     @Override
-    public void delete(T t) {
-        ejecutarEnTransaccion(manager -> manager.remove(t));
+    public void delete(T objeto) {
+        ejecutarEnTransaccion(manager -> manager.remove(objeto));
     }
 
     @Override
-    public void update(T t) {
-        ejecutarEnTransaccion(manager -> manager.merge(t));
+    public void update(T objeto) {
+        ejecutarEnTransaccion(manager -> manager.merge(objeto));
     }
 
     @Override
-    public void save(T t) {
-        ejecutarEnTransaccion(manager -> manager.persist(t));
+    public void save(T objeto) {
+        ejecutarEnTransaccion(manager -> manager.persist(objeto));
     }
 
     private void ejecutarEnTransaccion(Consumer<EntityManager> accion) {
@@ -37,7 +37,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
         }
     }
 
-    private EntityManager getEntityManager(){
+    public EntityManager getEntityManager(){
         return manager;
     }
 }

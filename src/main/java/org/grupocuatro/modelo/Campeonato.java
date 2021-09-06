@@ -1,6 +1,10 @@
 package org.grupocuatro.modelo;
 
+import org.grupocuatro.dao.CampeonatoDao;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,8 +19,8 @@ public class Campeonato implements Comparable<Campeonato>{
 	private Integer idCampeonato;
 
 	private String descripcion;
-	private Date fechaInicio;
-	private Date fechaFin;
+	private LocalDate fechaInicio;
+	private LocalDate fechaFin;
 	private String estado;
 
 	@OneToMany(mappedBy = "idClub")
@@ -29,10 +33,10 @@ public class Campeonato implements Comparable<Campeonato>{
 	private List<Falta> faltas;
 
 
-	@OneToOne(mappedBy = "campeonato")
-	private TablaPosiciones tablaPosiciones;
+	@OneToMany(mappedBy = "campeonato")
+	private List<TablaPosiciones> tablaPosiciones;
 	
-	public Campeonato(String descripcion, Date fechaInicio, Date fechaFin, String estado) {
+	public Campeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
 		this.idCampeonato = null;
 		this.descripcion = descripcion;
 		this.fechaInicio = fechaInicio;
@@ -44,13 +48,14 @@ public class Campeonato implements Comparable<Campeonato>{
 		partidos = new ArrayList<>();
 		inscriptos = new ArrayList<>();
 		faltas = new ArrayList<>();
+		tablaPosiciones = new ArrayList<>();
 	}
 
-	public TablaPosiciones getTablaPosiciones(){
+	public List<TablaPosiciones> getTablaPosiciones(){
 		return tablaPosiciones;
 	}
 
-	public void setTablaPosiciones(TablaPosiciones tablaPosiciones) {
+	public void setTablaPosiciones(List<TablaPosiciones> tablaPosiciones) {
 		this.tablaPosiciones = tablaPosiciones;
 	}
 
@@ -62,17 +67,19 @@ public class Campeonato implements Comparable<Campeonato>{
 		return descripcion;
 	}
 
-	public Date getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public Date getFechaFin() {
+	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
 
 	public String getEstado() {
 		return estado;
 	}
+
+	public void setEstado(String estado) {this.estado = estado;}
 
 	@Override
 	public int compareTo(Campeonato o) {
@@ -83,5 +90,24 @@ public class Campeonato implements Comparable<Campeonato>{
 		inscriptos.add(club);
 		if(!club.participa(this))
 			club.participar(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Campeonato{" +
+				"idCampeonato=" + idCampeonato +
+				", descripcion='" + descripcion + '\'' +
+				", fechaInicio=" + fechaInicio +
+				", fechaFin=" + fechaFin +
+				", estado='" + estado + '\'' +
+				'}';
+	}
+
+	public void save() {
+		CampeonatoDao.getInstancia().save(this);
+	}
+
+	public void update() {
+		CampeonatoDao.getInstancia().update(this);
 	}
 }

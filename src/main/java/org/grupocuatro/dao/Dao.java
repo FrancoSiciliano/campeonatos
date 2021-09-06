@@ -2,9 +2,9 @@ package org.grupocuatro.dao;
 
 public interface Dao<T> {
 
-    void delete(T t);
+    void delete(T objeto);
 
-    void update(T t);
+    void update(T objeto);
 
-    void save(T t);
+    void save(T objeto);
 }

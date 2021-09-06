@@ -14,7 +14,7 @@ public class TablaPosiciones implements Serializable {
     @JoinColumn(name = "idClub")
     private Club id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idCampeonato")
     private Campeonato campeonato;
 
@@ -126,6 +126,23 @@ public class TablaPosiciones implements Serializable {
 
     public float getPromedio() {
         return promedio;
+    }
+
+    @Override
+    public String toString() {
+        return "TablaPosiciones{" +
+                "id=" + id +
+                ", campeonato=" + campeonato +
+                ", cantidadJugados=" + cantidadJugados +
+                ", cantidadGanados=" + cantidadGanados +
+                ", cantidadEmpatados=" + cantidadEmpatados +
+                ", cantidadPerdidos=" + cantidadPerdidos +
+                ", golesFavor=" + golesFavor +
+                ", golesContra=" + golesContra +
+                ", diferenciaGoles=" + diferenciaGoles +
+                ", puntos=" + puntos +
+                ", promedio=" + promedio +
+                '}';
     }
 
     public void setPromedio(float promedio) {
