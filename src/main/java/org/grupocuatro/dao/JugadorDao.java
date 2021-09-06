@@ -30,7 +30,7 @@ public class JugadorDao extends AbstractDao {
 
     public Jugador getJugadorByDocumento(Integer nroDocumento, String tipoDocumento) throws JugadorException {
         try {
-            Jugador jugador = (Jugador) getEntityManager().createQuery("FROM Jugador WHERE numeroDocumento = " + nroDocumento + " and tipoDocumento = " + tipoDocumento).getSingleResult();
+            Jugador jugador = (Jugador) getEntityManager().createQuery("FROM Jugador WHERE numeroDocumento = " + nroDocumento + " and tipoDocumento = '" + tipoDocumento + "'").getSingleResult();
             return jugador;
         } catch (NoResultException e) {
             throw new JugadorException("No existe un jugador con " + tipoDocumento + " y numero: " + nroDocumento);
@@ -39,7 +39,7 @@ public class JugadorDao extends AbstractDao {
     }
 
     public List<Jugador> getJugadorByNombre(String nombre, String apellido) throws JugadorException {
-        List<Jugador> jugadores = getEntityManager().createQuery("FROM Jugador WHERE nombre = " + nombre + " and apellido = " + apellido).getResultList();
+        List<Jugador> jugadores = getEntityManager().createQuery("FROM Jugador WHERE nombre = '" + nombre + "' AND apellido = '" + apellido + "'").getResultList();
         if (!jugadores.isEmpty())
             return jugadores;
         throw new JugadorException("No existen jugadores con el nombre " + nombre + " " + apellido);

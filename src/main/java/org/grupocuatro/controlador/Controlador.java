@@ -98,7 +98,7 @@ public class Controlador {
 
     public Integer crearListaJugadores(Club club, Partido partido) {
         MiembroDao dao = MiembroDao.getInstancia();
-        Miembro m = new Miembro(club,partido);
+        Miembro m = new Miembro(club, partido);
         dao.save(m);
         return m.getIdLista();
     }
