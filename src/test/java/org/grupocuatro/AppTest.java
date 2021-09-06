@@ -16,8 +16,10 @@ import java.util.List;
  */
 public class AppTest {
     public static void main(String[] args) {
+
         Club c = new Club(1, "Deportivo Juguete", "A123");
         Club c2 = new Club(2, "Deportivo Riestra", "B123");
+
         ClubDao.getInstancia().save(c);
         ClubDao.getInstancia().save(c2);
 
