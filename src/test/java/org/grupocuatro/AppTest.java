@@ -8,6 +8,7 @@ import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.modelo.*;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -43,8 +44,8 @@ public class AppTest {
 
         System.out.println("Responsables hecho");
 
-        Campeonato camp = new Campeonato("Copa de leche", new Date(), new Date(), "activo");
-        Campeonato camp2 = new Campeonato("Copa de carton", new Date(), new Date(), "activo"); // NUEVA LINEA
+        Campeonato camp = new Campeonato("Copa de leche", LocalDate.now(), LocalDate.now(), "activo");
+        Campeonato camp2 = new Campeonato("Copa de carton", LocalDate.now(), LocalDate.now(), "activo"); // NUEVA LINEA
 
         CampeonatoDao.getInstancia().save(camp);
         CampeonatoDao.getInstancia().save(camp2); // NUEVA LINEA
