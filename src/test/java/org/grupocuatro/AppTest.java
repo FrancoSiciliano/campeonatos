@@ -16,20 +16,11 @@ import java.util.List;
  */
 public class AppTest {
     public static void main(String[] args) {
-      /* Club c = new Club(1,"Deportivo Juguete","A123");
-       Club c2 = new Club(2,"Deportivo Riestra","B123");
-       ClubDao.getInstancia().save(c);
-       ClubDao.getInstancia().save(c2);
-*/
-        /*Club c = null, c2 = null;
+        Club c = new Club(1, "Deportivo Juguete", "A123");
+        Club c2 = new Club(2, "Deportivo Riestra", "B123");
+        ClubDao.getInstancia().save(c);
+        ClubDao.getInstancia().save(c2);
 
-        try {
-            c = ClubDao.getInstancia().getClubById(1);
-            c2 = ClubDao.getInstancia().getClubById(2);
-        } catch (ClubException e) {
-            e.printStackTrace();
-        } */
-/*
         Jugador j = new Jugador("DNI", 12345678, "Juan", "Perez", c, new Date());
         Jugador j2 = new Jugador("DNI", 12345677, "Pedro", "Lopez", c, new Date());
         Jugador j4 = new Jugador("DNI", 12345657, "Enrique", "Paredes", c2, new Date());
@@ -57,7 +48,7 @@ public class AppTest {
         System.out.println("Campeonato hecho");
 
         ClubesCampeonato cc = new ClubesCampeonato(c, camp);
-        ClubesCampeonato cc2 = new ClubesCampeonato(c2,camp);
+        ClubesCampeonato cc2 = new ClubesCampeonato(c2, camp);
 
         ClubesCampeonatoDao.getInstancia().save(cc);
         ClubesCampeonatoDao.getInstancia().save(cc2);
@@ -90,25 +81,20 @@ public class AppTest {
 
         System.out.println("Tabla hecho");
 
-        Falta f = new Falta(j,p,camp,5,"roja");
-        Falta f2 = new Falta(j2,p,camp,5,"amarilla");
+        Falta f = new Falta(j, p, camp, 5, "roja");
+        Falta f2 = new Falta(j2, p, camp, 5, "amarilla");
 
         FaltaDao.getInstancia().save(f);
         FaltaDao.getInstancia().save(f2);
 
         System.out.println("Faltas hecho");
 
-        Gol g = new Gol(j,p,2,"a favor");
+        Gol g = new Gol(j, p, 2, "a favor");
         Gol g2 = new Gol(j3, p, 87, "en contra");
 
         GolDao.getInstancia().save(g);
         GolDao.getInstancia().save(g2);
 
-        System.out.println("Todo se ejecuto bien"); */
-
-        List<Partido> p = PartidoDao.getInstancia().getPartidosByClubLocal(1);
-        for (Partido partido : p) {
-            System.out.println(partido.getIdPartido());
-        }
+        System.out.println("Todo se ejecuto bien");
     }
 }
