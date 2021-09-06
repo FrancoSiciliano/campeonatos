@@ -125,65 +125,65 @@ public class Controlador {
         dao.save(m);
         return m.getIdLista();
     }
-    public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo)  {
+
+    public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo) {
         JugadorDao jugadordao = JugadorDao.getInstancia();
-        Jugador jugador= null;
-        try{
-            jugador=jugadordao.getJugadorById(idJugador);
-        }catch(JugadorException e){
+        Jugador jugador = null;
+        try {
+            jugador = jugadordao.getJugadorById(idJugador);
+        } catch (JugadorException e) {
             System.out.println(e.getMessage());
         }
-        PartidoDao partidodao= PartidoDao.getInstancia();
-        Partido partido=null;
+        PartidoDao partidodao = PartidoDao.getInstancia();
+        Partido partido = null;
         try {
-             partido = partidodao.getInstancia().getPartidoById(idPartido);
-        }
-        catch (PartidoException e) {
+            partido = partidodao.getInstancia().getPartidoById(idPartido);
+        } catch (PartidoException e) {
             e.printStackTrace();
         }
-        GolDao goldao=GolDao.getInstancia();
-        Gol gol =null;
-        gol= new Gol(jugador,partido,minuto,tipo);
+        GolDao goldao = GolDao.getInstancia();
+        Gol gol = null;
+        gol = new Gol(jugador, partido, minuto, tipo);
         goldao.save(gol);
         return gol.getIdGol();
     }
-    public Integer cargarFalta(Integer idJugador, Integer idPartido,Integer idCameponato, int minuto, String tipo)  {
+
+    public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer idCameponato, int minuto, String tipo) {
         JugadorDao jugadordao = JugadorDao.getInstancia();
-        Jugador jugador= null;
-        try{
-            jugador=jugadordao.getJugadorById(idJugador);
-        }catch(JugadorException e){
+        Jugador jugador = null;
+        try {
+            jugador = jugadordao.getJugadorById(idJugador);
+        } catch (JugadorException e) {
             System.out.println(e.getMessage());
         }
-        PartidoDao partidodao= PartidoDao.getInstancia();
-        Partido partido=null;
+        PartidoDao partidodao = PartidoDao.getInstancia();
+        Partido partido = null;
         try {
             partido = partidodao.getInstancia().getPartidoById(idPartido);
-        }
-        catch (PartidoException e) {
+        } catch (PartidoException e) {
             e.printStackTrace();
         }
-        CampeonatoDao campeonatoDao=CampeonatoDao.getInstancia();
-        Campeonato campeonato=null;
-        try{
-            campeonato=campeonatoDao.getCampeonato(idCameponato);
+        CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
+        Campeonato campeonato = null;
+        try {
+            campeonato = campeonatoDao.getCampeonato(idCameponato);
 
         } catch (CampeonatoException e) {
             e.printStackTrace();
         }
-        FaltaDao faltadao=FaltaDao.getInstancia();
-        Falta falta =null;
-        falta= new Falta(jugador,partido,campeonato,minuto,tipo);
+        FaltaDao faltadao = FaltaDao.getInstancia();
+        Falta falta = null;
+        falta = new Falta(jugador, partido, campeonato, minuto, tipo);
         faltadao.save(falta);
-        List<Falta> lista_falta=null;
-        try{
+        List<Falta> lista_falta = null;
+        try {
             lista_falta = faltadao.getFaltasByJugadorAndPartido(idJugador, idPartido);
-        }catch (FaltaException e){
+        } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }
         int cantidad = lista_falta.size();
-        if (cantidad==2){
-            falta= new Falta(jugador,partido,campeonato,minuto,"Roja");
+        if (cantidad == 2) {
+            falta = new Falta(jugador, partido, campeonato, minuto, "Roja");
             faltadao.save(falta);
         }
         return falta.getIdFalta();
@@ -202,15 +202,15 @@ public class Controlador {
          */
     }
 
-    public Integer crearResponsable (String documento, String nombre, Integer idClub) throws ResponsableException {
+    public Integer crearResponsable(String documento, String nombre, Integer idClub) throws ResponsableException {
         ResponsableDao dao = ResponsableDao.getInstancia();
-        try{
+        try {
             Club club = ClubDao.getInstancia().getClubById(idClub);
-            try{
-                dao.getResponsableByNroDocAndClub(documento,idClub);
+            try {
+                dao.getResponsableByNroDocAndClub(documento, idClub);
                 System.out.println("Ya existe el representante de DNI " + documento + " en el club " + idClub);
-            }catch (ResponsableException e){
-                Responsable r = new Responsable(documento,nombre,club);
+            } catch (ResponsableException e) {
+                Responsable r = new Responsable(documento, nombre, club);
                 r.save();
                 return r.getLegajo();
             }
@@ -221,21 +221,21 @@ public class Controlador {
 
     }
 
-    public void modificarResponsable(Integer legajoResponsable, String documento, String nombre, Integer idClub){
+    public void modificarResponsable(Integer legajoResponsable, String documento, String nombre, Integer idClub) {
         ResponsableDao dao = ResponsableDao.getInstancia();
-        try{
+        try {
             Responsable resp = dao.getResponsable(legajoResponsable);
-            try{
+            try {
                 Club club = ClubDao.getInstancia().getClubById(idClub);
                 resp.setClub(club);
                 resp.setNombre(nombre);
                 resp.setDocumento(documento);
                 resp.update();
-            }catch (ClubException c){
+            } catch (ClubException c) {
                 System.out.println(c.getMessage());
             }
         } catch (ResponsableException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -283,8 +283,5 @@ public class Controlador {
             return cantGoles;
         }
     }
-
-
-
 
 }
