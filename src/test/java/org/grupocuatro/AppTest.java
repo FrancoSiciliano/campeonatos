@@ -2,9 +2,12 @@ package org.grupocuatro;
 
 import static org.junit.Assert.assertTrue;
 
+import org.grupocuatro.controlador.Controlador;
+import org.grupocuatro.controlador.ControladorTest;
 import org.grupocuatro.dao.*;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.JugadorException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
 import org.junit.Test;
 
