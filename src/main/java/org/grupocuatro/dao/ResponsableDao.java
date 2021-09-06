@@ -24,7 +24,7 @@ public class ResponsableDao extends AbstractDao {
         throw new ResponsableException("No existen responsables");
     }
 
-    public List<Responsable> getResponsabesByClub(Integer club) throws ResponsableException {
+    public List<Responsable> getResponsablesByClub(Integer club) throws ResponsableException {
         List<Responsable> responsables = getEntityManager().createQuery("FROM Responsable WHERE idClub = " + club).getResultList();
         if (!responsables.isEmpty()) return responsables;
         throw new ResponsableException("No existen responsables para el club " + club);

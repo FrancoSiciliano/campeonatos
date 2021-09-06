@@ -54,13 +54,13 @@ public class FaltaDao extends AbstractDao {
     }
 
     public List<Falta> getFaltasByTipo(String tipo) throws FaltaException {
-        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE tipo = " + tipo).getResultList();
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE tipo = '" + tipo + "'").getResultList();
         if (!faltas.isEmpty()) return faltas;
         throw new FaltaException("No existen faltas del tipo " + tipo);
     }
 
     public List<Falta> getFaltaByMinuto(Integer min) throws FaltaException {
-        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE miuto = " + min).getResultList();
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE minuto = " + min).getResultList();
         if (!faltas.isEmpty()) return faltas;
         throw new FaltaException("No hay faltas en el minuto " + min);
     }
@@ -72,7 +72,7 @@ public class FaltaDao extends AbstractDao {
     }
 
     public List<Falta> getFaltasByJugadorAndTipo(Integer jugador, String tipo) throws FaltaException {
-        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " and tipo = " + tipo).getResultList();
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " and tipo = '" + tipo + "'").getResultList();
         if (!faltas.isEmpty()) return faltas;
         throw new FaltaException("El jugador de id " + jugador + " no posee faltas del tipo " + tipo);
     }
@@ -83,21 +83,21 @@ public class FaltaDao extends AbstractDao {
         throw new FaltaException("No hay faltas correspondientes al jugador " + jugador + " y campeonato " + campeonato);
     }
 
-    public List<Falta> getFaltasByJugadorAndTipoAndPartido(Integer jugador, Integer partido, String tipo) throws FaltaException {
-        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " and idPartido = " + partido + " and tipo = " + tipo).getResultList();
+    public List<Falta> getFaltasByJugadorAndTipoAndPartido(Integer jugador, String tipo, Integer partido) throws FaltaException {
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " and idPartido = " + partido + " and tipo = '" + tipo + "'").getResultList();
         if (!faltas.isEmpty()) return faltas;
-        throw new FaltaException("El jugador de id " + jugador + " de tipo " + tipo + " en el partido de id " + partido);
+        throw new FaltaException("El jugador de id " + jugador + " no tiene falta de tipo " + tipo + " en el partido de id " + partido);
     }
 
-    public List<Falta> getFaltasByJugadorAndTipoAndPartidoAndCampeonato(Integer jugador, Integer partido, String tipo, Integer campeonato) throws FaltaException {
-        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " AND idPartido = " + partido + " AND tipo = " + tipo + " AND idCampeonato = " + campeonato).getResultList();
+    public List<Falta> getFaltasByJugadorAndPartidoAndTipoAndCampeonato(Integer jugador, Integer partido, String tipo, Integer campeonato) throws FaltaException {
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " AND idPartido = " + partido + " AND tipo = '" + tipo + "' AND idCampeonato = " + campeonato).getResultList();
         if (!faltas.isEmpty()) return faltas;
-        throw new FaltaException("No hay faltas correspondientes al jugador " + jugador + ", partido " + partido + ", tipo " + tipo + " y campeonato " + campeonato);
+        throw new FaltaException("No hay faltas correspondientes al jugador " + jugador + "en el partido " + partido + " de tipo " + tipo + " y campeonato " + campeonato);
 
     }
 
-    public List<Falta> getFaltasByTipoAndPartido(Integer partido, String tipo) throws FaltaException {
-        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idPartido = " + partido + " AND tipo = " + tipo).getResultList();
+    public List<Falta> getFaltasByPartidoAndTipo(Integer partido, String tipo) throws FaltaException {
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idPartido = " + partido + " AND tipo = '" + tipo + "'").getResultList();
         if (!faltas.isEmpty()) return faltas;
         throw new FaltaException("No hay faltas correspondientes al partido " + partido + " y tipo " + tipo);
 
