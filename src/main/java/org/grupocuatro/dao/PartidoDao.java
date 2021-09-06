@@ -67,6 +67,6 @@ public class PartidoDao extends AbstractDao {
     public List<Partido> getPartidosByClubVisitante(int idClub) throws PartidoException {
         List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idClubVisitante =" + idClub).getResultList();
         if (!partidos.isEmpty()) return partidos;
-        throw new PartidoException("No existen partidos en la idClub " + idClub);
+        throw new PartidoException("No existen partidos del club visitante " + idClub);
     }
 }
