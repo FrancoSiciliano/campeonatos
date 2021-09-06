@@ -1,16 +1,16 @@
 package org.grupocuatro.controlador;
 
+import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubDao;
 import org.grupocuatro.dao.JugadorDao;
 import org.grupocuatro.dao.MiembroDao;
+import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.excepciones.MiembroException;
-import org.grupocuatro.modelo.Club;
-import org.grupocuatro.modelo.Jugador;
-import org.grupocuatro.modelo.Miembro;
-import org.grupocuatro.modelo.Partido;
+import org.grupocuatro.modelo.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Controlador {
@@ -42,6 +42,15 @@ public class Controlador {
     // Se agregaron 2 setters en el Club para poder modificar el nombre y la dirección.
     // Se agregó el throw de la excepción del ClubDAO.
 
+    public void crearClub(Integer id, String nombre, String direccion) {
+        try {
+            Club club = ClubDao.getInstancia().getClubById(id);
+        } catch (ClubException e) {
+            Club c = new Club(id, nombre, direccion);
+            c.save();
+        }
+    }
+
     public void modificarClub(String nombre, String direccion) {
         ClubDao dao = ClubDao.getInstancia();
         Club club = null;
@@ -49,13 +58,29 @@ public class Controlador {
             club = dao.getClubByNombre(nombre);
             club.setNombre(nombre);
             club.setDireccion(direccion);
-            dao.update(club);
+            club.update();
 
         } catch (ClubException e) {
             System.out.printf(e.getMessage());
         }
     }
 
+    public Integer crearCampeonato(String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
+        Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, "activo");
+        nuevoCampeonato.save();
+        return nuevoCampeonato.getIdCampeonato();
+    }
+
+    public void terminarCampeonato(Integer id) {
+        try {
+            Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(id);
+            campeonato.setEstado("inactivo");
+            campeonato.update();
+        } catch (CampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     // No estaba el tipoDocumento, el documento era un String, no estaba el apellido.
     // Hay que agregarle el throw al método para que pueda manejar las excepciones
