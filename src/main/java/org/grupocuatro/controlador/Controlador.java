@@ -113,6 +113,7 @@ public class Controlador {
     }
 
     public void habilitarJugador(int idJugador, int idClub, int idCampeonato) {
+
     }
 
     // El método vino con el Integer como retorno, pero se lo cambió a void.
@@ -124,7 +125,69 @@ public class Controlador {
         dao.save(m);
         return m.getIdLista();
     }
+    public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo)  {
+        JugadorDao jugadordao = JugadorDao.getInstancia();
+        Jugador jugador= null;
+        try{
+            jugador=jugadordao.getJugadorById(idJugador);
+        }catch(JugadorException e){
+            System.out.println(e.getMessage());
+        }
+        PartidoDao partidodao= PartidoDao.getInstancia();
+        Partido partido=null;
+        try {
+             partido = partidodao.getInstancia().getPartidoById(idPartido);
+        }
+        catch (PartidoException e) {
+            e.printStackTrace();
+        }
+        GolDao goldao=GolDao.getInstancia();
+        Gol gol =null;
+        gol= new Gol(jugador,partido,minuto,tipo);
+        goldao.save(gol);
+        return gol.getIdGol();
+    }
+    public Integer cargarFalta(Integer idJugador, Integer idPartido,Integer idCameponato, int minuto, String tipo)  {
+        JugadorDao jugadordao = JugadorDao.getInstancia();
+        Jugador jugador= null;
+        try{
+            jugador=jugadordao.getJugadorById(idJugador);
+        }catch(JugadorException e){
+            System.out.println(e.getMessage());
+        }
+        PartidoDao partidodao= PartidoDao.getInstancia();
+        Partido partido=null;
+        try {
+            partido = partidodao.getInstancia().getPartidoById(idPartido);
+        }
+        catch (PartidoException e) {
+            e.printStackTrace();
+        }
+        CampeonatoDao campeonatoDao=CampeonatoDao.getInstancia();
+        Campeonato campeonato=null;
+        try{
+            campeonato=campeonatoDao.getCampeonato(idCameponato);
 
+        } catch (CampeonatoException e) {
+            e.printStackTrace();
+        }
+        FaltaDao faltadao=FaltaDao.getInstancia();
+        Falta falta =null;
+        falta= new Falta(jugador,partido,campeonato,minuto,tipo);
+        faltadao.save(falta);
+        List<Falta> lista_falta=null;
+        try{
+            lista_falta = faltadao.getFaltasByJugadorAndPartido(idJugador, idPartido);
+        }catch (FaltaException e){
+            System.out.println(e.getMessage());
+        }
+        int cantidad = lista_falta.size();
+        if (cantidad==2){
+            falta= new Falta(jugador,partido,campeonato,minuto,"Roja");
+            faltadao.save(falta);
+        }
+        return falta.getIdFalta();
+    }
 
     // REVISAR ESTE METODO!
 
