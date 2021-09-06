@@ -1,15 +1,16 @@
 package org.grupocuatro.controlador;
 
+import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubDao;
 import org.grupocuatro.dao.JugadorDao;
 import org.grupocuatro.dao.MiembroDao;
-import org.grupocuatro.dao.ResponsableDao;
+import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.excepciones.MiembroException;
-import org.grupocuatro.excepciones.ResponsableException;
 import org.grupocuatro.modelo.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Controlador {
@@ -41,6 +42,15 @@ public class Controlador {
     // Se agregaron 2 setters en el Club para poder modificar el nombre y la dirección.
     // Se agregó el throw de la excepción del ClubDAO.
 
+    public void crearClub(Integer id, String nombre, String direccion) {
+        try {
+            Club club = ClubDao.getInstancia().getClubById(id);
+        } catch (ClubException e) {
+            Club c = new Club(id, nombre, direccion);
+            c.save();
+        }
+    }
+
     public void modificarClub(String nombre, String direccion) {
         ClubDao dao = ClubDao.getInstancia();
         Club club = null;
@@ -48,13 +58,29 @@ public class Controlador {
             club = dao.getClubByNombre(nombre);
             club.setNombre(nombre);
             club.setDireccion(direccion);
-            dao.update(club);
+            club.update();
 
         } catch (ClubException e) {
             System.out.printf(e.getMessage());
         }
     }
 
+    public Integer crearCampeonato(String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
+        Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, "activo");
+        nuevoCampeonato.save();
+        return nuevoCampeonato.getIdCampeonato();
+    }
+
+    public void terminarCampeonato(Integer id) {
+        try {
+            Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(id);
+            campeonato.setEstado("inactivo");
+            campeonato.update();
+        } catch (CampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     // No estaba el tipoDocumento, el documento era un String, no estaba el apellido.
     // Hay que agregarle el throw al método para que pueda manejar las excepciones
@@ -113,44 +139,6 @@ public class Controlador {
             dao.update(miembro);
         }
         throw new MiembroException("No existe una lista de jugadores con el id: " + idMiembro);
-    }
-
-
-    public Integer crearResponsable (String documento, String nombre, Integer idClub) throws ResponsableException {
-        ResponsableDao dao = ResponsableDao.getInstancia();
-        try{
-            Club club = ClubDao.getInstancia().getClubById(idClub);
-            try{
-                dao.getResponsableByNroDocAndClub(documento,idClub);
-                System.out.println("Ya existe el representante de DNI " + documento + " en el club " + idClub);
-            }catch (ResponsableException e){
-                Responsable r = new Responsable(documento,nombre,club);
-                r.save();
-                return r.getLegajo();
-            }
-        } catch (ClubException e) {
-            System.out.println(e.getMessage());
-        }
-        throw new ResponsableException("No se pudo crear el responsable solicitado");
-
-    }
-
-    public void modificarResponsable(Integer legajoResponsable, String documento, String nombre, Integer idClub){
-        ResponsableDao dao = ResponsableDao.getInstancia();
-        try{
-            Responsable resp = dao.getResponsable(legajoResponsable);
-            try{
-                Club club = ClubDao.getInstancia().getClubById(idClub);
-                resp.setClub(club);
-                resp.setNombre(nombre);
-                resp.setDocumento(documento);
-                resp.update();
-            }catch (ClubException c){
-                System.out.println(c.getMessage());
-            }
-        } catch (ResponsableException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
 

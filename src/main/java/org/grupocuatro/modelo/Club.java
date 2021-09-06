@@ -1,6 +1,8 @@
 package org.grupocuatro.modelo;
 
 
+import org.grupocuatro.dao.ClubDao;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,5 +117,13 @@ public class Club implements Comparable<Club>{
 	
 	public void agregarJugadoresToListaVisitante(Jugador jugador, Partido partido) {
 		partido.agregarJugadoresVisitantes(new Miembro(this, partido, jugador));
+	}
+
+	public void save() {
+		ClubDao.getInstancia().save(this);
+	}
+
+	public void update() {
+		ClubDao.getInstancia().update(this);
 	}
 }

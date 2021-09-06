@@ -1,6 +1,9 @@
 package org.grupocuatro.modelo;
 
+import org.grupocuatro.dao.CampeonatoDao;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,8 +18,8 @@ public class Campeonato implements Comparable<Campeonato>{
 	private Integer idCampeonato;
 
 	private String descripcion;
-	private Date fechaInicio;
-	private Date fechaFin;
+	private LocalDateTime fechaInicio;
+	private LocalDateTime fechaFin;
 	private String estado;
 
 	@OneToMany(mappedBy = "idClub")
@@ -32,7 +35,7 @@ public class Campeonato implements Comparable<Campeonato>{
 	@OneToMany(mappedBy = "campeonato")
 	private List<TablaPosiciones> tablaPosiciones;
 	
-	public Campeonato(String descripcion, Date fechaInicio, Date fechaFin, String estado) {
+	public Campeonato(String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, String estado) {
 		this.idCampeonato = null;
 		this.descripcion = descripcion;
 		this.fechaInicio = fechaInicio;
@@ -63,17 +66,19 @@ public class Campeonato implements Comparable<Campeonato>{
 		return descripcion;
 	}
 
-	public Date getFechaInicio() {
+	public LocalDateTime getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public Date getFechaFin() {
+	public LocalDateTime getFechaFin() {
 		return fechaFin;
 	}
 
 	public String getEstado() {
 		return estado;
 	}
+
+	public void setEstado(String estado) {this.estado = estado;}
 
 	@Override
 	public int compareTo(Campeonato o) {
@@ -95,5 +100,13 @@ public class Campeonato implements Comparable<Campeonato>{
 				", fechaFin=" + fechaFin +
 				", estado='" + estado + '\'' +
 				'}';
+	}
+
+	public void save() {
+		CampeonatoDao.getInstancia().save(this);
+	}
+
+	public void update() {
+		CampeonatoDao.getInstancia().update(this);
 	}
 }
