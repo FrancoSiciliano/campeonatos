@@ -182,6 +182,10 @@ public class Partido {
         this.convalidaVisitante = true;
     }
 
+    public void setGolesLocal(int golesLocal) {this.golesLocal = golesLocal;}
+
+    public void setGolesVisitante(int golesVisitante) {this.golesVisitante = golesVisitante;}
+
     public void agregarJugadoresLocales(Miembro miembro) {
         this.jugadoresLocales.add(miembro);
     }
@@ -189,5 +193,9 @@ public class Partido {
     public void agregarJugadoresVisitantes(Miembro miembro) {
         this.jugadoresVisitantes.add(miembro);
     }
+
+    public void agregarGol(Gol g) {this.goles.add(g);}
+
+    public void agregarFalta(Falta f) {this.faltas.add(f);}
 
 }

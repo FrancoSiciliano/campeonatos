@@ -1,17 +1,11 @@
 package org.grupocuatro.controlador;
 
-import org.grupocuatro.dao.CampeonatoDao;
-import org.grupocuatro.dao.ClubDao;
-import org.grupocuatro.dao.JugadorDao;
-import org.grupocuatro.dao.MiembroDao;
-import org.grupocuatro.excepciones.CampeonatoException;
-import org.grupocuatro.excepciones.ClubException;
-import org.grupocuatro.excepciones.JugadorException;
-import org.grupocuatro.excepciones.MiembroException;
+import org.grupocuatro.dao.*;
+import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.*;
 
-import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 public class Controlador {
 
@@ -42,15 +36,6 @@ public class Controlador {
     // Se agregaron 2 setters en el Club para poder modificar el nombre y la dirección.
     // Se agregó el throw de la excepción del ClubDAO.
 
-    public void crearClub(Integer id, String nombre, String direccion) {
-        try {
-            Club club = ClubDao.getInstancia().getClubById(id);
-        } catch (ClubException e) {
-            Club c = new Club(id, nombre, direccion);
-            c.save();
-        }
-    }
-
     public void modificarClub(String nombre, String direccion) {
         ClubDao dao = ClubDao.getInstancia();
         Club club = null;
@@ -58,29 +43,13 @@ public class Controlador {
             club = dao.getClubByNombre(nombre);
             club.setNombre(nombre);
             club.setDireccion(direccion);
-            club.update();
+            dao.update(club);
 
         } catch (ClubException e) {
             System.out.printf(e.getMessage());
         }
     }
 
-    public Integer crearCampeonato(String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
-        CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
-        Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, "activo");
-        nuevoCampeonato.save();
-        return nuevoCampeonato.getIdCampeonato();
-    }
-
-    public void terminarCampeonato(Integer id) {
-        try {
-            Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(id);
-            campeonato.setEstado("inactivo");
-            campeonato.update();
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     // No estaba el tipoDocumento, el documento era un String, no estaba el apellido.
     // Hay que agregarle el throw al método para que pueda manejar las excepciones
@@ -139,6 +108,50 @@ public class Controlador {
             dao.update(miembro);
         }
         throw new MiembroException("No existe una lista de jugadores con el id: " + idMiembro);
+    }
+
+    public Integer crearPartido(int nroFecha, int nroZona, int categoria, int idClubLocal, int idClubVisitante, Date fechaPartido, int idCampeonato) throws PartidoException {
+        try {
+            Campeonato c = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
+            try {
+                Club local = ClubDao.getInstancia().getClubById(idClubLocal);
+                Club visitante = ClubDao.getInstancia().getClubById(idClubVisitante);
+                Partido p = new Partido(nroFecha, nroZona, categoria, local, visitante, fechaPartido, c);
+                PartidoDao.getInstancia().save(p);
+                return p.getIdPartido();
+            } catch (ClubException e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (CampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+        throw new PartidoException("No se pudo agregar el partido");
+    }
+
+    public void cargarResultadoPartido(int idPartido) {
+        try {
+            Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
+            int clubLocal = p.getClubLocal().getIdClub();
+            int clubVisitante = p.getClubVisitante().getIdClub();
+            int cantGolesLocal = contarCantidadGoles(clubLocal, idPartido);
+            int cantGolesVisitante = contarCantidadGoles(clubVisitante, idPartido);
+            p.setGolesLocal(cantGolesLocal);
+            p.setGolesVisitante(cantGolesVisitante);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private int contarCantidadGoles(int idClub, int idPartido) {
+        int cantGoles = 0;
+        try {
+            List<Gol> goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub);
+            cantGoles = goles.size();
+            return cantGoles;
+        } catch (GolException e) {
+            cantGoles = 0;
+            return cantGoles;
+        }
     }
 
 
