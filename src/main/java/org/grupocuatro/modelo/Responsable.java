@@ -1,6 +1,8 @@
 package org.grupocuatro.modelo;
 
 
+import org.grupocuatro.dao.ResponsableDao;
+
 import javax.persistence.*;
 
 @Entity
@@ -31,6 +33,7 @@ public class Responsable implements Comparable<Responsable> {
 
     }
 
+
     public String getDocumento() {
         return documento;
     }
@@ -46,6 +49,10 @@ public class Responsable implements Comparable<Responsable> {
     public void setClub(Club club) {
         this.club = club;
     }
+
+    public void setDocumento (String doc) { this.documento = doc; }
+
+    public void setNombre (String nombre) { this.nombre = nombre; }
 
     @Override
     public int compareTo(Responsable o) {
@@ -64,5 +71,12 @@ public class Responsable implements Comparable<Responsable> {
                 ", nombre='" + nombre + '\'' +
                 ", club=" + club +
                 '}';
+    }
+
+    public void save(){
+        ResponsableDao.getInstancia().save(this);
+    }
+    public void update(){
+        ResponsableDao.getInstancia().update(this);
     }
 }

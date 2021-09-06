@@ -42,4 +42,13 @@ public class ResponsableDaoTest extends TestCase {
             System.out.println(e.getMessage());
         }
     }
+
+    public void testGetResponsableByNroDocAndClub(){
+        try{
+            System.out.println(ResponsableDao.getInstancia().getResponsableByNroDocAndClub("DNI",1));
+            System.out.println(ResponsableDao.getInstancia().getResponsableByNroDocAndClub("DNI",32));
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
