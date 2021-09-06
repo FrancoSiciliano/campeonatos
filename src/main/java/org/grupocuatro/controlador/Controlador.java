@@ -1,15 +1,13 @@
 package org.grupocuatro.controlador;
 
-import org.grupocuatro.dao.CampeonatoDao;
-import org.grupocuatro.dao.ClubDao;
-import org.grupocuatro.dao.JugadorDao;
-import org.grupocuatro.dao.MiembroDao;
+import org.grupocuatro.dao.*;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.modelo.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -65,7 +63,7 @@ public class Controlador {
         }
     }
 
-    public Integer crearCampeonato(String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin) {
         CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
         Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, "activo");
         nuevoCampeonato.save();
@@ -81,6 +79,7 @@ public class Controlador {
             System.out.println(e.getMessage());
         }
     }
+
 
     // No estaba el tipoDocumento, el documento era un String, no estaba el apellido.
     // Hay que agregarle el throw al método para que pueda manejar las excepciones
@@ -133,12 +132,18 @@ public class Controlador {
 
     public void agregarJugadoresEnLista(int idMiembro, Jugador jugador) throws MiembroException {
         MiembroDao dao = MiembroDao.getInstancia();
-        Miembro miembro = dao.getMiembroById(idMiembro);
-        if (miembro.getJugador() == null) {
-            miembro.setJugador(jugador);
-            dao.update(miembro);
+        PartidoDao daoP = PartidoDao.getInstancia();
+        try {
+            Miembro nuevoMiembro = dao.getMiembroById(idMiembro);
+            if(nuevoMiembro.getJugador() == null){
+                if (dao.getMiembrosByClub(nuevoMiembro.getClub().getIdClub()).size() < 17) {
+
+                }
+            }
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
         }
-        throw new MiembroException("No existe una lista de jugadores con el id: " + idMiembro);
+
     }
 
 

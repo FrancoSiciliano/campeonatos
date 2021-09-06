@@ -2,8 +2,11 @@ package org.grupocuatro.dao;
 
 import junit.framework.TestCase;
 import org.grupocuatro.excepciones.PartidoException;
+import org.grupocuatro.modelo.Miembro;
 import org.grupocuatro.modelo.Partido;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PartidoDaoTest extends TestCase {
@@ -84,5 +87,10 @@ public class PartidoDaoTest extends TestCase {
         } catch (PartidoException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void test2() {
+        List<Miembro> jugadoresPartidoByFecha = PartidoDao.getInstancia().getJugadoresPartidoByFecha(LocalDate.now());
+        System.out.println(jugadoresPartidoByFecha);
     }
 }

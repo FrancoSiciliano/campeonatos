@@ -3,6 +3,7 @@ package org.grupocuatro.modelo;
 import org.grupocuatro.dao.CampeonatoDao;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,8 +19,8 @@ public class Campeonato implements Comparable<Campeonato>{
 	private Integer idCampeonato;
 
 	private String descripcion;
-	private LocalDateTime fechaInicio;
-	private LocalDateTime fechaFin;
+	private LocalDate fechaInicio;
+	private LocalDate fechaFin;
 	private String estado;
 
 	@OneToMany(mappedBy = "idClub")
@@ -35,7 +36,7 @@ public class Campeonato implements Comparable<Campeonato>{
 	@OneToMany(mappedBy = "campeonato")
 	private List<TablaPosiciones> tablaPosiciones;
 	
-	public Campeonato(String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, String estado) {
+	public Campeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
 		this.idCampeonato = null;
 		this.descripcion = descripcion;
 		this.fechaInicio = fechaInicio;
@@ -66,11 +67,11 @@ public class Campeonato implements Comparable<Campeonato>{
 		return descripcion;
 	}
 
-	public LocalDateTime getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public LocalDateTime getFechaFin() {
+	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
 
