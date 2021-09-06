@@ -44,7 +44,7 @@ public class MiembroDao extends AbstractDao {
     public List<Miembro> getMiembrosByClubAndPartido(Integer idClub, Integer idPartido) throws MiembroException {
         List<Miembro> miembros = getEntityManager().createQuery("FROM Miembro WHERE idClub = " + idClub + " and idPartido = " + idPartido).getResultList();
         if (!miembros.isEmpty()) return miembros;
-        throw new MiembroException("El club " + idClub + "no posee una lista para el partido " + idPartido);
+        throw new MiembroException("El club " + idClub + " no posee una lista para el partido " + idPartido);
     }
 
 }
