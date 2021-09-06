@@ -4,30 +4,32 @@ import static org.junit.Assert.assertTrue;
 
 import org.grupocuatro.dao.*;
 import org.grupocuatro.excepciones.ClubException;
+import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.modelo.*;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Unit test for simple App.
  */
 public class AppTest {
     public static void main(String[] args) {
-//        Club c = new Club(1,"Deportivo Juguete","A123");
-//        Club c2 = new Club(2,"Deportivo Riestra","B123");
-//        ClubDao.getInstancia().save(c);
-//        ClubDao.getInstancia().save(c2);
-
-        Club c = null, c2 = null;
+      /* Club c = new Club(1,"Deportivo Juguete","A123");
+       Club c2 = new Club(2,"Deportivo Riestra","B123");
+       ClubDao.getInstancia().save(c);
+       ClubDao.getInstancia().save(c2);
+*/
+        /*Club c = null, c2 = null;
 
         try {
             c = ClubDao.getInstancia().getClubById(1);
             c2 = ClubDao.getInstancia().getClubById(2);
         } catch (ClubException e) {
             e.printStackTrace();
-        }
-
+        } */
+/*
         Jugador j = new Jugador("DNI", 12345678, "Juan", "Perez", c, new Date());
         Jugador j2 = new Jugador("DNI", 12345677, "Pedro", "Lopez", c, new Date());
         Jugador j4 = new Jugador("DNI", 12345657, "Enrique", "Paredes", c2, new Date());
@@ -102,6 +104,11 @@ public class AppTest {
         GolDao.getInstancia().save(g);
         GolDao.getInstancia().save(g2);
 
-        System.out.println("Todo se ejecuto bien");
+        System.out.println("Todo se ejecuto bien"); */
+
+        List<Partido> p = PartidoDao.getInstancia().getPartidosByClubLocal(1);
+        for (Partido partido : p) {
+            System.out.println(partido.getIdPartido());
+        }
     }
 }
