@@ -63,7 +63,7 @@ public class AppTest {
 
         System.out.println("ClubCampo hecho");
 
-        Partido p = new Partido(1, 2, 21, c, c2, LocalDate.now(), camp);
+        Partido p = new Partido(1, 2, 21, c, c2, camp);
 
         PartidoDao.getInstancia().save(p);
 

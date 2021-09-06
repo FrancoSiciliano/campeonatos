@@ -2,6 +2,7 @@ package org.grupocuatro.dao;
 
 import org.grupocuatro.excepciones.ResponsableException;
 import org.grupocuatro.modelo.Responsable;
+import javax.persistence.NoResultException;
 
 import javax.persistence.NoResultException;
 import java.util.List;
@@ -50,4 +51,6 @@ public class ResponsableDao extends AbstractDao {
         }
 
     }
+
+
 }

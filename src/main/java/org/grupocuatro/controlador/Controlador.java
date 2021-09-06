@@ -1,15 +1,13 @@
 package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.*;
-import org.grupocuatro.excepciones.CampeonatoException;
-import org.grupocuatro.excepciones.ClubException;
-import org.grupocuatro.excepciones.JugadorException;
-import org.grupocuatro.excepciones.MiembroException;
+import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 public class Controlador {
 
@@ -140,6 +138,89 @@ public class Controlador {
         - Campeonato: No poder participar en campeonatos ya arrancados.
          */
     }
+
+    public Integer crearResponsable (String documento, String nombre, Integer idClub) throws ResponsableException {
+        ResponsableDao dao = ResponsableDao.getInstancia();
+        try{
+            Club club = ClubDao.getInstancia().getClubById(idClub);
+            try{
+                dao.getResponsableByNroDocAndClub(documento,idClub);
+                System.out.println("Ya existe el representante de DNI " + documento + " en el club " + idClub);
+            }catch (ResponsableException e){
+                Responsable r = new Responsable(documento,nombre,club);
+                r.save();
+                return r.getLegajo();
+            }
+        } catch (ClubException e) {
+            System.out.println(e.getMessage());
+        }
+        throw new ResponsableException("No se pudo crear el responsable solicitado");
+
+    }
+
+    public void modificarResponsable(Integer legajoResponsable, String documento, String nombre, Integer idClub){
+        ResponsableDao dao = ResponsableDao.getInstancia();
+        try{
+            Responsable resp = dao.getResponsable(legajoResponsable);
+            try{
+                Club club = ClubDao.getInstancia().getClubById(idClub);
+                resp.setClub(club);
+                resp.setNombre(nombre);
+                resp.setDocumento(documento);
+                resp.update();
+            }catch (ClubException c){
+                System.out.println(c.getMessage());
+            }
+        } catch (ResponsableException e) {
+             System.out.println(e.getMessage());
+        }
+    }
+
+    public Integer crearPartido(int nroFecha, int nroZona, int categoria, int idClubLocal, int idClubVisitante, int idCampeonato) throws PartidoException {
+        try {
+            Campeonato c = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
+            try {
+                Club local = ClubDao.getInstancia().getClubById(idClubLocal);
+                Club visitante = ClubDao.getInstancia().getClubById(idClubVisitante);
+                Partido p = new Partido(nroFecha, nroZona, categoria, local, visitante, c);
+                PartidoDao.getInstancia().save(p);
+                return p.getIdPartido();
+            } catch (ClubException e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (CampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+        throw new PartidoException("No se pudo agregar el partido");
+    }
+
+    public void cargarResultadoPartido(int idPartido) {
+        try {
+            Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
+            int clubLocal = p.getClubLocal().getIdClub();
+            int clubVisitante = p.getClubVisitante().getIdClub();
+            int cantGolesLocal = contarCantidadGoles(clubLocal, idPartido);
+            int cantGolesVisitante = contarCantidadGoles(clubVisitante, idPartido);
+            p.setGolesLocal(cantGolesLocal);
+            p.setGolesVisitante(cantGolesVisitante);
+        } catch (PartidoException e) {
+
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private int contarCantidadGoles(int idClub, int idPartido) {
+        int cantGoles = 0;
+        try {
+            List<Gol> goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub);
+            cantGoles = goles.size();
+            return cantGoles;
+        } catch (GolException e) {
+            cantGoles = 0;
+            return cantGoles;
+        }
+    }
+
 
 
 

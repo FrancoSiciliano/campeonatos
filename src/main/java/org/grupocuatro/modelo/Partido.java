@@ -4,7 +4,6 @@ package org.grupocuatro.modelo;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -55,8 +54,7 @@ public class Partido {
     @OneToMany(mappedBy = "partido")
     private List<Gol> goles;
 
-    public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante,
-                   LocalDate fechaPartido, Campeonato campeonato) {
+    public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante, Campeonato campeonato) {
         this.nroFecha = nroFecha;
         this.nroZona = nroZona;
         this.categoria = categoria;
@@ -64,7 +62,7 @@ public class Partido {
         this.clubVisitante = clubVisitante;
         this.golesLocal = null;
         this.golesVisitante = null;
-        this.fechaPartido = fechaPartido;
+        this.fechaPartido = LocalDate.now();
         this.convalidaLocal = false;
         this.convalidaVisitante = false;
         this.campeonato = campeonato;
@@ -183,6 +181,10 @@ public class Partido {
         this.convalidaVisitante = true;
     }
 
+    public void setGolesLocal(int golesLocal) {this.golesLocal = golesLocal;}
+
+    public void setGolesVisitante(int golesVisitante) {this.golesVisitante = golesVisitante;}
+
     public void agregarJugadoresLocales(Miembro miembro) {
         this.jugadoresLocales.add(miembro);
     }
@@ -190,5 +192,9 @@ public class Partido {
     public void agregarJugadoresVisitantes(Miembro miembro) {
         this.jugadoresVisitantes.add(miembro);
     }
+
+    public void agregarGol(Gol g) {this.goles.add(g);}
+
+    public void agregarFalta(Falta f) {this.faltas.add(f);}
 
 }
