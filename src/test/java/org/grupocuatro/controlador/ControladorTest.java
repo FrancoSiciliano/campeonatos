@@ -1,6 +1,9 @@
 package org.grupocuatro.controlador;
 
 import junit.framework.TestCase;
+import org.grupocuatro.excepciones.PartidoException;
+
+import java.time.LocalDate;
 
 public class ControladorTest extends TestCase {
 
@@ -21,4 +24,10 @@ public class ControladorTest extends TestCase {
 
     public void testAgregarJugadoresEnLista() {
     }
+
+    public void testCrearPartido(int nroFecha, int nroZona, int categoria, int idClubLocal, int idClubVisitante, LocalDate fechaPartido, int idCampeonato) throws PartidoException {
+    //    Controlador.getInstancia().crearPartido(nroFecha, nroZona, categoria, idClubLocal, idClubVisitante, fechaPartido, idCampeonato);
+    }
+
+
 }

@@ -2,9 +2,12 @@ package org.grupocuatro;
 
 import static org.junit.Assert.assertTrue;
 
+import org.grupocuatro.controlador.Controlador;
+import org.grupocuatro.controlador.ControladorTest;
 import org.grupocuatro.dao.*;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.JugadorException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
 import org.junit.Test;
 
@@ -60,7 +63,7 @@ public class AppTest {
 
         System.out.println("ClubCampo hecho");
 
-        Partido p = new Partido(1, 2, 21, c, c2, new Date(), camp);
+        Partido p = new Partido(1, 2, 21, c, c2, camp);
 
         PartidoDao.getInstancia().save(p);
 

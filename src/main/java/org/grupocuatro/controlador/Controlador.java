@@ -144,13 +144,13 @@ public class Controlador {
 
     }
 
-    public Integer crearPartido(int nroFecha, int nroZona, int categoria, int idClubLocal, int idClubVisitante, Date fechaPartido, int idCampeonato) throws PartidoException {
+    public Integer crearPartido(int nroFecha, int nroZona, int categoria, int idClubLocal, int idClubVisitante, int idCampeonato) throws PartidoException {
         try {
             Campeonato c = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             try {
                 Club local = ClubDao.getInstancia().getClubById(idClubLocal);
                 Club visitante = ClubDao.getInstancia().getClubById(idClubVisitante);
-                Partido p = new Partido(nroFecha, nroZona, categoria, local, visitante, fechaPartido, c);
+                Partido p = new Partido(nroFecha, nroZona, categoria, local, visitante, c);
                 PartidoDao.getInstancia().save(p);
                 return p.getIdPartido();
             } catch (ClubException e) {
@@ -187,8 +187,6 @@ public class Controlador {
             return cantGoles;
         }
     }
-
-
 
 
 }
