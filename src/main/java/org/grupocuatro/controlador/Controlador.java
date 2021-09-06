@@ -1,13 +1,7 @@
 package org.grupocuatro.controlador;
 
-import org.grupocuatro.dao.CampeonatoDao;
-import org.grupocuatro.dao.ClubDao;
-import org.grupocuatro.dao.JugadorDao;
-import org.grupocuatro.dao.MiembroDao;
-import org.grupocuatro.excepciones.CampeonatoException;
-import org.grupocuatro.excepciones.ClubException;
-import org.grupocuatro.excepciones.JugadorException;
-import org.grupocuatro.excepciones.MiembroException;
+import org.grupocuatro.dao.*;
+import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.*;
 
 import java.time.LocalDateTime;
@@ -116,6 +110,7 @@ public class Controlador {
     }
 
     public void habilitarJugador(int idJugador, int idClub, int idCampeonato) {
+
     }
 
     // El método vino con el Integer como retorno, pero se lo cambió a void.
@@ -127,7 +122,28 @@ public class Controlador {
         dao.save(m);
         return m.getIdLista();
     }
-
+    public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo)  {
+        JugadorDao jugadordao = JugadorDao.getInstancia();
+        Jugador jugador= null;
+        try{
+            jugador=jugadordao.getJugadorById(idJugador);
+        }catch(JugadorException e){
+            System.out.println(e.getMessage());
+        }
+        PartidoDao partidodao= PartidoDao.getInstancia();
+        Partido partido=null;
+        try {
+             partido = partidodao.getInstancia().getPartidoById(idPartido);
+        }
+        catch (PartidoException e) {
+            e.printStackTrace();
+        }
+        GolDao goldao=GolDao.getInstancia();
+        Gol gol =null;
+        gol= new Gol(jugador,partido,minuto,tipo);
+        goldao.save(gol);
+        return gol.getIdGol();
+    }
 
     // REVISAR ESTE METODO!
 
