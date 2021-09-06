@@ -88,9 +88,4 @@ public class PartidoDaoTest extends TestCase {
             System.out.println(e.getMessage());
         }
     }
-
-    public void test2() {
-        List<Miembro> jugadoresPartidoByFecha = PartidoDao.getInstancia().getJugadoresPartidoByFecha(LocalDate.now());
-        System.out.println(jugadoresPartidoByFecha);
-    }
 }

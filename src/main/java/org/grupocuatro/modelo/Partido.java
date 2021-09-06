@@ -2,6 +2,7 @@ package org.grupocuatro.modelo;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ public class Partido {
 
     private Integer golesLocal;
     private Integer golesVisitante;
-    private Date fechaPartido;
+    private LocalDate fechaPartido;
 
     @Column(name = "validadoLocal")
     private boolean convalidaLocal;
@@ -55,7 +56,7 @@ public class Partido {
     private List<Gol> goles;
 
     public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante,
-                   Date fechaPartido, Campeonato campeonato) {
+                   LocalDate fechaPartido, Campeonato campeonato) {
         this.nroFecha = nroFecha;
         this.nroZona = nroZona;
         this.categoria = categoria;
@@ -126,7 +127,7 @@ public class Partido {
         return golesVisitante;
     }
 
-    public Date getFechaPartido() {
+    public LocalDate getFechaPartido() {
         return fechaPartido;
     }
 
@@ -170,7 +171,7 @@ public class Partido {
         this.clubVisitante = clubVisitante;
     }
 
-    public void setFechaPartido(Date fechaPartido) {
+    public void setFechaPartido(LocalDate fechaPartido) {
         this.fechaPartido = fechaPartido;
     }
 

@@ -131,20 +131,16 @@ public class Controlador {
     // REVISAR ESTE METODO!
 
     public void agregarJugadoresEnLista(int idMiembro, Jugador jugador) throws MiembroException {
-        MiembroDao dao = MiembroDao.getInstancia();
-        PartidoDao daoP = PartidoDao.getInstancia();
-        try {
-            Miembro nuevoMiembro = dao.getMiembroById(idMiembro);
-            if(nuevoMiembro.getJugador() == null){
-                if (dao.getMiembrosByClub(nuevoMiembro.getClub().getIdClub()).size() < 17) {
-
-                }
-            }
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
-        }
-
+        /*
+        CONTROLES:
+        - Categoria: Que no participen en categorías menor que poseen (categoria >= cateogoriaPartido)
+        - Partidos: Que no jueguen más de un partido en el mismo día.
+        - Cantidad: 17 Jugadores por partido.
+        - Habilitación: Que no haya sido expulsado en el partido anterior en el mismo torneo (en otro si).
+        - Campeonato: No poder participar en campeonatos ya arrancados.
+         */
     }
+
 
 
 }

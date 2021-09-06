@@ -1,7 +1,6 @@
 package org.grupocuatro.dao;
 
 import org.grupocuatro.excepciones.PartidoException;
-import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Miembro;
 import org.grupocuatro.modelo.Partido;
 
@@ -9,7 +8,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class PartidoDao extends AbstractDao {
@@ -72,15 +71,4 @@ public class PartidoDao extends AbstractDao {
         throw new PartidoException("No existen partidos del club visitante " + idClub);
     }
 
-    public List<Miembro> getJugadoresPartidoByFecha(LocalDate fechaPartido) {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Partido> cq = cb.createQuery(Partido.class);
-        Root<Partido> r = cq.from(Partido.class);
-        Join<Partido, Miembro> joinPartido = r.join("idPartido", JoinType.INNER);
-        Predicate fechaHoy = cb.equal(joinPartido.get("fechaPartido"), fechaPartido);
-        cq.where(fechaHoy);
-        Query query = getEntityManager().createQuery(cq);
-        return query.getResultList();
-
-    }
 }
