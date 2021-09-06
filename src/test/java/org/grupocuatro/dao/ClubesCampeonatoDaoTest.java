@@ -7,7 +7,7 @@ public class ClubesCampeonatoDaoTest extends TestCase {
 
     public void testGetClubesEnCampeonato() {
         try {
-            System.out.println(ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(3));
+            System.out.println(ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(1));
             System.out.println(ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(2));
             System.out.println(ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(254));
         } catch (ClubesCampeonatoException e) {

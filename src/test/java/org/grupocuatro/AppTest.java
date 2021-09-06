@@ -42,8 +42,10 @@ public class AppTest {
         System.out.println("Responsables hecho");
 
         Campeonato camp = new Campeonato("Copa de leche", new Date(), new Date(), "activo");
+        Campeonato camp2 = new Campeonato("Copa de carton", new Date(), new Date(), "activo"); // NUEVA LINEA
 
         CampeonatoDao.getInstancia().save(camp);
+        CampeonatoDao.getInstancia().save(camp2); // NUEVA LINEA
 
         System.out.println("Campeonato hecho");
 

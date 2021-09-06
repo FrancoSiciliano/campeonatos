@@ -82,7 +82,7 @@ public class Controlador {
         JugadorDao dao = JugadorDao.getInstancia();
         Jugador player = null;
         try {
-            player = dao.getJugadorByID(idJugador);
+            player = dao.getJugadorById(idJugador);
             if (player.isClub(idClub)) dao.delete(player);
 
         } catch (JugadorException e) {

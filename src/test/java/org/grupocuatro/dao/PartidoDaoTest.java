@@ -23,10 +23,8 @@ public class PartidoDaoTest extends TestCase {
     }
 
     public void testGetPartidosByClubLocal() {
-        List<Partido> p = PartidoDao.getInstancia().getPartidosByClubLocal(1);
-        for (Partido partido : p) {
-            System.out.println(partido.getIdPartido());
-        }
+        //List<Partido> p = PartidoDao.getInstancia().getPartidosByClubLocal(1);
+
     }
 
     public void testGetPartidosByClubVisitante() {
