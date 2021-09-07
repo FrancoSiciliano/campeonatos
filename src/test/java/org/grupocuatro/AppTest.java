@@ -1,19 +1,12 @@
 package org.grupocuatro;
 
-import static org.junit.Assert.assertTrue;
 
-import org.grupocuatro.controlador.Controlador;
-import org.grupocuatro.controlador.ControladorTest;
+
 import org.grupocuatro.dao.*;
-import org.grupocuatro.excepciones.ClubException;
-import org.grupocuatro.excepciones.JugadorException;
-import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
-import org.junit.Test;
+
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -27,10 +20,10 @@ public class AppTest {
         ClubDao.getInstancia().save(c);
         ClubDao.getInstancia().save(c2);
 
-        Jugador j = new Jugador("DNI", 12345678, "Juan", "Perez", c, new Date());
-        Jugador j2 = new Jugador("DNI", 12345677, "Pedro", "Lopez", c, new Date());
-        Jugador j4 = new Jugador("DNI", 12345657, "Enrique", "Paredes", c2, new Date());
-        Jugador j3 = new Jugador("DNI", 12345697, "Esteban", "Kito", c2, new Date());
+        Jugador j = new Jugador("DNI", 12345678, "Juan", "Perez", c, LocalDate.now());
+        Jugador j2 = new Jugador("DNI", 12345677, "Pedro", "Lopez", c, LocalDate.now());
+        Jugador j4 = new Jugador("DNI", 12345657, "Enrique", "Paredes", c2, LocalDate.now());
+        Jugador j3 = new Jugador("DNI", 12345697, "Esteban", "Kito", c2, LocalDate.now());
 
         JugadorDao.getInstancia().save(j);
         JugadorDao.getInstancia().save(j2);

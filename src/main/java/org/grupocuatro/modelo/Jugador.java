@@ -2,8 +2,8 @@ package org.grupocuatro.modelo;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,7 +24,7 @@ public class Jugador implements Comparable<Jugador> {
     @ManyToOne
     @JoinColumn(name = "idClub")
     private Club club;
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     public String getApellido() {
         return apellido;
@@ -45,7 +45,7 @@ public class Jugador implements Comparable<Jugador> {
     @OneToMany(mappedBy = "jugador")
     private List<Miembro> partidos;
 
-    public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, Date fechaNacimiento) {
+    public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, LocalDate fechaNacimiento) {
         this.idJugador = null;
         this.documento = documento;
         this.nombre = nombre;
@@ -99,7 +99,7 @@ public class Jugador implements Comparable<Jugador> {
         return nombre;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 

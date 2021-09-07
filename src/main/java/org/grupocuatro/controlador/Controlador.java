@@ -1,5 +1,6 @@
 package org.grupocuatro.controlador;
 
+import jdk.vm.ci.meta.Local;
 import org.grupocuatro.dao.*;
 import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.*;
@@ -82,7 +83,7 @@ public class Controlador {
     // No estaba el tipoDocumento, el documento era un String, no estaba el apellido.
     // Hay que agregarle el throw al método para que pueda manejar las excepciones
     // El método figuraba que devolvía un Integer como retorno.
-    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, int idClub, Date fechaNacimiento) throws JugadorException {
+    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, int idClub, LocalDate fechaNacimiento) throws JugadorException {
         JugadorDao dao = JugadorDao.getInstancia();
         try {
             dao.getJugadorByDocumento(documento, tipoDocumento);
