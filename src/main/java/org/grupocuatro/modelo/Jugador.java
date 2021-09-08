@@ -10,6 +10,8 @@ import java.util.List;
 @Table(name = "jugadores")
 public class Jugador implements Comparable<Jugador> {
 
+    //FIXME AGREGAR DIRECCION DE  CASA, MAIL Y TELEFONO
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idJugador")

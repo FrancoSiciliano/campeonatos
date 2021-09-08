@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "campeonatos")
 public class Campeonato implements Comparable<Campeonato>{
+	//FIXME AGREGAR ATRIBUTO PARA INDICAR TIPO DE CAMPEONATO
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

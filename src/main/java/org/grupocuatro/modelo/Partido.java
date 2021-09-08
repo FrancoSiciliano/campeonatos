@@ -9,6 +9,8 @@ import java.util.List;
 @Entity
 @Table(name = "partidos")
 public class Partido {
+    //FIXME AGREGAR INCIDENTES
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
