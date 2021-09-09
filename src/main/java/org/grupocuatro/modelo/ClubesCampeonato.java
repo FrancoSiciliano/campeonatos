@@ -37,19 +37,19 @@ public class ClubesCampeonato {
         this.idClubesCampeonatos = idClubesCampeonatos;
     }
 
-    public Club getIdClub() {
+    public Club getClub() {
         return idClub;
     }
 
-    public void setIdClub(Club idClub) {
+    public void setClub(Club idClub) {
         this.idClub = idClub;
     }
 
-    public Campeonato getIdCampeonato() {
+    public Campeonato getCampeonato() {
         return idCampeonato;
     }
 
-    public void setIdCampeonato(Campeonato idCampeonato) {
+    public void setCampeonato(Campeonato idCampeonato) {
         this.idCampeonato = idCampeonato;
     }
 
