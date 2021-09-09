@@ -1,5 +1,7 @@
 package org.grupocuatro.modelo;
 
+import org.grupocuatro.dao.MiembroDao;
+
 import javax.persistence.*;
 
 @Entity
@@ -100,5 +102,13 @@ public class Miembro {
 
 	public void setEgreso(Integer egreso) {
 		this.egreso = egreso;
+	}
+
+	public void save()	{
+		MiembroDao.getInstancia().save(this);
+	}
+
+	public void update() {
+		MiembroDao.getInstancia().update(this);
 	}
 }
