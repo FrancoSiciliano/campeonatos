@@ -12,9 +12,12 @@ import org.grupocuatro.modelo.*;
 import java.util.List;
 
 public class ControladorMiembros {
+
     private static ControladorMiembros instancia;
+
     private ControladorMiembros() {
     }
+
     public static ControladorMiembros getInstancia() {
         if (instancia == null)
             instancia = new ControladorMiembros();
@@ -27,6 +30,7 @@ public class ControladorMiembros {
         dao.save(m);
         return m.getIdLista();
     }
+
     public void agregarJugadoresEnLista(Integer idMiembro, Jugador jugador) throws MiembroException {
         /*
         FIXME
@@ -38,55 +42,56 @@ public class ControladorMiembros {
         - Campeonato: No poder participar en campeonatos ya arrancados.
          */
     }
-    private boolean habilitado(Jugador jugador,Integer idMiembro){
+
+    private boolean habilitado(Jugador jugador, Integer idMiembro) {
         MiembroDao Miembrodao = MiembroDao.getInstancia();
-        PartidoDao partidoDao=PartidoDao.getInstancia();
+        PartidoDao partidoDao = PartidoDao.getInstancia();
         List<Partido> lista_partido_nroFecha = null;
-        ControladorFaltas controlador=ControladorFaltas.getInstancia();
+        ControladorFaltas controlador = ControladorFaltas.getInstancia();
         try {
             Integer idjugador = jugador.getIdJugador();
             Miembro miembro = Miembrodao.getMiembroById(idMiembro);
             Club club = miembro.getClub();
             Integer idclub = club.getIdClub();
             Partido partido = miembro.getPartido();
-            int nro_fecha_anterior = partido.getNroFecha()-1 ;
-            Campeonato campeonato=partido.getCampeonato();
+            int nro_fecha_anterior = partido.getNroFecha() - 1;
+            Campeonato campeonato = partido.getCampeonato();
             Integer idCampeonato = campeonato.getIdCampeonato();
             List<Partido> lista_partido = partidoDao.getPartidosByCampeonato(idCampeonato);//partidosDelCampeonato
-            for(int pos=0;pos<lista_partido.size();pos++){
+            for (int pos = 0; pos < lista_partido.size(); pos++) {
                 int nro_fecha = lista_partido.get(pos).getNroFecha();
-                if(nro_fecha==nro_fecha_anterior){
-                    Integer idclub_local= lista_partido.get(pos).getClubLocal().getIdClub();
-                    Integer idclub_visitante= lista_partido.get(pos).getClubVisitante().getIdClub();
-                    if(idclub_local==idclub || idclub_visitante==idclub)
+                if (nro_fecha == nro_fecha_anterior) {
+                    Integer idclub_local = lista_partido.get(pos).getClubLocal().getIdClub();
+                    Integer idclub_visitante = lista_partido.get(pos).getClubVisitante().getIdClub();
+                    if (idclub_local == idclub || idclub_visitante == idclub)
                         lista_partido_nroFecha.add(lista_partido.get(pos));//partidosDelCampeonato en fecha y club
                 }
             }
-            int roja=0;
-            for (int pos=0;pos<lista_partido_nroFecha.size();pos++){
+            int roja = 0;
+            for (int pos = 0; pos < lista_partido_nroFecha.size(); pos++) {
                 Integer idPartido = lista_partido_nroFecha.get(pos).getIdPartido();
-                 roja = roja + controlador.falta_de_expulsion(idjugador, idPartido, idCampeonato);
+                roja = roja + controlador.falta_de_expulsion(idjugador, idPartido, idCampeonato);
             }
-           if (roja==0){
-               return false;
-           }
+            if (roja == 0) {
+                return false;
+            }
             return true;
         } catch (MiembroException | PartidoException e) {
             e.printStackTrace();
         }
         return false;
     }
-    private boolean categoria_valida(Jugador jugador,Integer idMiembro){
+
+    private boolean categoria_valida(Jugador jugador, Integer idMiembro) {
         MiembroDao dao = MiembroDao.getInstancia();
         try {
             Miembro miembro = dao.getMiembroById(idMiembro);
             Partido partido = miembro.getPartido();
             int categoria_partido = partido.getCategoria();
-            int categoria_jugador=jugador.getCategoria();
-            if (categoria_jugador<=categoria_partido){
+            int categoria_jugador = jugador.getCategoria();
+            if (categoria_jugador <= categoria_partido) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         } catch (MiembroException e) {

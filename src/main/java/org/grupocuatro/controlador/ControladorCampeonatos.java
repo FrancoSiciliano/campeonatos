@@ -31,6 +31,18 @@ public class ControladorCampeonatos {
         return nuevoCampeonato.getIdCampeonato();
     }
 
+    public  Campeonato encontrar_campeonato(int idCampeonato){//tiene q estar en el controlador y no aca
+        CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
+        Campeonato campeonato = null;
+        try{
+            campeonato = campeonatoDao.getCampeonato(idCampeonato);
+            return campeonato;
+        } catch (CampeonatoException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     //FIXME AGREGAR METODO AGREGARCLUBALCAMPEONATO
     public void agregarClubCampeonato(Integer idClub, Integer idCampeonato){
         try{

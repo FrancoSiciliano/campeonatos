@@ -22,6 +22,17 @@ public class ControladorJugadores {
         return instancia;
     }
 
+    public Jugador encontrar_jugador(int idJugador){//tiene q estar en el controlador y no aca
+        JugadorDao jugadordao = JugadorDao.getInstancia();
+        Jugador jugador = null;
+        try{
+            jugador = jugadordao.getJugadorById(idJugador);
+            return jugador;
+        }catch (JugadorException e){
+            return null;
+        }
+    }
+
 
     // No estaba el tipoDocumento, el documento era un String, no estaba el apellido.
 

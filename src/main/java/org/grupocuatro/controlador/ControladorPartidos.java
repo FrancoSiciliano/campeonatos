@@ -10,6 +10,8 @@ import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
 
+import java.time.LocalDate;
+
 public class ControladorPartidos {
     private static ControladorPartidos instancia;
     private ControladorPartidos(){}
@@ -22,13 +24,13 @@ public class ControladorPartidos {
 
     //FIXME actualizar tabla de goles, faltas y tabla posicion
 
-    public Integer crearPartido(int nroFecha, int nroZona, int categoria, int idClubLocal, int idClubVisitante, int idCampeonato) throws PartidoException {
+    public Integer crearPartido(int nroFecha, int nroZona, int categoria, int idClubLocal, int idClubVisitante, LocalDate fecha, int idCampeonato) throws PartidoException {
         try {
             Campeonato c = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             try {
                 Club local = ClubDao.getInstancia().getClubById(idClubLocal);
                 Club visitante = ClubDao.getInstancia().getClubById(idClubVisitante);
-                Partido p = new Partido(nroFecha, nroZona, categoria, local, visitante, c);
+                Partido p = new Partido(nroFecha, nroZona, categoria, local, visitante, fecha, c);
                 PartidoDao.getInstancia().save(p);
                 return p.getIdPartido();
             } catch (ClubException e) {
@@ -38,6 +40,18 @@ public class ControladorPartidos {
             System.out.println(e.getMessage());
         }
         throw new PartidoException("No se pudo agregar el partido");
+    }
+
+    public Partido encontrar_partido(int idPartido){//tiene q estar en el controlador y no aca
+        PartidoDao partidodao = PartidoDao.getInstancia();
+        Partido partido = null;
+        try{
+            partido = partidodao.getInstancia().getPartidoById(idPartido);
+            return partido;
+        } catch (PartidoException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void cargarResultadoPartido(int idPartido) {
