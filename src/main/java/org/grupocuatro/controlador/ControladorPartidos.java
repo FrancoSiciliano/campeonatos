@@ -42,7 +42,7 @@ public class ControladorPartidos {
         throw new PartidoException("No se pudo agregar el partido");
     }
 
-    public Partido encontrar_partido(int idPartido){//tiene q estar en el controlador y no aca
+    public Partido encontrarPartido(int idPartido){//tiene q estar en el controlador y no aca
         PartidoDao partidodao = PartidoDao.getInstancia();
         Partido partido = null;
         try{
@@ -57,14 +57,17 @@ public class ControladorPartidos {
     public void cargarResultadoPartido(int idPartido) {
         try {
             ControladorGoles cont = ControladorGoles.getInstancia();
-
+            ControladorFaltas controladorFaltas = ControladorFaltas.getInstancia();
             Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
+
             int clubLocal = p.getClubLocal().getIdClub();
             int clubVisitante = p.getClubVisitante().getIdClub();
             int cantGolesLocal = cont.contarCantidadGoles(clubLocal, idPartido);
             int cantGolesVisitante = cont.contarCantidadGoles(clubVisitante, idPartido);
             p.setGolesLocal(cantGolesLocal);
             p.setGolesVisitante(cantGolesVisitante);
+
+
         } catch (PartidoException e) {
 
             System.out.println(e.getMessage());
@@ -86,10 +89,10 @@ public class ControladorPartidos {
         }
 
     }
-    public void validadoPorClubVisitante (Integer idClubL, Integer idPartido){
+    public void validadoPorClubVisitante (Integer idClubV, Integer idPartido){
         try{
             Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
-            if(idClubL == partido.getClubVisitante().getIdClub()){
+            if(idClubV == partido.getClubVisitante().getIdClub()){
                 partido.setConvalidaVisitante();
                 partido.update();
             }else{

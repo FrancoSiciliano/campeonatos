@@ -64,7 +64,7 @@ public class ControladorGoles {
         }
     }
     //public int goles_en_contra(Integer idClub,Integer idPartido){ Metodo de utilidad pero no necesario
-    //Partido partido = encontrar_partido(idPartido);
+    //Partido partido = encontrarPartido(idPartido);
     //if (partido!=null && (idClub.equals(partido.getClubLocal().getIdClub()) )){
     //return contarCantidadGoles(partido.getClubVisitante().getIdClub(),idPartido);
     //}

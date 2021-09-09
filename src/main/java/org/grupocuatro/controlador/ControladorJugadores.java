@@ -22,7 +22,7 @@ public class ControladorJugadores {
         return instancia;
     }
 
-    public Jugador encontrar_jugador(int idJugador){//tiene q estar en el controlador y no aca
+    public Jugador encontrarJugador(int idJugador){//tiene q estar en el controlador y no aca
         JugadorDao jugadordao = JugadorDao.getInstancia();
         Jugador jugador = null;
         try{

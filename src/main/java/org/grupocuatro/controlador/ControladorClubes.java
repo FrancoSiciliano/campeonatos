@@ -27,11 +27,10 @@ public class ControladorClubes {
         }
     }
 
-    public void modificarClub(String nombre, String direccion) {
+    public void modificarClub(Integer idClub, String nombre, String direccion) {
         ClubDao dao = ClubDao.getInstancia();
-        Club club = null;
         try {
-            club = dao.getClubByNombre(nombre);
+            Club club = dao.getClubById(idClub);
             club.setNombre(nombre);
             club.setDireccion(direccion);
             club.update();
@@ -41,14 +40,14 @@ public class ControladorClubes {
         }
     }
 
-    public List<Club> getClubesCategoria (Integer categoria){
-        try{
-            return ClubDao.getInstancia().getClubesCategoria(categoria);
+    public List<Club> getClubes() {
+        try {
+            return ClubDao.getInstancia().getClubes();
         } catch (ClubException e) {
             System.out.println(e.getMessage());
         }
-
         return null;
     }
+
 
 }
