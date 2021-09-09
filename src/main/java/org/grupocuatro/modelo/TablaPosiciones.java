@@ -1,13 +1,13 @@
 package org.grupocuatro.modelo;
 
+import org.grupocuatro.dao.TablaPosicionDao;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "tablaPosiciones")
-public class TablaPosiciones implements Serializable {
-
-    private static final long serialVersionUID = -5832613523487497675L;
+public class TablaPosiciones {
 
     @Id
     @ManyToOne
@@ -26,9 +26,9 @@ public class TablaPosiciones implements Serializable {
     private int golesContra;
     private int diferenciaGoles;
     private int puntos;
-    private float  promedio;
+    private float promedio;
 
-    public TablaPosiciones(Club id, Campeonato campeonato){
+    public TablaPosiciones(Club id, Campeonato campeonato) {
         this.id = id;
         this.campeonato = campeonato;
         cantidadEmpatados = 0;
@@ -42,13 +42,14 @@ public class TablaPosiciones implements Serializable {
         promedio = 0;
     }
 
-    public TablaPosiciones(){}
+    public TablaPosiciones() {
+    }
 
     public Campeonato getCampeonato() {
         return campeonato;
     }
 
-    public void setCampeonato(Campeonato campeonato){
+    public void setCampeonato(Campeonato campeonato) {
         this.campeonato = campeonato;
     }
 
@@ -128,6 +129,18 @@ public class TablaPosiciones implements Serializable {
         return promedio;
     }
 
+    public void setPromedio(float promedio) {
+        this.promedio = promedio;
+    }
+
+    public void save() {
+        TablaPosicionDao.getInstancia().save(this);
+    }
+
+    public void update() {
+        TablaPosicionDao.getInstancia().update(this);
+    }
+
     @Override
     public String toString() {
         return "TablaPosiciones{" +
@@ -143,9 +156,5 @@ public class TablaPosiciones implements Serializable {
                 ", puntos=" + puntos +
                 ", promedio=" + promedio +
                 '}';
-    }
-
-    public void setPromedio(float promedio) {
-        this.promedio = promedio;
     }
 }

@@ -8,122 +8,103 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="clubes")
-public class Club implements Comparable<Club>{
+@Table(name = "clubes")
+public class Club implements Comparable<Club> {
 
-	@Id
-	@Column(name = "idClub")
-	private Integer idClub;
-	private String nombre;
-	private String direccion;
+    @Id
+    @Column(name = "idClub")
+    private Integer idClub;
+    private String nombre;
+    private String direccion;
 
-	@OneToMany(mappedBy = "club")
-	private List<Responsable> responsables;
+    @OneToMany(mappedBy = "club")
+    private List<Responsable> responsables;
 
-	@OneToMany(mappedBy = "club")
-	private List<Jugador> jugadores;
+    @OneToMany(mappedBy = "club")
+    private List<Jugador> jugadores;
 
-	@OneToMany(mappedBy = "idCampeonato")
-	private List<Campeonato> participaciones;
+    @OneToMany(mappedBy = "idCampeonato")
+    private List<Campeonato> participaciones;
 
-	@OneToMany(mappedBy = "clubLocal")
-	private List<Partido> partidosLocal;
+    @OneToMany(mappedBy = "clubLocal")
+    private List<Partido> partidosLocal;
 
-	@OneToMany(mappedBy = "clubVisitante")
-	private List<Partido> partidosVisitante;
+    @OneToMany(mappedBy = "clubVisitante")
+    private List<Partido> partidosVisitante;
 
-	@OneToMany(mappedBy = "club")
-	private List<Miembro> miembros;
+    @OneToMany(mappedBy = "club")
+    private List<Miembro> miembros;
 
-	@OneToMany(mappedBy = "id")
-	private List<TablaPosiciones> tablasPosiciones;
+    @OneToMany(mappedBy = "id")
+    private List<TablaPosiciones> tablasPosiciones;
 
 
-	public Club(int idClub, String nombre, String direccion) {
-		this.idClub = idClub;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		jugadores = new ArrayList<Jugador>();
-	}
+    public Club(int idClub, String nombre, String direccion) {
+        this.idClub = idClub;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        jugadores = new ArrayList<Jugador>();
+    }
 
-	public Club() {
-		participaciones = new ArrayList<>();
-		partidosVisitante = new ArrayList<>();
-		miembros = new ArrayList<>();
-		partidosLocal = new ArrayList<>();
-		tablasPosiciones = new ArrayList<>();
-	}
+    public Club() {
+        participaciones = new ArrayList<>();
+        partidosVisitante = new ArrayList<>();
+        miembros = new ArrayList<>();
+        partidosLocal = new ArrayList<>();
+        tablasPosiciones = new ArrayList<>();
+    }
 
-	public List<Responsable> getResponsables() {
-		return responsables;
-	}
+    public List<Responsable> getResponsables() {
+        return responsables;
+    }
 
-	public void asignarResponsable(Responsable responsable) {
-		responsables.add(responsable);
-	}
-	
-	public void agregarJugador(Jugador jugador) {
-		jugadores.add(jugador);
-	}
+    public Integer getIdClub() {
+        return idClub;
+    }
 
-	public Integer getIdClub() {
-		return idClub;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setNombre(String nombre) {this.nombre = nombre;}
+    public String getDireccion() {
+        return direccion;
+    }
 
-	public String getDireccion() {
-		return direccion;
-	}
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 
-	@Override
-	public String toString() {
-		return "Club{" +
-				"idClub=" + idClub +
-				", nombre='" + nombre + '\'' +
-				", direccion='" + direccion + '\'' +
-				'}';
-	}
+    public List<Responsable> getResponsable() {
+        return responsables;
+    }
 
-	public void setDireccion(String direccion) {this.direccion = direccion;}
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
 
-	public List<Responsable> getResponsable() {
-		return responsables;
-	}
+    @Override
+    public int compareTo(Club o) {
+        return this.getIdClub().compareTo(o.getIdClub());
+    }
 
-	public List<Jugador> getJugadores() {
-		return jugadores;
-	}
+    public void save() {
+        ClubDao.getInstancia().save(this);
+    }
 
-	@Override
-	public int compareTo(Club o) {
-		return this.getIdClub().compareTo(o.getIdClub());
-	}
-	
-	public boolean participa(Campeonato campeonato) {
-		return participaciones.contains(campeonato);
-	}
-	public void participar(Campeonato campeonato) {
-		participaciones.add(campeonato);
-	}
-	
-	public void agregarJugadoresToListaLocal(Jugador jugador, Partido partido) {
-		partido.agregarJugadoresLocales(new Miembro(this, partido, jugador));
-	}
-	
-	public void agregarJugadoresToListaVisitante(Jugador jugador, Partido partido) {
-		partido.agregarJugadoresVisitantes(new Miembro(this, partido, jugador));
-	}
+    public void update() {
+        ClubDao.getInstancia().update(this);
+    }
 
-	public void save() {
-		ClubDao.getInstancia().save(this);
-	}
-
-	public void update() {
-		ClubDao.getInstancia().update(this);
-	}
+    @Override
+    public String toString() {
+        return "Club{" +
+                "idClub=" + idClub +
+                ", nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                '}';
+    }
 }

@@ -1,5 +1,7 @@
 package org.grupocuatro.modelo;
 
+import org.grupocuatro.dao.GolDao;
+
 import javax.persistence.*;
 
 @Entity
@@ -32,7 +34,6 @@ public class Gol {
     }
 
     public Gol() {
-
     }
 
     public Jugador getJugador() {
@@ -55,6 +56,18 @@ public class Gol {
         return idGol;
     }
 
+    public void setIdGol(Integer idGol) {
+        this.idGol = idGol;
+    }
+
+    public void save() {
+        GolDao.getInstancia().save(this);
+    }
+
+    public void update() {
+        GolDao.getInstancia().update(this);
+    }
+
     @Override
     public String toString() {
         return "Gol{" +
@@ -65,9 +78,4 @@ public class Gol {
                 ", tipo='" + tipo + '\'' +
                 '}';
     }
-
-    public void setIdGol(Integer idGol) {
-        this.idGol = idGol;
-    }
-
 }

@@ -13,15 +13,6 @@ public class ClubesCampeonato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClubesCampeonatos;
 
-    @Override
-    public String toString() {
-        return "ClubesCampeonato{" +
-                "idClubesCampeonatos=" + idClubesCampeonatos +
-                ", idClub=" + idClub +
-                ", idCampeonato=" + idCampeonato +
-                '}';
-    }
-
     @ManyToOne
     @JoinColumn(name = "idClub")
     private Club idClub;
@@ -62,5 +53,16 @@ public class ClubesCampeonato {
         this.idCampeonato = idCampeonato;
     }
 
-    public void save() { ClubesCampeonatoDao.getInstancia().save(this); }
+    public void save() {
+        ClubesCampeonatoDao.getInstancia().save(this);
+    }
+
+    @Override
+    public String toString() {
+        return "ClubesCampeonato{" +
+                "idClubesCampeonatos=" + idClubesCampeonatos +
+                ", idClub=" + idClub +
+                ", idCampeonato=" + idCampeonato +
+                '}';
+    }
 }

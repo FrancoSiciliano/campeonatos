@@ -1,5 +1,7 @@
 package org.grupocuatro.modelo;
 
+import org.grupocuatro.dao.JugadorDao;
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -26,6 +28,8 @@ public class Jugador implements Comparable<Jugador> {
     private int categoria;
     private boolean estado;
     private LocalDate fechaNacimiento;
+    private LocalDate fechaAlta;
+
     @ManyToOne
     @JoinColumn(name = "idClub")
     private Club club;
@@ -44,6 +48,7 @@ public class Jugador implements Comparable<Jugador> {
         this.idJugador = null;
         this.documento = documento;
         this.nombre = nombre;
+        this.fechaAlta = LocalDate.now();
         this.apellido = apellido;
         this.club = club;
         this.estado = true;
@@ -53,8 +58,8 @@ public class Jugador implements Comparable<Jugador> {
         this.direccion = direccion;
         this.mail = mail;
         this.telefono = telefono;
-        SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
-        int auxCategoria = Integer.parseInt(getYearFormat.format(this.fechaNacimiento));
+
+        int auxCategoria = fechaNacimiento.getYear();
         if (auxCategoria > 1999)
             this.categoria = auxCategoria - 1900;
         else
@@ -67,19 +72,6 @@ public class Jugador implements Comparable<Jugador> {
         partidos = new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "Jugador{" +
-                "idJugador=" + idJugador +
-                ", tipoDocumento='" + tipoDocumento + '\'' +
-                ", documento=" + documento +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", club=" + club +
-                ", fechaNacimiento=" + fechaNacimiento +
-                ", categoria=" + categoria +
-                '}';
-    }
 
     public String getEstadisticasCampeonato(Integer camp, int cantGoles, int cantAmarillas, int cantRojas, int cantJugados) {
         return "Jugador {" +
@@ -139,32 +131,40 @@ public class Jugador implements Comparable<Jugador> {
         return fechaNacimiento;
     }
 
-    public String getDireccion() {return direccion;}
+    public String getDireccion() {
+        return direccion;
+    }
 
-    public void setDireccion(String direccion) {this.direccion = direccion;}
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 
-    public String getMail() {return mail;}
+    public String getMail() {
+        return mail;
+    }
 
-    public void setMail(String mail) {this.mail = mail;}
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
-    public String getTelefono() {return telefono;}
+    public String getTelefono() {
+        return telefono;
+    }
 
-    public void setTelefono(String telefono) {this.telefono = telefono;}
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
     public int getCategoria() {
         return categoria;
     }
 
-    public List<Gol> getGoles() {return goles;}
-
-    public void agregarGol(Gol gol) {goles.add(gol);}
+    public List<Gol> getGoles() {
+        return goles;
+    }
 
     public List<Falta> getFaltas() {
         return faltas;
-    }
-
-    public void agregarFalta(Falta falta) {
-        faltas.add(falta);
     }
 
     public boolean isClub(int idClub) {
@@ -179,14 +179,42 @@ public class Jugador implements Comparable<Jugador> {
         this.club = club;
     }
 
-    public boolean isEstado() {return estado;}
+    public boolean isEstado() {
+        return estado;
+    }
 
-    public void setEstado(boolean estado) {this.estado = estado;}
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
 
     @Override
     public int compareTo(Jugador o) {
         return this.documento.compareTo(o.getDocumento());
     }
 
+    public void save() {
+        JugadorDao.getInstancia().save(this);
+    }
 
+    public void update() {
+        JugadorDao.getInstancia().update(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "idJugador=" + idJugador +
+                ", tipoDocumento='" + tipoDocumento + '\'' +
+                ", documento=" + documento +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", mail='" + mail + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", categoria=" + categoria +
+                ", estado=" + estado +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", fechaAlta=" + fechaAlta +
+                '}';
+    }
 }

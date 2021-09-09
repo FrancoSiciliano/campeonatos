@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Table(name = "campeonatos")
 public class Campeonato implements Comparable<Campeonato> {
-    //FIXME AGREGAR ATRIBUTO PARA INDICAR TIPO DE CAMPEONATO
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +53,14 @@ public class Campeonato implements Comparable<Campeonato> {
         inscriptos = new ArrayList<>();
         faltas = new ArrayList<>();
         tablaPosiciones = new ArrayList<>();
+    }
+
+    public Integer getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Integer categoria) {
+        this.categoria = categoria;
     }
 
     public List<TablaPosiciones> getTablaPosiciones() {
@@ -101,10 +108,12 @@ public class Campeonato implements Comparable<Campeonato> {
         return this.getIdCampeonato().compareTo(o.getIdCampeonato());
     }
 
-    public void inscribirClub(Club club) {
-        inscriptos.add(club);
-        if (!club.participa(this))
-            club.participar(this);
+    public void save() {
+        CampeonatoDao.getInstancia().save(this);
+    }
+
+    public void update() {
+        CampeonatoDao.getInstancia().update(this);
     }
 
     @Override
@@ -115,14 +124,8 @@ public class Campeonato implements Comparable<Campeonato> {
                 ", fechaInicio=" + fechaInicio +
                 ", fechaFin=" + fechaFin +
                 ", estado='" + estado + '\'' +
+                ", tipoCampeonato='" + tipoCampeonato + '\'' +
+                ", categoria=" + categoria +
                 '}';
-    }
-
-    public void save() {
-        CampeonatoDao.getInstancia().save(this);
-    }
-
-    public void update() {
-        CampeonatoDao.getInstancia().update(this);
     }
 }

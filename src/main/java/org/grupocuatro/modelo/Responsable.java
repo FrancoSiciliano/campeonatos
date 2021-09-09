@@ -33,7 +33,6 @@ public class Responsable implements Comparable<Responsable> {
 
     }
 
-
     public String getDocumento() {
         return documento;
     }
@@ -50,9 +49,13 @@ public class Responsable implements Comparable<Responsable> {
         this.club = club;
     }
 
-    public void setDocumento (String doc) { this.documento = doc; }
+    public void setDocumento(String doc) {
+        this.documento = doc;
+    }
 
-    public void setNombre (String nombre) { this.nombre = nombre; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     @Override
     public int compareTo(Responsable o) {
@@ -63,6 +66,14 @@ public class Responsable implements Comparable<Responsable> {
         return legajo;
     }
 
+    public void save() {
+        ResponsableDao.getInstancia().save(this);
+    }
+
+    public void update() {
+        ResponsableDao.getInstancia().update(this);
+    }
+
     @Override
     public String toString() {
         return "Responsable{" +
@@ -71,12 +82,5 @@ public class Responsable implements Comparable<Responsable> {
                 ", nombre='" + nombre + '\'' +
                 ", club=" + club +
                 '}';
-    }
-
-    public void save(){
-        ResponsableDao.getInstancia().save(this);
-    }
-    public void update(){
-        ResponsableDao.getInstancia().update(this);
     }
 }

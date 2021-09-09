@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "partidos")
 public class Partido {
+
     //FIXME AGREGAR INCIDENTES
 
 
@@ -21,6 +22,7 @@ public class Partido {
     private int nroFecha;
     private int nroZona;
     private int categoria;
+    private String incidentes;
 
     @ManyToOne
     @JoinColumn(name = "idClubLocal")
@@ -70,6 +72,7 @@ public class Partido {
         this.convalidaLocal = false;
         this.convalidaVisitante = false;
         this.campeonato = campeonato;
+        this.incidentes = "";
     }
 
     public Partido() {
@@ -79,22 +82,12 @@ public class Partido {
         goles = new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "Partido{" +
-                "idPartido=" + idPartido +
-                ", nroFecha=" + nroFecha +
-                ", nroZona=" + nroZona +
-                ", categoria=" + categoria +
-                ", clubLocal=" + clubLocal +
-                ", clubVisitante=" + clubVisitante +
-                ", golesLocal=" + golesLocal +
-                ", golesVisitante=" + golesVisitante +
-                ", fechaPartido=" + fechaPartido +
-                ", convalidaLocal=" + convalidaLocal +
-                ", convalidaVisitante=" + convalidaVisitante +
-                ", campeonato=" + campeonato +
-                '}';
+    public String getIncidentes() {
+        return incidentes;
+    }
+
+    public void setIncidentes(String incidentes) {
+        this.incidentes = incidentes;
     }
 
     public Integer getIdPartido() {
@@ -185,25 +178,38 @@ public class Partido {
         this.convalidaVisitante = true;
     }
 
-    public void setGolesLocal(int golesLocal) {this.golesLocal = golesLocal;}
-
-    public void setGolesVisitante(int golesVisitante) {this.golesVisitante = golesVisitante;}
-
-    public void agregarJugadoresLocales(Miembro miembro) {
-        this.jugadoresLocales.add(miembro);
+    public void setGolesLocal(int golesLocal) {
+        this.golesLocal = golesLocal;
     }
 
-    public void agregarJugadoresVisitantes(Miembro miembro) {
-        this.jugadoresVisitantes.add(miembro);
+    public void setGolesVisitante(int golesVisitante) {
+        this.golesVisitante = golesVisitante;
     }
 
-    public void agregarGol(Gol g) {this.goles.add(g);}
+    public void save() {
+        PartidoDao.getInstancia().save(this);
+    }
 
-    public void agregarFalta(Falta f) {this.faltas.add(f);}
+    public void update() {
+        PartidoDao.getInstancia().update(this);
+    }
 
-    public void save () { PartidoDao.getInstancia().save(this);}
-
-    public void update () {PartidoDao.getInstancia().update(this);}
-
-
+    @Override
+    public String toString() {
+        return "Partido{" +
+                "idPartido=" + idPartido +
+                ", nroFecha=" + nroFecha +
+                ", nroZona=" + nroZona +
+                ", categoria=" + categoria +
+                ", incidentes='" + incidentes + '\'' +
+                ", clubLocal=" + clubLocal +
+                ", clubVisitante=" + clubVisitante +
+                ", golesLocal=" + golesLocal +
+                ", golesVisitante=" + golesVisitante +
+                ", fechaPartido=" + fechaPartido +
+                ", convalidaLocal=" + convalidaLocal +
+                ", convalidaVisitante=" + convalidaVisitante +
+                ", campeonato=" + campeonato +
+                '}';
+    }
 }

@@ -1,87 +1,96 @@
 package org.grupocuatro.modelo;
 
+import org.grupocuatro.dao.FaltaDao;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name="faltas")
+@Table(name = "faltas")
 public class Falta {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idFalta")
-	private Integer idFalta;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idFalta")
+    private Integer idFalta;
 
-	@ManyToOne
-	@JoinColumn(name = "idJugador")
-	private Jugador jugador;
+    @ManyToOne
+    @JoinColumn(name = "idJugador")
+    private Jugador jugador;
 
-	@ManyToOne
-	@JoinColumn(name = "idPartido")
-	private Partido partido;
+    @ManyToOne
+    @JoinColumn(name = "idPartido")
+    private Partido partido;
 
-	@Override
-	public String toString() {
-		return "Falta{" +
-				"idFalta=" + idFalta +
-				", jugador=" + jugador +
-				", partido=" + partido +
-				", campeonato=" + campeonato +
-				", minuto=" + minuto +
-				", tipo='" + tipo + '\'' +
-				'}';
-	}
 
-	@ManyToOne
-	@JoinColumn(name = "idCampeonato")
-	private Campeonato campeonato;
+    @ManyToOne
+    @JoinColumn(name = "idCampeonato")
+    private Campeonato campeonato;
 
-	private int minuto;
-	private String tipo;
-	
-	public Falta(Jugador jugador, Partido partido, Campeonato campeonato, int minuto, String tipo) {
-		this.idFalta = null;
-		this.jugador = jugador;
-		this.partido = partido;
-		this.campeonato = campeonato;
-		this.minuto = minuto;
-		this.tipo = tipo;
-	}
+    private int minuto;
+    private String tipo;
 
-	public Falta() {
+    public Falta(Jugador jugador, Partido partido, Campeonato campeonato, int minuto, String tipo) {
+        this.idFalta = null;
+        this.jugador = jugador;
+        this.partido = partido;
+        this.campeonato = campeonato;
+        this.minuto = minuto;
+        this.tipo = tipo;
+    }
 
-	}
+    public Falta() {
 
-	public Jugador getJugador() {
-		return jugador;
-	}
+    }
 
-	public Partido getPartido() {
-		return partido;
-	}
+    public Jugador getJugador() {
+        return jugador;
+    }
 
-	public int getMinuto() {
-		return minuto;
-	}
+    public Partido getPartido() {
+        return partido;
+    }
 
-	public String getTipo() {
-		return tipo;
-	}
+    public int getMinuto() {
+        return minuto;
+    }
 
-	public Integer getIdFalta() {
-		return idFalta;
-	}
+    public String getTipo() {
+        return tipo;
+    }
 
-	public void setIdFalta(Integer idFalta) {
-		this.idFalta = idFalta;
-	}
+    public Integer getIdFalta() {
+        return idFalta;
+    }
 
-	public Campeonato getCampeonato() {
-		return campeonato;
-	}
+    public void setIdFalta(Integer idFalta) {
+        this.idFalta = idFalta;
+    }
 
-	public void setCampeonato(Campeonato campeonato) {
-		this.campeonato = campeonato;
-	}
-	
-	
+    public Campeonato getCampeonato() {
+        return campeonato;
+    }
+
+    public void setCampeonato(Campeonato campeonato) {
+        this.campeonato = campeonato;
+    }
+
+    public void save() {
+        FaltaDao.getInstancia().save(this);
+    }
+
+    public void update() {
+        FaltaDao.getInstancia().update(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Falta{" +
+                "idFalta=" + idFalta +
+                ", jugador=" + jugador +
+                ", partido=" + partido +
+                ", campeonato=" + campeonato +
+                ", minuto=" + minuto +
+                ", tipo='" + tipo + '\'' +
+                '}';
+    }
 }

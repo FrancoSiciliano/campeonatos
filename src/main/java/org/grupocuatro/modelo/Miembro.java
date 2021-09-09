@@ -5,110 +5,111 @@ import org.grupocuatro.dao.MiembroDao;
 import javax.persistence.*;
 
 @Entity
-@Table(name="listaJugadoresPartido")
+@Table(name = "listaJugadoresPartido")
 public class Miembro {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idLista")
-	private Integer idLista;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idLista")
+    private Integer idLista;
 
-	@ManyToOne
-	@JoinColumn(name = "idClub")
-	private Club club;
+    @ManyToOne
+    @JoinColumn(name = "idClub")
+    private Club club;
 
-	@ManyToOne
-	@JoinColumn(name = "idPartido")
-	private Partido partido;
+    @ManyToOne
+    @JoinColumn(name = "idPartido")
+    private Partido partido;
 
-	@ManyToOne
-	@JoinColumn(name = "idJugador")
-	private Jugador jugador;
+    @ManyToOne
+    @JoinColumn(name = "idJugador")
+    private Jugador jugador;
 
-	@Override
-	public String toString() {
-		return "Miembro{" +
-				"idLista=" + idLista +
-				", club=" + club +
-				", partido=" + partido +
-				", jugador=" + jugador +
-				", ingreso=" + ingreso +
-				", egreso=" + egreso +
-				'}';
-	}
-
-	private Integer ingreso;
-	private Integer egreso;
-
-	
-	public Miembro(Club club, Partido partido, Jugador jugador) {
-		this.club = club;
-		this.partido = partido;
-		this.jugador = jugador;
-		this.ingreso = null;
-		this.egreso = null;
-	}
-
-	public Miembro(Club club, Partido partido) {
-		this.club = club;
-		this.partido = partido;
-		this.jugador = null;
-		this.ingreso = null;
-		this.egreso = null;
-	}
+    private Integer ingreso;
+    private Integer egreso;
 
 
-	public Miembro() {}
+    public Miembro(Club club, Partido partido, Jugador jugador) {
+        this.club = club;
+        this.partido = partido;
+        this.jugador = jugador;
+        this.ingreso = null;
+        this.egreso = null;
+    }
 
-	public Integer getIdLista(){
-		return idLista;
-	}
+    public Miembro(Club club, Partido partido) {
+        this.club = club;
+        this.partido = partido;
+        this.jugador = null;
+        this.ingreso = null;
+        this.egreso = null;
+    }
 
-	public Jugador getJugador() {
-		return jugador;
-	}
 
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
-	
-	public Club getClub() {
-		return club;
-	}
+    public Miembro() {
+    }
 
-	public void setClub(Club club) {
-		this.club = club;
-	}
+    public Integer getIdLista() {
+        return idLista;
+    }
 
-	public Partido getPartido() {
-		return partido;
-	}
+    public Jugador getJugador() {
+        return jugador;
+    }
 
-	public void setPartido(Partido partido) {
-		this.partido = partido;
-	}
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
 
-	public Integer getIngreso() {
-		return ingreso;
-	}
+    public Club getClub() {
+        return club;
+    }
 
-	public void setIngreso(Integer ingreso) {
-		this.ingreso = ingreso;
-	}
+    public void setClub(Club club) {
+        this.club = club;
+    }
 
-	public Integer getEgreso() {
-		return egreso;
-	}
+    public Partido getPartido() {
+        return partido;
+    }
 
-	public void setEgreso(Integer egreso) {
-		this.egreso = egreso;
-	}
+    public void setPartido(Partido partido) {
+        this.partido = partido;
+    }
 
-	public void save()	{
-		MiembroDao.getInstancia().save(this);
-	}
+    public Integer getIngreso() {
+        return ingreso;
+    }
 
-	public void update() {
-		MiembroDao.getInstancia().update(this);
-	}
+    public void setIngreso(Integer ingreso) {
+        this.ingreso = ingreso;
+    }
+
+    public Integer getEgreso() {
+        return egreso;
+    }
+
+    public void setEgreso(Integer egreso) {
+        this.egreso = egreso;
+    }
+
+    public void save() {
+        MiembroDao.getInstancia().save(this);
+    }
+
+    public void update() {
+        MiembroDao.getInstancia().update(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Miembro{" +
+                "idLista=" + idLista +
+                ", club=" + club +
+                ", partido=" + partido +
+                ", jugador=" + jugador +
+                ", ingreso=" + ingreso +
+                ", egreso=" + egreso +
+                '}';
+    }
 }
