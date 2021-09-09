@@ -5,8 +5,10 @@ import org.grupocuatro.dao.ClubDao;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+import org.grupocuatro.dao.ClubesCampeonatoDao;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubException;
+import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.ClubesCampeonato;
@@ -74,32 +76,39 @@ public class ControladorCampeonatos {
         return null;
     }
 
-    public Campeonato encontrarCampeonato(int idCampeonato) {//tiene q estar en el controlador y no aca
+    public Campeonato encontrarCampeonato(Integer idCampeonato) {//tiene q estar en el controlador y no aca
         CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
         Campeonato campeonato = null;
         try {
             campeonato = campeonatoDao.getCampeonato(idCampeonato);
             return campeonato;
         } catch (CampeonatoException e) {
-            e.printStackTrace();
-            return null;
+            System.out.printf(e.getMessage());
         }
+        return null;
     }
 
-    // TODO FUNCIONALIDADES PARA LAS PROXIMAS ENTREGAS (EN PROCESO)
-    public void agregarClubCampeonato(Integer idClub, Integer idCampeonato) {
+    public void agregarClubACampeonato(Integer idClub, Integer idCampeonato) {
         try {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-            Club club = ClubDao.getInstancia().getClubById(idClub);
+            Club club = ControladorClubes.getInstancia().getClubById(idClub);
 
             ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
             nuevocc.save();
 
-        } catch (CampeonatoException | ClubException e) {
+        } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
         }
 
     }
 
+    public List<Campeonato> getCampeonatosByClub (Integer idClub){
+        try {
+            return ClubesCampeonatoDao.getInstancia().getCampeonatosClub(idClub);
+        } catch (ClubesCampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
 }

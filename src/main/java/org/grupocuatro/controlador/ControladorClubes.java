@@ -1,7 +1,9 @@
 package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.ClubDao;
+import org.grupocuatro.dao.ClubesCampeonatoDao;
 import org.grupocuatro.excepciones.ClubException;
+import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.modelo.Club;
 
 import java.util.List;
@@ -49,5 +51,21 @@ public class ControladorClubes {
         return null;
     }
 
+    public Club getClubById(Integer idClub) {
+        try {
+            return ClubDao.getInstancia().getClubById(idClub);
+        } catch (ClubException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
+    public List<Club> getClubesByCampeonato(Integer idCampeonato) {
+        try {
+            return ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(idCampeonato);
+        } catch (ClubesCampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

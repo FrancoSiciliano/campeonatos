@@ -1,11 +1,7 @@
 package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.GolDao;
-import org.grupocuatro.dao.JugadorDao;
-import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.excepciones.GolException;
-import org.grupocuatro.excepciones.JugadorException;
-import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Gol;
 import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Partido;
@@ -14,45 +10,36 @@ import java.util.List;
 
 public class ControladorGoles {
     private static ControladorGoles instancia;
+
     private ControladorGoles() {
     }
+
     public static ControladorGoles getInstancia() {
         if (instancia == null)
             instancia = new ControladorGoles();
         return instancia;
     }
-    private Partido encontrar_partido(int idPartido){//tiene q estar en el controlador y no aca
-        PartidoDao partidodao = PartidoDao.getInstancia();
-        Partido partido = null;
-        try{
-            partido = partidodao.getInstancia().getPartidoById(idPartido);
-            return partido;
-        } catch (PartidoException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 
     public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo) {
-        JugadorDao jugadordao = JugadorDao.getInstancia();
-        Jugador jugador = null;
-        PartidoDao partidodao = PartidoDao.getInstancia();
-        Partido partido = null;
-        try {
-            jugador = jugadordao.getJugadorById(idJugador);
-            partido = partidodao.getInstancia().getPartidoById(idPartido);
-        } catch (JugadorException | PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        GolDao goldao = GolDao.getInstancia();
+
+        ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
+        Jugador jugador = controladorJugadores.encontrarJugador(idJugador);
+
+        ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
+        Partido partido = controladorPartidos.encontrarPartido(idPartido);
+
         Gol gol = null;
-        gol = new Gol(jugador, partido, minuto, tipo);
-        goldao.save(gol);
-        return gol.getIdGol();
+
+        if (jugador != null && controladorPartidos != null) {
+            GolDao goldao = GolDao.getInstancia();
+            gol = new Gol(jugador, partido, minuto, tipo);
+            gol.save();
+        }
+
+        return (gol == null) ? gol.getIdGol() : null;
     }
 
-    public int contarCantidadGoles(int idClub, int idPartido) {//golesAfavor
+    public int contarCantidadGoles(Integer idClub, Integer idPartido) {
         int cantGoles = 0;
         try {
             List<Gol> goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub);
@@ -63,14 +50,67 @@ public class ControladorGoles {
             return cantGoles;
         }
     }
-    //public int goles_en_contra(Integer idClub,Integer idPartido){ Metodo de utilidad pero no necesario
-    //Partido partido = encontrarPartido(idPartido);
-    //if (partido!=null && (idClub.equals(partido.getClubLocal().getIdClub()) )){
-    //return contarCantidadGoles(partido.getClubVisitante().getIdClub(),idPartido);
-    //}
-    //if(partido!=null && (idClub.equals(partido.getClubVisitante().getIdClub()) )){
-    //return contarCantidadGoles(partido.getClubLocal().getIdClub(),idPartido);
-    //}
-    //return 0;
-    //}
+
+    public List<Gol> getGoles() {
+        try {
+            return GolDao.getInstancia().getGoles();
+        } catch (GolException e) {
+            System.out.printf(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Gol> getGolesByPartido(Integer idPartido) {
+        try {
+            return GolDao.getInstancia().getGolesByPartido(idPartido);
+        } catch (GolException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Gol> getGolesByPartidoAndClub(Integer idPartido, Integer idClub) {
+        try {
+            return GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub);
+        } catch (GolException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Gol> getGolesByPartidoAndSentido(Integer idPartido, String sentido) {
+        try {
+            return GolDao.getInstancia().getGolesByPartidoAndSentido(idPartido, sentido);
+        } catch (GolException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Gol> getGolesByJugadorAndPartido(Integer idPartido, Integer idJugador) {
+        try {
+            return GolDao.getInstancia().getGolesByJugadorAndPartido(idPartido, idJugador);
+        } catch (GolException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Gol> getGolesByJugador(Integer idJugador) {
+        try {
+            return GolDao.getInstancia().getGolesByJugador(idJugador);
+        } catch (GolException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Gol getGolById(Integer idGol) {
+        try {
+            return GolDao.getInstancia().getGolById(idGol);
+        } catch (GolException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

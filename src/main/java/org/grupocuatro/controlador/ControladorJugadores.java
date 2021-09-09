@@ -9,7 +9,6 @@ import java.util.List;
 
 public class ControladorJugadores {
 
-    // FIXME AGREGAR CONSULTA DE PROGRESO DEL EQUIPO DEL JUGADOR EN UN CAMPEONATO
 
 
     private static ControladorJugadores instancia;
@@ -33,10 +32,7 @@ public class ControladorJugadores {
         }
     }
 
-
-    // No estaba el tipoDocumento, el documento era un String, no estaba el apellido.
-
-    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, int idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono) throws JugadorException {
+    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, Integer idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono) throws JugadorException {
         JugadorDao dao = JugadorDao.getInstancia();
         try {
             dao.getJugadorByDocumento(documento, tipoDocumento);
@@ -45,20 +41,20 @@ public class ControladorJugadores {
             try {
                 Club club = ClubDao.getInstancia().getClubById(idClub);
                 Jugador j = new Jugador(tipoDocumento, documento, nombre, apellido, club, fechaNacimiento, direccion, mail, telefono);
-                dao.save(j);
+                j.save();
                 return j.getIdJugador();
             } catch (ClubException e2) {
                 System.out.println(e2.getMessage());
             }
         }
-        throw new JugadorException("No se pudo agregar el jugador deseado");
+        return null;
     }
 
     public void modificarDireccion(int idJugador, String direccion){
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
             j.setDireccion(direccion);
-            JugadorDao.getInstancia().update(j);
+            j.update();
         } catch (JugadorException e) {
             e.printStackTrace();
         }
@@ -68,7 +64,7 @@ public class ControladorJugadores {
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
             j.setMail(mail);
-            JugadorDao.getInstancia().update(j);
+            j.update();
         } catch (JugadorException e) {
             e.printStackTrace();
         }
@@ -78,34 +74,26 @@ public class ControladorJugadores {
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
             j.setTelefono(telefono);
-            JugadorDao.getInstancia().update(j);
+            j.update();
         } catch (JugadorException e) {
             e.printStackTrace();
         }
     }
 
-    public void eliminarJugador(int idJugador, int idClub) {
-        JugadorDao dao = JugadorDao.getInstancia();
-        Jugador player = null;
-        try {
-            player = dao.getJugadorById(idJugador);
-            if (player.isClub(idClub)) dao.delete(player);
-
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void changeEstado(int idJugador) {
+    public void modificarEstado(int idJugador) {
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
             if (j.isEstado()) j.setEstado(false);
             else j.setEstado(true);
+            j.update();
         } catch (JugadorException e) {
             e.printStackTrace();
         }
     }
 
+    //TODO ESTA PARTE ES PARA LAS PROXIMAS ETAPAS DEL TRABAJO (IGNORAR)
+
+    // FIXME AGREGAR CONSULTA DE PROGRESO DEL EQUIPO DEL JUGADOR EN UN CAMPEONATO
 
     public void getStatsByCampeonato(int idJugador, int idCampeonato) {
         try {

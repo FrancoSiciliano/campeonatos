@@ -8,7 +8,15 @@ import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Responsable;
 
 public class ControladorResponsables {
-    //FIXME HACER SINGLETONIANO
+
+    private static ControladorResponsables instancia;
+
+    private ControladorResponsables() {}
+
+    public static ControladorResponsables getInstancia() {
+        if (instancia == null) instancia = new ControladorResponsables();
+        return instancia;
+    }
 
     public Integer crearResponsable(String documento, String nombre, Integer idClub) throws ResponsableException {
         ResponsableDao dao = ResponsableDao.getInstancia();
@@ -45,4 +53,16 @@ public class ControladorResponsables {
             System.out.println(e.getMessage());
         }
     }
+
+    public Responsable getResponsable(Integer idResponsable) {
+        try {
+            return ResponsableDao.getInstancia().getResponsable(idResponsable);
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    //TODO HACER GETTERS
+
 }

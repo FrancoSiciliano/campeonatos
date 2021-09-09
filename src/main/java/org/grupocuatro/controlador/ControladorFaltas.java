@@ -93,4 +93,67 @@ public class ControladorFaltas {
         return null;
     }
 
+    public List<Falta> getFaltasByJugadorAndTipoAndPartido(Integer jugador, String tipo, Integer partido) {
+        try {
+            return FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador, tipo, partido);
+        } catch (FaltaException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Falta> getFaltasByJugadorAndCampeonato(Integer jugador, Integer campeonato) {
+        try {
+            return FaltaDao.getInstancia().getFaltasByJugadorAndCampeonato(jugador, campeonato);
+        } catch (FaltaException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public List<Falta> getFaltasByJugadorAndPartidoAndTipoAndCampeonato(Integer jugador, Integer partido, String tipo, Integer campeonato) {
+        try {
+            return FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(jugador, partido, tipo, campeonato);
+        } catch (FaltaException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Falta> getFaltas(){
+        try {
+            return FaltaDao.getInstancia().getFaltas();
+        } catch (FaltaException e) {
+            System.out.printf(e.getMessage());
+        }
+        return null;
+    }
+
+    public Falta getFaltasById(Integer id){
+        try {
+            return FaltaDao.getInstancia().getFaltaById(id);
+        } catch (FaltaException e) {
+            System.out.printf(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Falta> getFaltasByJugador(Integer idJugador) {
+        try {
+            return FaltaDao.getInstancia().getFaltasByJugador(idJugador);
+        } catch (FaltaException e) {
+            System.out.printf(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Falta> getFaltasByTipo(String tipo) {
+        try {
+            return FaltaDao.getInstancia().getFaltasByTipo(tipo);
+        } catch (FaltaException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }
