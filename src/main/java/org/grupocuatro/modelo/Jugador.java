@@ -10,8 +10,6 @@ import java.util.List;
 @Table(name = "jugadores")
 public class Jugador implements Comparable<Jugador> {
 
-    //FIXME AGREGAR DIRECCION DE  CASA, MAIL Y TELEFONO
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idJugador")
@@ -22,21 +20,14 @@ public class Jugador implements Comparable<Jugador> {
     private Integer documento;
     private String nombre;
     private String apellido;
-
+    private String direccion;
+    private String mail;
+    private String telefono;
+    private int categoria;
+    private LocalDate fechaNacimiento;
     @ManyToOne
     @JoinColumn(name = "idClub")
     private Club club;
-    private LocalDate fechaNacimiento;
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    private int categoria;
 
     @OneToMany(mappedBy = "jugador")
     private List<Gol> goles;
@@ -47,7 +38,8 @@ public class Jugador implements Comparable<Jugador> {
     @OneToMany(mappedBy = "jugador")
     private List<Miembro> partidos;
 
-    public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, LocalDate fechaNacimiento) {
+
+    public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, LocalDate fechaNacimiento, String direccion, String mail, String telefono) {
         this.idJugador = null;
         this.documento = documento;
         this.nombre = nombre;
@@ -56,13 +48,22 @@ public class Jugador implements Comparable<Jugador> {
         this.faltas = new ArrayList<>();
         this.fechaNacimiento = fechaNacimiento;
         this.tipoDocumento = tipoDocumento;
+        this.direccion = direccion;
+        this.mail = mail;
+        this.telefono = telefono;
         SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
         int auxCategoria = Integer.parseInt(getYearFormat.format(this.fechaNacimiento));
         if (auxCategoria > 1999)
             this.categoria = auxCategoria - 1900;
         else
             this.categoria = auxCategoria - 2000;
-        this.goles = new ArrayList<>();
+        this.goles = new ArrayList<>();                 // Está en el constructor de abajo, ¿hay que sacarlo de acá?
+    }
+
+    public Jugador() {
+        goles = new ArrayList<>();
+        faltas = new ArrayList<>();
+        partidos = new ArrayList<>(); //FIXME Este arreglo no va acá, no corresponde
     }
 
     @Override
@@ -79,10 +80,42 @@ public class Jugador implements Comparable<Jugador> {
                 '}';
     }
 
-    public Jugador() {
-        goles = new ArrayList<>();
-        faltas = new ArrayList<>();
-        partidos = new ArrayList<>();
+    public String getEstadisticasCampeonato(Integer camp, int cantGoles, int cantAmarillas, int cantRojas, int cantJugados) {
+        return "Jugador {" +
+                "Id: " + idJugador + ", " +
+                "Documento: " + documento + ", " +
+                "Nombre: " + nombre + ", " +
+                "Apellido: " + apellido + ", " +
+                "Club: '" + this.getClub().getNombre() + "', " +
+                "Campeonato: " + camp + ", " +
+                "Partidos jugados: " + cantJugados + ", " +
+                "Goles: " + cantGoles + ", " +
+                "Amarillas: " + cantAmarillas + ", " +
+                "Rojas: " + cantRojas + ", " +
+                "}";
+    }
+
+    public String getEstadisticasClub(int cantGoles, int cantAmarillas, int cantRojas, int cantJugados) {
+        return "Jugador {" +
+                "Id: " + idJugador + ", " +
+                "Documento: " + documento + ", " +
+                "Nombre: " + nombre + ", " +
+                "Apellido: " + apellido + ", " +
+                "Club: '" + this.getClub().getNombre() + "', " +
+                "Partidos jugados: " + cantJugados + ", " +
+                "Goles: " + cantGoles + ", " +
+                "Amarillas: " + cantAmarillas + ", " +
+                "Rojas: " + cantRojas + ", " +
+                "}";
+    }
+
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public Integer getIdJugador() {
@@ -105,17 +138,25 @@ public class Jugador implements Comparable<Jugador> {
         return fechaNacimiento;
     }
 
+    public String getDireccion() {return direccion;}
+
+    public void setDireccion(String direccion) {this.direccion = direccion;}
+
+    public String getMail() {return mail;}
+
+    public void setMail(String mail) {this.mail = mail;}
+
+    public String getTelefono() {return telefono;}
+
+    public void setTelefono(String telefono) {this.telefono = telefono;}
+
     public int getCategoria() {
         return categoria;
     }
 
-    public List<Gol> getGoles() {
-        return goles;
-    }
+    public List<Gol> getGoles() {return goles;}
 
-    public void agregarGol(Gol gol) {
-        goles.add(gol);
-    }
+    public void agregarGol(Gol gol) {goles.add(gol);}
 
     public List<Falta> getFaltas() {
         return faltas;
