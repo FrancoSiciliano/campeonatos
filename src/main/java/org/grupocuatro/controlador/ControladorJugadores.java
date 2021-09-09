@@ -96,11 +96,14 @@ public class ControladorJugadores {
         }
     }
 
-    //FIXME Habría que contar las amarillas y si llega a un límite, no dejarlo integrar la lista de jugadores tampoco.
-    public void habilitarJugador(int idJugador, int idClub, int idCampeonato) {
-//          if (fueExpulsadoEnElUltimoPartido(idJugador, idClub, idCampeonato))
-//             System.out.println("El jugador fue expulsado en el último partido");
-//        else {
+    public void changeEstado(int idJugador) {
+        try {
+            Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+            if (j.isEstado()) j.setEstado(false);
+            else j.setEstado(true);
+        } catch (JugadorException e) {
+            e.printStackTrace();
+        }
     }
 
 

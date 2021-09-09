@@ -24,6 +24,7 @@ public class Jugador implements Comparable<Jugador> {
     private String mail;
     private String telefono;
     private int categoria;
+    private boolean estado;
     private LocalDate fechaNacimiento;
     @ManyToOne
     @JoinColumn(name = "idClub")
@@ -45,6 +46,7 @@ public class Jugador implements Comparable<Jugador> {
         this.nombre = nombre;
         this.apellido = apellido;
         this.club = club;
+        this.estado = true;
         this.faltas = new ArrayList<>();
         this.fechaNacimiento = fechaNacimiento;
         this.tipoDocumento = tipoDocumento;
@@ -57,13 +59,12 @@ public class Jugador implements Comparable<Jugador> {
             this.categoria = auxCategoria - 1900;
         else
             this.categoria = auxCategoria - 2000;
-        this.goles = new ArrayList<>();                 // Está en el constructor de abajo, ¿hay que sacarlo de acá?
     }
 
     public Jugador() {
         goles = new ArrayList<>();
         faltas = new ArrayList<>();
-        partidos = new ArrayList<>(); //FIXME Este arreglo no va acá, no corresponde
+        partidos = new ArrayList<>();
     }
 
     @Override
@@ -177,6 +178,10 @@ public class Jugador implements Comparable<Jugador> {
     public void setClub(Club club) {
         this.club = club;
     }
+
+    public boolean isEstado() {return estado;}
+
+    public void setEstado(boolean estado) {this.estado = estado;}
 
     @Override
     public int compareTo(Jugador o) {
