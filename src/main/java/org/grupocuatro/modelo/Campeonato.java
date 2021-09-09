@@ -11,104 +11,118 @@ import java.util.List;
 
 @Entity
 @Table(name = "campeonatos")
-public class Campeonato implements Comparable<Campeonato>{
-	//FIXME AGREGAR ATRIBUTO PARA INDICAR TIPO DE CAMPEONATO
+public class Campeonato implements Comparable<Campeonato> {
+    //FIXME AGREGAR ATRIBUTO PARA INDICAR TIPO DE CAMPEONATO
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idCampeonato")
-	private Integer idCampeonato;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCampeonato")
+    private Integer idCampeonato;
 
-	private String descripcion;
-	private LocalDate fechaInicio;
-	private LocalDate fechaFin;
-	private String estado;
+    private String descripcion;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+    private String estado;
+    private String tipoCampeonato;
+    private Integer categoria;
 
-	@OneToMany(mappedBy = "idClub")
-	private List<Club> inscriptos;
+    @OneToMany(mappedBy = "idClub")
+    private List<Club> inscriptos;
 
-	@OneToMany(mappedBy = "campeonato")
-	private List<Partido> partidos;
+    @OneToMany(mappedBy = "campeonato")
+    private List<Partido> partidos;
 
-	@OneToMany(mappedBy = "campeonato")
-	private List<Falta> faltas;
+    @OneToMany(mappedBy = "campeonato")
+    private List<Falta> faltas;
 
 
-	@OneToMany(mappedBy = "campeonato")
-	private List<TablaPosiciones> tablaPosiciones;
-	
-	public Campeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
-		this.idCampeonato = null;
-		this.descripcion = descripcion;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-		this.estado = estado;
-	}
+    @OneToMany(mappedBy = "campeonato")
+    private List<TablaPosiciones> tablaPosiciones;
 
-	public Campeonato() {
-		partidos = new ArrayList<>();
-		inscriptos = new ArrayList<>();
-		faltas = new ArrayList<>();
-		tablaPosiciones = new ArrayList<>();
-	}
+    public Campeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, Integer categoria) {
+        this.idCampeonato = null;
+        this.descripcion = descripcion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.estado = estado;
+        this.tipoCampeonato = "";
+        this.categoria = categoria;
+    }
 
-	public List<TablaPosiciones> getTablaPosiciones(){
-		return tablaPosiciones;
-	}
+    public Campeonato() {
+        partidos = new ArrayList<>();
+        inscriptos = new ArrayList<>();
+        faltas = new ArrayList<>();
+        tablaPosiciones = new ArrayList<>();
+    }
 
-	public void setTablaPosiciones(List<TablaPosiciones> tablaPosiciones) {
-		this.tablaPosiciones = tablaPosiciones;
-	}
+    public List<TablaPosiciones> getTablaPosiciones() {
+        return tablaPosiciones;
+    }
 
-	public Integer getIdCampeonato() {
-		return idCampeonato;
-	}
+    public void setTablaPosiciones(List<TablaPosiciones> tablaPosiciones) {
+        this.tablaPosiciones = tablaPosiciones;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public Integer getIdCampeonato() {
+        return idCampeonato;
+    }
 
-	public LocalDate getFechaInicio() {
-		return fechaInicio;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public LocalDate getFechaFin() {
-		return fechaFin;
-	}
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
 
-	public String getEstado() {
-		return estado;
-	}
+    public LocalDate getFechaFin() {
+        return fechaFin;
+    }
 
-	public void setEstado(String estado) {this.estado = estado;}
+    public String getTipoCampeonato() {
+        return tipoCampeonato;
+    }
 
-	@Override
-	public int compareTo(Campeonato o) {
-		return this.getIdCampeonato().compareTo(o.getIdCampeonato());
-	}
-	
-	public void inscribirClub(Club club) {
-		inscriptos.add(club);
-		if(!club.participa(this))
-			club.participar(this);
-	}
+    public void setTipoCampeonato(String tipoCampeonato) {
+        this.tipoCampeonato = tipoCampeonato;
+    }
 
-	@Override
-	public String toString() {
-		return "Campeonato{" +
-				"idCampeonato=" + idCampeonato +
-				", descripcion='" + descripcion + '\'' +
-				", fechaInicio=" + fechaInicio +
-				", fechaFin=" + fechaFin +
-				", estado='" + estado + '\'' +
-				'}';
-	}
+    public String getEstado() {
+        return estado;
+    }
 
-	public void save() {
-		CampeonatoDao.getInstancia().save(this);
-	}
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-	public void update() {
-		CampeonatoDao.getInstancia().update(this);
-	}
+    @Override
+    public int compareTo(Campeonato o) {
+        return this.getIdCampeonato().compareTo(o.getIdCampeonato());
+    }
+
+    public void inscribirClub(Club club) {
+        inscriptos.add(club);
+        if (!club.participa(this))
+            club.participar(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Campeonato{" +
+                "idCampeonato=" + idCampeonato +
+                ", descripcion='" + descripcion + '\'' +
+                ", fechaInicio=" + fechaInicio +
+                ", fechaFin=" + fechaFin +
+                ", estado='" + estado + '\'' +
+                '}';
+    }
+
+    public void save() {
+        CampeonatoDao.getInstancia().save(this);
+    }
+
+    public void update() {
+        CampeonatoDao.getInstancia().update(this);
+    }
 }

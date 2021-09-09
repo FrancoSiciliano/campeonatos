@@ -1,6 +1,8 @@
 package org.grupocuatro.modelo;
 
 
+import org.grupocuatro.dao.PartidoDao;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -198,5 +200,10 @@ public class Partido {
     public void agregarGol(Gol g) {this.goles.add(g);}
 
     public void agregarFalta(Falta f) {this.faltas.add(f);}
+
+    public void save () { PartidoDao.getInstancia().save(this);}
+
+    public void update () {PartidoDao.getInstancia().update(this);}
+
 
 }

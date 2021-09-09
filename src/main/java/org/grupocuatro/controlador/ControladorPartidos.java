@@ -11,6 +11,16 @@ import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
 
 public class ControladorPartidos {
+    private static ControladorPartidos instancia;
+    private ControladorPartidos(){}
+
+    public static ControladorPartidos getInstancia(){
+        if(instancia == null)
+            instancia = new ControladorPartidos();
+        return instancia;
+    }
+
+    //FIXME actualizar tabla de goles, faltas y tabla posicion
 
     public Integer crearPartido(int nroFecha, int nroZona, int categoria, int idClubLocal, int idClubVisitante, int idCampeonato) throws PartidoException {
         try {
@@ -32,11 +42,13 @@ public class ControladorPartidos {
 
     public void cargarResultadoPartido(int idPartido) {
         try {
+            ControladorGoles cont = ControladorGoles.getInstancia();
+
             Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
             int clubLocal = p.getClubLocal().getIdClub();
             int clubVisitante = p.getClubVisitante().getIdClub();
-            int cantGolesLocal = contarCantidadGoles(clubLocal, idPartido);
-            int cantGolesVisitante = contarCantidadGoles(clubVisitante, idPartido);
+            int cantGolesLocal = cont.contarCantidadGoles(clubLocal, idPartido);
+            int cantGolesVisitante = cont.contarCantidadGoles(clubVisitante, idPartido);
             p.setGolesLocal(cantGolesLocal);
             p.setGolesVisitante(cantGolesVisitante);
         } catch (PartidoException e) {
@@ -44,6 +56,37 @@ public class ControladorPartidos {
             System.out.println(e.getMessage());
         }
     }
-    //FIXME AGREGAR VALIDADOS
-    //FIXME actualizar tabla de goles, faltas y tabla posicion
+
+    public void validadoPorClubLocal (Integer idClubL, Integer idPartido){
+        try{
+            Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
+            if(idClubL == partido.getClubLocal().getIdClub()){
+                partido.setConvalidaLocal();
+                partido.update();
+            }else{
+                System.out.println("El club ingresado no corresponde al club local");
+            }
+
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    public void validadoPorClubVisitante (Integer idClubL, Integer idPartido){
+        try{
+            Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
+            if(idClubL == partido.getClubVisitante().getIdClub()){
+                partido.setConvalidaVisitante();
+                partido.update();
+            }else{
+                System.out.println("El club ingresado no corresponde al club visitante");
+            }
+
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
 }

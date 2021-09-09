@@ -13,7 +13,15 @@ import org.grupocuatro.modelo.Partido;
 import java.util.List;
 
 public class ControladorGoles {
-    //FIXME SINGLETON
+    private static ControladorGoles instancia;
+
+    private ControladorGoles(){}
+
+    public static ControladorGoles getInstancia(){
+        if(instancia == null)
+            instancia = new ControladorGoles();
+        return instancia;
+    }
 
     public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo) {
         JugadorDao jugadordao = JugadorDao.getInstancia();

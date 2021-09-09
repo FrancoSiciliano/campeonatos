@@ -42,5 +42,12 @@ public class ClubDao extends AbstractDao {
         throw new ClubException("No existen clubes ");
     }
 
+    public List<Club> getClubesCategoria(Integer categoria) throws ClubException {
+        List<Club> clubes = getEntityManager().createQuery("FROM Club c INNER JOIN Jugador j ON c.idClub = j.idClub WHERE j.categoria = " + categoria + " GROUP BY c.idClub HAVING COUNT(*) >= 17").getResultList();
+        if (clubes != null) return clubes;
+        throw new ClubException("No existen clubes ");
+    }
+
+
 
 }

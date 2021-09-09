@@ -96,46 +96,39 @@ public class ControladorJugadores {
     public void getStatsByCampeonato(int idJugador, int idCampeonato) {
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-            try {
-                Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-                try {
-                    List<Partido> partidosClub = PartidoDao.getInstancia().getPartidosByCampeonatoAndClub(idCampeonato, j.getClub().getIdClub()); // Se buscan los partidos que corresponden al campeonato y al club al que pertenece el jugador
-                    int cantGoles = 0;
-                    int cantAmarillas = 0;
-                    int cantRojas = 0;
-                    int cantJugados = 0;
-                    for (Partido p : partidosClub) {
-                        try {
-                            MiembroDao.getInstancia().getMiembroByPartidoAndJugador(p.getIdPartido(), j.getIdJugador()); // De los partidos obtenidos anteriormente, se determina si el jugador en cuestión participó o no. Si no lo hizo, no se buscan las estadísticas.
-                            cantJugados++;
-                            try {
-                                cantGoles = cantGoles +  GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
-                            } catch (GolException e) {
-                                cantGoles = cantGoles;
-                            }
-                            try {
-                                cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla", p.getIdPartido()).size();
-                            } catch (FaltaException e) {
-                                cantAmarillas = cantAmarillas;
-                            }
-                            try {
-                                cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
-                            } catch (FaltaException e) {
-                                cantRojas = cantRojas;
-                            }
-                        } catch (MiembroException e) {
-                            cantJugados = cantJugados;
-                        }
-                    }
-                    j.getEstadisticasCampeonato(campeonato.getIdCampeonato(), cantGoles, cantAmarillas, cantRojas, cantJugados); // Printea todos los datos con formato.
+            Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
+            List<Partido> partidosClub = PartidoDao.getInstancia().getPartidosByCampeonatoAndClub(idCampeonato, j.getClub().getIdClub()); // Se buscan los partidos que corresponden al campeonato y al club al que pertenece el jugador
 
-                } catch (PartidoException e) {
-                    System.out.println(e.getMessage());
+            int cantGoles = 0;
+            int cantAmarillas = 0;
+            int cantRojas = 0;
+            int cantJugados = 0;
+            for (Partido p : partidosClub) {
+                try {
+                    MiembroDao.getInstancia().getMiembroByPartidoAndJugador(p.getIdPartido(), j.getIdJugador()); // De los partidos obtenidos anteriormente, se determina si el jugador en cuestión participó o no. Si no lo hizo, no se buscan las estadísticas.
+                    cantJugados++;
+                    try {
+                        cantGoles = cantGoles +  GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
+                    } catch (GolException e) {
+                        cantGoles = cantGoles;
+                    }
+                    try {
+                        cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla", p.getIdPartido()).size();
+                    } catch (FaltaException e) {
+                        cantAmarillas = cantAmarillas;
+                    }
+                    try {
+                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
+                    } catch (FaltaException e) {
+                        cantRojas = cantRojas;
+                    }
+                } catch (MiembroException e) {
+                    cantJugados = cantJugados;
                 }
-            } catch (CampeonatoException e) {
-                System.out.println(e.getMessage());
             }
-        } catch (JugadorException e) {
+            j.getEstadisticasCampeonato(campeonato.getIdCampeonato(), cantGoles, cantAmarillas, cantRojas, cantJugados); // Printea todos los datos con formato.
+
+        } catch (JugadorException | CampeonatoException | PartidoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -144,45 +137,40 @@ public class ControladorJugadores {
     public void getStatsByClub(int idJugador, int idClub) {
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-            try {
-                Club c = ClubDao.getInstancia().getClubById(idClub);
+            Club c = ClubDao.getInstancia().getClubById(idClub);
+
+            int cantGoles = 0;
+            int cantAmarillas = 0;
+            int cantRojas = 0;
+            int cantJugados = 0;
+            List<Partido> partidosClub = PartidoDao.getInstancia().getPartidosByClub(idClub);
+
+            for (Partido p : partidosClub) {
                 try {
-                    int cantGoles = 0;
-                    int cantAmarillas = 0;
-                    int cantRojas = 0;
-                    int cantJugados = 0;
-                    List<Partido> partidosClub = PartidoDao.getInstancia().getPartidosByClub(idClub);
-                    for (Partido p : partidosClub) {
-                        try {
-                            MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(c.getIdClub(), p.getIdPartido(), j.getIdJugador());
-                            cantJugados++;
-                            try {
-                                cantGoles = cantGoles +  GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
-                            } catch (GolException e) {
-                                cantGoles = cantGoles;
-                            }
-                            try {
-                                cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla", p.getIdPartido()).size();
-                            } catch (FaltaException e) {
-                                cantAmarillas = cantAmarillas;
-                            }
-                            try {
-                                cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
-                            } catch (FaltaException e) {
-                                cantRojas = cantRojas;
-                            }
-                        } catch (MiembroException e) {
-                            cantJugados = cantJugados;
-                        }
+                    MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(c.getIdClub(), p.getIdPartido(), j.getIdJugador());
+                    cantJugados++;
+                    try {
+                        cantGoles = cantGoles +  GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
+                    } catch (GolException e) {
+                        cantGoles = cantGoles;
                     }
-                    j.getEstadisticasClub(cantGoles, cantAmarillas, cantRojas, cantJugados); // Printea todos los datos con formato.
-                } catch (PartidoException e) {
-                    System.out.println(e.getMessage());
+                    try {
+                        cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla", p.getIdPartido()).size();
+                    } catch (FaltaException e) {
+                        cantAmarillas = cantAmarillas;
+                    }
+                    try {
+                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
+                    } catch (FaltaException e) {
+                        cantRojas = cantRojas;
+                    }
+                } catch (MiembroException e) {
+                    cantJugados = cantJugados;
                 }
-            } catch (ClubException e) {
-                System.out.println(e.getMessage());
             }
-        } catch (JugadorException e) {
+            j.getEstadisticasClub(cantGoles, cantAmarillas, cantRojas, cantJugados); // Printea todos los datos con formato.
+
+        } catch (JugadorException | ClubException | PartidoException e) {
             System.out.println(e.getMessage());
         }
     }

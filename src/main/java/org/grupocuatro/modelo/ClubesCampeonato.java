@@ -1,5 +1,7 @@
 package org.grupocuatro.modelo;
 
+import org.grupocuatro.dao.ClubesCampeonatoDao;
+
 import javax.persistence.*;
 
 @Entity
@@ -59,4 +61,6 @@ public class ClubesCampeonato {
     public void setIdCampeonato(Campeonato idCampeonato) {
         this.idCampeonato = idCampeonato;
     }
+
+    public void save() { ClubesCampeonatoDao.getInstancia().save(this); }
 }

@@ -4,7 +4,20 @@ import org.grupocuatro.dao.ClubDao;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.modelo.Club;
 
+import java.util.List;
+
 public class ControladorClubes {
+    private static ControladorClubes instancia;
+
+    private ControladorClubes() {
+    }
+
+    public static ControladorClubes getInstancia() {
+        if (instancia == null)
+            instancia = new ControladorClubes();
+        return instancia;
+    }
+
     public void crearClub(Integer id, String nombre, String direccion) {
         try {
             Club club = ClubDao.getInstancia().getClubById(id);
@@ -24,8 +37,18 @@ public class ControladorClubes {
             club.update();
 
         } catch (ClubException e) {
-            System.out.printf(e.getMessage());
+            System.out.print(e.getMessage());
         }
+    }
+
+    public List<Club> getClubesCategoria (Integer categoria){
+        try{
+            return ClubDao.getInstancia().getClubesCategoria(categoria);
+        } catch (ClubException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 
 }
