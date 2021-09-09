@@ -102,6 +102,13 @@ public class Jugador implements Comparable<Jugador> {
                 "}";
     }
 
+    public LocalDate getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(LocalDate fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
 
     public String getApellido() {
         return apellido;

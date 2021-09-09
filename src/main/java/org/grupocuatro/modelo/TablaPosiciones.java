@@ -7,7 +7,9 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "tablaPosiciones")
-public class TablaPosiciones {
+public class TablaPosiciones implements Serializable{
+
+    private static final long serialVersionUID = 1140126951524813662L;
 
     @Id
     @ManyToOne
