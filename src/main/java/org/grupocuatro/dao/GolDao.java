@@ -18,37 +18,37 @@ public class GolDao extends AbstractDao {
         return instancia;
     }
 
-    public List<Gol> getGolesByPartido(int idPartido) throws GolException {
+    public List<Gol> getGolesByPartido(Integer idPartido) throws GolException {
         List<Gol> goles = getEntityManager().createQuery("FROM Gol WHERE idPartido = " + idPartido).getResultList();
         if (!goles.isEmpty()) return goles;
         throw new GolException("No hubo goles en el partido " + idPartido);
     }
 
-    public List<Gol> getGolesByPartidoAndClub(int idPartido, int idClub) throws GolException {
+    public List<Gol> getGolesByPartidoAndClub(Integer idPartido, Integer idClub) throws GolException {
         List<Gol> goles = getEntityManager().createQuery("FROM Gol WHERE idPartido = " + idPartido + " AND idClub = " + idClub).getResultList();
         if (!goles.isEmpty()) return goles;
         throw new GolException("No hubo goles del club " + idClub + " en el partido " + "idPartido");
     }
 
-    public List<Gol> getGolesByPartidoAndSentido(int idPartido, String sentido) throws GolException {
+    public List<Gol> getGolesByPartidoAndSentido(Integer idPartido, String sentido) throws GolException {
         List<Gol> goles = getEntityManager().createQuery("FROM Gol WHERE idPartido = " + idPartido + " and sentido = '" + sentido + "'").getResultList();
         if (!goles.isEmpty()) return goles;
         throw new GolException("No hubo goles " + sentido + " en el partido " + idPartido);
     }
 
-    public List<Gol> getGolesByJugadorAndPartido(int idPartido, int idJugador) throws GolException {
+    public List<Gol> getGolesByJugadorAndPartido(Integer idPartido, Integer idJugador) throws GolException {
         List<Gol> goles = getEntityManager().createQuery("FROM Gol WHERE idPartido = " + idPartido + " and idJugador = '" + idJugador + "'").getResultList();
         if (!goles.isEmpty()) return goles;
         throw new GolException("El jugador " + idJugador + " no realizó goles en el partido: " + idPartido);
     }
 
-    public List<Gol> getGolesByJugador(int idJugador) throws GolException {
+    public List<Gol> getGolesByJugador(Integer idJugador) throws GolException {
         List<Gol> goles = getEntityManager().createQuery("FROM Gol WHERE idJugador = " + idJugador).getResultList();
         if (!goles.isEmpty()) return goles;
         throw new GolException("El jugador " + idJugador + " no realizó goles");
     }
 
-    public Gol getGolById(int id) throws GolException {
+    public Gol getGolById(Integer id) throws GolException {
         try {
             Gol gol = (Gol) getEntityManager().createQuery("FROM Gol WHERE idGol = " + id).getSingleResult();
             return gol;

@@ -59,12 +59,6 @@ public class FaltaDao extends AbstractDao {
         throw new FaltaException("No existen faltas del tipo " + tipo);
     }
 
-    public List<Falta> getFaltaByMinuto(Integer min) throws FaltaException {
-        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE minuto = " + min).getResultList();
-        if (!faltas.isEmpty()) return faltas;
-        throw new FaltaException("No hay faltas en el minuto " + min);
-    }
-
     public List<Falta> getFaltasByJugadorAndPartido(Integer jugador, Integer partido) throws FaltaException {
         List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " AND idPartido = " + partido).getResultList();
         if (!faltas.isEmpty()) return faltas;
