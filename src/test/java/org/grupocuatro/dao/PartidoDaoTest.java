@@ -91,6 +91,5 @@ public class PartidoDaoTest extends TestCase {
 
     public void testgetUltimoPartidoByClubAndCampeonatoAndJugador() {
        // Integer idClub, Integer idCampeonato, Integer idJugador
-        System.out.println("a");
     }
 }

@@ -1,7 +1,6 @@
 package org.grupocuatro.dao;
 
 import junit.framework.TestCase;
-import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.excepciones.GolException;
 
 public class GolDaoTest extends TestCase {
