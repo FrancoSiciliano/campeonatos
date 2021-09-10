@@ -15,6 +15,7 @@ import org.grupocuatro.modelo.TablaPosiciones;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class ControladorPartidos {
@@ -28,8 +29,6 @@ public class ControladorPartidos {
             instancia = new ControladorPartidos();
         return instancia;
     }
-
-    //FIXME actualizar tabla de goles, faltas y tabla posicion
 
     public Integer crearPartido(int nroFecha, int nroZona, int categoria, Integer idClubLocal, Integer idClubVisitante, LocalDate fecha, Integer idCampeonato) {
         ControladorCampeonatos cc = ControladorCampeonatos.getInstancia();
@@ -51,6 +50,25 @@ public class ControladorPartidos {
 
     }
 
+    public void cargarResultadoPartido(int idPartido, String incidentes) {
+        try {
+            ControladorGoles cont = ControladorGoles.getInstancia();
+            ControladorFaltas controladorFaltas = ControladorFaltas.getInstancia();
+            Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
+
+            int clubLocal = p.getClubLocal().getIdClub();
+            int clubVisitante = p.getClubVisitante().getIdClub();
+            int cantGolesLocal = cont.contarCantidadGoles(clubLocal, idPartido);
+            int cantGolesVisitante = cont.contarCantidadGoles(clubVisitante, idPartido);
+            p.setGolesLocal(cantGolesLocal);
+            p.setGolesVisitante(cantGolesVisitante);
+            p.setIncidentes(incidentes);
+
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public Partido encontrarPartido(Integer idPartido) {
         PartidoDao partidodao = PartidoDao.getInstancia();
         Partido partido = null;
@@ -63,23 +81,6 @@ public class ControladorPartidos {
         return null;
     }
 
-    public void cargarResultadoPartido(int idPartido) { //FIXME pensar como manejar las faltas en la carga de rdos
-        try {
-            ControladorGoles cont = ControladorGoles.getInstancia();
-            ControladorFaltas controladorFaltas = ControladorFaltas.getInstancia();
-            Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
-
-            int clubLocal = p.getClubLocal().getIdClub();
-            int clubVisitante = p.getClubVisitante().getIdClub();
-            int cantGolesLocal = cont.contarCantidadGoles(clubLocal, idPartido);
-            int cantGolesVisitante = cont.contarCantidadGoles(clubVisitante, idPartido);
-            p.setGolesLocal(cantGolesLocal);
-            p.setGolesVisitante(cantGolesVisitante);
-
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public void validadoPorClubLocal(Integer idClubL, Integer idPartido) {
         try {
@@ -118,7 +119,7 @@ public class ControladorPartidos {
 
     private void modificarTablaPosiciones(Partido partido) {
 
-        if (chequearValidacion(partido)){
+        if (chequearValidacion(partido)) {
             if (partido.isEmpate()) {
                 actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesLocal(), partido.getGolesVisitante());
                 actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesVisitante(), partido.getGolesLocal());
@@ -130,17 +131,19 @@ public class ControladorPartidos {
     }
 
     private boolean chequearValidacion(Partido partido) {
-        return  partido.isValidado();
+        return partido.isValidado();
     }
 
     public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesContra, int golesFavor) {
         TablaPosiciones tp = null;
+        ControladorClubes controladorClubes = ControladorClubes.getInstancia();
+        ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
+
         try {
             tp = TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(idClub, idCampeonato);
         } catch (TablaPosicionException e) {
-            System.out.println(e.getMessage());
-            //TODO aca habría que crear la tabla posiciones
-            return;
+            tp = new TablaPosiciones(controladorClubes.getClubById(idClub), controladorCampeonatos.encontrarCampeonato(idCampeonato));
+            tp.save();
         }
 
         switch (puntos) {
@@ -158,15 +161,73 @@ public class ControladorPartidos {
         }
 
         int difGoles = golesFavor - golesContra;
+
         tp.setDiferenciaGoles(tp.getDiferenciaGoles() + difGoles);
         tp.setGolesFavor(tp.getGolesFavor() + golesFavor);
         tp.setGolesContra(tp.getGolesContra() + golesContra);
-        //TODO  promedio???
 
+        float ptos = tp.getPuntos();
+        float partidosJugados = tp.getCantidadJugados();
+
+        tp.setPromedio(ptos / partidosJugados);
+        tp.update();
     }
-    //TODO hacer gets
+
+
+    public List<Partido> getAllPartidos() {
+        try {
+            return PartidoDao.getInstancia().getAllPartidos();
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Partido> getPartidosByCategoria(int categoria) {
+        try {
+            return PartidoDao.getInstancia().getPartidosByCategoria(categoria);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
 
 
+    public List<Partido> getPartidosByNroFecha(int nroFecha) {
+        try {
+            return PartidoDao.getInstancia().getPartidosByNroFecha(nroFecha);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Partido> getPartidosByNroZona(int NroZona) {
+        try {
+            return PartidoDao.getInstancia().getPartidosByNroZona(NroZona);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Partido> getPartidosByClubLocal(int idClub) {
+        try {
+            return PartidoDao.getInstancia().getPartidosByClubLocal(idClub);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Partido> getPartidosByClubVisitante(int idClub) {
+        try {
+            return PartidoDao.getInstancia().getPartidosByClubVisitante(idClub);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
 }

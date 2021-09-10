@@ -21,7 +21,7 @@ public class ControladorJugadores {
         return instancia;
     }
 
-    public Jugador encontrarJugador(int idJugador){//tiene q estar en el controlador y no aca
+    public Jugador encontrarJugador(int idJugador){
         JugadorDao jugadordao = JugadorDao.getInstancia();
         Jugador jugador = null;
         try{
@@ -89,6 +89,60 @@ public class ControladorJugadores {
         } catch (JugadorException e) {
             System.out.println(e.getMessage());;
         }
+    }
+
+    public Jugador getJugadorById(Integer idJugador) {
+        try{
+            return JugadorDao.getInstancia().getJugadorById(idJugador);
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Jugador getJugadorByDocumento(Integer nroDoc, String tipoDocumento ) {
+        try{
+            return JugadorDao.getInstancia().getJugadorByDocumento(nroDoc, tipoDocumento);
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Jugador> getJugadorByNombre(String nombre, String apellido) {
+        try{
+            return JugadorDao.getInstancia().getJugadorByNombre(nombre, apellido);
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Jugador> getJugadores() {
+        try{
+            return JugadorDao.getInstancia().getJugadores();
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Jugador> getJugadoresByClub(Integer idClub) {
+        try{
+            return JugadorDao.getInstancia().getJugadoresByClub(idClub);
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Jugador> getJugadoresByCategoria(int categoria) {
+        try{
+            return JugadorDao.getInstancia().getJugadoresByCategoria(categoria);
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     //TODO ESTA PARTE ES PARA LAS PROXIMAS ETAPAS DEL TRABAJO (IGNORAR)
@@ -176,4 +230,6 @@ public class ControladorJugadores {
             System.out.println(e.getMessage());
         }
     }
+
+
 }
