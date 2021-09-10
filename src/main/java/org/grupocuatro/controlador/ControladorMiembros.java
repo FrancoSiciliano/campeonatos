@@ -50,7 +50,7 @@ public class ControladorMiembros {
                 puedeJugarPorDia(partido, jugador, campeonato.getIdCampeonato()) &&
                 hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
                 !elCampeonatoComenzo(campeonato, jugador) &&
-                estaHabilitadoParaJugar(partido,miembro)) { //FIXME FALTA CHEQUEAR HABILITACION
+                estaHabilitadoParaJugar(partido, jugador)) { //FIXME FALTA CHEQUEAR HABILITACION
 
             miembro.setJugador(jugador);
             miembro.update();
@@ -92,22 +92,24 @@ public class ControladorMiembros {
         return !campeonato.getFechaInicio().isAfter(jugador.getFechaAlta());
     }
 
-    private boolean estaHabilitadoParaJugar(Partido partido, Miembro miembro) {
+    private boolean estaHabilitadoParaJugar(Partido partido, Jugador jugador) {
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
-        Jugador jugador = miembro.getJugador();
         int nroFecha = partido.getNroFecha();
         Campeonato campeonato = partido.getCampeonato();
 
         if (jugador.isEstado())  {
             Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub(), campeonato, nroFecha);
-            List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido());
-            if (faltas != null) {
-                return false;
+            if (ultimoPartido != null) {
+                List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido());
+                if (faltas != null) {
+                    return false;
+                } else {
+                    return true;
+                }
             } else {
                 return true;
             }
         }
-
         return false;
     }
 
