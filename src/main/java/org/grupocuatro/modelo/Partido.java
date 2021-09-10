@@ -12,9 +12,6 @@ import java.util.List;
 @Table(name = "partidos")
 public class Partido {
 
-    //FIXME AGREGAR INCIDENTES
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idPartido")
