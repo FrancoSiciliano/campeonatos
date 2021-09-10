@@ -76,7 +76,7 @@ public class ControladorCampeonatos {
         return null;
     }
 
-    public Campeonato encontrarCampeonato(Integer idCampeonato) {//tiene q estar en el controlador y no aca
+    public Campeonato encontrarCampeonato(Integer idCampeonato) {
         CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
         Campeonato campeonato = null;
         try {
@@ -93,8 +93,10 @@ public class ControladorCampeonatos {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             Club club = ControladorClubes.getInstancia().getClubById(idClub);
 
-            ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
-            nuevocc.save();
+            if (club != null) {
+                ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
+                nuevocc.save();
+            } else System.out.println("No existe el club ingresado");
 
         } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
@@ -102,7 +104,7 @@ public class ControladorCampeonatos {
 
     }
 
-    public List<Campeonato> getCampeonatosByClub (Integer idClub){
+    public List<Campeonato> getCampeonatosByClub(Integer idClub) {
         try {
             return ClubesCampeonatoDao.getInstancia().getCampeonatosClub(idClub);
         } catch (ClubesCampeonatoException e) {
