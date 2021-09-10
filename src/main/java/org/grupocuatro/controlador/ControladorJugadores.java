@@ -21,9 +21,10 @@ public class ControladorJugadores {
         try{
             jugador = jugadordao.getJugadorById(idJugador);
             return jugador;
-        }catch (JugadorException e){
-            return null;
+        } catch (JugadorException e){
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 
     public static ControladorJugadores getInstancia() {

@@ -41,6 +41,7 @@ public class ControladorCampeonatos {
         try {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             campeonato.setTipoCampeonato(tipo);
+            campeonato.update();
         } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
         }
