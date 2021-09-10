@@ -192,6 +192,14 @@ public class ControladorPartidos {
         return null;
     }
 
+    public Partido getUltimoPartidoByClubAndCampeonato(Club club, Campeonato campeonato ,int nroFechaActual){
+        try {
+            return PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(club.getIdClub(), campeonato.getIdCampeonato(), nroFechaActual);
+        } catch (PartidoException e) {
+            System.out.printf(e.getMessage());
+        }
+        return null;
+    }
 
 
     public List<Partido> getPartidosByNroFecha(int nroFecha) {

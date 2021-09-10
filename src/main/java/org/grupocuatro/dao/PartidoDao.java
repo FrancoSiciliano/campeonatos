@@ -71,32 +71,17 @@ public class PartidoDao extends AbstractDao {
         throw new PartidoException("No existen partidos del club visitante " + idClub);
     }
 
+    public Partido getUltimoPartidoByClubAndCampeonato(Integer idClub, Integer idCampeonato, int nroFechaActual) throws PartidoException {
+        String qlString = "FROM Partido WHERE (idClubLocal = ?1 or idClubVisitante = ?1) and idCampeonato = ?2 and nroFecha < ?3 ORDER BY nroFecha DESC";
+        Query query = getEntityManager().createQuery(qlString);
+        query.setParameter(1, idClub);
+        query.setParameter(2, idCampeonato);
+        query.setParameter(3, nroFechaActual - 1);
+        List<Partido> partidosAnteriores = query.getResultList();
+        if (partidosAnteriores != null) return partidosAnteriores.get(0);
+        throw new PartidoException("El equipo no tiene partidos previos");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
     public List<Partido> getPartidosByCampeonatoAndJugador(int idCampeonato, int idJugador) throws PartidoException {
         List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato = " + idCampeonato + " AND idJugador = " + idJugador).getResultList();

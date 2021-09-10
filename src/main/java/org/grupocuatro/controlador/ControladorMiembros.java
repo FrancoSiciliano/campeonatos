@@ -49,7 +49,8 @@ public class ControladorMiembros {
         if (puedeJugarPorCategoria(partido, jugador) &&
                 puedeJugarPorDia(partido, jugador, campeonato.getIdCampeonato()) &&
                 hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
-                !elCampeonatoComenzo(campeonato, jugador)) { //FIXME FALTA CHEQUEAR HABILITACION
+                !elCampeonatoComenzo(campeonato, jugador) &&
+                estaHabilitadoParaJugar(partido,miembro)) { //FIXME FALTA CHEQUEAR HABILITACION
 
             miembro.setJugador(jugador);
             miembro.update();
@@ -60,7 +61,6 @@ public class ControladorMiembros {
     }
 
     //TODO ver que onda el egreso/ingreso para hacer el modificar
-    //TODO hacer gets de los daos
 
     private boolean puedeJugarPorCategoria(Partido partido, Jugador jugador) {
         int categoriaPartido = partido.getCategoria();
@@ -92,7 +92,24 @@ public class ControladorMiembros {
         return !campeonato.getFechaInicio().isAfter(jugador.getFechaAlta());
     }
 
-    //FIXME FALTA CHEQUEAR SI ESTA HABILITADO PARA JUGAR
+    private boolean estaHabilitadoParaJugar(Partido partido, Miembro miembro) {
+        ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
+        Jugador jugador = miembro.getJugador();
+        int nroFecha = partido.getNroFecha();
+        Campeonato campeonato = partido.getCampeonato();
+
+        if (jugador.isEstado())  {
+            Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub(), campeonato, nroFecha);
+            List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido());
+            if (faltas != null) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public Miembro getMiembroById(Integer idMiembro) {
         try {
