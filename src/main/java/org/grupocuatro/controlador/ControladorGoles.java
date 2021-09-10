@@ -30,7 +30,7 @@ public class ControladorGoles {
 
         Gol gol = null;
 
-        if (jugador != null && controladorPartidos != null) {
+        if (jugador != null && partido != null) {
             GolDao goldao = GolDao.getInstancia();
             gol = new Gol(jugador, partido, minuto, tipo);
             gol.save();
@@ -44,21 +44,27 @@ public class ControladorGoles {
         Partido p = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
 
         int cantGoles = 0;
-        try {
-            List<Gol> goles;
 
-            if (idClub == p.getClubLocal().getIdClub()) {
-                goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubVisitante().getIdClub());
-            } else {
-                goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubLocal().getIdClub());
+        if (p != null) {
+            try {
+                List<Gol> goles;
+
+                if (idClub == p.getClubLocal().getIdClub()) {
+                    goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubVisitante().getIdClub());
+                } else {
+                    goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubLocal().getIdClub());
+                }
+
+                cantGoles = goles.size();
+                return cantGoles;
+
+            } catch (GolException e) {
+                cantGoles = 0;
+                return cantGoles;
             }
-
-            cantGoles = goles.size();
-            return cantGoles;
-
-        } catch (GolException e) {
-            cantGoles = 0;
-            return cantGoles;
+        } else {
+            System.out.println("No existe el partido indicado");
+            return 0;
         }
     }
 
