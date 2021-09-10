@@ -15,13 +15,7 @@ public class ControladorJugadores {
 
     private ControladorJugadores() {}
 
-    public static ControladorJugadores getInstancia() {
-        if (instancia == null)
-            instancia = new ControladorJugadores();
-        return instancia;
-    }
-
-    public Jugador encontrarJugador(int idJugador){
+    public Jugador encontrarJugador(int idJugador){//tiene q estar en el controlador y no aca
         JugadorDao jugadordao = JugadorDao.getInstancia();
         Jugador jugador = null;
         try{
@@ -31,6 +25,13 @@ public class ControladorJugadores {
             return null;
         }
     }
+
+    public static ControladorJugadores getInstancia() {
+        if (instancia == null)
+            instancia = new ControladorJugadores();
+        return instancia;
+    }
+
 
     public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, Integer idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono) throws JugadorException {
         JugadorDao dao = JugadorDao.getInstancia();
@@ -91,15 +92,6 @@ public class ControladorJugadores {
         }
     }
 
-    public Jugador getJugadorById(Integer idJugador) {
-        try{
-            return JugadorDao.getInstancia().getJugadorById(idJugador);
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
     public Jugador getJugadorByDocumento(Integer nroDoc, String tipoDocumento ) {
         try{
             return JugadorDao.getInstancia().getJugadorByDocumento(nroDoc, tipoDocumento);
@@ -144,6 +136,7 @@ public class ControladorJugadores {
         }
         return null;
     }
+
 
     //TODO ESTA PARTE ES PARA LAS PROXIMAS ETAPAS DEL TRABAJO (IGNORAR)
 
