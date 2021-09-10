@@ -155,9 +155,9 @@ public class ControladorPartidos {
             case 3:
                 tp.setCantidadGanados(tp.getCantidadGanados() + 1);
                 break;
-            default:
-                tp.setPuntos(tp.getPuntos() + puntos);
         }
+
+        tp.setPuntos(tp.getPuntos() + puntos);
 
         int difGoles = golesFavor - golesContra;
 
