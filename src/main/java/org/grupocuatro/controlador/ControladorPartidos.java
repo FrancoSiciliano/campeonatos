@@ -53,7 +53,6 @@ public class ControladorPartidos {
     public void cargarResultadoPartido(int idPartido, String incidentes) {
         try {
             ControladorGoles cont = ControladorGoles.getInstancia();
-            ControladorFaltas controladorFaltas = ControladorFaltas.getInstancia();
             Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
 
             int clubLocal = p.getClubLocal().getIdClub();
