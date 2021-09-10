@@ -55,7 +55,7 @@ public class ControladorGoles {
         try {
             return GolDao.getInstancia().getGoles();
         } catch (GolException e) {
-            System.out.printf(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return null;
     }

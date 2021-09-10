@@ -56,7 +56,7 @@ public class ControladorJugadores {
             j.setDireccion(direccion);
             j.update();
         } catch (JugadorException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());;
         }
     }
 
@@ -66,7 +66,7 @@ public class ControladorJugadores {
             j.setMail(mail);
             j.update();
         } catch (JugadorException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());;
         }
     }
 
@@ -76,7 +76,7 @@ public class ControladorJugadores {
             j.setTelefono(telefono);
             j.update();
         } catch (JugadorException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());;
         }
     }
 
@@ -87,7 +87,7 @@ public class ControladorJugadores {
             else j.setEstado(true);
             j.update();
         } catch (JugadorException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());;
         }
     }
 
