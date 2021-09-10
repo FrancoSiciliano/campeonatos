@@ -80,7 +80,7 @@ public class MiembroDao extends AbstractDao {
         cq.where(cb.and(fechaPred, jugador));
         List<Miembro> result =  getEntityManager().createQuery(cq).getResultList();
         if (!result.isEmpty()) return result;
-        throw new MiembroException("No existen partidos ese dia par el jguador");
+        throw new MiembroException("No existen partidos ese dia par el jugador");
     }
 
 }

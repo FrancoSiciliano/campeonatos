@@ -40,11 +40,22 @@ public class ControladorGoles {
     }
 
     public int contarCantidadGoles(Integer idClub, Integer idPartido) {
+
+        Partido p = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
+
         int cantGoles = 0;
         try {
-            List<Gol> goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub);
+            List<Gol> goles;
+
+            if (idClub == p.getClubLocal().getIdClub()) {
+                goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubVisitante().getIdClub());
+            } else {
+                goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubLocal().getIdClub());
+            }
+
             cantGoles = goles.size();
             return cantGoles;
+
         } catch (GolException e) {
             cantGoles = 0;
             return cantGoles;
@@ -69,9 +80,9 @@ public class ControladorGoles {
         return null;
     }
 
-    public List<Gol> getGolesByPartidoAndClub(Integer idPartido, Integer idClub) {
+    public List<Gol> getGolesByPartidoAndClub(Integer idPartido, Integer idClubAContar, Integer idClubRival) {
         try {
-            return GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub);
+            return GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClubAContar, idClubRival);
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }
