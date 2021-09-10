@@ -15,6 +15,16 @@ public class GolDaoTest extends TestCase {
         }
     }
 
+//    public void testGetGolesByPartidoAndClub() {
+//        try {
+//            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub());
+//            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub());
+//            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub());
+//        } catch (GolException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
+
     public void testGetGolesByPartidoAndSentido() {
         try {
             System.out.println(GolDao.getInstancia().getGolesByPartidoAndSentido(1,"Contrario"));

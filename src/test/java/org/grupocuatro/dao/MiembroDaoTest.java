@@ -47,12 +47,30 @@ public class MiembroDaoTest extends TestCase {
         try {
             List<Miembro> miembros = MiembroDao.getInstancia().getMiembrosByClubAndPartido(1,1);
             System.out.println(miembros);
-            List<Miembro> miembros1 = MiembroDao.getInstancia().getMiembrosByClubAndPartido(2,1);
-            System.out.println(miembros1);
-            List<Miembro> miembros2 = MiembroDao.getInstancia().getMiembrosByClubAndPartido(1,2);
-            System.out.println(miembros2);
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
         }
     }
+
+    public void testGetMiembrosByPartidoAndJugador() {
+        try {
+            Miembro miembros = MiembroDao.getInstancia().getMiembroByPartidoAndJugador(1,1);
+            System.out.println(miembros);
+
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetMiembroByClubAndPartidoAndJugador() {
+        try {
+            Miembro miembros = MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(1,1,1);
+            System.out.println(miembros);
+
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }
