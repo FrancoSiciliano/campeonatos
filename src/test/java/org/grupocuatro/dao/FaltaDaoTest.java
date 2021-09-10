@@ -58,15 +58,6 @@ public class FaltaDaoTest extends TestCase {
         }
     }
 
-    public void testGetFaltaByMinuto() {
-        try{
-            System.out.println(FaltaDao.getInstancia().getFaltaByMinuto(5));
-            System.out.println(FaltaDao.getInstancia().getFaltaByMinuto(51));
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public void testGetFaltasByJugadorAndPartido() {
         try{
             System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndPartido(1,1));

@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "tablaPosiciones")
-public class TablaPosiciones implements Serializable{
+@IdClass(TablaPosicionesPK.class)
+public class TablaPosiciones implements Serializable {
 
     private static final long serialVersionUID = 1140126951524813662L;
 
@@ -16,6 +17,7 @@ public class TablaPosiciones implements Serializable{
     @JoinColumn(name = "idClub")
     private Club id;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "idCampeonato")
     private Campeonato campeonato;
