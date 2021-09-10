@@ -93,4 +93,62 @@ public class ControladorMiembros {
     }
 
     //FIXME FALTA CHEQUEAR SI ESTA HABILITADO PARA JUGAR
+
+    public Miembro getMiembroById(Integer idMiembro) {
+        try {
+            return MiembroDao.getInstancia().getMiembroById(idMiembro);
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Miembro> getMiembros() {
+        try {
+            return MiembroDao.getInstancia().getMiembros();
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public List<Miembro> getMiembrosByClub(Integer idClub) {
+        try {
+            return MiembroDao.getInstancia().getMiembrosByClub(idClub);
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public List<Miembro> getMiembrosByClubAndPartido(Integer idClub,Integer idPartido) {
+        try {
+            return MiembroDao.getInstancia().getMiembrosByClubAndPartido(idClub,idPartido);
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public Miembro getMiembroByPartidoAndJugador(Integer idPartido,Integer idJugador) {
+        try {
+            return MiembroDao.getInstancia().getMiembroByPartidoAndJugador(idPartido,idJugador);
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public Miembro getMiembroByClubAndPartidoAndJugador(Integer idClub, Integer idPartido, Integer idJugador) {
+        try {
+            return MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(idClub,idPartido,idJugador);
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public List<Miembro> getMiembroByJugadorAndFecha(Integer idJugador, LocalDate fecha) {
+        try {
+            return MiembroDao.getInstancia().getMiembroByJugadorAndFecha(idJugador,fecha);
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }
