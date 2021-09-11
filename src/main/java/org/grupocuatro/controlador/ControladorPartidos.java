@@ -94,8 +94,6 @@ public class ControladorPartidos {
             } else {
                 System.out.println("El club ingresado no corresponde al club local");
             }
-
-
         } catch (PartidoException e) {
             System.out.println(e.getMessage());
         }
@@ -121,7 +119,6 @@ public class ControladorPartidos {
     }
 
     private void modificarTablaPosiciones(Partido partido) {
-
         if (chequearValidacion(partido)) {
             if (partido.isEmpate()) {
                 actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesLocal(), partido.getGolesVisitante());
