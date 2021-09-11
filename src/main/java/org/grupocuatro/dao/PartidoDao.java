@@ -33,8 +33,7 @@ public class PartidoDao extends AbstractDao {
 
     public Partido getPartidoById(Integer idPartido) throws PartidoException {
         try {
-            Partido partido = (Partido) getEntityManager().createQuery("FROM Partido WHERE idPartido = " + idPartido).getSingleResult();
-            return partido;
+            return (Partido) getEntityManager().createQuery("FROM Partido WHERE idPartido = " + idPartido).getSingleResult();
         } catch (NoResultException e) {
             throw new PartidoException("No hay un partido con el Id " + idPartido);
         }

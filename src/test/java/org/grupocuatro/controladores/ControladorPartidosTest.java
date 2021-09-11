@@ -43,7 +43,7 @@ public class ControladorPartidosTest extends TestCase {
     }
 
     public void testvalidadoPorClubVisitante(){
-        ControladorPartidos.getInstancia().validadoPorClubVisitante(1,1);
+        ControladorPartidos.getInstancia().validadoPorClubVisitante(2,1);
         ControladorPartidos.getInstancia().validadoPorClubVisitante(5,1);
         ControladorPartidos.getInstancia().validadoPorClubVisitante(1,4);
     }

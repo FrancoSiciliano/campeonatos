@@ -17,7 +17,7 @@ public class ControladorJugadores {
 
     public Jugador encontrarJugador(int idJugador){//tiene q estar en el controlador y no aca
         JugadorDao jugadordao = JugadorDao.getInstancia();
-        Jugador jugador = null;
+        Jugador jugador;
         try{
             jugador = jugadordao.getJugadorById(idJugador);
             return jugador;
@@ -58,7 +58,7 @@ public class ControladorJugadores {
             j.setDireccion(direccion);
             j.update();
         } catch (JugadorException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class ControladorJugadores {
             j.setMail(mail);
             j.update();
         } catch (JugadorException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
     }
 
@@ -78,18 +78,17 @@ public class ControladorJugadores {
             j.setTelefono(telefono);
             j.update();
         } catch (JugadorException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
     }
 
     public void modificarEstado(int idJugador) {
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-            if (j.isEstado()) j.setEstado(false);
-            else j.setEstado(true);
+            j.setEstado(!j.isEstado());
             j.update();
         } catch (JugadorException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
     }
 

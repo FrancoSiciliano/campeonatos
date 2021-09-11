@@ -33,7 +33,7 @@ public class ControladorFaltas {
             falta = new Falta(jugador, partido, campeonato, minuto, tipo);
             faltadao.save(falta);
 
-            if (tipo != "rojo") {
+            if (!tipo.equals("roja")) {
                 try {
                     if (correspondeRoja(idJugador, idPartido, idCampeonato)) {
                         falta = new Falta(jugador, partido, campeonato, minuto, "roja");
@@ -125,7 +125,7 @@ public class ControladorFaltas {
         try {
             return FaltaDao.getInstancia().getFaltas();
         } catch (FaltaException e) {
-            System.out.printf(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -134,7 +134,7 @@ public class ControladorFaltas {
         try {
             return FaltaDao.getInstancia().getFaltaById(id);
         } catch (FaltaException e) {
-            System.out.printf(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -143,7 +143,7 @@ public class ControladorFaltas {
         try {
             return FaltaDao.getInstancia().getFaltasByJugador(idJugador);
         } catch (FaltaException e) {
-            System.out.printf(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return null;
     }

@@ -21,8 +21,7 @@ public class CampeonatoDao extends AbstractDao {
 
     public Campeonato getCampeonato(Integer id) throws CampeonatoException {
         try {
-            Campeonato campeonato = (Campeonato) getEntityManager().createQuery("FROM Campeonato WHERE id = " + id).getSingleResult();
-            return campeonato;
+            return (Campeonato) getEntityManager().createQuery("FROM Campeonato WHERE id = " + id).getSingleResult();
         } catch (NoResultException e) {
             throw new CampeonatoException("El campeonato de id:  " + id + " no existe");
         }

@@ -55,16 +55,16 @@ public class ControladorCampeonatosTest extends TestCase {
 
     public void testgetCampeonatosByClub() {
         System.out.println(ControladorCampeonatos.getInstancia().getCampeonatosByClub(1));
-        ControladorCampeonatos.getInstancia().getCampeonatosByClub(2);
-        ControladorCampeonatos.getInstancia().getCampeonatosByClub(3);
-        ControladorCampeonatos.getInstancia().getCampeonatosByClub(7);
+        System.out.println(ControladorCampeonatos.getInstancia().getCampeonatosByClub(2));
+        System.out.println(ControladorCampeonatos.getInstancia().getCampeonatosByClub(3));
+        System.out.println(ControladorCampeonatos.getInstancia().getCampeonatosByClub(7));
 
     }
 
     public void testCrearCampeonatos(){
-        ControladorCampeonatos.getInstancia().crearCampeonato("SuperLiga", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"Activo",78);
-        ControladorCampeonatos.getInstancia().crearCampeonato("La Champions", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"Activo",86);
-        ControladorCampeonatos.getInstancia().crearCampeonato("La Premier", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"Activo",76);
-        ControladorCampeonatos.getInstancia().crearCampeonato("La EuroCopa", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"Activo",79);
+        System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("SuperLiga", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"Activo",78));
+        System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("La Champions", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"Activo",86));
+        System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("La Premier", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"Activo",76));
+        System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("La EuroCopa", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"Activo",79));
     }
 }

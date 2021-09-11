@@ -1,12 +1,7 @@
 package org.grupocuatro.controlador;
 
-import org.grupocuatro.dao.CampeonatoDao;
-import org.grupocuatro.dao.FaltaDao;
 import org.grupocuatro.dao.MiembroDao;
-import org.grupocuatro.dao.PartidoDao;
-import org.grupocuatro.excepciones.FaltaException;
 import org.grupocuatro.excepciones.MiembroException;
-import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
 
 import java.time.LocalDate;
@@ -26,9 +21,8 @@ public class ControladorMiembros {
     }
 
     public Integer crearListaJugadores(Club club, Partido partido) {
-        MiembroDao dao = MiembroDao.getInstancia();
         Miembro m = new Miembro(club, partido);
-        dao.save(m);
+        m.save();
         return m.getIdLista();
     }
 
@@ -47,7 +41,7 @@ public class ControladorMiembros {
         Campeonato campeonato = partido.getCampeonato();
 
         if (puedeJugarPorCategoria(partido, jugador) &&
-                puedeJugarPorDia(partido, jugador, campeonato.getIdCampeonato()) &&
+                puedeJugarPorDia(partido, jugador) &&
                 hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
                 !elCampeonatoComenzo(campeonato, jugador) &&
                 estaHabilitadoParaJugar(partido, jugador)) { //FIXME FALTA CHEQUEAR HABILITACION
@@ -69,7 +63,7 @@ public class ControladorMiembros {
         return categoriaPartido <= categoriaJugador;
     }
 
-    private boolean puedeJugarPorDia(Partido partido, Jugador jugador, Integer idCampeonato) {
+    private boolean puedeJugarPorDia(Partido partido, Jugador jugador) {
         LocalDate fechaPartido = partido.getFechaPartido();
         try {
             MiembroDao.getInstancia().getMiembroByJugadorAndFecha(jugador.getIdJugador(), fechaPartido);
@@ -101,11 +95,7 @@ public class ControladorMiembros {
             Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub(), campeonato, nroFecha);
             if (ultimoPartido != null) {
                 List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido());
-                if (faltas != null) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return faltas == null;
             } else {
                 return true;
             }

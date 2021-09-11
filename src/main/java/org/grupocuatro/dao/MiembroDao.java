@@ -26,8 +26,7 @@ public class MiembroDao extends AbstractDao {
     public Miembro getMiembroById(Integer id) throws MiembroException {
 
         try {
-            Miembro miembro = (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idLista = " + id).getSingleResult();
-            return miembro;
+            return (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idLista = " + id).getSingleResult();
         } catch (NoResultException e) {
             throw new MiembroException("No existe un miembro con id: " + id);
         }
@@ -53,8 +52,7 @@ public class MiembroDao extends AbstractDao {
 
     public Miembro getMiembroByPartidoAndJugador(int idPartido, int idJugador) throws MiembroException {
         try {
-            Miembro miembro = (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idPartido = " + idPartido + " AND idJugador = " + idJugador).getSingleResult();
-            return miembro;
+            return (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idPartido = " + idPartido + " AND idJugador = " + idJugador).getSingleResult();
         } catch (NoResultException e) {
             throw new MiembroException("No existe un miembro con el idJugador " + idJugador + ", en el partido " + idPartido);
         }
@@ -62,8 +60,7 @@ public class MiembroDao extends AbstractDao {
 
     public Miembro getMiembroByClubAndPartidoAndJugador(Integer idClub, Integer idPartido, Integer idJugador) throws MiembroException {
         try {
-            Miembro miembro = (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idClub = " + idClub + " AND idPartido = " + idPartido + " AND idJugador = " + idJugador).getSingleResult();
-            return miembro;
+            return (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idClub = " + idClub + " AND idPartido = " + idPartido + " AND idJugador = " + idJugador).getSingleResult();
         } catch (NoResultException e) {
             throw new MiembroException("El club " + idClub + " no posee una lista para el jugador " + idJugador + " en el partido " + idPartido);
         }

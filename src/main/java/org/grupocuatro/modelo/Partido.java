@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "partidos")
@@ -204,7 +205,7 @@ public class Partido {
     }
 
     public boolean isEmpate() {
-        return golesLocal == golesVisitante;
+        return Objects.equals(golesLocal, golesVisitante);
     }
 
     public int getGolesGanador () {

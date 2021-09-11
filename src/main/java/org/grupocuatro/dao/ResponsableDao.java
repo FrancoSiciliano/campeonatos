@@ -34,8 +34,7 @@ public class ResponsableDao extends AbstractDao {
 
     public Responsable getResponsableByNroDocAndClub(String nroDoc, Integer club) throws ResponsableException {
         try{
-            Responsable responsable = (Responsable) getEntityManager().createQuery("FROM Responsable WHERE documento = '" + nroDoc + "' and idClub = " + club ).getSingleResult();
-            return responsable;
+            return (Responsable) getEntityManager().createQuery("FROM Responsable WHERE documento = '" + nroDoc + "' and idClub = " + club ).getSingleResult();
         } catch (NoResultException e) {
             throw new ResponsableException("No existe un responsable con numero de documento " + nroDoc + " en el club " + club);
         }
@@ -44,8 +43,7 @@ public class ResponsableDao extends AbstractDao {
 
     public Responsable getResponsable(Integer id) throws ResponsableException {
         try {
-            Responsable responsable = (Responsable) getEntityManager().createQuery("FROM Responsable WHERE idRepresentante = " + id).getSingleResult();
-            return responsable;
+            return (Responsable) getEntityManager().createQuery("FROM Responsable WHERE idRepresentante = " + id).getSingleResult();
         } catch (Exception e) {
             throw new ResponsableException("No existe el responsable de id " + id);
         }

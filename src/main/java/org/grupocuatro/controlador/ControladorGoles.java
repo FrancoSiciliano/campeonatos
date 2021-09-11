@@ -7,6 +7,7 @@ import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Partido;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ControladorGoles {
     private static ControladorGoles instancia;
@@ -31,12 +32,11 @@ public class ControladorGoles {
         Gol gol = null;
 
         if (jugador != null && partido != null) {
-            GolDao goldao = GolDao.getInstancia();
             gol = new Gol(jugador, partido, minuto, tipo);
             gol.save();
         }
 
-        return (gol == null) ? gol.getIdGol() : null;
+        return (gol != null) ? gol.getIdGol() : null;
     }
 
     public int contarCantidadGoles(Integer idClub, Integer idPartido) {
@@ -49,7 +49,7 @@ public class ControladorGoles {
             try {
                 List<Gol> goles;
 
-                if (idClub == p.getClubLocal().getIdClub()) {
+                if (Objects.equals(idClub, p.getClubLocal().getIdClub())) {
                     goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubVisitante().getIdClub());
                 } else {
                     goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubLocal().getIdClub());
@@ -59,7 +59,6 @@ public class ControladorGoles {
                 return cantGoles;
 
             } catch (GolException e) {
-                cantGoles = 0;
                 return cantGoles;
             }
         } else {

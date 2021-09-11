@@ -21,10 +21,13 @@ public class ControladorClubes {
     }
 
     public void crearClub(Integer id, String nombre, String direccion) {
+
+        Club c;
         try {
-            Club club = ClubDao.getInstancia().getClubById(id);
+            ClubDao.getInstancia().getClubById(id);
+            System.out.println("Ya existe un club con ese ID");
         } catch (ClubException e) {
-            Club c = new Club(id, nombre, direccion);
+            c = new Club(id, nombre, direccion);
             c.save();
         }
     }

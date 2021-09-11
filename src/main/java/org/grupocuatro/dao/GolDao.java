@@ -65,8 +65,7 @@ public class GolDao extends AbstractDao {
 
     public Gol getGolById(Integer id) throws GolException {
         try {
-            Gol gol = (Gol) getEntityManager().createQuery("FROM Gol WHERE idGol = " + id).getSingleResult();
-            return gol;
+            return (Gol) getEntityManager().createQuery("FROM Gol WHERE idGol = " + id).getSingleResult();
         } catch (NoResultException e) {
             throw new GolException("No existe un gol con id: " + id);
         }

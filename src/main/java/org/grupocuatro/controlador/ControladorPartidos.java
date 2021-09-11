@@ -16,6 +16,7 @@ import org.grupocuatro.modelo.TablaPosiciones;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class ControladorPartidos {
@@ -84,7 +85,7 @@ public class ControladorPartidos {
     public void validadoPorClubLocal(Integer idClubL, Integer idPartido) {
         try {
             Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
-            if (idClubL == partido.getClubLocal().getIdClub()) {
+            if (Objects.equals(idClubL, partido.getClubLocal().getIdClub())) {
                 partido.setConvalidaLocal();
                 partido.update();
             } else {
@@ -102,7 +103,7 @@ public class ControladorPartidos {
     public void validadoPorClubVisitante(Integer idClubV, Integer idPartido) {
         try {
             Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
-            if (idClubV == partido.getClubVisitante().getIdClub()) {
+            if (Objects.equals(idClubV, partido.getClubVisitante().getIdClub())) {
                 partido.setConvalidaVisitante();
                 partido.update();
             } else {
@@ -134,7 +135,7 @@ public class ControladorPartidos {
     }
 
     public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesContra, int golesFavor) {
-        TablaPosiciones tp = null;
+        TablaPosiciones tp;
         ControladorClubes controladorClubes = ControladorClubes.getInstancia();
         ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
 

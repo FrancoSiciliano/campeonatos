@@ -27,8 +27,7 @@ public class FaltaDao extends AbstractDao {
 
     public Falta getFaltaById(Integer id) throws FaltaException {
         try {
-            Falta falta = (Falta) getEntityManager().createQuery("FROM Falta WHERE idFalta = " + id).getSingleResult();
-            return falta;
+            return (Falta) getEntityManager().createQuery("FROM Falta WHERE idFalta = " + id).getSingleResult();
         } catch (NoResultException e) {
             throw new FaltaException("No existe una falta con id: " + id);
         }
