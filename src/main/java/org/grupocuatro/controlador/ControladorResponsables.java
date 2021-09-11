@@ -7,6 +7,8 @@ import org.grupocuatro.excepciones.ResponsableException;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Responsable;
 
+import java.util.List;
+
 public class ControladorResponsables {
 
     private static ControladorResponsables instancia;
@@ -18,7 +20,7 @@ public class ControladorResponsables {
         return instancia;
     }
 
-    public Integer crearResponsable(String documento, String nombre, Integer idClub) throws ResponsableException {
+    public Integer crearResponsable(Integer documento, String nombre, Integer idClub) throws ResponsableException {
         ResponsableDao dao = ResponsableDao.getInstancia();
         try {
             Club club = ClubDao.getInstancia().getClubById(idClub);
@@ -36,7 +38,7 @@ public class ControladorResponsables {
         throw new ResponsableException("No se pudo crear el responsable solicitado");
 
     }
-    public void modificarResponsable(Integer legajoResponsable, String documento, String nombre, Integer idClub) {
+    public void modificarResponsable(Integer legajoResponsable, Integer documento, String nombre, Integer idClub) {
         ResponsableDao dao = ResponsableDao.getInstancia();
         try {
             Responsable resp = dao.getResponsable(legajoResponsable);
@@ -63,6 +65,31 @@ public class ControladorResponsables {
         return null;
     }
 
-    //TODO HACER GETTERS
+    public Responsable getResponsableByNroDocAndClub(Integer doc, Integer idClub) {
+        try {
+            return ResponsableDao.getInstancia().getResponsableByNroDocAndClub(doc, idClub);
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
+
+    public List<Responsable> getResponsablesByClub(Integer idClub) {
+        try {
+            return ResponsableDao.getInstancia().getResponsablesByClub(idClub);
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Responsable> getResponsables() {
+        try {
+            return ResponsableDao.getInstancia().getResponsables();
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }
