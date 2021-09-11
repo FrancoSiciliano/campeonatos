@@ -89,9 +89,7 @@ public class Miembro {
         return egreso;
     }
 
-    public void setEgreso(Integer egreso) {
-        this.egreso = egreso;
-    }
+    public void setEgreso(Integer egreso) {this.egreso = egreso;}
 
     public void save() {
         MiembroDao.getInstancia().save(this);

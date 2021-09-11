@@ -14,7 +14,7 @@ public class Responsable implements Comparable<Responsable> {
     @Column(name = "idRepresentante")
     private Integer legajo;
 
-    private String documento;
+    private Integer documento;
     private String nombre;
 
     @ManyToOne
@@ -22,7 +22,7 @@ public class Responsable implements Comparable<Responsable> {
     private Club club;
 
 
-    public Responsable(String documento, String nombre, Club club) {
+    public Responsable(Integer documento, String nombre, Club club) {
         this.legajo = null;
         this.documento = documento;
         this.nombre = nombre;
@@ -33,7 +33,7 @@ public class Responsable implements Comparable<Responsable> {
 
     }
 
-    public String getDocumento() {
+    public Integer getDocumento() {
         return documento;
     }
 
@@ -49,7 +49,7 @@ public class Responsable implements Comparable<Responsable> {
         this.club = club;
     }
 
-    public void setDocumento(String doc) {
+    public void setDocumento(Integer doc) {
         this.documento = doc;
     }
 

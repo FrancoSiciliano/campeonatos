@@ -130,7 +130,7 @@ public class ControladorFaltas {
         return null;
     }
 
-    public Falta getFaltasById(Integer id){
+    public Falta getFaltaById(Integer id){
         try {
             return FaltaDao.getInstancia().getFaltaById(id);
         } catch (FaltaException e) {

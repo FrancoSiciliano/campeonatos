@@ -32,7 +32,7 @@ public class ResponsableDao extends AbstractDao {
         throw new ResponsableException("No existen responsables para el club " + club);
     }
 
-    public Responsable getResponsableByNroDocAndClub(String nroDoc, Integer club) throws ResponsableException {
+    public Responsable getResponsableByNroDocAndClub(Integer nroDoc, Integer club) throws ResponsableException {
         try{
             return (Responsable) getEntityManager().createQuery("FROM Responsable WHERE documento = '" + nroDoc + "' and idClub = " + club ).getSingleResult();
         } catch (NoResultException e) {
