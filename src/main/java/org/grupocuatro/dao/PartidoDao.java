@@ -77,7 +77,7 @@ public class PartidoDao extends AbstractDao {
         query.setParameter(2, idCampeonato);
         query.setParameter(3, nroFechaActual - 1);
         List<Partido> partidosAnteriores = query.getResultList();
-        if (partidosAnteriores != null) return partidosAnteriores.get(0);
+        if (!partidosAnteriores.isEmpty()) return partidosAnteriores.get(0);
         throw new PartidoException("El equipo no tiene partidos previos");
 
     }

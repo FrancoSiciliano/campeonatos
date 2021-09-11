@@ -200,7 +200,7 @@ public class ControladorPartidos {
         try {
             return PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(club.getIdClub(), campeonato.getIdCampeonato(), nroFechaActual);
         } catch (PartidoException e) {
-            System.out.printf(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return null;
     }

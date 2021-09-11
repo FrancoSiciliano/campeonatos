@@ -6,6 +6,7 @@ import org.grupocuatro.modelo.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 public class ControladorMiembros {
 
@@ -22,11 +23,12 @@ public class ControladorMiembros {
 
     public Integer crearListaJugadores(Club club, Partido partido) {
         Miembro m = new Miembro(club, partido);
-        m.save();
+        if (ControladorClubes.getInstancia().getClubes().contains(club) && ControladorPartidos.getInstancia().getAllPartidos().contains(partido))
+            m.save();
         return m.getIdLista();
     }
 
-    public void agregarJugadoresEnLista(Integer idMiembro, Jugador jugador) throws MiembroException {
+    public void agregarJugadoresEnLista(Integer idMiembro, Jugador jugador) {
         /*
         FIXME FALTA IMPLEMENTAR LOS CONTROLES PARA LAS FUTURAS ENTREGAS
         CONTROLES:
@@ -36,25 +38,36 @@ public class ControladorMiembros {
         - Habilitación: Que no haya sido expulsado en el partido anterior en el mismo torneo (en otro si).
         - Campeonato: No poder participar en campeonatos ya arrancados.
          */
-        Miembro miembro = MiembroDao.getInstancia().getMiembroById(idMiembro);
-        Partido partido = miembro.getPartido();
-        Campeonato campeonato = partido.getCampeonato();
 
-        if (puedeJugarPorCategoria(partido, jugador) &&
-                puedeJugarPorDia(partido, jugador) &&
-                hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
-                !elCampeonatoComenzo(campeonato, jugador) &&
-                estaHabilitadoParaJugar(partido, jugador)) { //FIXME FALTA CHEQUEAR HABILITACION
+        try {
+            Miembro miembro = MiembroDao.getInstancia().getMiembroById(idMiembro);
+            Partido partido = miembro.getPartido();
+            Campeonato campeonato = partido.getCampeonato();
 
-            miembro.setJugador(jugador);
-            miembro.update();
+            if (    pertenecAlEquipo(miembro.getClub().getIdClub(), jugador) &&
+                    puedeJugarPorCategoria(partido, jugador) &&
+                    puedeJugarPorDia(partido, jugador) &&
+                    hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
+                    !elCampeonatoComenzo(campeonato, jugador) &&
+                    estaHabilitadoParaJugar(partido, jugador)) { //FIXME FALTA CHEQUEAR HABILITACION
 
-        } else {
-            System.out.println("El jugador no puede ser inscripto en el partido");
+                miembro.setJugador(jugador);
+                miembro.update();
+
+            } else {
+                System.out.println("El jugador no puede ser inscripto en el partido");
+            }
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     //TODO ver que onda el egreso/ingreso para hacer el modificar
+
+    private boolean pertenecAlEquipo(Integer idClub, Jugador jugador){
+        Integer clubJugador = jugador.getClub().getIdClub();
+        return Objects.equals(clubJugador, idClub);
+    }
 
     private boolean puedeJugarPorCategoria(Partido partido, Jugador jugador) {
         int categoriaPartido = partido.getCategoria();
@@ -91,7 +104,7 @@ public class ControladorMiembros {
         int nroFecha = partido.getNroFecha();
         Campeonato campeonato = partido.getCampeonato();
 
-        if (jugador.isEstado())  {
+        if (jugador.isEstado()) {
             Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub(), campeonato, nroFecha);
             if (ultimoPartido != null) {
                 List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido());
@@ -120,6 +133,7 @@ public class ControladorMiembros {
         }
         return null;
     }
+
     public List<Miembro> getMiembrosByClub(Integer idClub) {
         try {
             return MiembroDao.getInstancia().getMiembrosByClub(idClub);
@@ -128,33 +142,37 @@ public class ControladorMiembros {
         }
         return null;
     }
-    public List<Miembro> getMiembrosByClubAndPartido(Integer idClub,Integer idPartido) {
+
+    public List<Miembro> getMiembrosByClubAndPartido(Integer idClub, Integer idPartido) {
         try {
-            return MiembroDao.getInstancia().getMiembrosByClubAndPartido(idClub,idPartido);
+            return MiembroDao.getInstancia().getMiembrosByClubAndPartido(idClub, idPartido);
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-    public Miembro getMiembroByPartidoAndJugador(Integer idPartido,Integer idJugador) {
+
+    public Miembro getMiembroByPartidoAndJugador(Integer idPartido, Integer idJugador) {
         try {
-            return MiembroDao.getInstancia().getMiembroByPartidoAndJugador(idPartido,idJugador);
+            return MiembroDao.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador);
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
+
     public Miembro getMiembroByClubAndPartidoAndJugador(Integer idClub, Integer idPartido, Integer idJugador) {
         try {
-            return MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(idClub,idPartido,idJugador);
+            return MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(idClub, idPartido, idJugador);
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
+
     public List<Miembro> getMiembroByJugadorAndFecha(Integer idJugador, LocalDate fecha) {
         try {
-            return MiembroDao.getInstancia().getMiembroByJugadorAndFecha(idJugador,fecha);
+            return MiembroDao.getInstancia().getMiembroByJugadorAndFecha(idJugador, fecha);
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
         }
