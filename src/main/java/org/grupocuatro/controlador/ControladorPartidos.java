@@ -64,6 +64,7 @@ public class ControladorPartidos {
             p.setGolesVisitante(cantGolesVisitante);
             p.setIncidentes(incidentes);
 
+            p.update();
         } catch (PartidoException e) {
             System.out.println(e.getMessage());
         }
@@ -88,11 +89,12 @@ public class ControladorPartidos {
             if (Objects.equals(idClubL, partido.getClubLocal().getIdClub())) {
                 partido.setConvalidaLocal();
                 partido.update();
+                modificarTablaPosiciones(partido);
+
             } else {
                 System.out.println("El club ingresado no corresponde al club local");
             }
 
-            modificarTablaPosiciones(partido);
 
         } catch (PartidoException e) {
             System.out.println(e.getMessage());
@@ -106,11 +108,12 @@ public class ControladorPartidos {
             if (Objects.equals(idClubV, partido.getClubVisitante().getIdClub())) {
                 partido.setConvalidaVisitante();
                 partido.update();
+                modificarTablaPosiciones(partido);
+
             } else {
                 System.out.println("El club ingresado no corresponde al club visitante");
             }
 
-            modificarTablaPosiciones(partido);
 
         } catch (PartidoException e) {
             System.out.println(e.getMessage());
@@ -134,7 +137,7 @@ public class ControladorPartidos {
         return partido.isValidado();
     }
 
-    public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesContra, int golesFavor) {
+    public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) {
         TablaPosiciones tp;
         ControladorClubes controladorClubes = ControladorClubes.getInstancia();
         ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
@@ -145,6 +148,7 @@ public class ControladorPartidos {
             tp = new TablaPosiciones(controladorClubes.getClubById(idClub), controladorCampeonatos.encontrarCampeonato(idCampeonato));
             tp.save();
         }
+
 
         switch (puntos) {
             case 0:

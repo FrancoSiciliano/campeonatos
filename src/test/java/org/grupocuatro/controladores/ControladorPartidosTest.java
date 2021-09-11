@@ -26,13 +26,13 @@ public class ControladorPartidosTest extends TestCase {
 
     }
 
-//    public void testcargarResultadoPartido() {//tiene un fixme
-//        ControladorPartidos.getInstancia().cargarResultadoPartido(1);
-//        ControladorPartidos.getInstancia().cargarResultadoPartido(2);
-//        ControladorPartidos.getInstancia().cargarResultadoPartido(3);
-//        ControladorPartidos.getInstancia().cargarResultadoPartido(8);
-//        ControladorPartidos.getInstancia().cargarResultadoPartido(9);
-//    }
+    public void testcargarResultadoPartido() {//tiene un fixme
+        ControladorPartidos.getInstancia().cargarResultadoPartido(1,"Se agarraron a las piñas sobre el final");
+//        ControladorPartidos.getInstancia().cargarResultadoPartido(2, "");
+//        ControladorPartidos.getInstancia().cargarResultadoPartido(3, "");
+//        ControladorPartidos.getInstancia().cargarResultadoPartido(8, "");
+//        ControladorPartidos.getInstancia().cargarResultadoPartido(9, "");
+    }
 
     public void testactualizarTablaPosiciones() {
         ControladorPartidos.getInstancia().actualizarTablaPosiciones(1,1,0,2,1);

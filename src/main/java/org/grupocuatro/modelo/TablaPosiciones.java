@@ -79,6 +79,7 @@ public class TablaPosiciones implements Serializable {
 
     public void setCantidadGanados(int cantidadGanados) {
         this.cantidadGanados = cantidadGanados;
+        this.cantidadJugados++;
     }
 
     public int getCantidadEmpatados() {
@@ -87,6 +88,7 @@ public class TablaPosiciones implements Serializable {
 
     public void setCantidadEmpatados(int cantidadEmpatados) {
         this.cantidadEmpatados = cantidadEmpatados;
+        this.cantidadJugados++;
     }
 
     public int getCantidadPerdidos() {
@@ -95,6 +97,7 @@ public class TablaPosiciones implements Serializable {
 
     public void setCantidadPerdidos(int cantidadPerdidos) {
         this.cantidadPerdidos = cantidadPerdidos;
+        this.cantidadJugados++;
     }
 
     public int getGolesFavor() {
