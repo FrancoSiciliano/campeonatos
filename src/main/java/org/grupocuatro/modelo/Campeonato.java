@@ -23,7 +23,6 @@ public class Campeonato implements Comparable<Campeonato> {
     private LocalDate fechaFin;
     private String estado;
     private String tipoCampeonato;
-    private Integer categoria;
 
     @OneToMany(mappedBy = "idClub")
     private List<Club> inscriptos;
@@ -38,14 +37,13 @@ public class Campeonato implements Comparable<Campeonato> {
     @OneToMany(mappedBy = "campeonato")
     private List<TablaPosiciones> tablaPosiciones;
 
-    public Campeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, Integer categoria) {
+    public Campeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
         this.idCampeonato = null;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.estado = estado;
         this.tipoCampeonato = "";
-        this.categoria = categoria;
     }
 
     public Campeonato() {
@@ -53,14 +51,6 @@ public class Campeonato implements Comparable<Campeonato> {
         inscriptos = new ArrayList<>();
         faltas = new ArrayList<>();
         tablaPosiciones = new ArrayList<>();
-    }
-
-    public Integer getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Integer categoria) {
-        this.categoria = categoria;
     }
 
     public List<TablaPosiciones> getTablaPosiciones() {
@@ -125,7 +115,6 @@ public class Campeonato implements Comparable<Campeonato> {
                 ", fechaFin=" + fechaFin +
                 ", estado='" + estado + '\'' +
                 ", tipoCampeonato='" + tipoCampeonato + '\'' +
-                ", categoria=" + categoria +
                 '}';
     }
 }

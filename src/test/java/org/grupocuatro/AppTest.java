@@ -38,9 +38,9 @@ public class AppTest {
 
 
         //CREACION DE CAMPEONATOS
-        controladorCampeonatos.crearCampeonato("SuperLiga", LocalDate.of(2021, 10, 16), LocalDate.of(2022, 3, 9), "Activo", 78);
-        controladorCampeonatos.crearCampeonato("Champions League", LocalDate.of(2021, 10, 22), LocalDate.of(2022, 5, 28), "Activo", 86);
-        controladorCampeonatos.crearCampeonato("Serie A", LocalDate.of(2021, 10, 21), LocalDate.of(2022, 5, 22), "Activo", 76);
+        controladorCampeonatos.crearCampeonato("SuperLiga", LocalDate.of(2021, 10, 16), LocalDate.of(2022, 3, 9), "Activo");
+        controladorCampeonatos.crearCampeonato("Champions League", LocalDate.of(2021, 10, 22), LocalDate.of(2022, 5, 28), "Activo");
+        controladorCampeonatos.crearCampeonato("Serie A", LocalDate.of(2021, 10, 21), LocalDate.of(2022, 5, 22), "Activo");
 
         controladorCampeonatos.definirTipoCampeonato("Puntos", 1);
         controladorCampeonatos.definirTipoCampeonato("Zonas", 2);

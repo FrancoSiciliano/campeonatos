@@ -15,7 +15,7 @@ public class ControladorJugadores {
 
     private ControladorJugadores() {}
 
-    public Jugador encontrarJugador(int idJugador){//tiene q estar en el controlador y no aca
+    public Jugador encontrarJugador(int idJugador){
         JugadorDao jugadordao = JugadorDao.getInstancia();
         Jugador jugador;
         try{

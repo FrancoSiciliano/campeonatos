@@ -1,19 +1,14 @@
 package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.CampeonatoDao;
-import org.grupocuatro.dao.ClubDao;
-
-import static java.time.temporal.ChronoUnit.DAYS;
-
 import org.grupocuatro.dao.ClubesCampeonatoDao;
 import org.grupocuatro.excepciones.CampeonatoException;
-import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.ClubesCampeonato;
 
-import javax.naming.ldap.Control;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -32,12 +27,12 @@ public class ControladorCampeonatos {
 
     // PARTE DE PERSISTENCIA BASICA
 
-    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, Integer categoria) {
+    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
 
-        Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, estado, categoria);
+        Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, estado);
         try {
             for (Campeonato c : CampeonatoDao.getInstancia().getCampeonatos()) {
-                if (Objects.equals(descripcion, c.getDescripcion()) && Objects.equals(c.getFechaInicio(), fechaInicio) && Objects.equals(c.getFechaFin(), fechaFin) && Objects.equals(c.getEstado(), "Activo") && Objects.equals(c.getCategoria(), categoria)) {
+                if (Objects.equals(descripcion, c.getDescripcion()) && Objects.equals(c.getFechaInicio(), fechaInicio) && Objects.equals(c.getFechaFin(), fechaFin) && Objects.equals(c.getEstado(), "activo")) {
                     System.out.println("Ya existe el campeonato que se esta intentando ingresar");
                     return null;
                 }
@@ -105,16 +100,18 @@ public class ControladorCampeonatos {
         try {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             Club club = ControladorClubes.getInstancia().getClubById(idClub);
-
             if (club != null) {
-                ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
-                nuevocc.save();
+                try{
+                    ClubesCampeonatoDao.getInstancia().getClubCampeonato(idClub,idCampeonato);
+                }catch (ClubesCampeonatoException e2){
+                    ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
+                    nuevocc.save();
+                }
             } else System.out.println("No existe el club ingresado");
 
         } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     public List<Campeonato> getCampeonatosByClub(Integer idClub) {

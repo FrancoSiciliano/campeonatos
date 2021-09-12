@@ -5,6 +5,7 @@ import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.ClubesCampeonato;
 
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,5 +48,14 @@ public class ClubesCampeonatoDao extends AbstractDao {
 
         }
         throw new ClubesCampeonatoException("El club de id " + idClub + " no esta registrado en ningun campeonato");
+    }
+
+    public ClubesCampeonato getClubCampeonato (Integer idClub, Integer idCampeonato) throws ClubesCampeonatoException {
+        try{
+            ClubesCampeonato result = (ClubesCampeonato) getEntityManager().createQuery("FROM ClubesCampeonato WHERE idClub = " + idClub + " and idCampeonato = " + idCampeonato).getSingleResult();
+            return result;
+        }catch (NoResultException e) {
+            throw new ClubesCampeonatoException("El club de id " + idClub + " no esta registrado en el campeonato " + idCampeonato);
+        }
     }
 }
