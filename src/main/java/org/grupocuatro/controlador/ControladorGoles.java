@@ -76,6 +76,15 @@ public class ControladorGoles {
         return null;
     }
 
+    public Gol getGolById(Integer idGol) {
+        try {
+            return GolDao.getInstancia().getGolById(idGol);
+        } catch (GolException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public List<Gol> getGolesByPartido(Integer idPartido) {
         try {
             return GolDao.getInstancia().getGolesByPartido(idPartido);
@@ -115,15 +124,6 @@ public class ControladorGoles {
     public List<Gol> getGolesByJugador(Integer idJugador) {
         try {
             return GolDao.getInstancia().getGolesByJugador(idJugador);
-        } catch (GolException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-    public Gol getGolById(Integer idGol) {
-        try {
-            return GolDao.getInstancia().getGolById(idGol);
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }

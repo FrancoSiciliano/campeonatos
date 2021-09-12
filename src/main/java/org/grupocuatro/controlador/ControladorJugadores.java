@@ -9,22 +9,9 @@ import java.util.List;
 
 public class ControladorJugadores {
 
-
-
     private static ControladorJugadores instancia;
 
-    private ControladorJugadores() {}
-
-    public Jugador encontrarJugador(int idJugador){
-        JugadorDao jugadordao = JugadorDao.getInstancia();
-        Jugador jugador;
-        try{
-            jugador = jugadordao.getJugadorById(idJugador);
-            return jugador;
-        } catch (JugadorException e){
-            System.out.println(e.getMessage());
-        }
-        return null;
+    private ControladorJugadores() {
     }
 
     public static ControladorJugadores getInstancia() {
@@ -32,7 +19,6 @@ public class ControladorJugadores {
             instancia = new ControladorJugadores();
         return instancia;
     }
-
 
     public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, Integer idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono) {
         JugadorDao dao = JugadorDao.getInstancia();
@@ -52,7 +38,7 @@ public class ControladorJugadores {
         return null;
     }
 
-    public void modificarDireccion(int idJugador, String direccion){
+    public void modificarDireccion(int idJugador, String direccion) {
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
             j.setDireccion(direccion);
@@ -92,12 +78,33 @@ public class ControladorJugadores {
         }
     }
 
+    public List<Jugador> getJugadores() {
+        try {
+            return JugadorDao.getInstancia().getJugadores();
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Jugador encontrarJugador(int idJugador) {
+        JugadorDao jugadordao = JugadorDao.getInstancia();
+        Jugador jugador;
+        try {
+            jugador = jugadordao.getJugadorById(idJugador);
+            return jugador;
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public boolean perteneceAlClub(Jugador jugador, Integer idClub) {
         return jugador.isSuClub(idClub);
     }
 
-    public Jugador getJugadorByDocumento(Integer nroDoc, String tipoDocumento ) {
-        try{
+    public Jugador getJugadorByDocumento(Integer nroDoc, String tipoDocumento) {
+        try {
             return JugadorDao.getInstancia().getJugadorByDocumento(nroDoc, tipoDocumento);
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
@@ -106,7 +113,7 @@ public class ControladorJugadores {
     }
 
     public List<Jugador> getJugadorByNombre(String nombre, String apellido) {
-        try{
+        try {
             return JugadorDao.getInstancia().getJugadorByNombre(nombre, apellido);
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
@@ -114,17 +121,8 @@ public class ControladorJugadores {
         return null;
     }
 
-    public List<Jugador> getJugadores() {
-        try{
-            return JugadorDao.getInstancia().getJugadores();
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
     public List<Jugador> getJugadoresByClub(Integer idClub) {
-        try{
+        try {
             return JugadorDao.getInstancia().getJugadoresByClub(idClub);
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
@@ -133,14 +131,13 @@ public class ControladorJugadores {
     }
 
     public List<Jugador> getJugadoresByCategoria(int categoria) {
-        try{
+        try {
             return JugadorDao.getInstancia().getJugadoresByCategoria(categoria);
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-
 
     //TODO ESTA PARTE ES PARA LAS PROXIMAS ETAPAS DEL TRABAJO (IGNORAR)
 
@@ -161,7 +158,7 @@ public class ControladorJugadores {
                     MiembroDao.getInstancia().getMiembroByPartidoAndJugador(p.getIdPartido(), j.getIdJugador()); // De los partidos obtenidos anteriormente, se determina si el jugador en cuestión participó o no. Si no lo hizo, no se buscan las estadísticas.
                     cantJugados++;
                     try {
-                        cantGoles = cantGoles +  GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
+                        cantGoles = cantGoles + GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
                     } catch (GolException e) {
                         cantGoles = cantGoles;
                     }
@@ -203,7 +200,7 @@ public class ControladorJugadores {
                     MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(c.getIdClub(), p.getIdPartido(), j.getIdJugador());
                     cantJugados++;
                     try {
-                        cantGoles = cantGoles +  GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
+                        cantGoles = cantGoles + GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
                     } catch (GolException e) {
                         cantGoles = cantGoles;
                     }

@@ -25,8 +25,6 @@ public class ControladorCampeonatos {
         return instancia;
     }
 
-    // PARTE DE PERSISTENCIA BASICA
-
     public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
 
         Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, estado);
@@ -64,6 +62,18 @@ public class ControladorCampeonatos {
         }
     }
 
+    public Campeonato encontrarCampeonato(Integer idCampeonato) {
+        CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
+        Campeonato campeonato;
+        try {
+            campeonato = campeonatoDao.getCampeonato(idCampeonato);
+            return campeonato;
+        } catch (CampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public List<Campeonato> getCampeonatos() {
         try {
             return CampeonatoDao.getInstancia().getCampeonatos();
@@ -84,26 +94,16 @@ public class ControladorCampeonatos {
         return null;
     }
 
-    public Campeonato encontrarCampeonato(Integer idCampeonato) {
-        CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
-        Campeonato campeonato;
-        try {
-            campeonato = campeonatoDao.getCampeonato(idCampeonato);
-            return campeonato;
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
+    //PARTE DE CLUBES CAMPEONATO
 
     public void agregarClubACampeonato(Integer idClub, Integer idCampeonato) {
         try {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             Club club = ControladorClubes.getInstancia().getClubById(idClub);
             if (club != null) {
-                try{
-                    ClubesCampeonatoDao.getInstancia().getClubCampeonato(idClub,idCampeonato);
-                }catch (ClubesCampeonatoException e2){
+                try {
+                    ClubesCampeonatoDao.getInstancia().getClubCampeonato(idClub, idCampeonato);
+                } catch (ClubesCampeonatoException e2) {
                     ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
                     nuevocc.save();
                 }

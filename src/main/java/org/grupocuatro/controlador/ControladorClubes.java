@@ -45,18 +45,18 @@ public class ControladorClubes {
         }
     }
 
-    public List<Club> getClubes() {
+    public Club getClubById(Integer idClub) {
         try {
-            return ClubDao.getInstancia().getClubes();
+            return ClubDao.getInstancia().getClubById(idClub);
         } catch (ClubException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public Club getClubById(Integer idClub) {
+    public List<Club> getClubes() {
         try {
-            return ClubDao.getInstancia().getClubById(idClub);
+            return ClubDao.getInstancia().getClubes();
         } catch (ClubException e) {
             System.out.println(e.getMessage());
         }

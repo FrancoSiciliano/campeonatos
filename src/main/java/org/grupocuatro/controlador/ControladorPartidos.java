@@ -70,19 +70,6 @@ public class ControladorPartidos {
         }
     }
 
-    public Partido encontrarPartido(Integer idPartido) {
-        PartidoDao partidodao = PartidoDao.getInstancia();
-        Partido partido = null;
-        try {
-            partido = partidodao.getInstancia().getPartidoById(idPartido);
-            return partido;
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-
     public void validadoPorClubLocal(Integer idClubL, Integer idPartido) {
         try {
             Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
@@ -174,16 +161,6 @@ public class ControladorPartidos {
         tp.update();
     }
 
-    public List<Partido> getPartidosByCampeonato(Integer idCampeonato) {
-        try {
-            return PartidoDao.getInstancia().getPartidosByCampeonato(idCampeonato);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-
     public List<Partido> getAllPartidos() {
         try {
             return PartidoDao.getInstancia().getAllPartidos();
@@ -191,6 +168,27 @@ public class ControladorPartidos {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public Partido encontrarPartido(Integer idPartido) {
+        PartidoDao partidodao = PartidoDao.getInstancia();
+        Partido partido = null;
+        try {
+            partido = partidodao.getInstancia().getPartidoById(idPartido);
+            return partido;
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Partido> getPartidosByCampeonato(Integer idCampeonato) {
+        try {
+            return PartidoDao.getInstancia().getPartidosByCampeonato(idCampeonato);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public List<Partido> getPartidosByCategoria(int categoria) {
@@ -202,7 +200,7 @@ public class ControladorPartidos {
         return null;
     }
 
-    public Partido getUltimoPartidoByClubAndCampeonato(Club club, Campeonato campeonato ,int nroFechaActual){
+    public Partido getUltimoPartidoByClubAndCampeonato(Club club, Campeonato campeonato, int nroFechaActual) {
         try {
             return PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(club.getIdClub(), campeonato.getIdCampeonato(), nroFechaActual);
         } catch (PartidoException e) {
@@ -210,7 +208,6 @@ public class ControladorPartidos {
         }
         return null;
     }
-
 
     public List<Partido> getPartidosByNroFecha(int nroFecha) {
         try {

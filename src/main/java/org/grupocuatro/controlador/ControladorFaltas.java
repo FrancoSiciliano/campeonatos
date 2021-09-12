@@ -21,7 +21,6 @@ public class ControladorFaltas {
         return instancia;
     }
 
-
     public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) {
         Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador);
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
@@ -56,6 +55,23 @@ public class ControladorFaltas {
         return listaFaltas.size() == 2;
     }
 
+    public List<Falta> getFaltas() {
+        try {
+            return FaltaDao.getInstancia().getFaltas();
+        } catch (FaltaException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Falta getFaltaById(Integer id) {
+        try {
+            return FaltaDao.getInstancia().getFaltaById(id);
+        } catch (FaltaException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     public List<Falta> getFaltasPartido(Integer idPartido) {
         try {
@@ -86,7 +102,7 @@ public class ControladorFaltas {
 
     public List<Falta> getFaltasByJugadorAndPartido(Integer idJugador, Integer idPartido) {
         try {
-            return FaltaDao.getInstancia().getFaltasByJugadorAndPartido(idJugador,idPartido);
+            return FaltaDao.getInstancia().getFaltasByJugadorAndPartido(idJugador, idPartido);
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }
@@ -115,24 +131,6 @@ public class ControladorFaltas {
     public List<Falta> getFaltasByJugadorAndPartidoAndTipoAndCampeonato(Integer jugador, Integer partido, String tipo, Integer campeonato) {
         try {
             return FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(jugador, partido, tipo, campeonato);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-    public List<Falta> getFaltas(){
-        try {
-            return FaltaDao.getInstancia().getFaltas();
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-    public Falta getFaltaById(Integer id){
-        try {
-            return FaltaDao.getInstancia().getFaltaById(id);
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }

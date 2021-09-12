@@ -13,7 +13,8 @@ public class ControladorResponsables {
 
     private static ControladorResponsables instancia;
 
-    private ControladorResponsables() {}
+    private ControladorResponsables() {
+    }
 
     public static ControladorResponsables getInstancia() {
         if (instancia == null) instancia = new ControladorResponsables();
@@ -66,6 +67,15 @@ public class ControladorResponsables {
         return null;
     }
 
+    public List<Responsable> getResponsables() {
+        try {
+            return ResponsableDao.getInstancia().getResponsables();
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public Responsable getResponsableByNroDocAndClub(Integer doc, Integer idClub) {
         try {
             return ResponsableDao.getInstancia().getResponsableByNroDocAndClub(doc, idClub);
@@ -75,19 +85,9 @@ public class ControladorResponsables {
         return null;
     }
 
-
     public List<Responsable> getResponsablesByClub(Integer idClub) {
         try {
             return ResponsableDao.getInstancia().getResponsablesByClub(idClub);
-        } catch (ResponsableException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-    public List<Responsable> getResponsables() {
-        try {
-            return ResponsableDao.getInstancia().getResponsables();
         } catch (ResponsableException e) {
             System.out.println(e.getMessage());
         }
