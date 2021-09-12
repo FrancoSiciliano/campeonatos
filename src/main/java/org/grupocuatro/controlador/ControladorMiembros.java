@@ -30,7 +30,6 @@ public class ControladorMiembros {
 
     public void agregarJugadoresEnLista(Integer idMiembro, Jugador jugador) {
         /*
-        FIXME FALTA IMPLEMENTAR LOS CONTROLES PARA LAS FUTURAS ENTREGAS
         CONTROLES:
         - Categoria: Que no participen en categorías menor que poseen (categoria >= categoriaPartido)
         - Partidos: Que no jueguen más de un partido en el mismo día.

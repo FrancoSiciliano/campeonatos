@@ -236,10 +236,10 @@ public class AppTest {
         controladorPartidos.crearPartido(2,1,80,2,1, LocalDate.of(2021,10,17),1); //RIVER BOCA
 
         controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(3));
-        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(15));
+        controladorMiembros.agregarJugadoresEnLista(6, controladorJugadores.encontrarJugador(15));
 
         controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(3));
-        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
+        controladorMiembros.agregarJugadoresEnLista(7, controladorJugadores.encontrarJugador(16));
 
         controladorGoles.cargarGol(15,3,85, "a favor");
 
@@ -248,17 +248,14 @@ public class AppTest {
         //PARTIDO 4
         controladorPartidos.crearPartido(2,1,80,4,3, LocalDate.of(2021,10,17),1); //iNDEPENDIENTE RACING
 
-        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(4));
-        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(4));
+        controladorMiembros.agregarJugadoresEnLista(8, controladorJugadores.encontrarJugador(26));
 
-        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(4));
-        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(4));
+        controladorMiembros.agregarJugadoresEnLista(9, controladorJugadores.encontrarJugador(30));
 
-        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(4));
-        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
-
-        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(4));
-        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(4));
+        controladorMiembros.agregarJugadoresEnLista(10, controladorJugadores.encontrarJugador(48));
 
         controladorGoles.cargarGol(26,4,6, "a favor");
         controladorGoles.cargarGol(26,4,78, "a favor");
@@ -274,13 +271,26 @@ public class AppTest {
         //PARTIDO 7
         controladorPartidos.crearPartido(4,1,80,6,5, LocalDate.of(2021,10,19),1); //FERRO CASLA
 
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(5), controladorPartidos.encontrarPartido(7));
+        controladorMiembros.agregarJugadoresEnLista(11, controladorJugadores.encontrarJugador(52));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(6), controladorPartidos.encontrarPartido(7));
+        controladorMiembros.agregarJugadoresEnLista(12, controladorJugadores.encontrarJugador(59));
+
         controladorGoles.cargarGol(52,7,54, "en contra");
         controladorGoles.cargarGol(59,7,64, "a favor");
 
         //PARTIDO 8
         controladorPartidos.crearPartido(4,1,80,2,7, LocalDate.of(2021,10,19),1); // RIVER BANFIELD
 
-        controladorGoles.cargarGol(12,8,11, "en contra");
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(8));
+        controladorMiembros.agregarJugadoresEnLista(13, controladorJugadores.encontrarJugador(13));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(8));
+        controladorMiembros.agregarJugadoresEnLista(14, controladorJugadores.encontrarJugador(14));
+
+
+        controladorGoles.cargarGol(13,8,11, "en contra");
         controladorFaltas.cargarFalta(14,8,26,"amarilla");
 
 
@@ -289,18 +299,34 @@ public class AppTest {
         //PARTIDO 9
         controladorPartidos.crearPartido(1,1, 85,8,9, LocalDate.of(2021, 10, 22),2);
 
-        controladorGoles.cargarGol(83,9,79, "a favor");
-        controladorGoles.cargarGol(84,9,1, "a favor");
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(8), controladorPartidos.encontrarPartido(9));
+        controladorMiembros.agregarJugadoresEnLista(15, controladorJugadores.encontrarJugador(82));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(9));
+        controladorMiembros.agregarJugadoresEnLista(16, controladorJugadores.encontrarJugador(83));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(8), controladorPartidos.encontrarPartido(9));
+        controladorMiembros.agregarJugadoresEnLista(17, controladorJugadores.encontrarJugador(79));
+
+        controladorGoles.cargarGol(82,9,79, "a favor");
+        controladorGoles.cargarGol(83,9,1, "a favor");
 
         controladorFaltas.cargarFalta(79,9,44,"amarilla");
 
         //PARTIDO 10
         controladorPartidos.crearPartido(2,1, 85,9,8, LocalDate.of(2021, 10, 23),2);
 
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(8), controladorPartidos.encontrarPartido(8));
+        controladorMiembros.agregarJugadoresEnLista(18, controladorJugadores.encontrarJugador(80));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(8));
+        controladorMiembros.agregarJugadoresEnLista(19, controladorJugadores.encontrarJugador(86));
+
         controladorFaltas.cargarFalta(80,10,89,"roja");
         controladorFaltas.cargarFalta(86,10,4,"amarilla");
 
 
+        //CARGA DE RESULTADOS
         controladorPartidos.cargarResultadoPartido(1,"");
         controladorPartidos.cargarResultadoPartido(2,"Se agarraron a las trompadas a la salida");
         controladorPartidos.cargarResultadoPartido(3,"");
