@@ -83,7 +83,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 91867074, "Luis", "Advincula", 1, LocalDate.of(1990, 3, 2), "Su casa 10", "ladvincula@mail.com", "+54 11 2042-7052");
         controladorJugadores.agregarJugador("DNI", 97678613, "Alan", "Varela", 1, LocalDate.of(2001, 7, 4), "Su casa 11", "avarela@mail.com", "+54 11 1142-3898");
 
-        //RIVER 12 - 24
+        //RIVER 12 - 23
         controladorJugadores.agregarJugador("DNI", 30458741, "Marcelo Daniel", "Gallardo", 2, LocalDate.of(1976, 1, 18), "Su casa 15", "mgallardo@mail.com", "+54 11 1945-6216");
         controladorJugadores.agregarJugador("DNI", 31587652, "Franco", "Armani", 2, LocalDate.of(1986, 10, 16), "Su casa 12", "farmani@mail.com", "+54 11 8372-6286");
         controladorJugadores.agregarJugador("DNI", 76468954, "Paulo", "Diaz", 2, LocalDate.of(1994, 8, 25), "Su casa 13", "pdiaz@mail.com", "+54 11 1850-6703");
@@ -97,7 +97,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 40219851, "Leonardo", "Ponzio", 2, LocalDate.of(1982, 1, 29), "Su casa 21", "lponzio@mail.com", "+54 11 4764-8036");
         controladorJugadores.agregarJugador("DNI", 76202349, "Nicolas", "De La Cruz", 2, LocalDate.of(1997, 6, 1), "Su casa 22", "ndelacruz@mail.com", "+54 11 8012-4099");
 
-        //RACING 25 - 33
+        //RACING 24 - 32
         controladorJugadores.agregarJugador("DNI", 59424211, "Gabriel", "Arias", 3, LocalDate.of(1987, 9, 13), "su casa 23", "garias@mail.com", "+54 11 3151-4751");
         controladorJugadores.agregarJugador("DNI", 75473477, "Gaston", "Gomez", 3, LocalDate.of(1996, 3, 4), "su casa 24", "ggomez@mail.com", "+54 11 4543-6615");
         controladorJugadores.agregarJugador("DNI", 15913806, "Matias", "Tagliamonte", 3, LocalDate.of(1998, 2, 19), "su casa 25", "mtagliamonte@mail.com", "+54 11 2960-8836");
@@ -108,7 +108,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 27078447, "Joaquin", "Novillo", 3, LocalDate.of(1998, 2, 19), "su casa 30", "jnovillo@mail.com", "+54 11 7265-8614");
         controladorJugadores.agregarJugador("DNI", 53737840, "Mauricio", "Martinez", 3, LocalDate.of(1993, 2, 20), "su casa 31", "mmartinez@mail.com", "+54 11 8055-8220");
 
-        //INDEPENDIENTE 34 - 48
+        //INDEPENDIENTE 33 - 47
         controladorJugadores.agregarJugador("DNI", 28754213, "Ricardo Enrique", "Bochini", 4, LocalDate.of(1954, 1, 25), "Su casa 32", "rbochini@mail.com", "+54 11 3212-6740");
         controladorJugadores.agregarJugador("DNI", 86947307, "Sebastian", "Sosa", 4, LocalDate.of(1986, 8, 19), "Su casa 33", "ssosa@mail.com", "+54 11 4967-5743");
         controladorJugadores.agregarJugador("DNI", 63110117, "Milton", "Alvarez", 4, LocalDate.of(1989, 1, 26), "Su casa 34", "malvares@mail.com", "+54 11 3951-2326");
@@ -126,7 +126,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 56553617, "Lucas", "Romero", 4, LocalDate.of(1994, 4, 18), "Su casa 46", "lromero@mail.com", "+54 11 7380-8024");
 
 
-        //SAN SILENCIO 49 - 54
+        //SAN SILENCIO 48 - 53
         controladorJugadores.agregarJugador("DNI", 38811500, "Augusto", "Batalla", 5, LocalDate.of(1996, 4, 30), "Su casa 47", "abatalla@mail.com", "+54 11 4381-5831");
         controladorJugadores.agregarJugador("DNI", 42030784, "Sebastian Alberto", "Torrico", 5, LocalDate.of(1980, 2, 22), "Su casa 48", "storrico@mail.com", "+54 11 1243-9039");
         controladorJugadores.agregarJugador("DNI", 38439359, "Francisco", "Flores", 5, LocalDate.of(2002, 1, 11), "Su casa 49", "fflores@mail.com", "+54 11 4362-9663");
@@ -135,7 +135,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 67743381, "Gino", "Peruzzi", 5, LocalDate.of(1992, 6, 9), "Su casa 52", "gperuzzi@mail.com", "+54 11 1471-7022");
 
 
-        //FERRO 55 - 60
+        //FERRO 54 - 59
         controladorJugadores.agregarJugador("DNI", 36875123, "Luis Angel", "Salmeron", 6, LocalDate.of(1982, 3, 18), "Su casa 53", "lsalmeron@mail.com", "+54 11 4431-6487");
         controladorJugadores.agregarJugador("DNI", 44534244, "Juan", "Perez", 6, LocalDate.of(1999, 3, 24), "Su casa 54", "jperez@mail.com", "+54 11 2695-1540");
         controladorJugadores.agregarJugador("DNI", 53026193, "Pedro", "Gomez", 6, LocalDate.of(1999, 4, 21), "Su casa 55", "pgomez@mail.com", "+54 11 7101-5091");
@@ -144,14 +144,14 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 93742159, "Esteban", "Carnicer", 6, LocalDate.of(2004, 3, 4), "Su casa 58", "ecarnicer@mail.com", "+54 11 7391-5913");
 
 
-        //BANFIELD 61 - 65
+        //BANFIELD 60 - 64
         controladorJugadores.agregarJugador("DNI", 58029954, "James David", "Rodriguez", 7, LocalDate.of(1991, 7, 12), "Su casa 59", "jrodriguez@mail.com", "+54 11 2217-7713");
         controladorJugadores.agregarJugador("DNI", 92149154, "Facundo", "Altamirano", 7, LocalDate.of(1996, 3, 21), "Su casa 60", "faltamirano@mail.com", "+54 11 2932-0700");
         controladorJugadores.agregarJugador("DNI", 58698841, "Gregorio", "Tanco", 7, LocalDate.of(1999, 10, 10), "Su casa 61", "gtanco@mail.com", "+54 11 3834-2003");
         controladorJugadores.agregarJugador("DNI", 97471727, "Alexis", "Maldonado", 7, LocalDate.of(1997, 9, 2), "Su casa 62", "amaldonado@mail.com", "+54 11 9379-3762");
         controladorJugadores.agregarJugador("DNI", 81923228, "Luciano", "Lollo", 7, LocalDate.of(1987, 3, 29), "Su casa 63", "llollo@mail.com", "+54 11 8502-0749");
 
-        //INTER 66 - 83
+        //INTER 65 - 82
         controladorJugadores.agregarJugador("DNI", 93497503, "Diego Alberto", "Milito", 8, LocalDate.of(1979, 6, 12), "Su casa 22", "dmilito@mail.com", "+54 11 5930-6875");
         controladorJugadores.agregarJugador("DNI", 17110900, "Samir", "Handanovic", 8, LocalDate.of(1984, 7, 14), "Su casa 4002", "shandanovic@mail.com", "+54 11 5635-8574");
         controladorJugadores.agregarJugador("DNI", 88241271, "Milan", "Skriniar", 8, LocalDate.of(1995, 2, 11), "Su casa 8362", "mskriniar@mail.com", "+54 11 9830-5406");
@@ -171,7 +171,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 48672637, "Lautaro", "Martinez", 8, LocalDate.of(1997, 8, 22), "Su casa 1288", "lmartinez@mail.com", "+54 11 8135-4107");
         controladorJugadores.agregarJugador("DNI", 51394560, "Romelu", "Lukaku", 8, LocalDate.of(1993, 5, 13), "Su casa 8180", "rlukaku@mail.com", "+54 11 6513-2168");
 
-        //PSG 84 - 105
+        //PSG 83 - 104
         controladorJugadores.agregarJugador("DNI", 36737643, "Lionel Andres", "Messi", 9, LocalDate.of(1987, 6, 24), "Su casa 4888", "lmessi@mail.com", "+54 11 8341-9359");
         controladorJugadores.agregarJugador("DNI", 83352880, "Gianluigi", "Donnarumma", 9, LocalDate.of(1999, 2, 25), "Su casa 7569", "gdonnarumma@mail.com", "+54 11 4157-2774");
         controladorJugadores.agregarJugador("DNI", 92847000, "Keylor", "Navas", 9, LocalDate.of(1986, 12, 15), "Su casa 3429", "knavas@mail.com", "+54 11 2688-9081");
