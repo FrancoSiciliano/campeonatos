@@ -34,7 +34,7 @@ public class ControladorJugadores {
     }
 
 
-    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, Integer idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono) throws JugadorException {
+    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, Integer idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono) {
         JugadorDao dao = JugadorDao.getInstancia();
         try {
             dao.getJugadorByDocumento(documento, tipoDocumento);

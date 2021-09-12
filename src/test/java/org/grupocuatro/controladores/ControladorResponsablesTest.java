@@ -12,14 +12,12 @@ public class ControladorResponsablesTest extends TestCase {
 
 
     public void testCrearResponsable() {
-        try {
-            ControladorResponsables.getInstancia().crearResponsable(35785412,"Jorge Perez", 1);
-            ControladorResponsables.getInstancia().crearResponsable(34521879, "Gerardo Gonzalez", 2);
-            ControladorResponsables.getInstancia().crearResponsable(34852369, "Horacio Lopez", 3);
-            ControladorResponsables.getInstancia().crearResponsable(35412789, "Rodolfo Mendez", 4);
-        } catch (ResponsableException e) {
-            System.out.println(e.getMessage());
-        }
+
+        ControladorResponsables.getInstancia().crearResponsable(35785412, "Jorge Perez", 1);
+        ControladorResponsables.getInstancia().crearResponsable(34521879, "Gerardo Gonzalez", 2);
+        ControladorResponsables.getInstancia().crearResponsable(34852369, "Horacio Lopez", 3);
+        ControladorResponsables.getInstancia().crearResponsable(35412789, "Rodolfo Mendez", 4);
+
     }
 
     public void testModificarResponsable() {

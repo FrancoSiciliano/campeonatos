@@ -20,7 +20,7 @@ public class ControladorResponsables {
         return instancia;
     }
 
-    public Integer crearResponsable(Integer documento, String nombre, Integer idClub) throws ResponsableException {
+    public Integer crearResponsable(Integer documento, String nombre, Integer idClub) {
         ResponsableDao dao = ResponsableDao.getInstancia();
         try {
             Club club = ClubDao.getInstancia().getClubById(idClub);
@@ -35,9 +35,10 @@ public class ControladorResponsables {
         } catch (ClubException e) {
             System.out.println(e.getMessage());
         }
-        throw new ResponsableException("No se pudo crear el responsable solicitado");
-
+        System.out.println("No se puede crear el representante");
+        return null;
     }
+
     public void modificarResponsable(Integer legajoResponsable, Integer documento, String nombre, Integer idClub) {
         ResponsableDao dao = ResponsableDao.getInstancia();
         try {

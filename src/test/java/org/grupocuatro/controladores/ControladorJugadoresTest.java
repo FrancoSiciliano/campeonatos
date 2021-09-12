@@ -12,7 +12,7 @@ import java.util.List;
 public class ControladorJugadoresTest extends TestCase {
 
     public void testCrearJugador() {
-        try {
+
             ControladorJugadores.getInstancia().agregarJugador("DNI", 31222222, "Diego Alberto", "Milito", 3, LocalDate.of(1979, 6, 12), "Su casa 22", "dmilito@mail.com", "123456789");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 28754213, "Ricardo Enrique", "Bochini", 4, LocalDate.of(1954, 1, 25), "Su casa 10", "rbochini@mail.com", "987654321");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 31123456, "Juan Roman", "Riquelme", 1, LocalDate.of(1978, 6, 24), "Su casa 5", "rriquelme@mail.com", "123789456");
@@ -21,9 +21,7 @@ public class ControladorJugadoresTest extends TestCase {
             ControladorJugadores.getInstancia().agregarJugador("DNI", 36875123, "Luis Angel", "Salmeron", 6, LocalDate.of(1982, 3, 18), "Su casa 9", "lsalmeron@mail.com", "258147369");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 40528741, "James David", "Rodriguez", 7, LocalDate.of(1991, 7, 12), "Su casa 100", "jrodriguez@mail.com", "963741852");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 37852136, "Washington Fernando", "Camacho", 8, LocalDate.of(1986, 4, 8), "Su casa 8", "wcamacho@mail.com", "546712893");
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     public void testGetJugadores() {

@@ -16,6 +16,7 @@ import org.grupocuatro.modelo.ClubesCampeonato;
 import javax.naming.ldap.Control;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 public class ControladorCampeonatos {
     private static ControladorCampeonatos instancia;
@@ -32,8 +33,19 @@ public class ControladorCampeonatos {
     // PARTE DE PERSISTENCIA BASICA
 
     public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, Integer categoria) {
+
         Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, estado, categoria);
-        nuevoCampeonato.save();
+        try {
+            for (Campeonato c : CampeonatoDao.getInstancia().getCampeonatos()) {
+                if (Objects.equals(descripcion, c.getDescripcion()) && Objects.equals(c.getFechaInicio(), fechaInicio) && Objects.equals(c.getFechaFin(), fechaFin) && Objects.equals(c.getEstado(), "Activo") && Objects.equals(c.getCategoria(), categoria)) {
+                    System.out.println("Ya existe el campeonato que se esta intentando ingresar");
+                    return null;
+                }
+            }
+            throw new CampeonatoException("");
+        } catch (CampeonatoException e) {
+            nuevoCampeonato.save();
+        }
         return nuevoCampeonato.getIdCampeonato();
     }
 
@@ -79,12 +91,12 @@ public class ControladorCampeonatos {
 
     public Campeonato encontrarCampeonato(Integer idCampeonato) {
         CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
-        Campeonato campeonato = null;
+        Campeonato campeonato;
         try {
             campeonato = campeonatoDao.getCampeonato(idCampeonato);
             return campeonato;
         } catch (CampeonatoException e) {
-            System.out.printf(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return null;
     }
