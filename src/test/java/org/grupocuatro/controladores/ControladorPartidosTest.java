@@ -2,8 +2,10 @@ package org.grupocuatro.controladores;
 
 import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorPartidos;
+import org.grupocuatro.modelo.Partido;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ControladorPartidosTest extends TestCase {
 
@@ -19,19 +21,13 @@ public class ControladorPartidosTest extends TestCase {
         ControladorPartidos.getInstancia().encontrarPartido(2);
         ControladorPartidos.getInstancia().encontrarPartido(5);
     }
-    public void testvalidadoPorClubLocal(){
-        ControladorPartidos.getInstancia().validadoPorClubLocal(1,1);
-        ControladorPartidos.getInstancia().validadoPorClubLocal(5,1);
-        ControladorPartidos.getInstancia().validadoPorClubLocal(1,4);
 
-    }
-
-    public void testcargarResultadoPartido() {//tiene un fixme
+    public void testcargarResultadoPartido() {
         ControladorPartidos.getInstancia().cargarResultadoPartido(1,"Se agarraron a las piñas sobre el final");
-//        ControladorPartidos.getInstancia().cargarResultadoPartido(2, "");
-//        ControladorPartidos.getInstancia().cargarResultadoPartido(3, "");
-//        ControladorPartidos.getInstancia().cargarResultadoPartido(8, "");
-//        ControladorPartidos.getInstancia().cargarResultadoPartido(9, "");
+        ControladorPartidos.getInstancia().cargarResultadoPartido(2, "");
+        ControladorPartidos.getInstancia().cargarResultadoPartido(3, "");
+        ControladorPartidos.getInstancia().cargarResultadoPartido(4, "");
+        ControladorPartidos.getInstancia().cargarResultadoPartido(9, "");
     }
 
     public void testactualizarTablaPosiciones() {
@@ -44,7 +40,48 @@ public class ControladorPartidosTest extends TestCase {
 
     public void testvalidadoPorClubVisitante(){
         ControladorPartidos.getInstancia().validadoPorClubVisitante(2,1);
-        ControladorPartidos.getInstancia().validadoPorClubVisitante(5,1);
-        ControladorPartidos.getInstancia().validadoPorClubVisitante(1,4);
+        ControladorPartidos.getInstancia().validadoPorClubVisitante(4,2);
+        ControladorPartidos.getInstancia().validadoPorClubVisitante(6,3);
+        ControladorPartidos.getInstancia().validadoPorClubVisitante(8,4);
     }
+
+    // FIXME NO FUNCIONA
+
+    public void testvalidadoPorClubLocal(){
+        ControladorPartidos.getInstancia().validadoPorClubLocal(1,1);
+        ControladorPartidos.getInstancia().validadoPorClubLocal(3,2);
+        ControladorPartidos.getInstancia().validadoPorClubLocal(5,3);
+        ControladorPartidos.getInstancia().validadoPorClubLocal(7,4);
+    }
+
+    public void testGetAllPartidos() {
+        List<Partido> partidos = ControladorPartidos.getInstancia().getAllPartidos();
+        System.out.println(partidos);
+    }
+
+    public void testGetPartidosByCategoria() {
+        List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByCategoria(78);
+        System.out.println(partidos);
+    }
+
+    public void testGetPartidosByNroFecha() {
+        List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByNroFecha(1);
+        System.out.println(partidos);
+    }
+
+    public void testGetPartidosByNroZona() {
+        List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByNroZona(1);
+        System.out.println(partidos);
+    }
+
+    public void testGetPartidosByClubLocal() {
+        List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByClubLocal(1);
+        System.out.println(partidos);
+    }
+
+    public void testGetPartidosByClubVisitante() {
+        List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByClubVisitante(2);
+        System.out.println(partidos);
+    }
+
 }
