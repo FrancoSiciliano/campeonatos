@@ -122,4 +122,15 @@ public class PartidoDaoTest extends TestCase {
             System.out.println(e.getMessage());
         }
     }
+
+    public void testGetPartidosByCampeonato() {
+        List<Partido> partidos = null;
+        try {
+            partidos = PartidoDao.getInstancia().getPartidosByCampeonato(2);
+            System.out.println(partidos);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

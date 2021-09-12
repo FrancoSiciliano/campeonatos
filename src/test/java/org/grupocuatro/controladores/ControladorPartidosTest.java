@@ -84,4 +84,9 @@ public class ControladorPartidosTest extends TestCase {
         System.out.println(partidos);
     }
 
+    public void testGetPartidosByCampeonato() {
+        List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByCampeonato(1);
+        System.out.println(partidos);
+    }
+
 }

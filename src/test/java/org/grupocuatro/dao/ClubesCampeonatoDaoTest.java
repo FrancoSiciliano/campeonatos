@@ -23,4 +23,12 @@ public class ClubesCampeonatoDaoTest extends TestCase {
             System.out.println(e.getMessage());
         }
     }
+
+    public void testGetClubCampeonato() {
+        try {
+            System.out.println(ClubesCampeonatoDao.getInstancia().getClubCampeonato(1, 2));
+        } catch (ClubesCampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
