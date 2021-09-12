@@ -65,8 +65,7 @@ public class ControladorMiembros {
     //TODO ver que onda el egreso/ingreso para hacer el modificar
 
     private boolean pertenecAlEquipo(Integer idClub, Jugador jugador){
-        Integer clubJugador = jugador.getClub().getIdClub();
-        return Objects.equals(clubJugador, idClub);
+        return jugador.isSuClub(idClub);
     }
 
     private boolean puedeJugarPorCategoria(Partido partido, Jugador jugador) {

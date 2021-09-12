@@ -11,8 +11,8 @@ public class ControladorFaltasTest extends TestCase {
 
 
     public void testCargarFalta() {
-        ControladorFaltas.getInstancia().cargarFalta(2, 2, 1, 78, "Amarilla");
-        ControladorFaltas.getInstancia().cargarFalta(3, 1, 1, 23, "Roja");
+        ControladorFaltas.getInstancia().cargarFalta(2, 2, 78, "Amarilla");
+        ControladorFaltas.getInstancia().cargarFalta(3, 1, 23, "Roja");
     }
 
     public void testGetFaltasPartido() {

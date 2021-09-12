@@ -174,6 +174,15 @@ public class ControladorPartidos {
         tp.update();
     }
 
+    public List<Partido> getPartidosByCampeonato(Integer idCampeonato) {
+        try {
+            return PartidoDao.getInstancia().getPartidosByCampeonato(idCampeonato);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 
     public List<Partido> getAllPartidos() {
         try {

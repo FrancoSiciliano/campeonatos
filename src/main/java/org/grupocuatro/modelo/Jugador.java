@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "jugadores")
@@ -192,6 +193,10 @@ public class Jugador implements Comparable<Jugador> {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public boolean isSuClub(Integer idClub) {
+        return Objects.equals(club.getIdClub(), idClub);
     }
 
     @Override

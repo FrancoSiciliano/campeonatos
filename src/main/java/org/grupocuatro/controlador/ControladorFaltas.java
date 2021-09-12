@@ -22,10 +22,10 @@ public class ControladorFaltas {
     }
 
 
-    public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer idCampeonato, Integer minuto, String tipo) {
+    public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) {
         Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador);
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
-        Campeonato campeonato = ControladorCampeonatos.getInstancia().encontrarCampeonato(idCampeonato);
+        Campeonato campeonato = partido.getCampeonato();
 
         if (jugador != null && partido != null && campeonato != null) {
             FaltaDao faltadao = FaltaDao.getInstancia();
@@ -35,7 +35,7 @@ public class ControladorFaltas {
 
             if (!tipo.equals("roja")) {
                 try {
-                    if (correspondeRoja(idJugador, idPartido, idCampeonato)) {
+                    if (correspondeRoja(idJugador, idPartido, partido.getCampeonato().getIdCampeonato())) {
                         falta = new Falta(jugador, partido, campeonato, minuto, "roja");
                         faltadao.save(falta);
                         return falta.getIdFalta();

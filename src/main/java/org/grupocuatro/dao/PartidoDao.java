@@ -40,6 +40,12 @@ public class PartidoDao extends AbstractDao {
 
     }
 
+    public List<Partido> getPartidosByCampeonato(Integer idCampeonato) throws  PartidoException{
+        List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato = " + idCampeonato).getResultList();
+        if (!partidos.isEmpty()) return partidos;
+        throw new PartidoException("No existen partidos para el campeonato " + idCampeonato);
+    }
+
     public List<Partido> getPartidosByCategoria(int categoria) throws PartidoException {
         List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE categoria =" + categoria).getResultList();
         if (!partidos.isEmpty()) return partidos;

@@ -7,6 +7,8 @@ import org.grupocuatro.modelo.*;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -40,6 +42,21 @@ public class AppTest {
         controladorCampeonatos.crearCampeonato("Champions League", LocalDate.of(2021, 10, 22), LocalDate.of(2022, 5, 28), "Activo", 86);
         controladorCampeonatos.crearCampeonato("Serie A", LocalDate.of(2021, 10, 21), LocalDate.of(2022, 5, 22), "Activo", 76);
 
+        controladorCampeonatos.definirTipoCampeonato("Puntos", 1);
+        controladorCampeonatos.definirTipoCampeonato("Zonas", 2);
+        controladorCampeonatos.definirTipoCampeonato("Puntos", 3);
+
+        controladorCampeonatos.agregarClubACampeonato(1,1);
+        controladorCampeonatos.agregarClubACampeonato(2,1);
+        controladorCampeonatos.agregarClubACampeonato(3,1);
+        controladorCampeonatos.agregarClubACampeonato(4,1);
+        controladorCampeonatos.agregarClubACampeonato(5,1);
+        controladorCampeonatos.agregarClubACampeonato(6,1);
+        controladorCampeonatos.agregarClubACampeonato(7,1);
+        controladorCampeonatos.agregarClubACampeonato(8,2);
+        controladorCampeonatos.agregarClubACampeonato(9,2);
+
+
         //CREACION DE RESPONSABLES
         controladorResponsables.crearResponsable(35785412, "Jorge Ameal", 1);
         controladorResponsables.crearResponsable(34521879, "Rodolfo Don Frío", 2);
@@ -53,7 +70,7 @@ public class AppTest {
 
         //CREACION DE JUGADORES
 
-        //BOCA
+        //BOCA 1 - 11
         controladorJugadores.agregarJugador("DNI", 31123456, "Juan Roman", "Riquelme", 1, LocalDate.of(1978, 6, 24), "Su casa 1", "rriquelme@mail.com", "+54 11 1928-1339");
         controladorJugadores.agregarJugador("DNI", 93353922, "Agustin", "Rossi", 1, LocalDate.of(1995, 8, 21), "Su casa 2", "arossi@mail.com", "+54 11 6258-7830");
         controladorJugadores.agregarJugador("DNI", 70111576, "Carlos", "Izquierdoz", 1, LocalDate.of(1988, 11, 3), "Su casa 3", "cali@mail.com", "+54 11 2884-7437");
@@ -66,7 +83,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 91867074, "Luis", "Advincula", 1, LocalDate.of(1990, 3, 2), "Su casa 10", "ladvincula@mail.com", "+54 11 2042-7052");
         controladorJugadores.agregarJugador("DNI", 97678613, "Alan", "Varela", 1, LocalDate.of(2001, 7, 4), "Su casa 11", "avarela@mail.com", "+54 11 1142-3898");
 
-        //RIVER
+        //RIVER 12 - 24
         controladorJugadores.agregarJugador("DNI", 30458741, "Marcelo Daniel", "Gallardo", 2, LocalDate.of(1976, 1, 18), "Su casa 15", "mgallardo@mail.com", "+54 11 1945-6216");
         controladorJugadores.agregarJugador("DNI", 31587652, "Franco", "Armani", 2, LocalDate.of(1986, 10, 16), "Su casa 12", "farmani@mail.com", "+54 11 8372-6286");
         controladorJugadores.agregarJugador("DNI", 76468954, "Paulo", "Diaz", 2, LocalDate.of(1994, 8, 25), "Su casa 13", "pdiaz@mail.com", "+54 11 1850-6703");
@@ -80,7 +97,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 40219851, "Leonardo", "Ponzio", 2, LocalDate.of(1982, 1, 29), "Su casa 21", "lponzio@mail.com", "+54 11 4764-8036");
         controladorJugadores.agregarJugador("DNI", 76202349, "Nicolas", "De La Cruz", 2, LocalDate.of(1997, 6, 1), "Su casa 22", "ndelacruz@mail.com", "+54 11 8012-4099");
 
-        //RACING
+        //RACING 25 - 33
         controladorJugadores.agregarJugador("DNI", 59424211, "Gabriel", "Arias", 3, LocalDate.of(1987, 9, 13), "su casa 23", "garias@mail.com", "+54 11 3151-4751");
         controladorJugadores.agregarJugador("DNI", 75473477, "Gaston", "Gomez", 3, LocalDate.of(1996, 3, 4), "su casa 24", "ggomez@mail.com", "+54 11 4543-6615");
         controladorJugadores.agregarJugador("DNI", 15913806, "Matias", "Tagliamonte", 3, LocalDate.of(1998, 2, 19), "su casa 25", "mtagliamonte@mail.com", "+54 11 2960-8836");
@@ -91,7 +108,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 27078447, "Joaquin", "Novillo", 3, LocalDate.of(1998, 2, 19), "su casa 30", "jnovillo@mail.com", "+54 11 7265-8614");
         controladorJugadores.agregarJugador("DNI", 53737840, "Mauricio", "Martinez", 3, LocalDate.of(1993, 2, 20), "su casa 31", "mmartinez@mail.com", "+54 11 8055-8220");
 
-        //INDEPENDIENTE
+        //INDEPENDIENTE 34 - 48
         controladorJugadores.agregarJugador("DNI", 28754213, "Ricardo Enrique", "Bochini", 4, LocalDate.of(1954, 1, 25), "Su casa 32", "rbochini@mail.com", "+54 11 3212-6740");
         controladorJugadores.agregarJugador("DNI", 86947307, "Sebastian", "Sosa", 4, LocalDate.of(1986, 8, 19), "Su casa 33", "ssosa@mail.com", "+54 11 4967-5743");
         controladorJugadores.agregarJugador("DNI", 63110117, "Milton", "Alvarez", 4, LocalDate.of(1989, 1, 26), "Su casa 34", "malvares@mail.com", "+54 11 3951-2326");
@@ -109,7 +126,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 56553617, "Lucas", "Romero", 4, LocalDate.of(1994, 4, 18), "Su casa 46", "lromero@mail.com", "+54 11 7380-8024");
 
 
-        //SAN SILENCIO
+        //SAN SILENCIO 49 - 54
         controladorJugadores.agregarJugador("DNI", 38811500, "Augusto", "Batalla", 5, LocalDate.of(1996, 4, 30), "Su casa 47", "abatalla@mail.com", "+54 11 4381-5831");
         controladorJugadores.agregarJugador("DNI", 42030784, "Sebastian Alberto", "Torrico", 5, LocalDate.of(1980, 2, 22), "Su casa 48", "storrico@mail.com", "+54 11 1243-9039");
         controladorJugadores.agregarJugador("DNI", 38439359, "Francisco", "Flores", 5, LocalDate.of(2002, 1, 11), "Su casa 49", "fflores@mail.com", "+54 11 4362-9663");
@@ -118,7 +135,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 67743381, "Gino", "Peruzzi", 5, LocalDate.of(1992, 6, 9), "Su casa 52", "gperuzzi@mail.com", "+54 11 1471-7022");
 
 
-        //FERRO
+        //FERRO 55 - 60
         controladorJugadores.agregarJugador("DNI", 36875123, "Luis Angel", "Salmeron", 6, LocalDate.of(1982, 3, 18), "Su casa 53", "lsalmeron@mail.com", "+54 11 4431-6487");
         controladorJugadores.agregarJugador("DNI", 44534244, "Juan", "Perez", 6, LocalDate.of(1999, 3, 24), "Su casa 54", "jperez@mail.com", "+54 11 2695-1540");
         controladorJugadores.agregarJugador("DNI", 53026193, "Pedro", "Gomez", 6, LocalDate.of(1999, 4, 21), "Su casa 55", "pgomez@mail.com", "+54 11 7101-5091");
@@ -127,14 +144,14 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 93742159, "Esteban", "Carnicer", 6, LocalDate.of(2004, 3, 4), "Su casa 58", "ecarnicer@mail.com", "+54 11 7391-5913");
 
 
-        //BANFIELD
+        //BANFIELD 61 - 65
         controladorJugadores.agregarJugador("DNI", 58029954, "James David", "Rodriguez", 7, LocalDate.of(1991, 7, 12), "Su casa 59", "jrodriguez@mail.com", "+54 11 2217-7713");
         controladorJugadores.agregarJugador("DNI", 92149154, "Facundo", "Altamirano", 7, LocalDate.of(1996, 3, 21), "Su casa 60", "faltamirano@mail.com", "+54 11 2932-0700");
         controladorJugadores.agregarJugador("DNI", 58698841, "Gregorio", "Tanco", 7, LocalDate.of(1999, 10, 10), "Su casa 61", "gtanco@mail.com", "+54 11 3834-2003");
         controladorJugadores.agregarJugador("DNI", 97471727, "Alexis", "Maldonado", 7, LocalDate.of(1997, 9, 2), "Su casa 62", "amaldonado@mail.com", "+54 11 9379-3762");
         controladorJugadores.agregarJugador("DNI", 81923228, "Luciano", "Lollo", 7, LocalDate.of(1987, 3, 29), "Su casa 63", "llollo@mail.com", "+54 11 8502-0749");
 
-        //INTER
+        //INTER 66 - 83
         controladorJugadores.agregarJugador("DNI", 93497503, "Diego Alberto", "Milito", 8, LocalDate.of(1979, 6, 12), "Su casa 22", "dmilito@mail.com", "+54 11 5930-6875");
         controladorJugadores.agregarJugador("DNI", 17110900, "Samir", "Handanovic", 8, LocalDate.of(1984, 7, 14), "Su casa 4002", "shandanovic@mail.com", "+54 11 5635-8574");
         controladorJugadores.agregarJugador("DNI", 88241271, "Milan", "Skriniar", 8, LocalDate.of(1995, 2, 11), "Su casa 8362", "mskriniar@mail.com", "+54 11 9830-5406");
@@ -154,7 +171,7 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 48672637, "Lautaro", "Martinez", 8, LocalDate.of(1997, 8, 22), "Su casa 1288", "lmartinez@mail.com", "+54 11 8135-4107");
         controladorJugadores.agregarJugador("DNI", 51394560, "Romelu", "Lukaku", 8, LocalDate.of(1993, 5, 13), "Su casa 8180", "rlukaku@mail.com", "+54 11 6513-2168");
 
-        //PSG
+        //PSG 84 - 105
         controladorJugadores.agregarJugador("DNI", 36737643, "Lionel Andres", "Messi", 9, LocalDate.of(1987, 6, 24), "Su casa 4888", "lmessi@mail.com", "+54 11 8341-9359");
         controladorJugadores.agregarJugador("DNI", 83352880, "Gianluigi", "Donnarumma", 9, LocalDate.of(1999, 2, 25), "Su casa 7569", "gdonnarumma@mail.com", "+54 11 4157-2774");
         controladorJugadores.agregarJugador("DNI", 92847000, "Keylor", "Navas", 9, LocalDate.of(1986, 12, 15), "Su casa 3429", "knavas@mail.com", "+54 11 2688-9081");
@@ -178,5 +195,131 @@ public class AppTest {
         controladorJugadores.agregarJugador("DNI", 69989515, "Kylian", "Mbappe", 9, LocalDate.of(1998, 12, 20), "Su casa 8888", "kmbappe@mail.com", "+54 11 4768-2837");
         controladorJugadores.agregarJugador("DNI", 96986200, "Mauro", "Icardi", 9, LocalDate.of(1993, 2, 19), "Su casa 1490", "micardi@mail.com", "+54 11 6106-5305");
 
+        //PARTIDOS
+        //SUPERLIGA
+
+        //PARTIDO 1
+        controladorPartidos.crearPartido(1,1,80,1,2, LocalDate.of(2021,10,16),1); //BOCA RIVER
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(1), controladorPartidos.encontrarPartido(1));
+        controladorMiembros.agregarJugadoresEnLista(1, controladorJugadores.encontrarJugador(2));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(1), controladorPartidos.encontrarPartido(1));
+        controladorMiembros.agregarJugadoresEnLista(2, controladorJugadores.encontrarJugador(6));
+
+        controladorGoles.cargarGol(2,1,5, "a favor");
+        controladorGoles.cargarGol(2,1,10, "a favor");
+        controladorGoles.cargarGol(2,1,15, "a favor");
+        controladorGoles.cargarGol(12,1,12, "en contra");
+
+        controladorFaltas.cargarFalta(6,1,15,"amarilla");
+
+        //PARTIDO 2
+        controladorPartidos.crearPartido(1,1,80,3,4, LocalDate.of(2021,10,16),1); //RACIN INDEPENDIENTE
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(2));
+        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(26));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(2));
+        controladorMiembros.agregarJugadoresEnLista(4, controladorJugadores.encontrarJugador(32));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(4), controladorPartidos.encontrarPartido(2));
+        controladorMiembros.agregarJugadoresEnLista(5, controladorJugadores.encontrarJugador(45));
+
+
+        controladorGoles.cargarGol(26,2,11, "a favor");
+
+        controladorFaltas.cargarFalta(32,2,49,"amarilla");
+        controladorFaltas.cargarFalta(45,2,82,"amarilla");
+
+        //PARTIDO 3
+        controladorPartidos.crearPartido(2,1,80,2,1, LocalDate.of(2021,10,17),1); //RIVER BOCA
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(3));
+        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(15));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(3));
+        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
+
+        controladorGoles.cargarGol(15,3,85, "a favor");
+
+        controladorFaltas.cargarFalta(16,3,8,"roja");
+
+        //PARTIDO 4
+        controladorPartidos.crearPartido(2,1,80,4,3, LocalDate.of(2021,10,17),1); //iNDEPENDIENTE RACING
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(4));
+        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(4));
+        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(4));
+        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
+
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(4));
+        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(16));
+
+        controladorGoles.cargarGol(26,4,6, "a favor");
+        controladorGoles.cargarGol(26,4,78, "a favor");
+        controladorGoles.cargarGol(30,4,16, "en contra");
+        controladorGoles.cargarGol(48,4,68, "en contra");
+
+        //PARTIDO 5
+        controladorPartidos.crearPartido(3,1,80,5,6, LocalDate.of(2021,10,18),1); //CASLA FERRO
+
+        //PARTIDO 6
+        controladorPartidos.crearPartido(3,1,80,7,1, LocalDate.of(2021,10,18),1); //BANFIEDL BOCA
+
+        //PARTIDO 7
+        controladorPartidos.crearPartido(4,1,80,6,5, LocalDate.of(2021,10,19),1); //FERRO CASLA
+
+        controladorGoles.cargarGol(52,7,54, "en contra");
+        controladorGoles.cargarGol(59,7,64, "a favor");
+
+        //PARTIDO 8
+        controladorPartidos.crearPartido(4,1,80,2,7, LocalDate.of(2021,10,19),1); // RIVER BANFIELD
+
+        controladorGoles.cargarGol(12,8,11, "en contra");
+        controladorFaltas.cargarFalta(14,8,26,"amarilla");
+
+
+        //CHAMPIONS
+
+        //PARTIDO 9
+        controladorPartidos.crearPartido(1,1, 85,8,9, LocalDate.of(2021, 10, 22),2);
+
+        controladorGoles.cargarGol(83,9,79, "a favor");
+        controladorGoles.cargarGol(84,9,1, "a favor");
+
+        controladorFaltas.cargarFalta(79,9,44,"amarilla");
+
+        //PARTIDO 10
+        controladorPartidos.crearPartido(2,1, 85,9,8, LocalDate.of(2021, 10, 23),2);
+
+        controladorFaltas.cargarFalta(80,10,89,"roja");
+        controladorFaltas.cargarFalta(86,10,4,"amarilla");
+
+
+        controladorPartidos.cargarResultadoPartido(1,"");
+        controladorPartidos.cargarResultadoPartido(2,"Se agarraron a las trompadas a la salida");
+        controladorPartidos.cargarResultadoPartido(3,"");
+        controladorPartidos.cargarResultadoPartido(4,"");
+        controladorPartidos.cargarResultadoPartido(5,"");
+        controladorPartidos.cargarResultadoPartido(6,"Jugador se retira lesionado");
+        controladorPartidos.cargarResultadoPartido(7,"");
+        controladorPartidos.cargarResultadoPartido(8,"");
+        controladorPartidos.cargarResultadoPartido(9,"");
+        controladorPartidos.cargarResultadoPartido(10,"");
+
+        for(Partido p: controladorPartidos.getPartidosByCampeonato(1)){
+            controladorPartidos.validadoPorClubLocal(p.getClubLocal().getIdClub(), p.getIdPartido());
+            controladorPartidos.validadoPorClubVisitante(p.getClubVisitante().getIdClub(), p.getIdPartido());
+        }
+
+        for(Partido p: controladorPartidos.getPartidosByCampeonato(2)){
+            controladorPartidos.validadoPorClubLocal(p.getClubLocal().getIdClub(), p.getIdPartido());
+            controladorPartidos.validadoPorClubVisitante(p.getClubVisitante().getIdClub(), p.getIdPartido());
+        }
     }
 }

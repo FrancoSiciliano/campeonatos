@@ -92,6 +92,10 @@ public class ControladorJugadores {
         }
     }
 
+    public boolean perteneceAlClub(Jugador jugador, Integer idClub) {
+        return jugador.isSuClub(idClub);
+    }
+
     public Jugador getJugadorByDocumento(Integer nroDoc, String tipoDocumento ) {
         try{
             return JugadorDao.getInstancia().getJugadorByDocumento(nroDoc, tipoDocumento);
