@@ -45,8 +45,6 @@ public class ControladorPartidosTest extends TestCase {
         ControladorPartidos.getInstancia().validadoPorClubVisitante(8,4);
     }
 
-    // FIXME NO FUNCIONA
-
     public void testvalidadoPorClubLocal(){
         ControladorPartidos.getInstancia().validadoPorClubLocal(1,1);
         ControladorPartidos.getInstancia().validadoPorClubLocal(3,2);
