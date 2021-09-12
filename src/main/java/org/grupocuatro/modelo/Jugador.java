@@ -61,10 +61,7 @@ public class Jugador implements Comparable<Jugador> {
         this.telefono = telefono;
 
         int auxCategoria = fechaNacimiento.getYear();
-        if (auxCategoria < 1999)
-            this.categoria = auxCategoria - 1900;
-        else
-            this.categoria = auxCategoria - 2000;
+        this.categoria = auxCategoria - 1900;
     }
 
     public Jugador() {

@@ -230,7 +230,7 @@ public class AppTest {
         controladorGoles.cargarGol(26,2,11, "a favor");
 
         controladorFaltas.cargarFalta(32,2,49,"amarilla");
-        controladorFaltas.cargarFalta(45,2,82,"amarilla");
+        controladorFaltas.cargarFalta(32,2,82,"amarilla");
 
         //PARTIDO 3
         controladorPartidos.crearPartido(2,1,80,2,1, LocalDate.of(2021,10,17),1); //RIVER BOCA
@@ -254,13 +254,13 @@ public class AppTest {
         controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(4));
         controladorMiembros.agregarJugadoresEnLista(9, controladorJugadores.encontrarJugador(30));
 
-        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(4));
-        controladorMiembros.agregarJugadoresEnLista(10, controladorJugadores.encontrarJugador(48));
+        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(4), controladorPartidos.encontrarPartido(4));
+        controladorMiembros.agregarJugadoresEnLista(10, controladorJugadores.encontrarJugador(47));
 
         controladorGoles.cargarGol(26,4,6, "a favor");
         controladorGoles.cargarGol(26,4,78, "a favor");
         controladorGoles.cargarGol(30,4,16, "en contra");
-        controladorGoles.cargarGol(48,4,68, "en contra");
+        controladorGoles.cargarGol(47,4,68, "en contra");
 
         //PARTIDO 5
         controladorPartidos.crearPartido(3,1,80,5,6, LocalDate.of(2021,10,18),1); //CASLA FERRO
