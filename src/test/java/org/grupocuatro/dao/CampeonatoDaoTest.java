@@ -20,4 +20,12 @@ public class CampeonatoDaoTest extends TestCase {
             System.out.println(e.getMessage());
         }
     }
+
+    public void testGetCampeonatosByEstado() {
+        try {
+            System.out.println(CampeonatoDao.getInstancia().getCampeonatosByEstado("activo"));
+        } catch (CampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

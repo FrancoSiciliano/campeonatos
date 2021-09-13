@@ -1,7 +1,6 @@
 package org.grupocuatro.dao;
 
 import junit.framework.TestCase;
-import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.excepciones.GolException;
 
 public class GolDaoTest extends TestCase {
@@ -15,6 +14,16 @@ public class GolDaoTest extends TestCase {
             System.out.println(e.getMessage());
         }
     }
+
+//    public void testGetGolesByPartidoAndClub() {
+//        try {
+//            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub());
+//            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub());
+//            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub());
+//        } catch (GolException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
     public void testGetGolesByPartidoAndSentido() {
         try {

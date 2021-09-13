@@ -1,19 +1,23 @@
 package org.grupocuatro.modelo;
 
+import org.grupocuatro.dao.TablaPosicionDao;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "tablaPosiciones")
+@IdClass(TablaPosicionesPK.class)
 public class TablaPosiciones implements Serializable {
 
-    private static final long serialVersionUID = -5832613523487497675L;
+    private static final long serialVersionUID = 1140126951524813662L;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "idClub")
     private Club id;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "idCampeonato")
     private Campeonato campeonato;
@@ -26,9 +30,9 @@ public class TablaPosiciones implements Serializable {
     private int golesContra;
     private int diferenciaGoles;
     private int puntos;
-    private float  promedio;
+    private float promedio;
 
-    public TablaPosiciones(Club id, Campeonato campeonato){
+    public TablaPosiciones(Club id, Campeonato campeonato) {
         this.id = id;
         this.campeonato = campeonato;
         cantidadEmpatados = 0;
@@ -42,13 +46,14 @@ public class TablaPosiciones implements Serializable {
         promedio = 0;
     }
 
-    public TablaPosiciones(){}
+    public TablaPosiciones() {
+    }
 
     public Campeonato getCampeonato() {
         return campeonato;
     }
 
-    public void setCampeonato(Campeonato campeonato){
+    public void setCampeonato(Campeonato campeonato) {
         this.campeonato = campeonato;
     }
 
@@ -74,6 +79,7 @@ public class TablaPosiciones implements Serializable {
 
     public void setCantidadGanados(int cantidadGanados) {
         this.cantidadGanados = cantidadGanados;
+        this.cantidadJugados++;
     }
 
     public int getCantidadEmpatados() {
@@ -82,6 +88,7 @@ public class TablaPosiciones implements Serializable {
 
     public void setCantidadEmpatados(int cantidadEmpatados) {
         this.cantidadEmpatados = cantidadEmpatados;
+        this.cantidadJugados++;
     }
 
     public int getCantidadPerdidos() {
@@ -90,6 +97,7 @@ public class TablaPosiciones implements Serializable {
 
     public void setCantidadPerdidos(int cantidadPerdidos) {
         this.cantidadPerdidos = cantidadPerdidos;
+        this.cantidadJugados++;
     }
 
     public int getGolesFavor() {
@@ -128,6 +136,18 @@ public class TablaPosiciones implements Serializable {
         return promedio;
     }
 
+    public void setPromedio(float promedio) {
+        this.promedio = promedio;
+    }
+
+    public void save() {
+        TablaPosicionDao.getInstancia().save(this);
+    }
+
+    public void update() {
+        TablaPosicionDao.getInstancia().update(this);
+    }
+
     @Override
     public String toString() {
         return "TablaPosiciones{" +
@@ -143,9 +163,5 @@ public class TablaPosiciones implements Serializable {
                 ", puntos=" + puntos +
                 ", promedio=" + promedio +
                 '}';
-    }
-
-    public void setPromedio(float promedio) {
-        this.promedio = promedio;
     }
 }

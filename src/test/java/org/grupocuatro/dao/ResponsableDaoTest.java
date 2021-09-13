@@ -45,10 +45,12 @@ public class ResponsableDaoTest extends TestCase {
 
     public void testGetResponsableByNroDocAndClub(){
         try{
-            System.out.println(ResponsableDao.getInstancia().getResponsableByNroDocAndClub("DNI",1));
-            System.out.println(ResponsableDao.getInstancia().getResponsableByNroDocAndClub("DNI",32));
+            System.out.println(ResponsableDao.getInstancia().getResponsableByNroDocAndClub(45,1));
+            System.out.println(ResponsableDao.getInstancia().getResponsableByNroDocAndClub(42,32));
         } catch (ResponsableException e) {
             System.out.println(e.getMessage());
         }
     }
+
+
 }

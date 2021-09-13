@@ -20,8 +20,7 @@ public class ClubDao extends AbstractDao {
 
     public Club getClubById(Integer id) throws ClubException {
         try {
-            Club result = (Club) getEntityManager().createQuery("FROM Club WHERE id = " + id).getSingleResult();
-            return result;
+            return (Club) getEntityManager().createQuery("FROM Club WHERE id = " + id).getSingleResult();
         } catch (NoResultException e) {
             throw new ClubException("No existe un club con ID " + id);
         }
@@ -29,8 +28,7 @@ public class ClubDao extends AbstractDao {
 
     public Club getClubByNombre(String nombre) throws ClubException {
         try {
-            Club result = (Club) getEntityManager().createQuery("FROM Club WHERE nombre = '" + nombre + "'").getSingleResult();
-            return result;
+            return (Club) getEntityManager().createQuery("FROM Club WHERE nombre = '" + nombre + "'").getSingleResult();
         } catch (NoResultException e) {
             throw new ClubException("No existe un club con nombre " + nombre);
         }

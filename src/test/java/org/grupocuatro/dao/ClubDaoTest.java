@@ -3,7 +3,7 @@ package org.grupocuatro.dao;
 import junit.framework.TestCase;
 import org.grupocuatro.excepciones.ClubException;
 
-public class ClubDaoTest<Clu> extends TestCase {
+public class ClubDaoTest extends TestCase {
 
     public void testGetClubById() {
         try {

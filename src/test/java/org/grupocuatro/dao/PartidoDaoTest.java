@@ -88,4 +88,49 @@ public class PartidoDaoTest extends TestCase {
             System.out.println(e.getMessage());
         }
     }
+
+    //TODO TESTEAR
+    public void testgetUltimoPartidoByClubAndCampeonatoAndJugador() {
+        try {
+            Partido partido = PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(1,1,1);
+            System.out.println(partido);
+            Partido partido1 = PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(1,2,1);
+            System.out.println(partido1);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetPartidosByCampeonatoAndClub() {
+        try {
+            List<Partido> partidos = PartidoDao.getInstancia().getPartidosByCampeonatoAndClub(1,1);
+            System.out.println(partidos);
+            List<Partido> partidos1 = PartidoDao.getInstancia().getPartidosByCampeonatoAndClub(1,6);
+            System.out.println(partidos1);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetPartidosByClub() {
+        try {
+            List<Partido> partidos = PartidoDao.getInstancia().getPartidosByClub(1);
+            System.out.println(partidos);
+            List<Partido> partidos1 = PartidoDao.getInstancia().getPartidosByClub(5);
+            System.out.println(partidos1);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetPartidosByCampeonato() {
+        List<Partido> partidos = null;
+        try {
+            partidos = PartidoDao.getInstancia().getPartidosByCampeonato(2);
+            System.out.println(partidos);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

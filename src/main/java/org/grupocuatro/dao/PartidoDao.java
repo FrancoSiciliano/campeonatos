@@ -33,12 +33,17 @@ public class PartidoDao extends AbstractDao {
 
     public Partido getPartidoById(Integer idPartido) throws PartidoException {
         try {
-            Partido partido = (Partido) getEntityManager().createQuery("FROM Partido WHERE idPartido = " + idPartido).getSingleResult();
-            return partido;
+            return (Partido) getEntityManager().createQuery("FROM Partido WHERE idPartido = " + idPartido).getSingleResult();
         } catch (NoResultException e) {
             throw new PartidoException("No hay un partido con el Id " + idPartido);
         }
 
+    }
+
+    public List<Partido> getPartidosByCampeonato(Integer idCampeonato) throws  PartidoException{
+        List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato = " + idCampeonato).getResultList();
+        if (!partidos.isEmpty()) return partidos;
+        throw new PartidoException("No existen partidos para el campeonato " + idCampeonato);
     }
 
     public List<Partido> getPartidosByCategoria(int categoria) throws PartidoException {
@@ -69,6 +74,31 @@ public class PartidoDao extends AbstractDao {
         List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idClubVisitante =" + idClub).getResultList();
         if (!partidos.isEmpty()) return partidos;
         throw new PartidoException("No existen partidos del club visitante " + idClub);
+    }
+
+    public Partido getUltimoPartidoByClubAndCampeonato(Integer idClub, Integer idCampeonato, int nroFechaActual) throws PartidoException {
+        String qlString = "FROM Partido WHERE (idClubLocal = ?1 or idClubVisitante = ?1) and idCampeonato = ?2 and nroFecha < ?3 ORDER BY nroFecha DESC";
+        Query query = getEntityManager().createQuery(qlString);
+        query.setParameter(1, idClub);
+        query.setParameter(2, idCampeonato);
+        query.setParameter(3, nroFechaActual - 1);
+        List<Partido> partidosAnteriores = query.getResultList();
+        if (!partidosAnteriores.isEmpty()) return partidosAnteriores.get(0);
+        throw new PartidoException("El equipo no jugo ningun partido aun");
+
+    }
+
+
+    public List<Partido> getPartidosByCampeonatoAndClub(int idCampeonato, int idClub) throws PartidoException {
+        List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato =" + idCampeonato + " AND (idClubLocal = " + idClub + " OR idClubVisitante = " + idClub + ")").getResultList();
+        if (!partidos.isEmpty()) return partidos;
+        throw new PartidoException("No existen partidos del club " + idClub + " en el campeonato " + idCampeonato);
+    }
+
+    public List<Partido> getPartidosByClub(int idClub) throws PartidoException {
+        List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idClubLocal = " + idClub + " OR idClubVisitante = " + idClub).getResultList();
+        if (!partidos.isEmpty()) return partidos;
+        throw new PartidoException("No existen partidos del club " + idClub);
     }
 
 }

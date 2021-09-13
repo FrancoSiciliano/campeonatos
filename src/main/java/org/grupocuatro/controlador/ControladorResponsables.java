@@ -7,10 +7,21 @@ import org.grupocuatro.excepciones.ResponsableException;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Responsable;
 
-public class ControladorResponsables {
-    //FIXME HACER SINGLETONIANO
+import java.util.List;
 
-    public Integer crearResponsable(String documento, String nombre, Integer idClub) throws ResponsableException {
+public class ControladorResponsables {
+
+    private static ControladorResponsables instancia;
+
+    private ControladorResponsables() {
+    }
+
+    public static ControladorResponsables getInstancia() {
+        if (instancia == null) instancia = new ControladorResponsables();
+        return instancia;
+    }
+
+    public Integer crearResponsable(Integer documento, String nombre, Integer idClub) {
         ResponsableDao dao = ResponsableDao.getInstancia();
         try {
             Club club = ClubDao.getInstancia().getClubById(idClub);
@@ -25,10 +36,11 @@ public class ControladorResponsables {
         } catch (ClubException e) {
             System.out.println(e.getMessage());
         }
-        throw new ResponsableException("No se pudo crear el responsable solicitado");
-
+        System.out.println("No se puede crear el representante");
+        return null;
     }
-    public void modificarResponsable(Integer legajoResponsable, String documento, String nombre, Integer idClub) {
+
+    public void modificarResponsable(Integer legajoResponsable, Integer documento, String nombre, Integer idClub) {
         ResponsableDao dao = ResponsableDao.getInstancia();
         try {
             Responsable resp = dao.getResponsable(legajoResponsable);
@@ -44,5 +56,41 @@ public class ControladorResponsables {
         } catch (ResponsableException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public Responsable getResponsable(Integer idResponsable) {
+        try {
+            return ResponsableDao.getInstancia().getResponsable(idResponsable);
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Responsable> getResponsables() {
+        try {
+            return ResponsableDao.getInstancia().getResponsables();
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Responsable getResponsableByNroDocAndClub(Integer doc, Integer idClub) {
+        try {
+            return ResponsableDao.getInstancia().getResponsableByNroDocAndClub(doc, idClub);
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Responsable> getResponsablesByClub(Integer idClub) {
+        try {
+            return ResponsableDao.getInstancia().getResponsablesByClub(idClub);
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package org.grupocuatro.dao;
 import org.grupocuatro.excepciones.TablaPosicionException;
 import org.grupocuatro.modelo.TablaPosiciones;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 public class TablaPosicionDao extends AbstractDao {
@@ -25,9 +26,8 @@ public class TablaPosicionDao extends AbstractDao {
 
     public TablaPosiciones getTablaPosicionesByClubAndCampeonato(int idClub, int idCampeonato) throws TablaPosicionException {
         try {
-            TablaPosiciones tabla = (TablaPosiciones) getEntityManager().createQuery("FROM TablaPosiciones WHERE idClub = " + idClub + "and idCampeonato = " + idCampeonato).getSingleResult();
-            return tabla;
-        } catch (Exception e) {
+            return (TablaPosiciones) getEntityManager().createQuery("FROM TablaPosiciones WHERE idClub = " + idClub + "and idCampeonato = " + idCampeonato).getSingleResult();
+        } catch (NoResultException e) {
             throw new TablaPosicionException("El club " + idClub + " nó jugo el torneo " + idCampeonato);
         }
 

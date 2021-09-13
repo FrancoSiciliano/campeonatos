@@ -6,6 +6,7 @@
 
     <persistence-unit name="persistencia">
 
+        <class>org.grupocuatro.modelo.ClubCampeonatoPK</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost;databaseName=campeonatoAPI"/>

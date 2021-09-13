@@ -1,16 +1,17 @@
 package org.grupocuatro.modelo;
 
 
+import org.grupocuatro.dao.PartidoDao;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "partidos")
 public class Partido {
-    //FIXME AGREGAR INCIDENTES
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +20,7 @@ public class Partido {
     private int nroFecha;
     private int nroZona;
     private int categoria;
+    private String incidentes;
 
     @ManyToOne
     @JoinColumn(name = "idClubLocal")
@@ -56,7 +58,7 @@ public class Partido {
     @OneToMany(mappedBy = "partido")
     private List<Gol> goles;
 
-    public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante, Campeonato campeonato) {
+    public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante, LocalDate fechaPartido, Campeonato campeonato) {
         this.nroFecha = nroFecha;
         this.nroZona = nroZona;
         this.categoria = categoria;
@@ -64,10 +66,11 @@ public class Partido {
         this.clubVisitante = clubVisitante;
         this.golesLocal = null;
         this.golesVisitante = null;
-        this.fechaPartido = LocalDate.now();
+        this.fechaPartido = fechaPartido;
         this.convalidaLocal = false;
         this.convalidaVisitante = false;
         this.campeonato = campeonato;
+        this.incidentes = "";
     }
 
     public Partido() {
@@ -77,22 +80,12 @@ public class Partido {
         goles = new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "Partido{" +
-                "idPartido=" + idPartido +
-                ", nroFecha=" + nroFecha +
-                ", nroZona=" + nroZona +
-                ", categoria=" + categoria +
-                ", clubLocal=" + clubLocal +
-                ", clubVisitante=" + clubVisitante +
-                ", golesLocal=" + golesLocal +
-                ", golesVisitante=" + golesVisitante +
-                ", fechaPartido=" + fechaPartido +
-                ", convalidaLocal=" + convalidaLocal +
-                ", convalidaVisitante=" + convalidaVisitante +
-                ", campeonato=" + campeonato +
-                '}';
+    public String getIncidentes() {
+        return incidentes;
+    }
+
+    public void setIncidentes(String incidentes) {
+        this.incidentes = incidentes;
     }
 
     public Integer getIdPartido() {
@@ -183,20 +176,63 @@ public class Partido {
         this.convalidaVisitante = true;
     }
 
-    public void setGolesLocal(int golesLocal) {this.golesLocal = golesLocal;}
-
-    public void setGolesVisitante(int golesVisitante) {this.golesVisitante = golesVisitante;}
-
-    public void agregarJugadoresLocales(Miembro miembro) {
-        this.jugadoresLocales.add(miembro);
+    public void setGolesLocal(int golesLocal) {
+        this.golesLocal = golesLocal;
     }
 
-    public void agregarJugadoresVisitantes(Miembro miembro) {
-        this.jugadoresVisitantes.add(miembro);
+    public void setGolesVisitante(int golesVisitante) {
+        this.golesVisitante = golesVisitante;
     }
 
-    public void agregarGol(Gol g) {this.goles.add(g);}
+    public void save() {
+        PartidoDao.getInstancia().save(this);
+    }
 
-    public void agregarFalta(Falta f) {this.faltas.add(f);}
+    public void update() {
+        PartidoDao.getInstancia().update(this);
+    }
+
+    public boolean isValidado() {
+        return convalidaLocal && convalidaVisitante;
+    }
+
+    public Club getGanador() {
+        return (golesLocal > golesVisitante) ? clubLocal : clubVisitante;
+    }
+
+    public Club getPerdedor() {
+        return (golesLocal < golesVisitante) ? clubLocal : clubVisitante;
+    }
+
+    public boolean isEmpate() {
+        return Objects.equals(golesLocal, golesVisitante);
+    }
+
+    public int getGolesGanador () {
+        return (golesLocal > golesVisitante) ? golesLocal : golesVisitante;
+    }
+
+    public int getGolesPerdedor () {
+        return (golesVisitante < golesLocal) ? golesVisitante : golesLocal;
+    }
+
+    @Override
+    public String toString() {
+        return "Partido{" +
+                "idPartido=" + idPartido +
+                ", nroFecha=" + nroFecha +
+                ", nroZona=" + nroZona +
+                ", categoria=" + categoria +
+                ", incidentes='" + incidentes + '\'' +
+                ", clubLocal=" + clubLocal +
+                ", clubVisitante=" + clubVisitante +
+                ", golesLocal=" + golesLocal +
+                ", golesVisitante=" + golesVisitante +
+                ", fechaPartido=" + fechaPartido +
+                ", convalidaLocal=" + convalidaLocal +
+                ", convalidaVisitante=" + convalidaVisitante +
+                ", campeonato=" + campeonato +
+                '}';
+    }
 
 }

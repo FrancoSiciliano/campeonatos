@@ -34,10 +34,11 @@ public class TablaPosicionDaoTest extends TestCase {
 
     public void testGetTablaPosicionesByPuntos() {
         try {
-            System.out.println(TablaPosicionDao.getInstancia().getTablaPosicionesByPuntos(0));
-            System.out.println(TablaPosicionDao.getInstancia().getTablaPosicionesByPuntos(2));
+            System.out.println(TablaPosicionDao.getInstancia().getTablaPosicionesByPuntos(1));
+            System.out.println(TablaPosicionDao.getInstancia().getTablaPosicionesByPuntos(3));
         } catch (TablaPosicionException e) {
             System.out.println(e.getMessage());
         }
     }
+
 }
