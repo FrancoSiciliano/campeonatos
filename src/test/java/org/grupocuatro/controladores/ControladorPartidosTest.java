@@ -23,10 +23,10 @@ public class ControladorPartidosTest extends TestCase {
     }
 
     public void testcargarResultadoPartido() {
-        ControladorPartidos.getInstancia().cargarResultadoPartido(1,"Se agarraron a las piñas sobre el final");
+        ControladorPartidos.getInstancia().cargarResultadoPartido(1,"Ingreso un hincha al estadio");
         ControladorPartidos.getInstancia().cargarResultadoPartido(2, "");
         ControladorPartidos.getInstancia().cargarResultadoPartido(3, "");
-        ControladorPartidos.getInstancia().cargarResultadoPartido(4, "");
+        ControladorPartidos.getInstancia().cargarResultadoPartido(4, "El arbitro resulto agredido");
         ControladorPartidos.getInstancia().cargarResultadoPartido(9, "");
     }
 

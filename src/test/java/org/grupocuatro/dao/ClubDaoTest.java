@@ -16,7 +16,7 @@ public class ClubDaoTest extends TestCase {
 
     public void testGetClubByNombre() {
         try {
-            System.out.println(ClubDao.getInstancia().getClubByNombre("Deportivo Juguete"));
+            System.out.println(ClubDao.getInstancia().getClubByNombre("Deportivo Mitre"));
             System.out.println(ClubDao.getInstancia().getClubByNombre("Perez Fc"));
         } catch (ClubException e) {
             System.out.println(e.getMessage());
