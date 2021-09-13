@@ -64,4 +64,7 @@ public class ControladorMiembrosTest extends TestCase {
         System.out.println(controladorMiembros.getMiembroByJugadorAndFecha(4, LocalDate.of(2020,8,10)));
         System.out.println(controladorMiembros.getMiembroByJugadorAndFecha(2, LocalDate.of(2020,8,10)));
     }
+    public void testDefinirIngresoEgreso() {
+        controladorMiembros.definirIngresoEgreso(1, 0, 90);
+    }
 }
