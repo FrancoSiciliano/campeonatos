@@ -4,6 +4,7 @@ import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.modelo.Jugador;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import java.util.List;
 
 public class JugadorDao extends AbstractDao {
@@ -62,5 +63,16 @@ public class JugadorDao extends AbstractDao {
         if (!jugadores.isEmpty())
             return jugadores;
         throw new JugadorException("No existen jugadores para la categoria: " + categoria);
+    }
+
+    public List<Jugador> getJugadoresHabilitadosCategoriaClub (Integer club, int categoria) throws JugadorException {
+        String qlString = "FROM Jugador WHERE categoria <= ?1 and estado = true and idClub = ?2 ";
+        Query query = getEntityManager().createQuery(qlString);
+        query.setParameter(1, categoria);
+        query.setParameter(2,club);
+        List<Jugador> jugadores = query.getResultList();
+        if(!jugadores.isEmpty()) return jugadores;
+        throw new JugadorException("No existen jugadores en dicho club con categoria menor o igual a " + categoria);
+
     }
 }

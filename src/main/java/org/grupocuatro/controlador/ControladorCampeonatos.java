@@ -7,11 +7,14 @@ import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.ClubesCampeonato;
+import org.grupocuatro.modelo.Jugador;
 
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class ControladorCampeonatos {
     private static ControladorCampeonatos instancia;
@@ -42,14 +45,51 @@ public class ControladorCampeonatos {
         return nuevoCampeonato.getIdCampeonato();
     }
 
-    public void definirTipoCampeonato(String tipo, Integer idCampeonato) {
+    public void definirTipoCampeonatoYCategoria(String tipo, Integer idCampeonato, int categoria) {
         try {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             campeonato.setTipoCampeonato(tipo);
             campeonato.update();
+            cargarPartidosCampeonato(idCampeonato,categoria);
         } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void cargarPartidosCampeonato(Integer idCampeonato, Integer categoriaCampeonato) {
+        try {
+            Campeonato camp = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
+
+            long duracion = camp.calcularDuracionCampeonato();
+
+            //ASUMIMOS QUE EN ESTE PUNTO, LOS CLUBES REGISTRADOS EN EL CAMPEONATO TIENEN JUGADORES SUFICIENTES DE LA CATEGORIA INDICADA
+            List<Club> clubesInscriptos = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato);
+            List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(club);
+
+            if (camp.getTipoCampeonato().toLowerCase().replace(" ", "") == "puntos") {
+                cargarPartidosCampPuntos(duracion, lista);
+            } else if (camp.getTipoCampeonato().toLowerCase().replace(" ", "") == "zonas") {
+                cargarPartidoCampZonas(duracion, lista);
+            }
+        } catch (CampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    private void cargarPartidosCampPuntos(long diasDuracion, List<Club> lista) {
+        ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
+        int cantEquipos = lista.size();
+        int cantPartidosJugar = cantEquipos * (cantEquipos - 1);
+        int cantPartidosSimult = cantEquipos / 2;
+
+
+    }
+
+    private void cargarPartidoCampZonas(long diasDuracion, List<Club> lista) {
+        ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
+
+
     }
 
     public void terminarCampeonato(Integer idCampeonato) {

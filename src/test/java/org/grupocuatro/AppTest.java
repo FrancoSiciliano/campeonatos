@@ -2,13 +2,10 @@ package org.grupocuatro;
 
 
 import org.grupocuatro.controlador.*;
-import org.grupocuatro.dao.*;
 import org.grupocuatro.modelo.*;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -42,9 +39,9 @@ public class AppTest {
         controladorCampeonatos.crearCampeonato("Champions League", LocalDate.of(2021, 10, 22), LocalDate.of(2022, 5, 28), "activo");
         controladorCampeonatos.crearCampeonato("Serie A", LocalDate.of(2021, 10, 21), LocalDate.of(2022, 5, 22), "activo");
 
-        controladorCampeonatos.definirTipoCampeonato("Puntos", 1);
-        controladorCampeonatos.definirTipoCampeonato("Zonas", 2);
-        controladorCampeonatos.definirTipoCampeonato("Puntos", 3);
+        controladorCampeonatos.definirTipoCampeonatoYCategoria("Puntos", 1);
+        controladorCampeonatos.definirTipoCampeonatoYCategoria("Zonas", 2);
+        controladorCampeonatos.definirTipoCampeonatoYCategoria("Puntos", 3);
 
         controladorCampeonatos.agregarClubACampeonato(1,1);
         controladorCampeonatos.agregarClubACampeonato(2,1);

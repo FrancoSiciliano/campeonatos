@@ -139,6 +139,15 @@ public class ControladorJugadores {
         return null;
     }
 
+    public List<Jugador> getJugadoresHabilitadosCategoriaClub (Integer club, int categoria) {
+        try{
+            return JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(club,categoria);
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     //TODO ESTA PARTE ES PARA LAS PROXIMAS ETAPAS DEL TRABAJO (IGNORAR)
 
     // FIXME AGREGAR CONSULTA DE PROGRESO DEL EQUIPO DEL JUGADOR EN UN CAMPEONATO

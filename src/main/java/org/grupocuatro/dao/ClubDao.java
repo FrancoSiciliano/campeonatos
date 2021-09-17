@@ -40,5 +40,4 @@ public class ClubDao extends AbstractDao {
         throw new ClubException("No existen clubes ");
     }
 
-
 }

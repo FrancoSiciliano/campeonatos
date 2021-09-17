@@ -2,9 +2,7 @@ package org.grupocuatro.controladores;
 
 import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorCampeonatos;
-import org.grupocuatro.modelo.Campeonato;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 
 public class ControladorCampeonatosTest extends TestCase {
@@ -14,11 +12,11 @@ public class ControladorCampeonatosTest extends TestCase {
     }
 
     public void testdefinirTipoCampeonato() {
-        ControladorCampeonatos.getInstancia().definirTipoCampeonato("Puntos",1);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonato("Zona",2);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonato("Zona",3);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonato("Puntos",6);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonato("Puntos",7);
+        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Puntos",1);
+        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Zona",2);
+        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Zona",3);
+        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Puntos",6);
+        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Puntos",7);
     }
 
     public void testterminarCampeonato() {

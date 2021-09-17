@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 @Entity
 @Table(name = "campeonatos")
 public class Campeonato implements Comparable<Campeonato> {
@@ -104,6 +106,10 @@ public class Campeonato implements Comparable<Campeonato> {
 
     public void update() {
         CampeonatoDao.getInstancia().update(this);
+    }
+
+    public long calcularDuracionCampeonato (){
+        return DAYS.between(this.fechaInicio, this.fechaFin);
     }
 
     @Override
