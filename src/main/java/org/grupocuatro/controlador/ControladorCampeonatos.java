@@ -4,10 +4,7 @@ import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubesCampeonatoDao;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
-import org.grupocuatro.modelo.Campeonato;
-import org.grupocuatro.modelo.Club;
-import org.grupocuatro.modelo.ClubesCampeonato;
-import org.grupocuatro.modelo.Jugador;
+import org.grupocuatro.modelo.*;
 
 
 import java.time.LocalDate;
@@ -28,7 +25,7 @@ public class ControladorCampeonatos {
         return instancia;
     }
 
-    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
+    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, int categoria) {
 
         Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, estado);
         try {
@@ -41,30 +38,36 @@ public class ControladorCampeonatos {
             throw new CampeonatoException("");
         } catch (CampeonatoException e) {
             nuevoCampeonato.save();
+            // SE CREA EL PARTIDO CON NRO ZONA 99 PARA PODER GUARDAR LA CATEGORIA
+            ControladorPartidos.getInstancia().crearPartido(99, 99, categoria, 0, 0, LocalDate.of(1,1,1), nuevoCampeonato.getIdCampeonato());
+
         }
         return nuevoCampeonato.getIdCampeonato();
     }
 
-    public void definirTipoCampeonatoYCategoria(String tipo, Integer idCampeonato, int categoria) {
+
+    // TODO LA CATEGORIA LA CONTROLA LA VISTA
+    // FIXME BORRAR EL PARTIDO FALSO :D
+
+    public void definirTipoCampeonatoAndCategoria(String tipo, Integer idCampeonato, int categoria) {
         try {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             campeonato.setTipoCampeonato(tipo);
             campeonato.update();
-            cargarPartidosCampeonato(idCampeonato,categoria);
+            cargarPartidosCampeonato(idCampeonato, categoria);
         } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void cargarPartidosCampeonato(Integer idCampeonato, Integer categoriaCampeonato) {
+    public void cargarPartidosCampeonato(Integer idCampeonato, int categoria) {
         try {
             Campeonato camp = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-
             long duracion = camp.calcularDuracionCampeonato();
+
 
             //ASUMIMOS QUE EN ESTE PUNTO, LOS CLUBES REGISTRADOS EN EL CAMPEONATO TIENEN JUGADORES SUFICIENTES DE LA CATEGORIA INDICADA
             List<Club> clubesInscriptos = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato);
-            List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(club);
 
             if (camp.getTipoCampeonato().toLowerCase().replace(" ", "") == "puntos") {
                 cargarPartidosCampPuntos(duracion, lista);
@@ -144,6 +147,10 @@ public class ControladorCampeonatos {
                 try {
                     ClubesCampeonatoDao.getInstancia().getClubCampeonato(idClub, idCampeonato);
                 } catch (ClubesCampeonatoException e2) {
+
+                    List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(club);
+
+
                     ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
                     nuevocc.save();
                 }

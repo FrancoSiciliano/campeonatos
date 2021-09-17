@@ -100,5 +100,4 @@ public class PartidoDao extends AbstractDao {
         if (!partidos.isEmpty()) return partidos;
         throw new PartidoException("No existen partidos del club " + idClub);
     }
-
 }
