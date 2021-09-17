@@ -14,7 +14,7 @@ public class ControladorClubesTest extends TestCase {
         ControladorClubes.getInstancia().crearClub(2, "River", "Nuñez 200");
         ControladorClubes.getInstancia().crearClub(3, "Racing", "Pasaje Corbatta 300");
         ControladorClubes.getInstancia().crearClub(4, "Independiente", "Avellaneda 400");
-        ControladorClubes.getInstancia().crearClub(5, "San Lorenzo", "Unknown");
+        ControladorClubes.getInstancia().crearClub(5, "San Lorenzo", "Boedo 440");
         ControladorClubes.getInstancia().crearClub(6, "Ferrocarril Oeste", "Caballito 505");
         ControladorClubes.getInstancia().crearClub(7, "Banfield", "Banfield 1450");
         ControladorClubes.getInstancia().crearClub(8, "Defensa y Justicia", "Florencio Varela 30");
@@ -26,19 +26,19 @@ public class ControladorClubesTest extends TestCase {
 
     public void testGetClubes() {
         List<Club> clubes = ControladorClubes.getInstancia().getClubes();
-        for (Club c : clubes)
-            System.out.println(c.getNombre());
+        System.out.println(clubes);
     }
 
     public void testGetClubById() {
         Club c = ControladorClubes.getInstancia().getClubById(3);
-        System.out.println(c.getNombre());
+        System.out.println(c);
     }
 
-    //TODO FALTA TESTEAR ESTO CUANDO EXISTAN CAMPEONATOS
 
     public void getClubesByCampeonato() {
         List<Club> clubes = ControladorClubes.getInstancia().getClubesByCampeonato(1);
+        System.out.println(clubes);
     }
+
 
 }

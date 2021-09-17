@@ -35,7 +35,7 @@ public class ControladorGolesTest extends TestCase {
     public void testGetGolesByPartidoAndSentido() {
         System.out.println(controladorGoles.getGolesByPartidoAndSentido(1, "en contra"));
         System.out.println(controladorGoles.getGolesByPartidoAndSentido(1, "a favor"));
-        System.out.println(controladorGoles.getGolesByPartidoAndSentido(1, "a favofsar"));
+        System.out.println(controladorGoles.getGolesByPartidoAndSentido(1, "sentidoDesconocido"));
         System.out.println(controladorGoles.getGolesByPartidoAndSentido(2, "a favor"));
 
     }

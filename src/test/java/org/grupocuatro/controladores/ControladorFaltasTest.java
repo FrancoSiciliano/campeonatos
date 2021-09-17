@@ -11,8 +11,8 @@ public class ControladorFaltasTest extends TestCase {
 
 
     public void testCargarFalta() {
-        ControladorFaltas.getInstancia().cargarFalta(2, 2, 78, "Amarilla");
-        ControladorFaltas.getInstancia().cargarFalta(3, 1, 23, "Roja");
+        ControladorFaltas.getInstancia().cargarFalta(2, 2, 78, "amarilla");
+        ControladorFaltas.getInstancia().cargarFalta(3, 1, 23, "roja");
     }
 
     public void testGetFaltasPartido() {
@@ -21,7 +21,7 @@ public class ControladorFaltasTest extends TestCase {
     }
 
     public void testGetFaltasByTipoAndPartido() {
-        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByTipoAndPartido(2, "Amarilla");
+        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByTipoAndPartido(2, "amarilla");
         System.out.println(faltas);
     }
 
@@ -36,7 +36,7 @@ public class ControladorFaltasTest extends TestCase {
     }
 
     public void testGetFaltasByJugadorAndTipoAndPartido() {
-        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(2, "Amarillo", 2);
+        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(2, "amarilla", 2);
         System.out.println(faltas);
     }
 
@@ -46,7 +46,7 @@ public class ControladorFaltasTest extends TestCase {
     }
 
     public void testGetFaltasByJugadorAndPartidoAndTipoAndCampeonato() {
-        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(2, 2, "Amarilla", 1);
+        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(2, 2, "amarilla", 1);
         System.out.println(faltas);
     }
 
@@ -66,7 +66,7 @@ public class ControladorFaltasTest extends TestCase {
     }
 
     public void testGetFaltasByTipo() {
-        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByTipo("Amarilla");
+        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByTipo("amarilla");
         System.out.println(faltas);
     }
 }

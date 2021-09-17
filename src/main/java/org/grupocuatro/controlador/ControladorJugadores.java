@@ -68,7 +68,7 @@ public class ControladorJugadores {
         }
     }
 
-    public void modificarEstado(int idJugador) {
+    public void modificarEstado(int idJugador) { //habilita al jugador
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
             j.setEstado(!j.isEstado());

@@ -29,9 +29,9 @@ public class ControladorCampeonatosTest extends TestCase {
     }
 
     public void testgetCampeonatosByEstado() {
-        ControladorCampeonatos.getInstancia().getCampeonatosByEstado("Activo");
-        ControladorCampeonatos.getInstancia().getCampeonatosByEstado("Inactivo");
-        ControladorCampeonatos.getInstancia().getCampeonatosByEstado("asdasdasd");
+        ControladorCampeonatos.getInstancia().getCampeonatosByEstado("activo");
+        ControladorCampeonatos.getInstancia().getCampeonatosByEstado("inactivo");
+        ControladorCampeonatos.getInstancia().getCampeonatosByEstado("estadofalso");
 
     }
 

@@ -15,21 +15,21 @@ public class GolDaoTest extends TestCase {
         }
     }
 
-//    public void testGetGolesByPartidoAndClub() {
-//        try {
-//            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub());
-//            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub());
-//            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub());
-//        } catch (GolException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
+    public void testGetGolesByPartidoAndClub() {
+        try {
+            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub(1,1,2));
+            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub(2,3,4));
+            System.out.println(GolDao.getInstancia().getGolesByPartidoAndClub(80,70,90));
+        } catch (GolException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public void testGetGolesByPartidoAndSentido() {
         try {
-            System.out.println(GolDao.getInstancia().getGolesByPartidoAndSentido(1,"Contrario"));
-            System.out.println(GolDao.getInstancia().getGolesByPartidoAndSentido(254,"Favor"));
-            System.out.println(GolDao.getInstancia().getGolesByPartidoAndSentido(6,"Contrario"));
+            System.out.println(GolDao.getInstancia().getGolesByPartidoAndSentido(1,"a favor"));
+            System.out.println(GolDao.getInstancia().getGolesByPartidoAndSentido(254,"a favor"));
+            System.out.println(GolDao.getInstancia().getGolesByPartidoAndSentido(6,"en contra"));
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }

@@ -14,11 +14,11 @@ public class ControladorMiembrosTest extends TestCase {
     ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
     ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
 
-//    public void testCrearListaJugadores() {
-//        System.out.println(controladorMiembros.crearListaJugadores(controladorClubes.getClubById(1), controladorPartidos.encontrarPartido(1)));
-//        System.out.println(controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(1)));
-//        System.out.println(controladorMiembros.crearListaJugadores(controladorClubes.getClubById(33), controladorPartidos.encontrarPartido(3)));
-//    }
+    public void testCrearListaJugadores() {
+        System.out.println(controladorMiembros.crearListaJugadores(controladorClubes.getClubById(1), controladorPartidos.encontrarPartido(1)));
+        System.out.println(controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(1)));
+        System.out.println(controladorMiembros.crearListaJugadores(controladorClubes.getClubById(33), controladorPartidos.encontrarPartido(3)));
+    }
 
     public void testAgregarJugadoresEnLista() {
         controladorMiembros.agregarJugadoresEnLista(4, controladorJugadores.encontrarJugador(3));
@@ -63,5 +63,8 @@ public class ControladorMiembrosTest extends TestCase {
         System.out.println(controladorMiembros.getMiembroByJugadorAndFecha(3, LocalDate.of(2020,8,13)));
         System.out.println(controladorMiembros.getMiembroByJugadorAndFecha(4, LocalDate.of(2020,8,10)));
         System.out.println(controladorMiembros.getMiembroByJugadorAndFecha(2, LocalDate.of(2020,8,10)));
+    }
+    public void testDefinirIngresoEgreso() {
+        controladorMiembros.definirIngresoEgreso(1, 0, 90);
     }
 }
