@@ -46,7 +46,7 @@ public class ClubDao extends AbstractDao {
     }
 
     public List<Club> getClubesHabilitadosPorCategoria(int categoria) throws ClubException {
-        List<Club> clubes = getEntityManager().createQuery("FROM Club WHERE idClub in (SELECT club FROM Jugador WHERE categoria >= " + categoria + "  GROUP BY club HAVING COUNT(*) >= 17)").getResultList();
+        List<Club> clubes = getEntityManager().createQuery("FROM Club WHERE idClub in (SELECT club FROM Jugador WHERE categoria >= " + categoria + " and estado = true  GROUP BY club HAVING COUNT(*) >= 17)").getResultList();
         if (!clubes.isEmpty()) return clubes;
         throw new ClubException("No existen clubes con suficientes jugadores");
     }
