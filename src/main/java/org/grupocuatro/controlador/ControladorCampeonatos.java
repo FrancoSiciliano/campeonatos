@@ -147,10 +147,7 @@ public class ControladorCampeonatos {
                 try {
                     ClubesCampeonatoDao.getInstancia().getClubCampeonato(idClub, idCampeonato);
                 } catch (ClubesCampeonatoException e2) {
-
-                    List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(club);
-
-
+                    //LA COMPROBACIÓN LA HACE LA VISTA
                     ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
                     nuevocc.save();
                 }
