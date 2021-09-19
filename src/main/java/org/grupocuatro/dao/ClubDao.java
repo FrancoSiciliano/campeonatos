@@ -1,9 +1,14 @@
 package org.grupocuatro.dao;
 
 import org.grupocuatro.excepciones.ClubException;
+import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.modelo.Club;
+import org.grupocuatro.modelo.Jugador;
+import org.grupocuatro.modelo.Miembro;
+import org.grupocuatro.modelo.Partido;
 
 import javax.persistence.NoResultException;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 public class ClubDao extends AbstractDao {
@@ -38,6 +43,12 @@ public class ClubDao extends AbstractDao {
         List<Club> clubes = getEntityManager().createQuery("SELECT c FROM Club c").getResultList();
         if (clubes != null) return clubes;
         throw new ClubException("No existen clubes ");
+    }
+
+    public List<Club> getClubesHabilitadosPorCategoria(int categoria) throws ClubException {
+        List<Club> clubes = getEntityManager().createQuery("FROM Club WHERE idClub in (SELECT club FROM Jugador WHERE categoria >= " + categoria + "  GROUP BY club HAVING COUNT(*) >= 17)").getResultList();
+        if (!clubes.isEmpty()) return clubes;
+        throw new ClubException("No existen clubes con suficientes jugadores");
     }
 
 }
