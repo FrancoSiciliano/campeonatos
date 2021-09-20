@@ -152,7 +152,7 @@ public class ControladorJugadores {
 
     // FIXME AGREGAR CONSULTA DE PROGRESO DEL EQUIPO DEL JUGADOR EN UN CAMPEONATO
 
-    public void getStatsByCampeonato(int idJugador, int idCampeonato) {
+    public String getStatsByCampeonato(int idJugador, int idCampeonato) {
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
@@ -185,15 +185,16 @@ public class ControladorJugadores {
                     cantJugados = cantJugados;
                 }
             }
-            j.getEstadisticasCampeonato(campeonato.getIdCampeonato(), cantGoles, cantAmarillas, cantRojas, cantJugados); // Printea todos los datos con formato.
+            return j.getEstadisticasCampeonato(campeonato.getIdCampeonato(), cantGoles, cantAmarillas, cantRojas, cantJugados); // Printea todos los datos con formato.
 
         } catch (JugadorException | CampeonatoException | PartidoException e) {
             System.out.println(e.getMessage());
         }
+        return "";
     }
 
 
-    public void getStatsByClub(int idJugador, int idClub) {
+    public String getStatsByClub(int idJugador, int idClub) {
         try {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
             Club c = ClubDao.getInstancia().getClubById(idClub);
@@ -227,11 +228,12 @@ public class ControladorJugadores {
                     cantJugados = cantJugados;
                 }
             }
-            j.getEstadisticasClub(cantGoles, cantAmarillas, cantRojas, cantJugados); // Printea todos los datos con formato.
+            return j.getEstadisticasClub(cantGoles, cantAmarillas, cantRojas, cantJugados); // Printea todos los datos con formato.
 
         } catch (JugadorException | ClubException | PartidoException e) {
             System.out.println(e.getMessage());
         }
+        return "";
     }
 
 

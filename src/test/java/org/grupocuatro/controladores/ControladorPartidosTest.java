@@ -10,10 +10,10 @@ import java.util.List;
 public class ControladorPartidosTest extends TestCase {
 
     public void testcrearPartido() {
-        ControladorPartidos.getInstancia().crearPartido(1,1,80,1,2, LocalDate.of(2020,8,10),1);
-        ControladorPartidos.getInstancia().crearPartido(2,1,78,3,4, LocalDate.of(2020,9,4),1);
-        ControladorPartidos.getInstancia().crearPartido(3,1,86,5,6, LocalDate.of(2020,6,17),1);
-        ControladorPartidos.getInstancia().crearPartido(4,1,83,7,8, LocalDate.of(2020,7,6),1);
+//        ControladorPartidos.getInstancia().crearPartido(1,1,80,1,2, LocalDate.of(2020,8,10),1);
+//        ControladorPartidos.getInstancia().crearPartido(2,1,78,3,4, LocalDate.of(2020,9,4),1);
+//        ControladorPartidos.getInstancia().crearPartido(3,1,86,5,6, LocalDate.of(2020,6,17),1);
+//        ControladorPartidos.getInstancia().crearPartido(4,1,83,7,8, LocalDate.of(2020,7,6),1);
 
     }
     public void testencontrarPartido() {

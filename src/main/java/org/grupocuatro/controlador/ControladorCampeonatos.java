@@ -1,15 +1,18 @@
 package org.grupocuatro.controlador;
-
 import org.grupocuatro.dao.CampeonatoDao;
+import org.grupocuatro.dao.ClubDao;
 import org.grupocuatro.dao.ClubesCampeonatoDao;
+import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
+import org.grupocuatro.utiles.Tupla;
 
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -25,8 +28,7 @@ public class ControladorCampeonatos {
         return instancia;
     }
 
-    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, int categoria) {
-
+    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
         Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, estado);
         try {
             for (Campeonato c : CampeonatoDao.getInstancia().getCampeonatos()) {
@@ -38,9 +40,6 @@ public class ControladorCampeonatos {
             throw new CampeonatoException("");
         } catch (CampeonatoException e) {
             nuevoCampeonato.save();
-            // SE CREA EL PARTIDO CON NRO ZONA 99 PARA PODER GUARDAR LA CATEGORIA
-            ControladorPartidos.getInstancia().crearPartido(99, 99, categoria, 0, 0, LocalDate.of(1,1,1), nuevoCampeonato.getIdCampeonato());
-
         }
         return nuevoCampeonato.getIdCampeonato();
     }
@@ -54,38 +53,91 @@ public class ControladorCampeonatos {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             campeonato.setTipoCampeonato(tipo);
             campeonato.update();
-            cargarPartidosCampeonato(idCampeonato, categoria);
+            // TODO Acá habría llamar a dos métodos diferentes según el tipo de campeonato que se esté cargando. El caso armado es para el "todos contra todos", en zonas es diferente la generación de partidos.
+            cargarPartidosCampeonatoPuntos(campeonato, categoria);
+
         } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void cargarPartidosCampeonato(Integer idCampeonato, int categoria) {
-        try {
-            Campeonato camp = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-            long duracion = camp.calcularDuracionCampeonato();
-
-
-            //ASUMIMOS QUE EN ESTE PUNTO, LOS CLUBES REGISTRADOS EN EL CAMPEONATO TIENEN JUGADORES SUFICIENTES DE LA CATEGORIA INDICADA
-            List<Club> clubesInscriptos = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato);
-
-            if (camp.getTipoCampeonato().toLowerCase().replace(" ", "") == "puntos") {
-                cargarPartidosCampPuntos(duracion, lista);
-            } else if (camp.getTipoCampeonato().toLowerCase().replace(" ", "") == "zonas") {
-                cargarPartidoCampZonas(duracion, lista);
+    private void cargarPartidosCampeonatoPuntos(Campeonato campeonato, int categoria) {
+        List<Club> clubesInscriptos = ControladorClubes.getInstancia().getClubesByCampeonato(campeonato.getIdCampeonato());
+        List<Club> clubesLocales = clubesInscriptos;
+        List<Club> clubesVisitantes = clubesInscriptos;
+        for (Club clubLocal : clubesLocales) {
+            for (Club clubVisitante : clubesVisitantes) {
+                if (clubLocal.getIdClub() != clubVisitante.getIdClub())
+                    ControladorPartidos.getInstancia().crearPartido(0, categoria, clubLocal.getIdClub(), clubVisitante.getIdClub(), campeonato.getIdCampeonato());
             }
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
+        }
+        asignarFechaPartidosCampeonatoPuntos(campeonato.getIdCampeonato());
+    }
+
+    private void asignarFechaPartidosCampeonatoPuntos(int idCampeonato) {
+        List<Partido> partidosCampeonato = ControladorPartidos.getInstancia().getPartidosByCampeonato(idCampeonato);
+        List<Club> clubesParticipantes = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato);
+        System.out.println(clubesParticipantes);
+        Set<Club> clubesRegistrados = new HashSet<Club>();
+        List<Tupla> enfrentamientos = new ArrayList<>();
+        int cantRegistrados = 0;
+        int cantFechas = (clubesParticipantes.size() - 1) * 2;
+        for (int nroFecha = 1 ; nroFecha <= cantFechas ; nroFecha++) {
+            while (cantRegistrados != clubesParticipantes.size()) {
+                int indice = getNroAleatorio(0, partidosCampeonato.size() - 1);
+                Partido p = partidosCampeonato.get(indice);
+                if ((clubesRegistrados.isEmpty() || (!clubesRegistrados.contains(p.getClubLocal()) && !clubesRegistrados.contains(p.getClubVisitante()))) && p.getNroFecha() == 99) { // Si el conjunto que indica los clubes que participan esa fecha no contiene al local y visitante, y si el partido no fue asignado ya al campeonato, se efectúa la operación
+                    boolean seEnfrentaron = false;
+                    for (Tupla enfrentamiento : enfrentamientos) {
+                        if (enfrentamiento.parExistente(p.getClubLocal().getIdClub(), p.getClubVisitante().getIdClub()))
+                            seEnfrentaron = true;
+                    }
+                    if (!seEnfrentaron) {
+                        p.setNroFecha(nroFecha);
+                        p.save();
+                        clubesRegistrados.add(p.getClubLocal());
+                        clubesRegistrados.add(p.getClubVisitante());
+                        enfrentamientos.add(new Tupla(p.getClubLocal().getIdClub(), p.getClubVisitante().getIdClub()));
+                        cantRegistrados = cantRegistrados + 2;
+                    }
+                }
+            }
+            clubesRegistrados.clear();  // Como la fecha ya se terminó de organizar, el conjunto se vacía para poder comenzar con la siguiente.
+            cantRegistrados = 0;
+            enfrentamientos.clear(); //TODO ESTO SE DEBERÍA HACER CUANDO SE COMPLETA LA PRIMERA RONDA DE ENFRENTAMIENTOS
+            // TODO LO QUE PASA ES QUE DE FORMA ALEATORIA PUEDE SUCEDER QUE LA ÚNICA COMBINACIÓN POSIBLE DEBA SER UN PARTIDO DE VUELTA, LO QUE NO SE PUEDE.
         }
     }
 
 
-    private void cargarPartidosCampPuntos(long diasDuracion, List<Club> lista) {
+    private static int getNroAleatorio(int minimo, int maximo) {
+        return ThreadLocalRandom.current().nextInt(minimo, maximo + 1); // EL LIMITE SUPERIOR ES EXCLUSIVO, POR ESO SE LE SUMA 1
+    }
+
+
+
+    private void cargarPartidosCampPuntos(long diasDuracion, List<Club> lista, int categoria, int idCampeoanto) {
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         int cantEquipos = lista.size();
-        int cantPartidosJugar = cantEquipos * (cantEquipos - 1);
-        int cantPartidosSimult = cantEquipos / 2;
-
+        int cantFechas = cantEquipos * 2 - 1;
+        int fechaIda = 1;
+        int fechaVuelta = cantFechas / 2 + 1;
+        //int cantPartidosJugar = cantEquipos * (cantEquipos - 1);
+        //int cantPartidosSimult = cantEquipos / 2;
+        List<Club> clubesA = lista;
+        List<Club> clubesB = lista;
+        for (Club clubA : clubesA) {
+            for (Club clubB : clubesB) {
+                if (clubA.getIdClub() != clubB.getIdClub()) {
+                    //controladorPartidos.crearPartido(fechaIda, 0, categoria, clubA.getIdClub(), clubB.getIdClub(), LocalDate.of(1,1,1), idCampeoanto);
+                    //controladorPartidos.crearPartido(fechaVuelta, 0, categoria, clubB.getIdClub(), clubA.getIdClub(), LocalDate.of(1,1,1), idCampeoanto);
+                    fechaIda++;
+                    fechaVuelta++;
+                }
+            }
+            fechaIda = 1;
+            fechaVuelta = cantFechas / 2 + 1;
+        }
 
     }
 
@@ -148,7 +200,7 @@ public class ControladorCampeonatos {
                     ClubesCampeonatoDao.getInstancia().getClubCampeonato(idClub, idCampeonato);
                 } catch (ClubesCampeonatoException e2) {
 
-                    List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(club);
+                   // List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(idClub);
 
 
                     ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
