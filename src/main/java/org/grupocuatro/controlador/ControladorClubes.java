@@ -72,4 +72,13 @@ public class ControladorClubes {
         return null;
     }
 
+    public List<Club> getClubesHabiltadosPorCategoria(int categoria) {
+        try {
+            return ClubDao.getInstancia().getClubesHabilitadosPorCategoria(categoria);
+        } catch (ClubException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 }
