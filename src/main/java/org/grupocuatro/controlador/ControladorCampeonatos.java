@@ -67,7 +67,7 @@ public class ControladorCampeonatos {
         List<Club> clubesVisitantes = clubesInscriptos;
         for (Club clubLocal : clubesLocales) {
             for (Club clubVisitante : clubesVisitantes) {
-                if (clubLocal.getIdClub() != clubVisitante.getIdClub())
+                if (!Objects.equals(clubLocal.getIdClub(), clubVisitante.getIdClub()))
                     ControladorPartidos.getInstancia().crearPartido(0, categoria, clubLocal.getIdClub(), clubVisitante.getIdClub(), campeonato.getIdCampeonato());
             }
         }

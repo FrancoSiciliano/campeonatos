@@ -3,6 +3,7 @@ package org.grupocuatro;
 
 import org.grupocuatro.controlador.*;
 import org.grupocuatro.modelo.*;
+import org.grupocuatro.strategy.GenerarPuntosPar;
 
 
 import java.time.LocalDate;
@@ -22,15 +23,17 @@ public class AppTest {
         ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
         ControladorResponsables controladorResponsables = ControladorResponsables.getInstancia();
 
-        controladorCampeonatos.crearCampeonato("Campeonato Seis Clubes 222", LocalDate.of(2021,9,30), LocalDate.of(2021,10,30), "activo");
-        controladorCampeonatos.agregarClubACampeonato(1, 15);
-        controladorCampeonatos.agregarClubACampeonato(2, 15);
-        controladorCampeonatos.agregarClubACampeonato(3, 15);
-        controladorCampeonatos.agregarClubACampeonato(4, 15);
-        controladorCampeonatos.agregarClubACampeonato(5, 15);
-        controladorCampeonatos.agregarClubACampeonato(6, 15);
-        controladorCampeonatos.definirTipoCampeonatoAndCategoria("puntos", 15, 90);
+        //controladorCampeonatos.crearCampeonato("Campeonato Seis Clubes 222", LocalDate.of(2021,9,30), LocalDate.of(2021,10,30), "activo");
+        controladorCampeonatos.agregarClubACampeonato(1, 5);
+        controladorCampeonatos.agregarClubACampeonato(2, 5);
+        controladorCampeonatos.agregarClubACampeonato(3, 5);
+        controladorCampeonatos.agregarClubACampeonato(4, 5);
+        controladorCampeonatos.agregarClubACampeonato(5, 5);
+        controladorCampeonatos.agregarClubACampeonato(6, 5);
+        //controladorCampeonatos.definirTipoCampeonatoAndCategoria("puntos", 5, 90);
 
+        GenerarPuntosPar strategy = new GenerarPuntosPar();
+        strategy.generarPartidosCampeonato(ControladorCampeonatos.getInstancia().encontrarCampeonato(5),90);
 
 
 //        //CREACION DE CLUBES
