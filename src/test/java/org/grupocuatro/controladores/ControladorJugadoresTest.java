@@ -2,6 +2,7 @@ package org.grupocuatro.controladores;
 
 import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorJugadores;
+import org.grupocuatro.controlador.ControladorPartidos;
 import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.modelo.Jugador;
 
@@ -87,5 +88,13 @@ public class ControladorJugadoresTest extends TestCase {
         Jugador j = ControladorJugadores.getInstancia().encontrarJugador(1);
         if (j != null)
             System.out.println(j.isEstado());
+    }
+
+    public void testGetStatsByCampeonato() {
+        System.out.println(ControladorJugadores.getInstancia().getStatsByCampeonato(15, 1));
+    }
+
+    public void testGetStatsByClub() {
+        System.out.println(ControladorJugadores.getInstancia().getStatsByClub(16, 2));
     }
 }

@@ -31,7 +31,9 @@ public class ControladorPartidos {
         return instancia;
     }
 
-    public Integer crearPartido(int nroFecha, int nroZona, int categoria, Integer idClubLocal, Integer idClubVisitante, LocalDate fecha, Integer idCampeonato) {
+    // SE SACÓ EL NROFECHA Y LA FECHA COMO PARÁMETROS, YA QUE SE ASIGNAN A POSTERIORI DE LA CREACIÓN DE LOS PARTIDOS
+
+    public Integer crearPartido(int nroZona, int categoria, Integer idClubLocal, Integer idClubVisitante, Integer idCampeonato) {
         ControladorCampeonatos cc = ControladorCampeonatos.getInstancia();
         ControladorPartidos cp = ControladorPartidos.getInstancia();
         ControladorClubes cclubes = ControladorClubes.getInstancia();
@@ -43,7 +45,7 @@ public class ControladorPartidos {
         Partido p = null;
 
         if (c != null && local != null && visitante != null) {
-            p = new Partido(nroFecha, nroZona, categoria, local, visitante, fecha, c);
+            p = new Partido(nroZona, categoria, local, visitante, c);
             p.save();
         }
 

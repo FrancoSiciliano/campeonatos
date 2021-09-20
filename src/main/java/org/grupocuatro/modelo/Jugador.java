@@ -72,32 +72,30 @@ public class Jugador implements Comparable<Jugador> {
 
 
     public String getEstadisticasCampeonato(Integer camp, int cantGoles, int cantAmarillas, int cantRojas, int cantJugados) {
-        return "Jugador {" +
-                "Id: " + idJugador + ", " +
-                "Documento: " + documento + ", " +
-                "Nombre: " + nombre + ", " +
-                "Apellido: " + apellido + ", " +
-                "Club: '" + this.getClub().getNombre() + "', " +
-                "Campeonato: " + camp + ", " +
-                "Partidos jugados: " + cantJugados + ", " +
-                "Goles: " + cantGoles + ", " +
-                "Amarillas: " + cantAmarillas + ", " +
-                "Rojas: " + cantRojas + ", " +
-                "}";
+        return "Jugador: \n" +
+                "- Id: " + idJugador + "\n"+
+                "- Documento: " + documento + "\n" +
+                "- Nombre: " + nombre + "\n" +
+                "- Apellido: " + apellido + "\n" +
+                "- Club: " + this.getClub().getNombre() + "\n" +
+                "- Campeonato: " + camp + "\n" +
+                "- Partidos jugados: " + cantJugados + "\n" +
+                "- Goles: " + cantGoles + "\n" +
+                "- Amarillas: " + cantAmarillas + "\n" +
+                "- Rojas: " + cantRojas + "\n";
     }
 
     public String getEstadisticasClub(int cantGoles, int cantAmarillas, int cantRojas, int cantJugados) {
-        return "Jugador {" +
-                "Id: " + idJugador + ", " +
-                "Documento: " + documento + ", " +
-                "Nombre: " + nombre + ", " +
-                "Apellido: " + apellido + ", " +
-                "Club: '" + this.getClub().getNombre() + "', " +
-                "Partidos jugados: " + cantJugados + ", " +
-                "Goles: " + cantGoles + ", " +
-                "Amarillas: " + cantAmarillas + ", " +
-                "Rojas: " + cantRojas + ", " +
-                "}";
+        return "Jugador: \n" +
+                "- Id: " + idJugador + "\n" +
+                "- Documento: " + documento + "\n" +
+                "- Nombre: " + nombre + "\n" +
+                "- Apellido: " + apellido + "\n" +
+                "- Club: " + this.getClub().getNombre() + "\n" +
+                "- Partidos jugados: " + cantJugados + "\n" +
+                "- Goles: " + cantGoles + "\n" +
+                "- Amarillas: " + cantAmarillas + "\n" +
+                "- Rojas: " + cantRojas + "\n";
     }
 
     public LocalDate getFechaAlta() {

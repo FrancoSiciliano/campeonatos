@@ -2,14 +2,20 @@ package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubesCampeonatoDao;
+import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
+import org.grupocuatro.strategy.GeneracionPartidosStrategy;
+import org.grupocuatro.strategy.GenerarPuntos;
+import org.grupocuatro.strategy.GenerarZonas;
+import org.grupocuatro.utiles.Tupla;
 
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -25,8 +31,7 @@ public class ControladorCampeonatos {
         return instancia;
     }
 
-    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, int categoria) {
-
+    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
         Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, estado);
         try {
             for (Campeonato c : CampeonatoDao.getInstancia().getCampeonatos()) {
@@ -38,9 +43,6 @@ public class ControladorCampeonatos {
             throw new CampeonatoException("");
         } catch (CampeonatoException e) {
             nuevoCampeonato.save();
-            // SE CREA EL PARTIDO CON NRO ZONA 99 PARA PODER GUARDAR LA CATEGORIA
-            ControladorPartidos.getInstancia().crearPartido(99, 99, categoria, 0, 0, LocalDate.of(1,1,1), nuevoCampeonato.getIdCampeonato());
-
         }
         return nuevoCampeonato.getIdCampeonato();
     }
@@ -49,12 +51,22 @@ public class ControladorCampeonatos {
     // TODO LA CATEGORIA LA CONTROLA LA VISTA
     // FIXME BORRAR EL PARTIDO FALSO :D
 
-    public void definirTipoCampeonatoAndCategoria(String tipo, Integer idCampeonato, int categoria) {
+    public void definirTipoCampeonatoAndCategoria(int cantidadZonas, Integer idCampeonato, int categoria) {
         try {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-            campeonato.setTipoCampeonato(tipo);
+            GeneracionPartidosStrategy strategy;
+
+            if ((cantidadZonas == 0)) {
+                campeonato.setTipoCampeonato("Puntos");
+                strategy = new GenerarPuntos();
+            } else {
+                campeonato.setTipoCampeonato("Zonas");
+                strategy = new GenerarZonas(cantidadZonas);
+            }
+
             campeonato.update();
-            cargarPartidosCampeonato(idCampeonato, categoria);
+            strategy.generarPartidosCampeonato(campeonato, categoria);
+
         } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
         }
@@ -83,9 +95,25 @@ public class ControladorCampeonatos {
     private void cargarPartidosCampPuntos(long diasDuracion, List<Club> lista) {
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         int cantEquipos = lista.size();
-        int cantPartidosJugar = cantEquipos * (cantEquipos - 1);
-        int cantPartidosSimult = cantEquipos / 2;
-
+        int cantFechas = cantEquipos * 2 - 1;
+        int fechaIda = 1;
+        int fechaVuelta = cantFechas / 2 + 1;
+        //int cantPartidosJugar = cantEquipos * (cantEquipos - 1);
+        //int cantPartidosSimult = cantEquipos / 2;
+        List<Club> clubesA = lista;
+        List<Club> clubesB = lista;
+        for (Club clubA : clubesA) {
+            for (Club clubB : clubesB) {
+                if (clubA.getIdClub() != clubB.getIdClub()) {
+                    //controladorPartidos.crearPartido(fechaIda, 0, categoria, clubA.getIdClub(), clubB.getIdClub(), LocalDate.of(1,1,1), idCampeoanto);
+                    //controladorPartidos.crearPartido(fechaVuelta, 0, categoria, clubB.getIdClub(), clubA.getIdClub(), LocalDate.of(1,1,1), idCampeoanto);
+                    fechaIda++;
+                    fechaVuelta++;
+                }
+            }
+            fechaIda = 1;
+            fechaVuelta = cantFechas / 2 + 1;
+        }
 
     }
 

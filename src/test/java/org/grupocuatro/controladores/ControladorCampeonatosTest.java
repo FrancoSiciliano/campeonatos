@@ -11,13 +11,13 @@ public class ControladorCampeonatosTest extends TestCase {
         System.out.println(ControladorCampeonatos.getInstancia().getCampeonatos());
     }
 
-    public void testdefinirTipoCampeonato() {
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Puntos",1);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Zona",2);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Zona",3);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Puntos",6);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Puntos",7);
-    }
+//    public void testdefinirTipoCampeonato() {
+//        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Puntos",1);
+//        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Zona",2);
+//        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Zona",3);
+//        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Puntos",6);
+//        ControladorCampeonatos.getInstancia().definirTipoCampeonatoYCategoria("Puntos",7);
+//    }
 
     public void testterminarCampeonato() {
         ControladorCampeonatos.getInstancia().terminarCampeonato(1);

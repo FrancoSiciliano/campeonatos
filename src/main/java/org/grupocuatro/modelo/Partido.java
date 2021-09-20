@@ -58,15 +58,14 @@ public class Partido {
     @OneToMany(mappedBy = "partido")
     private List<Gol> goles;
 
-    public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante, LocalDate fechaPartido, Campeonato campeonato) {
-        this.nroFecha = nroFecha;
+    public Partido(int nroZona, int categoria, Club clubLocal, Club clubVisitante, Campeonato campeonato) {
         this.nroZona = nroZona;
+        this.nroFecha = 99;
         this.categoria = categoria;
         this.clubLocal = clubLocal;
         this.clubVisitante = clubVisitante;
         this.golesLocal = null;
         this.golesVisitante = null;
-        this.fechaPartido = fechaPartido;
         this.convalidaLocal = false;
         this.convalidaVisitante = false;
         this.campeonato = campeonato;
