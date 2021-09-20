@@ -83,6 +83,8 @@ public class ControladorPartidos {
                 } catch (PartidoException e) {
                     System.out.println(e.getMessage());
                 }
+            } else {
+                throw new PartidoException("La fecha ingresada no esta comprendida entre las fechas del torneo");
             }
 
         } catch (PartidoException e) {
