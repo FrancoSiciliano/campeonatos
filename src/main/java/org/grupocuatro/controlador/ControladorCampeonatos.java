@@ -47,9 +47,8 @@ public class ControladorCampeonatos {
         return nuevoCampeonato.getIdCampeonato();
     }
 
-
     // TODO LA CATEGORIA LA CONTROLA LA VISTA
-    // FIXME BORRAR EL PARTIDO FALSO :D
+    // SI SE LE PASA 0 COMO CANTIDAD DE ZONAS EL TORNEO ES POR PUNTOS.
 
     public void definirTipoCampeonatoAndCategoria(int cantidadZonas, Integer idCampeonato, int categoria) {
         try {
@@ -70,57 +69,6 @@ public class ControladorCampeonatos {
         } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public void cargarPartidosCampeonato(Integer idCampeonato, int categoria) {
-        try {
-            Campeonato camp = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-            long duracion = camp.calcularDuracionCampeonato();
-
-
-            //ASUMIMOS QUE EN ESTE PUNTO, LOS CLUBES REGISTRADOS EN EL CAMPEONATO TIENEN JUGADORES SUFICIENTES DE LA CATEGORIA INDICADA
-            List<Club> clubesInscriptos = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato);
-
-            if (camp.getTipoCampeonato().toLowerCase().replace(" ", "") == "puntos") {
-                cargarPartidosCampPuntos(duracion, lista);
-            } else if (camp.getTipoCampeonato().toLowerCase().replace(" ", "") == "zonas") {
-                cargarPartidoCampZonas(duracion, lista);
-            }
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-    private void cargarPartidosCampPuntos(long diasDuracion, List<Club> lista) {
-        ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
-        int cantEquipos = lista.size();
-        int cantFechas = cantEquipos * 2 - 1;
-        int fechaIda = 1;
-        int fechaVuelta = cantFechas / 2 + 1;
-        //int cantPartidosJugar = cantEquipos * (cantEquipos - 1);
-        //int cantPartidosSimult = cantEquipos / 2;
-        List<Club> clubesA = lista;
-        List<Club> clubesB = lista;
-        for (Club clubA : clubesA) {
-            for (Club clubB : clubesB) {
-                if (clubA.getIdClub() != clubB.getIdClub()) {
-                    //controladorPartidos.crearPartido(fechaIda, 0, categoria, clubA.getIdClub(), clubB.getIdClub(), LocalDate.of(1,1,1), idCampeoanto);
-                    //controladorPartidos.crearPartido(fechaVuelta, 0, categoria, clubB.getIdClub(), clubA.getIdClub(), LocalDate.of(1,1,1), idCampeoanto);
-                    fechaIda++;
-                    fechaVuelta++;
-                }
-            }
-            fechaIda = 1;
-            fechaVuelta = cantFechas / 2 + 1;
-        }
-
-    }
-
-    private void cargarPartidoCampZonas(long diasDuracion, List<Club> lista) {
-        ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
-
-
     }
 
     public void terminarCampeonato(Integer idCampeonato) {
@@ -163,6 +111,10 @@ public class ControladorCampeonatos {
         }
 
         return null;
+    }
+
+    public boolean estaEnLaFecha(Campeonato campeonato, LocalDate fecha) {
+        return campeonato.estaEnLaFecha(fecha);
     }
 
     //PARTE DE CLUBES CAMPEONATO

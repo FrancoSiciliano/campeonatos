@@ -112,6 +112,10 @@ public class Campeonato implements Comparable<Campeonato> {
         return DAYS.between(this.fechaInicio, this.fechaFin);
     }
 
+    public boolean estaEnLaFecha(LocalDate fecha) {
+        return (fecha.isEqual(this.fechaInicio) || fecha.isEqual(this.fechaFin)) || (fecha.isAfter(this.fechaInicio) && fecha.isBefore(this.fechaFin));
+    }
+
     @Override
     public String toString() {
         return "Campeonato{" +

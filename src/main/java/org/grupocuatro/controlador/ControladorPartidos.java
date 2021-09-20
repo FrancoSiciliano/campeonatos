@@ -1,5 +1,7 @@
 package org.grupocuatro.controlador;
 
+import jdk.tools.jaotc.LoadedClass;
+import org.graalvm.compiler.nodes.calc.ObjectEqualsNode;
 import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubDao;
 import org.grupocuatro.dao.PartidoDao;
@@ -53,7 +55,42 @@ public class ControladorPartidos {
 
     }
 
-    public void cargarResultadoPartido(int idPartido, String incidentes) {
+    public void cargarNroFechaYFecha(Integer idPartido, int nroFecha, LocalDate fecha) {
+        try {
+            Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
+
+            if (ControladorCampeonatos.getInstancia().estaEnLaFecha(p.getCampeonato(), fecha)) {
+                List<Partido> partidosLocal = PartidoDao.getInstancia().getPartidosByCampeonatoAndClub(p.getClubLocal().getIdClub(), p.getCampeonato().getIdCampeonato());
+                List<Partido> partidosVisitante = PartidoDao.getInstancia().getPartidosByCampeonatoAndClub(p.getClubVisitante().getIdClub(), p.getCampeonato().getIdCampeonato());
+
+                try {
+                    for (Partido pp : partidosLocal) {
+                        if (pp.getNroFecha() == nroFecha) {
+                            throw new PartidoException("El club local ya juega en la fecha ingresada");
+                        }
+                    }
+
+                    for (Partido pp : partidosVisitante) {
+                        if (pp.getNroFecha() == nroFecha) {
+                            throw new PartidoException("El club visitante ya juega en la fecha ingresada");
+                        }
+                    }
+
+                    p.setNroFecha(nroFecha);
+                    p.setFechaPartido(fecha);
+                    p.update();
+
+                } catch (PartidoException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void cargarResultadoPartido(Integer idPartido, String incidentes) {
         try {
             ControladorGoles cont = ControladorGoles.getInstancia();
             Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
@@ -211,9 +248,9 @@ public class ControladorPartidos {
         return null;
     }
 
-    public List<Partido> getPartidosByNroFecha(int nroFecha) {
+    public List<Partido> getPartidosByNroFechaAndCampeonato(Integer idCampeonato, int nroFecha) {
         try {
-            return PartidoDao.getInstancia().getPartidosByNroFecha(nroFecha);
+            return PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonato(idCampeonato, nroFecha);
         } catch (PartidoException e) {
             System.out.println(e.getMessage());
         }

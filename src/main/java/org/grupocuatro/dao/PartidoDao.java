@@ -52,10 +52,10 @@ public class PartidoDao extends AbstractDao {
         throw new PartidoException("No existen partidos en la categoria " + categoria);
     }
 
-    public List<Partido> getPartidosByNroFecha(int nroFecha) throws PartidoException {
-        List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE nroFecha =" + nroFecha).getResultList();
+    public List<Partido> getPartidosByNroFechaAndCampeonato(Integer idCampeonato, int nroFecha) throws PartidoException {
+        List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE nroFecha =" + nroFecha + "and idCampeonato = " + idCampeonato).getResultList();
         if (!partidos.isEmpty()) return partidos;
-        throw new PartidoException("No existen partidos en la fecha " + nroFecha);
+        throw new PartidoException("No existen partidos en la fecha " + nroFecha + " para el campeonato: " + idCampeonato);
     }
 
     public List<Partido> getPartidosByNroZona(int nroZona) throws PartidoException {
@@ -87,7 +87,6 @@ public class PartidoDao extends AbstractDao {
         throw new PartidoException("El equipo no jugo ningun partido aun");
 
     }
-
 
     public List<Partido> getPartidosByCampeonatoAndClub(int idCampeonato, int idClub) throws PartidoException {
         List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato =" + idCampeonato + " AND (idClubLocal = " + idClub + " OR idClubVisitante = " + idClub + ")").getResultList();
