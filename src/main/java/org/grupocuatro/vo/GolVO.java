@@ -76,6 +76,6 @@ public class GolVO implements Serializable {
     }
 
     public Gol toModelo() {
-        return new Gol(jugador.toModelo() , partido.toModelo() ,minuto, tipo)
+        return new Gol(jugador.toModelo() , partido.toModelo() ,minuto, tipo);
     }
 }
