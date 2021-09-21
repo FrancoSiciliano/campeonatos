@@ -2,6 +2,7 @@ package org.grupocuatro.modelo;
 
 
 import org.grupocuatro.dao.ResponsableDao;
+import org.grupocuatro.vo.ResponsableVO;
 
 import javax.persistence.*;
 
@@ -72,6 +73,10 @@ public class Responsable implements Comparable<Responsable> {
 
     public void update() {
         ResponsableDao.getInstancia().update(this);
+    }
+
+    public ResponsableVO toVO() {
+        return new ResponsableVO(legajo, documento, nombre, club.toVO());
     }
 
     @Override

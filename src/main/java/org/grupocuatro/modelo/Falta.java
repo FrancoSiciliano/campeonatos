@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.FaltaDao;
+import org.grupocuatro.vo.FaltaVO;
 
 import javax.persistence.*;
 
@@ -80,6 +81,10 @@ public class Falta {
 
     public void update() {
         FaltaDao.getInstancia().update(this);
+    }
+
+    public FaltaVO toVO(){
+        return new FaltaVO(idFalta, jugador.toVO(), partido.toVO(), minuto, tipo);
     }
 
     @Override

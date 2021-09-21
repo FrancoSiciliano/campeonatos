@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.ClubesCampeonatoDao;
+import org.grupocuatro.vo.ClubesCampeonatoVO;
 
 import javax.persistence.*;
 
@@ -55,6 +56,10 @@ public class ClubesCampeonato {
 
     public void save() {
         ClubesCampeonatoDao.getInstancia().save(this);
+    }
+
+    public ClubesCampeonatoVO toVO() {
+        return new ClubesCampeonatoVO(idClubesCampeonatos, idClub.toVO(), idCampeonato.toVO());
     }
 
     @Override
