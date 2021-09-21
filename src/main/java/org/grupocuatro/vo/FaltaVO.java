@@ -66,7 +66,7 @@ public class FaltaVO implements Serializable {
     }
 
     public Falta toModelo() {
-        return new Falta(jugador, partido, minuto, tipo);
+        return new Falta(jugador.toModelo(), partido.toModelo(), minuto, tipo);
     }
 
     @Override
