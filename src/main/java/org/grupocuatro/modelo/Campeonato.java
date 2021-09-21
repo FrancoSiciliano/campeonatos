@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.CampeonatoDao;
+import org.grupocuatro.vo.CampeonatoVO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -126,5 +127,9 @@ public class Campeonato implements Comparable<Campeonato> {
                 ", estado='" + estado + '\'' +
                 ", tipoCampeonato='" + tipoCampeonato + '\'' +
                 '}';
+    }
+
+    public CampeonatoVO toVO(){
+        return new CampeonatoVO(this.idCampeonato,this.descripcion,this.fechaInicio,this.fechaFin,this.estado);
     }
 }

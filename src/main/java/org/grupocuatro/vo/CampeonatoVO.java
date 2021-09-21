@@ -17,8 +17,8 @@ public class CampeonatoVO implements Serializable {
     public CampeonatoVO () {
 
     }
-    public CampeonatoVO (String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
-        this.idCampeonato = null;
+    public CampeonatoVO (Integer idCampeonato, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
+        this.idCampeonato = idCampeonato;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -78,4 +78,15 @@ public class CampeonatoVO implements Serializable {
         return new Campeonato(this.descripcion, this.fechaInicio, this.fechaFin, this.estado);
     }
 
+    @Override
+    public String toString() {
+        return "CampeonatoVO{" +
+                "idCampeonato=" + idCampeonato +
+                ", descripcion='" + descripcion + '\'' +
+                ", fechaInicio=" + fechaInicio +
+                ", fechaFin=" + fechaFin +
+                ", estado='" + estado + '\'' +
+                ", tipoCampeonato='" + tipoCampeonato + '\'' +
+                '}';
+    }
 }

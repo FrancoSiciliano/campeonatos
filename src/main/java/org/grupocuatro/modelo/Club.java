@@ -2,6 +2,7 @@ package org.grupocuatro.modelo;
 
 
 import org.grupocuatro.dao.ClubDao;
+import org.grupocuatro.vo.ClubVO;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -106,5 +107,9 @@ public class Club implements Comparable<Club> {
                 ", nombre='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
                 '}';
+    }
+
+    public ClubVO toVO(){
+        return new ClubVO(this.idClub, this.nombre, this.direccion);
     }
 }
