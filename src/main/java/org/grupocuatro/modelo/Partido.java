@@ -2,6 +2,9 @@ package org.grupocuatro.modelo;
 
 
 import org.grupocuatro.dao.PartidoDao;
+import org.grupocuatro.vo.CampeonatoVO;
+import org.grupocuatro.vo.ClubVO;
+import org.grupocuatro.vo.PartidoVO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -232,6 +235,10 @@ public class Partido {
                 ", convalidaVisitante=" + convalidaVisitante +
                 ", campeonato=" + campeonato +
                 '}';
+    }
+
+    public PartidoVO toVO(){
+        return new PartidoVO (this.idPartido, this.nroZona, this.categoria, this.clubLocal.toVO(), this.clubVisitante.toVO(), this.campeonato.toVO());
     }
 
 }

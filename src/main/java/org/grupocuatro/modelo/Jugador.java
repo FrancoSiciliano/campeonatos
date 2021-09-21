@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.JugadorDao;
+import org.grupocuatro.vo.JugadorVO;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -224,4 +225,9 @@ public class Jugador implements Comparable<Jugador> {
                 ", fechaAlta=" + fechaAlta +
                 '}';
     }
+
+    public JugadorVO toVO(){
+        return new JugadorVO(this.idJugador, this.tipoDocumento, this.documento, this.nombre, this.apellido, this.club.toVO(), this.fechaNacimiento, this.direccion, this.mail, this.telefono);
+    }
+
 }
