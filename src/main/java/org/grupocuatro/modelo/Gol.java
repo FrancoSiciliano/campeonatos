@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.GolDao;
+import org.grupocuatro.vo.GolVO;
 
 import javax.persistence.*;
 
@@ -66,6 +67,10 @@ public class Gol {
 
     public void update() {
         GolDao.getInstancia().update(this);
+    }
+
+    public GolVO toVO() {
+        return new GolVO(idGol, jugador.toVO(), partido.toVO(), minuto, tipo);
     }
 
     @Override
