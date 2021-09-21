@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.MiembroDao;
+import org.grupocuatro.vo.MiembroVO;
 
 import javax.persistence.*;
 
@@ -110,4 +111,9 @@ public class Miembro {
                 ", egreso=" + egreso +
                 '}';
     }
+
+    public MiembroVO toVO() {
+        return new MiembroVO(this.idLista, this.getClub().toVO(), this.getPartido().toVO(), this.getJugador().toVO(), this.ingreso, this.egreso);
+    }
+
 }
