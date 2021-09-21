@@ -62,11 +62,6 @@ public class ControladorPartidosTest extends TestCase {
         System.out.println(partidos);
     }
 
-    public void testGetPartidosByNroFecha() {
-        List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByNroFecha(1);
-        System.out.println(partidos);
-    }
-
     public void testGetPartidosByNroZona() {
         List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByNroZona(1);
         System.out.println(partidos);

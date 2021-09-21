@@ -1,7 +1,5 @@
 package org.grupocuatro.controlador;
 
-import jdk.tools.jaotc.LoadedClass;
-import org.graalvm.compiler.nodes.calc.ObjectEqualsNode;
 import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubDao;
 import org.grupocuatro.dao.PartidoDao;
@@ -51,7 +49,7 @@ public class ControladorPartidos {
             p.save();
         }
 
-        return (p == null) ? p.getIdPartido() : null;
+        return (p != null) ? p.getIdPartido() : null;
 
     }
     //SE ASUME QUE UNA FECHA NO DURA MAS DE UN DIA, ES DECIR QUE 1 FECHA = 1 DIA
@@ -280,6 +278,15 @@ public class ControladorPartidos {
     public List<Partido> getPartidosByClubVisitante(int idClub) {
         try {
             return PartidoDao.getInstancia().getPartidosByClubVisitante(idClub);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Partido> getPartidosByNroFechaAndCampeonatoAndClub(Integer idCampeonato, int nroFecha, Integer idClub) {
+        try {
+            return PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonatoAndClub(idCampeonato, nroFecha, idClub);
         } catch (PartidoException e) {
             System.out.println(e.getMessage());
         }

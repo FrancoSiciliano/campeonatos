@@ -42,17 +42,6 @@ public class PartidoDaoTest extends TestCase {
         }
     }
 
-    public void testGetPartidosByNroFecha() {
-        try {
-            List<Partido> partidos = PartidoDao.getInstancia().getPartidosByNroFecha(1);
-            System.out.println(partidos);
-            List<Partido> partidos1 = PartidoDao.getInstancia().getPartidosByNroFecha(2);
-            System.out.println(partidos1);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public void testGetPartidosByNroZona() {
         try {
             List<Partido> partidos = PartidoDao.getInstancia().getPartidosByNroZona(2);

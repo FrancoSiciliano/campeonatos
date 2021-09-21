@@ -7,6 +7,7 @@ import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
 import org.grupocuatro.utiles.Tupla;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 public class GenerarPuntos implements GeneracionPartidosStrategy {
@@ -17,10 +18,11 @@ public class GenerarPuntos implements GeneracionPartidosStrategy {
         List<Club> clubesVisitantes = clubesInscriptos;
         for (Club clubLocal : clubesLocales) {
             for (Club clubVisitante : clubesVisitantes) {
-                if (!Objects.equals(clubLocal.getIdClub(), clubVisitante.getIdClub()))
+                if (!Objects.equals(clubLocal.getIdClub(), clubVisitante.getIdClub())) {
                     ControladorPartidos.getInstancia().crearPartido(0, categoria, clubLocal.getIdClub(), clubVisitante.getIdClub(), campeonato.getIdCampeonato());
+                }
             }
-        };
+        }
     }
 }
 
