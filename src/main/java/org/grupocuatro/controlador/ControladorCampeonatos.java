@@ -2,22 +2,16 @@ package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubesCampeonatoDao;
-import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
-import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
 import org.grupocuatro.strategy.GeneracionPartidosStrategy;
-import org.grupocuatro.strategy.GenerarPuntos;
+import org.grupocuatro.strategy.GenerarPuntosPar;
 import org.grupocuatro.strategy.GenerarZonas;
-import org.grupocuatro.utiles.Tupla;
 
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 public class ControladorCampeonatos {
     private static ControladorCampeonatos instancia;
@@ -57,7 +51,7 @@ public class ControladorCampeonatos {
 
             if ((cantidadZonas == 0)) {
                 campeonato.setTipoCampeonato("Puntos");
-                strategy = new GenerarPuntos();
+                strategy = new GenerarPuntosPar();
             } else {
                 campeonato.setTipoCampeonato("Zonas");
                 strategy = new GenerarZonas(cantidadZonas);
