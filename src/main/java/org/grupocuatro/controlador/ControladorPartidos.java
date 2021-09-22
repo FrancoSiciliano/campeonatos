@@ -52,6 +52,7 @@ public class ControladorPartidos {
         return (p != null) ? p.getIdPartido() : null;
 
     }
+
     //SE ASUME QUE UNA FECHA NO DURA MAS DE UN DIA, ES DECIR QUE 1 FECHA = 1 DIA
     public void cargarNroFechaYFecha(Integer idPartido, int nroFecha, LocalDate fecha) {
         try {
