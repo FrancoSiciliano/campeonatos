@@ -13,12 +13,13 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class GenerarPuntosPar implements GeneracionPartidosStrategy {
+
     @Override
     public void generarPartidosCampeonato(Campeonato campeonato, int categoria) {
         List<Club> clubesInscriptos = ControladorClubes.getInstancia().getClubesByCampeonato(campeonato.getIdCampeonato());
         HashMap<Integer, Club> map = new HashMap<>();
 
-        int numRondas = (clubesInscriptos.size() - 1) * 2;
+        int numRondas = clubesInscriptos.size() - 1;
         int partidosPorRonda = clubesInscriptos.size() / 2;
 
         Partido[][] auxPartidos = new Partido[numRondas][partidosPorRonda];
@@ -39,7 +40,7 @@ public class GenerarPuntosPar implements GeneracionPartidosStrategy {
 
                 k++;
 
-                if (k == clubesInscriptos.size() - 1) {
+                if (k == numRondas) {
                     k = 0;
                 }
             }
@@ -70,6 +71,7 @@ public class GenerarPuntosPar implements GeneracionPartidosStrategy {
 
         LocalDate fechaInicial = campeonato.getFechaInicio();
 
+        //IDA
         for (int i = 0; i < numRondas; i++) {
             for (int j = 0; j < partidosPorRonda; j++) {
                 int idp = ControladorPartidos.getInstancia().crearPartido(auxPartidos[i][j].getNroZona(), auxPartidos[i][j].getCategoria(), auxPartidos[i][j].getClubLocal().getIdClub(), auxPartidos[i][j].getClubVisitante().getIdClub(), campeonato.getIdCampeonato());
@@ -79,6 +81,21 @@ public class GenerarPuntosPar implements GeneracionPartidosStrategy {
                 p.update();
             }
             fechaInicial = fechaInicial.plusDays(1);
+        }
+
+        int auxFecha = numRondas + 1;
+
+        //VUELTA
+        for (int i = 0; i < numRondas; i++) {
+            for (int j = 0; j < partidosPorRonda; j++) {
+                int idp = ControladorPartidos.getInstancia().crearPartido(auxPartidos[i][j].getNroZona(), auxPartidos[i][j].getCategoria(), auxPartidos[i][j].getClubVisitante().getIdClub(), auxPartidos[i][j].getClubLocal().getIdClub(), campeonato.getIdCampeonato());
+                Partido p = ControladorPartidos.getInstancia().encontrarPartido(idp);
+                p.setNroFecha(auxFecha);
+                p.setFechaPartido(fechaInicial);
+                p.update();
+            }
+            fechaInicial = fechaInicial.plusDays(1);
+            auxFecha++;
         }
     }
 }
