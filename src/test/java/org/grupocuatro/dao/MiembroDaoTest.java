@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.modelo.Miembro;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class MiembroDaoTest extends TestCase {
@@ -72,5 +73,13 @@ public class MiembroDaoTest extends TestCase {
         }
     }
 
-
+    public void testGetMiembroByJugadorAndFecha() {
+        try {
+            System.out.println(MiembroDao.getInstancia().getMiembroByJugadorAndFecha(1, LocalDate.now()));
+            System.out.println(MiembroDao.getInstancia().getMiembroByJugadorAndFecha(2, LocalDate.now()));
+            System.out.println(MiembroDao.getInstancia().getMiembroByJugadorAndFecha(3, LocalDate.now()));
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

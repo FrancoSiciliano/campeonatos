@@ -66,7 +66,6 @@ public class MiembroDao extends AbstractDao {
         }
     }
 
-
     public List<Miembro> getMiembroByJugadorAndFecha(Integer idJugador, LocalDate fecha) throws MiembroException {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Miembro> cq = cb.createQuery(Miembro.class);
