@@ -49,7 +49,7 @@ public class ControladorFaltas {
     }
 
     private boolean correspondeRoja(Integer idJugador, Integer idPartido) throws FaltaException {
-        List<Falta> listaFaltas = FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipo(idJugador, idPartido, "amarilla");
+        List<Falta> listaFaltas = FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "amarilla", idPartido);
         return listaFaltas.size() == 2;
     }
 
@@ -109,7 +109,7 @@ public class ControladorFaltas {
 
     public List<Falta> getFaltasByJugadorAndTipoAndPartido(Integer jugador, String tipo, Integer partido) {
         try {
-            return FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador, tipo, partido);
+            return FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador,tipo, partido);
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }
@@ -128,7 +128,7 @@ public class ControladorFaltas {
 
     public List<Falta> getFaltasByJugadorAndPartidoAndTipo(Integer jugador, Integer partido, String tipo) {
         try {
-            return FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipo(jugador, partido, tipo);
+            return FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador, tipo, partido);
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }

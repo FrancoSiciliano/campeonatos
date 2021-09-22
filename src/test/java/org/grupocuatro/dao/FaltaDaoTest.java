@@ -88,8 +88,8 @@ public class FaltaDaoTest extends TestCase {
 
     public void testGetFaltasByJugadorAndTipoAndPartido() {
         try{
-            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(1,"roja",1));
-            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(1,"amarilla",1));
+            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(1, "roja", 1));
+            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(1, "amarilla", 1));
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }
@@ -98,8 +98,8 @@ public class FaltaDaoTest extends TestCase {
 
     public void testGetFaltasByJugadorAndPartidoAndTipoAndCampeonato() {
         try{
-            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipo(1,1,"roja"));
-            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipo(1,1,"amarilla"));
+            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(1, "roja", 1));
+            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(1, "amarilla", 1));
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }

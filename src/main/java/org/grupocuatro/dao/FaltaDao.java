@@ -76,16 +76,17 @@ public class FaltaDao extends AbstractDao {
         throw new FaltaException("No hay faltas correspondientes al jugador " + jugador + " y campeonato " + campeonato);
     }
 
-    public List<Falta> getFaltasByJugadorAndTipoAndPartido(Integer jugador, String tipo, Integer partido) throws FaltaException {
-        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " and idPartido = " + partido + " and tipo = '" + tipo + "'").getResultList();
-        if (!faltas.isEmpty()) return faltas;
-        throw new FaltaException("El jugador de id " + jugador + " no tiene falta de tipo " + tipo + " en el partido de id " + partido);
-    }
 
-    public List<Falta> getFaltasByJugadorAndPartidoAndTipo(Integer jugador, Integer partido, String tipo) throws FaltaException {
+    public List<Falta> getFaltasByJugadorAndTipoAndPartido(Integer jugador, String tipo,Integer partido) throws FaltaException {
         List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idJugador = " + jugador + " AND idPartido = " + partido + " AND tipo = '" + tipo + "'").getResultList();
         if (!faltas.isEmpty()) return faltas;
         throw new FaltaException("No hay faltas correspondientes al jugador " + jugador + "en el partido " + partido + " de tipo " + tipo);
+
+    }
+    public List<Falta> getFaltasByJugadorAndPartidoAndTipoAndCampeonato(Integer jugador, String tipo,Integer campeonato) throws FaltaException {
+        List<Falta> faltas = getEntityManager().createQuery("FROM FALTA WHERE idJugador = "+jugador+ " AND tipo = '"+tipo+" AND idCampeonato = "+campeonato).getResultList();
+        if (!faltas.isEmpty()) return faltas;
+        throw new FaltaException("No hay faltas correspondientes al jugador " + jugador + "en el Campeonato " + campeonato + " de tipo " + tipo);
 
     }
 

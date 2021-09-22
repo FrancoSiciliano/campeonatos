@@ -177,7 +177,7 @@ public class ControladorJugadores {
                         cantAmarillas = cantAmarillas;
                     }
                     try {
-                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
+                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador,  "Roja",p.getIdPartido()).size();
                     } catch (FaltaException e) {
                         cantRojas = cantRojas;
                     }
@@ -215,12 +215,12 @@ public class ControladorJugadores {
                         cantGoles = cantGoles;
                     }
                     try {
-                        cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla", p.getIdPartido()).size();
+                        cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla",p.getIdPartido()).size();
                     } catch (FaltaException e) {
                         cantAmarillas = cantAmarillas;
                     }
                     try {
-                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
+                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja",p.getIdPartido()).size();
                     } catch (FaltaException e) {
                         cantRojas = cantRojas;
                     }
