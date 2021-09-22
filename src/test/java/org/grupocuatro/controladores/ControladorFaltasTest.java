@@ -46,7 +46,7 @@ public class ControladorFaltasTest extends TestCase {
     }
 
     public void testGetFaltasByJugadorAndPartidoAndTipoAndCampeonato() {
-        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(2, 2, "amarilla", 1);
+        List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndPartidoAndTipo(2, 2, "amarilla");
         System.out.println(faltas);
     }
 

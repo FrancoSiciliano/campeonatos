@@ -126,7 +126,7 @@ public class ControladorFaltas {
         return null;
     }
 
-    public List<Falta> getFaltasByJugadorAndPartidoAndTipoAndCampeonato(Integer jugador, Integer partido, String tipo, Integer campeonato) {
+    public List<Falta> getFaltasByJugadorAndPartidoAndTipo(Integer jugador, Integer partido, String tipo) {
         try {
             return FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipo(jugador, partido, tipo);
         } catch (FaltaException e) {
