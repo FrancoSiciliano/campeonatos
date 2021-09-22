@@ -5,9 +5,7 @@ import org.grupocuatro.dao.ClubesCampeonatoDao;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.modelo.*;
-import org.grupocuatro.strategy.GeneracionPartidosStrategy;
-import org.grupocuatro.strategy.GenerarPuntosPar;
-import org.grupocuatro.strategy.GenerarZonas;
+import org.grupocuatro.strategy.*;
 
 
 import java.time.LocalDate;
@@ -47,14 +45,24 @@ public class ControladorCampeonatos {
     public void definirTipoCampeonatoAndCategoria(int cantidadZonas, Integer idCampeonato, int categoria) {
         try {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
+            int cantEquipos = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato).size();
+
             GeneracionPartidosStrategy strategy;
 
             if ((cantidadZonas == 0)) {
                 campeonato.setTipoCampeonato("Puntos");
-                strategy = new GenerarPuntosPar();
+
+                if (cantEquipos % 2 == 0)
+                    strategy = new GenerarPuntosPar();
+                else
+                    strategy = new GenerarPuntosImpar();
             } else {
                 campeonato.setTipoCampeonato("Zonas");
-                strategy = new GenerarZonas(cantidadZonas);
+
+                if ((cantEquipos / cantidadZonas) % 2 == 0)
+                    strategy = new GenerarZonasPar(cantidadZonas);
+                else
+                    strategy = new GenerarZonasImpar(cantidadZonas);
             }
 
             campeonato.update();

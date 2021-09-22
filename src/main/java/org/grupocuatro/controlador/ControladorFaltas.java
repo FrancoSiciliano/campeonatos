@@ -2,7 +2,6 @@ package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.FaltaDao;
 import org.grupocuatro.excepciones.FaltaException;
-import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Falta;
 import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Partido;
@@ -24,18 +23,17 @@ public class ControladorFaltas {
     public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) {
         Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador);
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
-        Campeonato campeonato = partido.getCampeonato();
 
-        if (jugador != null && partido != null && campeonato != null) {
+        if (jugador != null && partido != null) {
             FaltaDao faltadao = FaltaDao.getInstancia();
             Falta falta = null;
-            falta = new Falta(jugador, partido, campeonato, minuto, tipo);
+            falta = new Falta(jugador, partido, minuto, tipo);
             faltadao.save(falta);
 
             if (!tipo.equals("roja")) {
                 try {
-                    if (correspondeRoja(idJugador, idPartido, partido.getCampeonato().getIdCampeonato())) {
-                        falta = new Falta(jugador, partido, campeonato, minuto, "roja");
+                    if (correspondeRoja(idJugador, idPartido)) {
+                        falta = new Falta(jugador, partido, minuto, "roja");
                         faltadao.save(falta);
                         return falta.getIdFalta();
                     }
@@ -50,8 +48,8 @@ public class ControladorFaltas {
         return null;
     }
 
-    private boolean correspondeRoja(Integer idJugador, Integer idPartido, Integer idCampeonato) throws FaltaException {
-        List<Falta> listaFaltas = FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(idJugador, idPartido, "amarilla", idCampeonato);
+    private boolean correspondeRoja(Integer idJugador, Integer idPartido) throws FaltaException {
+        List<Falta> listaFaltas = FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipo(idJugador, idPartido, "amarilla");
         return listaFaltas.size() == 2;
     }
 
@@ -130,7 +128,7 @@ public class ControladorFaltas {
 
     public List<Falta> getFaltasByJugadorAndPartidoAndTipoAndCampeonato(Integer jugador, Integer partido, String tipo, Integer campeonato) {
         try {
-            return FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(jugador, partido, tipo, campeonato);
+            return FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipo(jugador, partido, tipo);
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }

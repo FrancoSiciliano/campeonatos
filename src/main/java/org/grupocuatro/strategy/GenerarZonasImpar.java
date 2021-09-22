@@ -2,7 +2,6 @@ package org.grupocuatro.strategy;
 
 import org.grupocuatro.controlador.ControladorClubes;
 import org.grupocuatro.controlador.ControladorPartidos;
-import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
@@ -11,13 +10,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
-public class GenerarZonas implements GeneracionPartidosStrategy {
+public class GenerarZonasImpar implements GeneracionPartidosStrategy {
 
     private int cantZonas;
 
-    public GenerarZonas(int cantZonas) {
+    public GenerarZonasImpar(int cantZonas) {
         this.cantZonas = cantZonas;
     }
 
@@ -42,31 +40,29 @@ public class GenerarZonas implements GeneracionPartidosStrategy {
                 auxFinal += cantidadEquiposZona;
             }
 
-            List<Club> clubesLocales;
-            List<Club> clubesVisitantes;
-
             for (List<Club> lc : zonas) {
+                System.out.println(lc);
                 HashMap<Integer, Club> map = new HashMap<>();
 
-                int numRondas = lc.size() - 1;
+                int numRondas = lc.size();
                 int partidosPorRonda = lc.size() / 2;
 
                 Partido[][] auxPartidos = new Partido[numRondas][partidosPorRonda];
 
                 int aux = 0;
-                for (Club c: lc) {
+                for (Club c : lc) {
                     map.put(aux, c);
                     aux++;
                 }
 
                 for (int i = 0, k = 0; i < numRondas; i++) {
-                    for (int j = 0; j < partidosPorRonda; j++) {
-
-                        auxPartidos[i][j] = new Partido();
-                        auxPartidos[i][j].setClubLocal(map.get(k));
-                        auxPartidos[i][j].setCategoria(categoria);
-                        auxPartidos[i][j].setNroZona(zonas.indexOf(lc) + 1);
-
+                    for (int j = -1; j < partidosPorRonda; j++) {
+                        if (j >= 0) {
+                            auxPartidos[i][j] = new Partido();
+                            auxPartidos[i][j].setClubLocal(map.get(k));
+                            auxPartidos[i][j].setCategoria(categoria);
+                            auxPartidos[i][j].setNroZona(zonas.indexOf(lc) + 1);
+                        }
                         k++;
 
                         if (k == numRondas) {
@@ -75,25 +71,14 @@ public class GenerarZonas implements GeneracionPartidosStrategy {
                     }
                 }
 
-                for (int i = 0; i < numRondas; i++) {
-                    if (i % 2 == 0) {
-                        auxPartidos[i][0].setClubVisitante(map.get(lc.size() - 1));
-                    } else {
-                        auxPartidos[i][0].setClubVisitante(auxPartidos[i][0].getClubLocal());
-                        auxPartidos[i][0].setClubLocal(map.get(lc.size() - 1));
-                    }
-                }
-
                 int equipoMasAlto = lc.size() - 1;
-                int equipoImparMasAlto = equipoMasAlto - 1;
-
-                for (int i = 0, k = equipoImparMasAlto; i < numRondas; i++) {
-                    for (int j = 1; j < partidosPorRonda; j++) {
+                for (int i = 0, k = equipoMasAlto; i < numRondas; i++) {
+                    for (int j = 0; j < partidosPorRonda; j++) {
                         auxPartidos[i][j].setClubVisitante(map.get(k));
                         k--;
 
                         if (k == -1) {
-                            k = equipoImparMasAlto;
+                            k = equipoMasAlto;
                         }
                     }
                 }
@@ -127,9 +112,6 @@ public class GenerarZonas implements GeneracionPartidosStrategy {
                     auxFecha++;
                 }
             }
-
         }
-
     }
-
 }

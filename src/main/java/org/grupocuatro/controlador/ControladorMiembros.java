@@ -20,14 +20,7 @@ public class ControladorMiembros {
         return instancia;
     }
 
-    public Integer crearListaJugadores(Club club, Partido partido) {
-        Miembro m = new Miembro(club, partido);
-        if (ControladorClubes.getInstancia().getClubes().contains(club) && ControladorPartidos.getInstancia().getAllPartidos().contains(partido))
-            m.save();
-        return m.getIdLista();
-    }
-
-    public void agregarJugadoresEnLista(Integer idMiembro, Jugador jugador) {
+    public void agregarJugadoresEnLista(Club club, Partido partido, Jugador jugador) {
         /*
         CONTROLES:
         - Categoria: Que no participen en categorías menor que poseen (categoria >= categoriaPartido)
@@ -37,27 +30,23 @@ public class ControladorMiembros {
         - Campeonato: No poder participar en campeonatos ya arrancados.
          */
 
-        try {
-            Miembro miembro = MiembroDao.getInstancia().getMiembroById(idMiembro);
-            Partido partido = miembro.getPartido();
-            Campeonato campeonato = partido.getCampeonato();
+        Miembro miembro = new Miembro(club, partido);
+        Campeonato campeonato = partido.getCampeonato();
 
-            if (perteneceAlEquipo(miembro.getClub().getIdClub(), jugador) &&
-                    puedeJugarPorCategoria(partido, jugador) &&
-                    puedeJugarPorDia(partido, jugador) &&
-                    hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
-                    !elCampeonatoComenzo(campeonato, jugador) &&
-                    estaHabilitadoParaJugar(partido, jugador)) {
+        if (perteneceAlEquipo(miembro.getClub().getIdClub(), jugador) &&
+                puedeJugarPorCategoria(partido, jugador) &&
+                puedeJugarPorDia(partido, jugador) &&
+                hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
+                !elCampeonatoComenzo(campeonato, jugador) &&
+                estaHabilitadoParaJugar(partido, jugador)) {
 
-                miembro.setJugador(jugador);
-                miembro.update();
+            miembro.setJugador(jugador);
+            miembro.update();
 
-            } else {
-                System.out.println("El jugador no puede ser inscripto en el partido");
-            }
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
+        } else {
+            System.out.println("El jugador no puede ser inscripto en el partido");
         }
+
     }
 
     public void definirIngresoEgreso(Integer idMiembro, int ingreso, int egreso) {
@@ -165,7 +154,7 @@ public class ControladorMiembros {
     }
 
     private boolean elCampeonatoComenzo(Campeonato campeonato, Jugador jugador) {
-        return !campeonato.getFechaInicio().isAfter(jugador.getFechaAlta());
+        return !campeonato.getFechaInicio().isAfter(jugador.getFechaAlta()) || !campeonato.getFechaInicio().isEqual(jugador.getFechaAlta());
     }
 
     private boolean estaHabilitadoParaJugar(Partido partido, Jugador jugador) {

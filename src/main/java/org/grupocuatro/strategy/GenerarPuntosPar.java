@@ -22,7 +22,7 @@ public class GenerarPuntosPar implements GeneracionPartidosStrategy {
         Partido[][] auxPartidos = new Partido[numRondas][partidosPorRonda];
 
         int aux = 0;
-        for (Club c: clubesInscriptos) {
+        for (Club c : clubesInscriptos) {
             map.put(aux, c);
             aux++;
         }

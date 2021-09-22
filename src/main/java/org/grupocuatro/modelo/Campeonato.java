@@ -33,9 +33,6 @@ public class Campeonato implements Comparable<Campeonato> {
     @OneToMany(mappedBy = "campeonato")
     private List<Partido> partidos;
 
-    @OneToMany(mappedBy = "campeonato")
-    private List<Falta> faltas;
-
 
     @OneToMany(mappedBy = "campeonato")
     private List<TablaPosiciones> tablaPosiciones;
@@ -52,7 +49,6 @@ public class Campeonato implements Comparable<Campeonato> {
     public Campeonato() {
         partidos = new ArrayList<>();
         inscriptos = new ArrayList<>();
-        faltas = new ArrayList<>();
         tablaPosiciones = new ArrayList<>();
     }
 

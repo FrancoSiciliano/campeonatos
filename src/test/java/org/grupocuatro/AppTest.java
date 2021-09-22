@@ -3,9 +3,8 @@ package org.grupocuatro;
 
 import org.grupocuatro.controlador.*;
 import org.grupocuatro.strategy.GeneracionPartidosStrategy;
-import org.grupocuatro.strategy.GenerarPuntosImpar;
-import org.grupocuatro.strategy.GenerarPuntosPar;
-import org.grupocuatro.strategy.GenerarZonas;
+import org.grupocuatro.strategy.GenerarZonasImpar;
+import org.grupocuatro.strategy.GenerarZonasPar;
 
 /**
  * Unit test for simple App.
@@ -33,7 +32,7 @@ public class AppTest {
 
         //controladorCampeonatos.definirTipoCampeonatoAndCategoria("puntos", 5, 90);
 
-        GeneracionPartidosStrategy strategy = new GenerarZonas(2);
+        GeneracionPartidosStrategy strategy = new GenerarZonasImpar(2);
         strategy.generarPartidosCampeonato(ControladorCampeonatos.getInstancia().encontrarCampeonato(5),90);
 
 
