@@ -14,17 +14,12 @@ public class ControladorMiembrosTest extends TestCase {
     ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
     ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
 
-//    public void testCrearListaJugadores() {
-//        System.out.println(controladorMiembros.crearListaJugadores(controladorClubes.getClubById(1), controladorPartidos.encontrarPartido(1)));
-//        System.out.println(controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(1)));
-//        System.out.println(controladorMiembros.crearListaJugadores(controladorClubes.getClubById(33), controladorPartidos.encontrarPartido(3)));
-//    }
 
-//    public void testAgregarJugadoresEnLista() {
-//        controladorMiembros.agregarJugadoresEnLista(1, 4, controladorJugadores.encontrarJugador(3));
-//        controladorMiembros.agregarJugadoresEnLista(1, 5, controladorJugadores.encontrarJugador(4));
-//        controladorMiembros.agregarJugadoresEnLista(1, 4, controladorJugadores.encontrarJugador(1));
-//    }
+    public void testAgregarJugadoresEnLista() {
+        controladorMiembros.agregarJugadoresEnLista(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(1), controladorJugadores.encontrarJugador(3));
+        controladorMiembros.agregarJugadoresEnLista(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(4), controladorJugadores.encontrarJugador(4));
+        controladorMiembros.agregarJugadoresEnLista(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(6), controladorJugadores.encontrarJugador(1));
+    }
 
     public void testGetMiembroById() {
         System.out.println(controladorMiembros.getMiembroById(1));
@@ -64,6 +59,7 @@ public class ControladorMiembrosTest extends TestCase {
         System.out.println(controladorMiembros.getMiembroByJugadorAndFecha(4, LocalDate.of(2020,8,10)));
         System.out.println(controladorMiembros.getMiembroByJugadorAndFecha(2, LocalDate.of(2020,8,10)));
     }
+
     public void testDefinirIngresoEgreso() {
         controladorMiembros.definirIngresoEgreso(1, 0, 90);
     }
