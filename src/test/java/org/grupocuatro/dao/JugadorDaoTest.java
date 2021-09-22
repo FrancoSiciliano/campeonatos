@@ -1,6 +1,7 @@
 package org.grupocuatro.dao;
 
 import junit.framework.TestCase;
+import org.grupocuatro.controlador.ControladorJugadores;
 import org.grupocuatro.excepciones.JugadorException;
 
 public class JugadorDaoTest extends TestCase {
@@ -33,7 +34,6 @@ public class JugadorDaoTest extends TestCase {
         }
     }
 
-
     public void testGetJugadores() {
         try {
             System.out.println(JugadorDao.getInstancia().getJugadores());
@@ -55,6 +55,17 @@ public class JugadorDaoTest extends TestCase {
         try {
             System.out.println(JugadorDao.getInstancia().getJugadoresByCategoria(121));
             System.out.println(JugadorDao.getInstancia().getJugadoresByCategoria(122));
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetJugadoresHabilitadosCategoriaClub() {
+        try {
+            JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(2, 10);
+            JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(1, 100);
+            JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(3, 85);
+            JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(4, 90);
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
         }

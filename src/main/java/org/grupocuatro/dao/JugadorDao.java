@@ -66,7 +66,7 @@ public class JugadorDao extends AbstractDao {
     }
 
     public List<Jugador> getJugadoresHabilitadosCategoriaClub (Integer club, int categoria) throws JugadorException {
-        String qlString = "FROM Jugador WHERE categoria <= ?1 and estado = true and idClub = ?2 ";
+        String qlString = "FROM Jugador WHERE categoria >= ?1 and estado = true and idClub = ?2 ";
         Query query = getEntityManager().createQuery(qlString);
         query.setParameter(1, categoria);
         query.setParameter(2,club);
