@@ -1,6 +1,7 @@
 package org.grupocuatro.controladores;
 
 import junit.framework.TestCase;
+import org.grupocuatro.controlador.ControladorCampeonatos;
 import org.grupocuatro.controlador.ControladorClubes;
 import org.grupocuatro.controlador.ControladorJugadores;
 import org.grupocuatro.modelo.Club;
@@ -34,11 +35,14 @@ public class ControladorClubesTest extends TestCase {
         System.out.println(c);
     }
 
-
-    public void getClubesByCampeonato() {
+    public void testgetClubesByCampeonato() {
         List<Club> clubes = ControladorClubes.getInstancia().getClubesByCampeonato(1);
         System.out.println(clubes);
     }
 
-
+    public void testgetClubesHabilitadosPorCategoria(int categoria) {
+        System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(85));
+        System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(100));
+        System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(0));
+    }
 }
