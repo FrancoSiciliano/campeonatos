@@ -40,7 +40,7 @@ public class ControladorClubesTest extends TestCase {
         System.out.println(clubes);
     }
 
-    public void testgetClubesHabilitadosPorCategoria(int categoria) {
+    public void testgetClubesHabilitadosPorCategoria() {
         System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(85));
         System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(100));
         System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(0));
