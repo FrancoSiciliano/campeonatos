@@ -5,6 +5,7 @@ import org.grupocuatro.controlador.*;
 import org.grupocuatro.strategy.GeneracionPartidosStrategy;
 import org.grupocuatro.strategy.GenerarPuntosImpar;
 import org.grupocuatro.strategy.GenerarPuntosPar;
+import org.grupocuatro.strategy.GenerarZonas;
 
 /**
  * Unit test for simple App.
@@ -27,12 +28,12 @@ public class AppTest {
         controladorCampeonatos.agregarClubACampeonato(3, 5);
         controladorCampeonatos.agregarClubACampeonato(4, 5);
         controladorCampeonatos.agregarClubACampeonato(5, 5);
-        //controladorCampeonatos.agregarClubACampeonato(6, 5);
+        controladorCampeonatos.agregarClubACampeonato(8, 5);
 
 
         //controladorCampeonatos.definirTipoCampeonatoAndCategoria("puntos", 5, 90);
 
-        GeneracionPartidosStrategy strategy = new GenerarPuntosImpar();
+        GeneracionPartidosStrategy strategy = new GenerarZonas(2);
         strategy.generarPartidosCampeonato(ControladorCampeonatos.getInstancia().encontrarCampeonato(5),90);
 
 
