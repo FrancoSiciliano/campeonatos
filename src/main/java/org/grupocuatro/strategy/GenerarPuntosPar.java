@@ -2,13 +2,10 @@ package org.grupocuatro.strategy;
 
 import org.grupocuatro.controlador.ControladorClubes;
 import org.grupocuatro.controlador.ControladorPartidos;
-import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
-import org.grupocuatro.utiles.Tupla;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.*;
 
