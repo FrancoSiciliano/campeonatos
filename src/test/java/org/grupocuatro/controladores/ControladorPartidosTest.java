@@ -17,7 +17,7 @@ public class ControladorPartidosTest extends TestCase {
 
     }
 
-    public void testencontrarPartido() {
+    public void testEncontrarPartido() {
         ControladorPartidos.getInstancia().encontrarPartido(1);
         ControladorPartidos.getInstancia().encontrarPartido(2);
         ControladorPartidos.getInstancia().encontrarPartido(5);
@@ -81,6 +81,27 @@ public class ControladorPartidosTest extends TestCase {
     public void testGetPartidosByCampeonato() {
         List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByCampeonato(1);
         System.out.println(partidos);
+    }
+
+    public void testGetUltimoPartidoByClubAndCampeonato() {
+        Partido partido = ControladorPartidos.getInstancia().getUltimoPartidoByClubAndCampeonato(1,1, 1);
+        if (partido != null) System.out.println(partido.getIdPartido());
+    }
+
+    public void testGetPartidosByNroFechaAndCampeonato() {
+        List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByNroFechaAndCampeonato(1, 1);
+        for (Partido partido : partidos)
+            System.out.println(partido.getIdPartido());
+    }
+
+    public void testGetPartidosByNroFechaAndCampeonatoAndClub() {
+        List<Partido> partidos = ControladorPartidos.getInstancia().getPartidosByNroFechaAndCampeonatoAndClub(1,1,1);
+        for (Partido partido : partidos)
+            System.out.println(partido.getIdPartido());
+    }
+
+    public void testCargarNroFechaYFecha() {
+        ControladorPartidos.getInstancia().cargarNroFechaYFecha(1, 1, LocalDate.of(2021,5,2));
     }
 
 }

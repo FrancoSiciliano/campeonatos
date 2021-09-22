@@ -163,7 +163,7 @@ public class ControladorMiembros {
         Campeonato campeonato = partido.getCampeonato();
 
         if (jugador.isEstado()) {
-            Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub(), campeonato, nroFecha);
+            Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub().getIdClub(), campeonato.getIdCampeonato(), nroFecha);
             if (ultimoPartido != null) {
                 List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido());
                 return faltas == null;
