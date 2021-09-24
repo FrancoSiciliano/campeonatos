@@ -1,6 +1,8 @@
 package org.grupocuatro.controladores;
 
 import junit.framework.TestCase;
+import org.grupocuatro.controlador.ControladorCampeonatos;
+import org.grupocuatro.controlador.ControladorClubes;
 import org.grupocuatro.controlador.ControladorPartidos;
 import org.grupocuatro.modelo.Partido;
 
@@ -84,7 +86,7 @@ public class ControladorPartidosTest extends TestCase {
     }
 
     public void testGetUltimoPartidoByClubAndCampeonato() {
-        Partido partido = ControladorPartidos.getInstancia().getUltimoPartidoByClubAndCampeonato(1,1, 1);
+        Partido partido = ControladorPartidos.getInstancia().getUltimoPartidoByClubAndCampeonato(ControladorClubes.getInstancia().getClubById(1), ControladorCampeonatos.getInstancia().encontrarCampeonato(1), 1);
         if (partido != null) System.out.println(partido.getIdPartido());
     }
 
