@@ -18,13 +18,13 @@ public class TablaPosicionDao extends AbstractDao {
         return instancia;
     }
 
-    public List<TablaPosiciones> getTablaPosicionesByClub(int id) throws TablaPosicionException {
+    public List<TablaPosiciones> getTablasPosicionesByClub(Integer id) throws TablaPosicionException {
         List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE idClub = " + id).getResultList();
         if (!tablas.isEmpty()) return tablas;
         throw new TablaPosicionException("El club de id " + id + " no tiene tabla asociada");
     }
 
-    public TablaPosiciones getTablaPosicionesByClubAndCampeonato(int idClub, int idCampeonato) throws TablaPosicionException {
+    public TablaPosiciones getTablaPosicionesByClubAndCampeonato(Integer idClub, Integer idCampeonato) throws TablaPosicionException {
         try {
             return (TablaPosiciones) getEntityManager().createQuery("FROM TablaPosiciones WHERE idClub = " + idClub + "and idCampeonato = " + idCampeonato).getSingleResult();
         } catch (NoResultException e) {
@@ -33,11 +33,12 @@ public class TablaPosicionDao extends AbstractDao {
 
     }
 
-    public List<TablaPosiciones> getTablaPosicionesByCampeonato(int id) throws TablaPosicionException {
-        List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE idCampeonato = " + id).getResultList();
-        if (!tablas.isEmpty()) return tablas;
-        throw new TablaPosicionException("No existe el torneo " + id);
+    public List<TablaPosiciones> getTablaPosicionesByCampeonato(Integer id) throws TablaPosicionException {
+       List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE idCampeonato = " + id).getResultList();
+       if (!tablas.isEmpty()) return tablas;
+       throw new TablaPosicionException("No existe el torneo " + id);
     }
+
 
     public List<TablaPosiciones> getTablaPosicionesByPuntos(int puntos) throws TablaPosicionException {
         List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE puntos = " + puntos).getResultList();

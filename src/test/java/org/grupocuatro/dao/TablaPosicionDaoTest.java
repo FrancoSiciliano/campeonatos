@@ -7,8 +7,8 @@ public class TablaPosicionDaoTest extends TestCase {
 
     public void testGetTablaPosicionesByClub() {
         try {
-            System.out.println(TablaPosicionDao.getInstancia().getTablaPosicionesByClub(1));
-            System.out.println(TablaPosicionDao.getInstancia().getTablaPosicionesByClub(8));
+            System.out.println(TablaPosicionDao.getInstancia().getTablasPosicionesByClub(1));
+            System.out.println(TablaPosicionDao.getInstancia().getTablasPosicionesByClub(8));
         } catch (TablaPosicionException e) {
             System.out.println(e.getMessage());
         }

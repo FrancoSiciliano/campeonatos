@@ -159,7 +159,7 @@ public class ControladorPartidos {
 
     private boolean chequearValidacion(Partido partido) {return partido.isValidado();}
 
-    public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) {
+    private void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) {
         TablaPosiciones tp;
         ControladorClubes controladorClubes = ControladorClubes.getInstancia();
         ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
@@ -291,4 +291,5 @@ public class ControladorPartidos {
         }
         return null;
     }
+
 }
