@@ -20,7 +20,7 @@ public class ControladorMiembros {
         return instancia;
     }
 
-    public void agregarJugadoresEnLista(Club club, Partido partido, Jugador jugador) {
+    public void agregarJugadoresEnLista(Integer idClub, Integer idPartido, Integer idJugador) {
         /*
         CONTROLES:
         - Categoria: Que no participen en categorías menor que poseen (categoria >= categoriaPartido)
@@ -30,18 +30,22 @@ public class ControladorMiembros {
         - Campeonato: No poder participar en campeonatos ya arrancados.
          */
 
-        Miembro miembro = new Miembro(club, partido);
-        Campeonato campeonato = partido.getCampeonato();
+        Club club = ControladorClubes.getInstancia().getClubById(idClub);
+        Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
+        Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador);
 
-        if (perteneceAlEquipo(miembro.getClub().getIdClub(), jugador) &&
+        Miembro miembro = new Miembro(club, partido);
+
+        if (club != null && jugador != null && partido != null &&
+                perteneceAlEquipo(miembro.getClub().getIdClub(), jugador) &&
                 puedeJugarPorCategoria(partido, jugador) &&
                 puedeJugarPorDia(partido, jugador) &&
                 hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
-                !elCampeonatoComenzo(campeonato, jugador) &&
+                !elCampeonatoComenzo(partido.getCampeonato(), jugador) &&
                 estaHabilitadoParaJugar(partido, jugador)) {
 
             miembro.setJugador(jugador);
-            miembro.update();
+            miembro.save();
 
         } else {
             System.out.println("El jugador no puede ser inscripto en el partido");
@@ -52,9 +56,13 @@ public class ControladorMiembros {
     public void definirIngresoEgreso(Integer idMiembro, int ingreso, int egreso) {
         try {
             Miembro m = MiembroDao.getInstancia().getMiembroById(idMiembro);
-            m.setIngreso(ingreso);
-            m.setEgreso(egreso);
-            m.update();
+            if (ingreso < egreso) {
+                m.setIngreso(ingreso);
+                m.setEgreso(egreso);
+                m.update();
+            } else {
+                throw new MiembroException("El minuto de ingreso no puede ser mayor al de egreso");
+            }
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
         }
@@ -148,13 +156,12 @@ public class ControladorMiembros {
         try {
             return MiembroDao.getInstancia().getMiembrosByClubAndPartido(idClub, idPartido).size() < 17;
         } catch (MiembroException e) {
-            System.out.println(e.getMessage());
+            return true;
         }
-        return false;
     }
 
     private boolean elCampeonatoComenzo(Campeonato campeonato, Jugador jugador) {
-        return !campeonato.getFechaInicio().isAfter(jugador.getFechaAlta()) || !campeonato.getFechaInicio().isEqual(jugador.getFechaAlta());
+        return !campeonato.getFechaInicio().isAfter(jugador.getFechaAlta());
     }
 
     private boolean estaHabilitadoParaJugar(Partido partido, Jugador jugador) {

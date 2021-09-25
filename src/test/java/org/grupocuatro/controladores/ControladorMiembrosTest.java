@@ -16,9 +16,9 @@ public class ControladorMiembrosTest extends TestCase {
 
 
     public void testAgregarJugadoresEnLista() {
-        controladorMiembros.agregarJugadoresEnLista(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(1), controladorJugadores.encontrarJugador(3));
-        controladorMiembros.agregarJugadoresEnLista(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(4), controladorJugadores.encontrarJugador(4));
-        controladorMiembros.agregarJugadoresEnLista(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(6), controladorJugadores.encontrarJugador(1));
+        controladorMiembros.agregarJugadoresEnLista(9, 1, 3);
+        controladorMiembros.agregarJugadoresEnLista(9, 4, 4);
+        controladorMiembros.agregarJugadoresEnLista(9, 6, 1);
     }
 
     public void testGetMiembroById() {
