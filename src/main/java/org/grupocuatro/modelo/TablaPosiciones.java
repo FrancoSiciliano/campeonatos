@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.TablaPosicionDao;
+import org.grupocuatro.vo.TablaPosicionesVO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -147,6 +148,9 @@ public class TablaPosiciones implements Serializable {
     public void update() {
         TablaPosicionDao.getInstancia().update(this);
     }
+
+    public TablaPosicionesVO toVO() {
+        return new TablaPosicionesVO(this.id.toVO(), this.campeonato.toVO(), this.cantidadJugados, this.cantidadGanados, this.cantidadEmpatados, this.cantidadPerdidos, this.golesFavor, this.golesContra, this.diferenciaGoles, this.puntos, this.promedio);}
 
     @Override
     public String toString() {

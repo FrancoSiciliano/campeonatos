@@ -33,13 +33,7 @@ public class ControladorPartidosTest extends TestCase {
         ControladorPartidos.getInstancia().cargarResultadoPartido(9, "");
     }
 
-    public void testactualizarTablaPosiciones() {
-        ControladorPartidos.getInstancia().actualizarTablaPosiciones(1,1,0,2,1);
-        ControladorPartidos.getInstancia().actualizarTablaPosiciones(1,1,1,2,2);
-        ControladorPartidos.getInstancia().actualizarTablaPosiciones(1,2,1,0,0);
-        ControladorPartidos.getInstancia().actualizarTablaPosiciones(2,1,2,1,0);
-        ControladorPartidos.getInstancia().actualizarTablaPosiciones(3,3,2,3,2);
-    }
+
 
     public void testvalidadoPorClubVisitante(){
         ControladorPartidos.getInstancia().validadoPorClubVisitante(2,1);

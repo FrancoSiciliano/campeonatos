@@ -17,13 +17,13 @@ public class CampeonatoVO implements Serializable {
     public CampeonatoVO () {
 
     }
-    public CampeonatoVO (Integer idCampeonato, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
+    public CampeonatoVO (Integer idCampeonato, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, String tipoCampeonato) {
         this.idCampeonato = idCampeonato;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.estado = estado;
-        this.tipoCampeonato = "";
+        this.tipoCampeonato = tipoCampeonato;
     }
 
     public Integer getIdCampeonato() {
