@@ -149,9 +149,6 @@ public class TablaPosiciones implements Serializable {
         TablaPosicionDao.getInstancia().update(this);
     }
 
-    public TablaPosicionesVO toVO() {
-        return new TablaPosicionesVO(this.id.toVO(), this.campeonato.toVO(), this.cantidadJugados, this.cantidadGanados, this.cantidadEmpatados, this.cantidadPerdidos, this.golesFavor, this.golesContra, this.diferenciaGoles, this.puntos, this.promedio);}
-
     @Override
     public String toString() {
         return "TablaPosiciones{" +
@@ -168,4 +165,8 @@ public class TablaPosiciones implements Serializable {
                 ", promedio=" + promedio +
                 '}';
     }
+
+    public TablaPosicionesVO toVO() {
+        return new TablaPosicionesVO(this.id.toVO(), this.campeonato.toVO(), this.cantidadJugados, this.cantidadGanados, this.cantidadEmpatados, this.cantidadPerdidos, this.golesFavor, this.golesContra, this.diferenciaGoles, this.puntos, this.promedio);}
+
 }
