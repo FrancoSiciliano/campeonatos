@@ -157,9 +157,7 @@ public class ControladorPartidos {
         }
     }
 
-    private boolean chequearValidacion(Partido partido) {
-        return partido.isValidado();
-    }
+    private boolean chequearValidacion(Partido partido) {return partido.isValidado();}
 
     public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) {
         TablaPosiciones tp;
@@ -240,9 +238,9 @@ public class ControladorPartidos {
         return null;
     }
 
-    public Partido getUltimoPartidoByClubAndCampeonato(Club club, Campeonato campeonato, int nroFechaActual) {
+    public Partido getUltimoPartidoByClubAndCampeonato(Integer idClub, Integer idCampeonato, int nroFechaActual) {
         try {
-            return PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(club.getIdClub(), campeonato.getIdCampeonato(), nroFechaActual);
+            return PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(idClub, idCampeonato, nroFechaActual);
         } catch (PartidoException e) {
             System.out.println(e.getMessage());
         }

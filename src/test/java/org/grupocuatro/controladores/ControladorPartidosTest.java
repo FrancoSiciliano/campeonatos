@@ -86,7 +86,7 @@ public class ControladorPartidosTest extends TestCase {
     }
 
     public void testGetUltimoPartidoByClubAndCampeonato() {
-        Partido partido = ControladorPartidos.getInstancia().getUltimoPartidoByClubAndCampeonato(ControladorClubes.getInstancia().getClubById(1), ControladorCampeonatos.getInstancia().encontrarCampeonato(1), 1);
+        Partido partido = ControladorPartidos.getInstancia().getUltimoPartidoByClubAndCampeonato(ControladorClubes.getInstancia().getClubById(1).getIdClub(), ControladorCampeonatos.getInstancia().encontrarCampeonato(1).getIdCampeonato(), 1);
         if (partido != null) System.out.println(partido.getIdPartido());
     }
 
