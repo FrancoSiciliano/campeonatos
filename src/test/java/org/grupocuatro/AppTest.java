@@ -21,19 +21,19 @@ public class AppTest {
         ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
         ControladorResponsables controladorResponsables = ControladorResponsables.getInstancia();
 
-        //controladorCampeonatos.crearCampeonato("Campeonato Seis Clubes 222", LocalDate.of(2021,9,30), LocalDate.of(2021,10,30), "activo");
-        controladorCampeonatos.agregarClubACampeonato(1, 5);
-        controladorCampeonatos.agregarClubACampeonato(2, 5);
-        controladorCampeonatos.agregarClubACampeonato(3, 5);
-        controladorCampeonatos.agregarClubACampeonato(4, 5);
-        controladorCampeonatos.agregarClubACampeonato(5, 5);
-        controladorCampeonatos.agregarClubACampeonato(8, 5);
-
-
-        //controladorCampeonatos.definirTipoCampeonatoAndCategoria("puntos", 5, 90);
-
-        GeneracionPartidosStrategy strategy = new GenerarZonasImpar(2);
-        strategy.generarPartidosCampeonato(ControladorCampeonatos.getInstancia().encontrarCampeonato(5),90);
+//        //controladorCampeonatos.crearCampeonato("Campeonato Seis Clubes 222", LocalDate.of(2021,9,30), LocalDate.of(2021,10,30), "activo");
+//        controladorCampeonatos.agregarClubACampeonato(1, 5);
+//        controladorCampeonatos.agregarClubACampeonato(2, 5);
+//        controladorCampeonatos.agregarClubACampeonato(3, 5);
+//        controladorCampeonatos.agregarClubACampeonato(4, 5);
+//        controladorCampeonatos.agregarClubACampeonato(5, 5);
+//        controladorCampeonatos.agregarClubACampeonato(8, 5);
+//
+//
+//        //controladorCampeonatos.definirTipoCampeonatoAndCategoria("puntos", 5, 90);
+//
+//        GeneracionPartidosStrategy strategy = new GenerarZonasImpar(2);
+//        strategy.generarPartidosCampeonato(ControladorCampeonatos.getInstancia().encontrarCampeonato(5),90);
 
 
 //        //CREACION DE CLUBES
