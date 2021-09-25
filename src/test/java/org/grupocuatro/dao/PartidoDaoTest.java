@@ -79,16 +79,7 @@ public class PartidoDaoTest extends TestCase {
     }
 
     //TODO TESTEAR
-    public void testgetUltimoPartidoByClubAndCampeonatoAndJugador() {
-        try {
-            Partido partido = PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(1,1,1);
-            System.out.println(partido);
-            Partido partido1 = PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(1,2,1);
-            System.out.println(partido1);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+
 
     public void testGetPartidosByCampeonatoAndClub() {
         try {
@@ -117,6 +108,37 @@ public class PartidoDaoTest extends TestCase {
         try {
             partidos = PartidoDao.getInstancia().getPartidosByCampeonato(2);
             System.out.println(partidos);
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetPartidosByNroFechaAndCampeonato(){
+        List<Partido> partidos = null;
+        try {
+            System.out.println(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonato(2,2));
+            System.out.println(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonato(100,2));
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetPartidosByNroFechaAndCampeonatoAndClub(){
+        List<Partido> partidos = null;
+        try {
+            System.out.println(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonatoAndClub(2,2,1));
+            System.out.println(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonatoAndClub(100,2,30));
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetUltimoPartidoByClubAndCampeonato () {
+        try {
+            Partido partido = PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(1,1,3);
+            System.out.println(partido);
+            Partido partido1 = PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(2,1,4);
+            System.out.println(partido1);
         } catch (PartidoException e) {
             System.out.println(e.getMessage());
         }
