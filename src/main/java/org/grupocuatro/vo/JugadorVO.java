@@ -27,21 +27,20 @@ public class JugadorVO implements Serializable {
     public JugadorVO () {
 
     }
-    public JugadorVO(Integer idJugador,String tipoDocumento, int documento, String nombre, String apellido, ClubVO club, LocalDate fechaNacimiento, String direccion, String mail, String telefono){
+    public JugadorVO(Integer idJugador,String tipoDocumento, int documento, String nombre, String apellido, ClubVO club, LocalDate fechaNacimiento, String direccion, String mail, String telefono, boolean estado, int categoria){
         this.idJugador = idJugador;
         this.documento = documento;
         this.nombre = nombre;
         this.fechaAlta = LocalDate.now();
         this.apellido = apellido;
         this.club = club;
-        this.estado = true;
+        this.estado = estado;
         this.fechaNacimiento = fechaNacimiento;
         this.tipoDocumento = tipoDocumento;
         this.direccion = direccion;
         this.mail = mail;
         this.telefono = telefono;
-        int auxCategoria = fechaNacimiento.getYear();
-        this.categoria = auxCategoria - 1900;
+        this.categoria = categoria;
     }
 
     public Integer getIdJugador() {
