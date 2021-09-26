@@ -21,9 +21,9 @@ public class ControladorMiembrosTest extends TestCase {
         controladorMiembros.agregarJugadoresEnLista(9, 6, 1);
     }
 
-    public void testGetMiembroById() {
-        System.out.println(controladorMiembros.getMiembroById(1));
-    }
+//    public void testGetMiembroById() {
+//        System.out.println(controladorMiembros.getMiembroById(1));
+//    }
 
     public void testGetMiembros() {
         System.out.println(controladorMiembros.getMiembros());
