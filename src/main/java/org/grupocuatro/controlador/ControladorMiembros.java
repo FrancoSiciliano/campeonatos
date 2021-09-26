@@ -77,8 +77,13 @@ public class ControladorMiembros {
         return null;
     }
 
-    public Miembro getMiembroById(Integer idMiembro) throws MiembroException {
-        return MiembroDao.getInstancia().getMiembroById(idMiembro);
+    public Miembro getMiembroById(Integer idMiembro) {
+        try {
+            return MiembroDao.getInstancia().getMiembroById(idMiembro);
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public List<Miembro> getMiembrosByClub(Integer idClub) {
