@@ -4,9 +4,11 @@ import org.grupocuatro.dao.FaltaDao;
 import org.grupocuatro.excepciones.FaltaException;
 import org.grupocuatro.modelo.Falta;
 import org.grupocuatro.modelo.Jugador;
+import org.grupocuatro.modelo.Miembro;
 import org.grupocuatro.modelo.Partido;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ControladorFaltas {
     private static ControladorFaltas instancia;
@@ -23,8 +25,9 @@ public class ControladorFaltas {
     public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) {
         Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador);
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
+        Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador);
 
-        if (jugador != null && partido != null) {
+        if (jugador != null && partido != null && miembro != null && minuto >= miembro.getIngreso() && minuto <= miembro.getIngreso()) {
             FaltaDao faltadao = FaltaDao.getInstancia();
             Falta falta = null;
             falta = new Falta(jugador, partido, minuto, tipo);
