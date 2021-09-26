@@ -27,17 +27,17 @@ public class ControladorFaltas {
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
         Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador);
 
-        if (jugador != null && partido != null && miembro != null && minuto >= miembro.getIngreso() && minuto <= miembro.getIngreso()) {
+        if (jugador != null && partido != null && miembro != null && minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) {
             FaltaDao faltadao = FaltaDao.getInstancia();
             Falta falta = null;
             falta = new Falta(jugador, partido, minuto, tipo);
-            faltadao.save(falta);
+            falta.save();
 
             if (!tipo.equals("roja")) {
                 try {
                     if (correspondeRoja(idJugador, idPartido)) {
                         falta = new Falta(jugador, partido, minuto, "roja");
-                        faltadao.save(falta);
+                        falta.save();
                         return falta.getIdFalta();
                     }
                     return falta.getIdFalta();
