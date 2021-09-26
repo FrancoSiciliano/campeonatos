@@ -96,14 +96,6 @@ public class FaltaDaoTest extends TestCase {
 
     }
 
-    public void testGetFaltasByJugadorAndPartidoAndTipoAndCampeonato() {
-        try{
-            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(1, "roja", 1));
-            System.out.println(FaltaDao.getInstancia().getFaltasByJugadorAndPartidoAndTipoAndCampeonato(1, "amarilla", 1));
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public void testGetFaltasByPartidoAndTipo() {
         try{
