@@ -41,7 +41,7 @@ public class FaltaDao extends AbstractDao {
     }
 
     public List<Falta> getFaltasByCampeonato(Integer campeonato) throws FaltaException {
-        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idCampeonato = " + campeonato).getResultList();
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idPartido IN (SELECT idPartido FROM Partido WHERE idCampeonato = " + campeonato + ") ").getResultList();
         if (!faltas.isEmpty()) return faltas;
         throw new FaltaException("No hay faltas en el campeonato de id " + campeonato);
     }
