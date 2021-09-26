@@ -61,7 +61,7 @@ public class ControladorMiembros {
                 m.setEgreso(egreso);
                 m.update();
             } else {
-                throw new MiembroException("El minuto de ingreso no puede ser mayor al de egreso");
+                throw new MiembroException("El minuto de ingreso no puede ser mayor o igual al de egreso");
             }
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
@@ -77,13 +77,8 @@ public class ControladorMiembros {
         return null;
     }
 
-    public Miembro getMiembroById(Integer idMiembro) {
-        try {
-            return MiembroDao.getInstancia().getMiembroById(idMiembro);
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public Miembro getMiembroById(Integer idMiembro) throws MiembroException {
+        return MiembroDao.getInstancia().getMiembroById(idMiembro);
     }
 
     public List<Miembro> getMiembrosByClub(Integer idClub) {
