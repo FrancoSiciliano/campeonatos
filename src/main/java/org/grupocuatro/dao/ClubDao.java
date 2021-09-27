@@ -27,7 +27,7 @@ public class ClubDao extends AbstractDao {
         try {
             return (Club) getEntityManager().createQuery("FROM Club WHERE id = " + id).getSingleResult();
         } catch (NoResultException e) {
-            throw new ClubException("No existe un club con ID " + id);
+            throw new ClubException("No existe un club con id: " + id);
         }
     }
 
@@ -35,14 +35,14 @@ public class ClubDao extends AbstractDao {
         try {
             return (Club) getEntityManager().createQuery("FROM Club WHERE nombre = '" + nombre + "'").getSingleResult();
         } catch (NoResultException e) {
-            throw new ClubException("No existe un club con nombre " + nombre);
+            throw new ClubException("No existe un club con nombre: " + nombre);
         }
     }
 
     public List<Club> getClubes() throws ClubException {
         List<Club> clubes = getEntityManager().createQuery("SELECT c FROM Club c").getResultList();
         if (clubes != null) return clubes;
-        throw new ClubException("No existen clubes ");
+        throw new ClubException("No existen clubes");
     }
 
     public List<Club> getClubesHabilitadosPorCategoria(int categoria) throws ClubException {

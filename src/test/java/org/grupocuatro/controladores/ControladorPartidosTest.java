@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorCampeonatos;
 import org.grupocuatro.controlador.ControladorClubes;
 import org.grupocuatro.controlador.ControladorPartidos;
+import org.grupocuatro.excepciones.CampeonatoException;
+import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Partido;
 import org.grupocuatro.vo.PartidoVO;
@@ -133,7 +135,7 @@ public class ControladorPartidosTest extends TestCase {
         try {
             PartidoVO partido = ControladorPartidos.getInstancia().getUltimoPartidoByClubAndCampeonato(ControladorClubes.getInstancia().getClubById(1).getIdClub(), ControladorCampeonatos.getInstancia().encontrarCampeonato(1).getIdCampeonato(), 1);
             System.out.println(partido.getIdPartido());
-        } catch (PartidoException e) {
+        } catch (PartidoException | ClubException | CampeonatoException e) {
             System.out.println(e.getMessage());
         }
     }

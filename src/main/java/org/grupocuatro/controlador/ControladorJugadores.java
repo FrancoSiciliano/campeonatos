@@ -69,8 +69,8 @@ public class ControladorJugadores {
         j.update();
     }
 
-    public Jugador encontrarJugador(int idJugador) throws JugadorException {
-        return JugadorDao.getInstancia().getJugadorById(idJugador);
+    public JugadorVO encontrarJugador(int idJugador) throws JugadorException {
+        return JugadorDao.getInstancia().getJugadorById(idJugador).toVO();
     }
 
     public boolean perteneceAlClub(Jugador jugador, Integer idClub) {

@@ -15,13 +15,7 @@ import java.util.Objects;
 
 public class ControladorGoles {
     private static ControladorGoles instancia;
-    private List<GolVO> transformarAListaVO(List<Gol> listaGoles){
-        List<GolVO> listaGolesVo = new ArrayList<>();
-        for(Gol gol:listaGoles){
-            listaGolesVo.add(gol.toVO());
-        }
-        return listaGolesVo;
-    }
+
 
     private ControladorGoles() {
     }
@@ -78,66 +72,45 @@ public class ControladorGoles {
         }
     }
 
-    public List<GolVO> getGoles() {
-        try {
-            return transformarAListaVO(GolDao.getInstancia().getGoles());
-        } catch (GolException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<GolVO> getGoles() throws GolException {
+        return transformarAListaVO(GolDao.getInstancia().getGoles());
+
     }
 
-    public GolVO getGolById(Integer idGol) {
-        try {
-            return GolDao.getInstancia().getGolById(idGol).toVO();
-        } catch (GolException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public GolVO getGolById(Integer idGol) throws GolException {
+        return GolDao.getInstancia().getGolById(idGol).toVO();
+
     }
 
-    public List<GolVO> getGolesByPartido(Integer idPartido) {
-        try {
-            return transformarAListaVO(GolDao.getInstancia().getGolesByPartido(idPartido));
-        } catch (GolException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<GolVO> getGolesByPartido(Integer idPartido) throws GolException {
+        return transformarAListaVO(GolDao.getInstancia().getGolesByPartido(idPartido));
+
     }
 
-    public List<GolVO> getGolesByPartidoAndClub(Integer idPartido, Integer idClubAContar, Integer idClubRival) {
-        try {
-            return transformarAListaVO(GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClubAContar, idClubRival));
-        } catch (GolException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<GolVO> getGolesByPartidoAndClub(Integer idPartido, Integer idClubAContar, Integer idClubRival) throws GolException {
+        return transformarAListaVO(GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClubAContar, idClubRival));
+
     }
 
-    public List<GolVO> getGolesByPartidoAndSentido(Integer idPartido, String sentido) {
-        try {
-            return transformarAListaVO(GolDao.getInstancia().getGolesByPartidoAndSentido(idPartido, sentido));
-        } catch (GolException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<GolVO> getGolesByPartidoAndSentido(Integer idPartido, String sentido) throws GolException {
+        return transformarAListaVO(GolDao.getInstancia().getGolesByPartidoAndSentido(idPartido, sentido));
     }
 
-    public List<GolVO> getGolesByJugadorAndPartido(Integer idPartido, Integer idJugador) {
-        try {
-            return transformarAListaVO(GolDao.getInstancia().getGolesByJugadorAndPartido(idPartido, idJugador));
-        } catch (GolException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<GolVO> getGolesByJugadorAndPartido(Integer idPartido, Integer idJugador) throws GolException {
+        return transformarAListaVO(GolDao.getInstancia().getGolesByJugadorAndPartido(idPartido, idJugador));
+
     }
 
-    public List<GolVO> getGolesByJugador(Integer idJugador) {
-        try {
-            return transformarAListaVO(GolDao.getInstancia().getGolesByJugador(idJugador));
-        } catch (GolException e) {
-            System.out.println(e.getMessage());
+    public List<GolVO> getGolesByJugador(Integer idJugador) throws GolException {
+        return transformarAListaVO(GolDao.getInstancia().getGolesByJugador(idJugador));
+
+    }
+
+    private List<GolVO> transformarAListaVO(List<Gol> listaGoles) {
+        List<GolVO> listaGolesVo = new ArrayList<>();
+        for (Gol gol : listaGoles) {
+            listaGolesVo.add(gol.toVO());
         }
-        return null;
+        return listaGolesVo;
     }
 }

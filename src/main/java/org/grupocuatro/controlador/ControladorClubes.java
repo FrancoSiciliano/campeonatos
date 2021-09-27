@@ -13,14 +13,6 @@ import java.util.List;
 public class ControladorClubes {
     private static ControladorClubes instancia;
 
-    private List<ClubVO> transformarAListaVO(List<Club> listaClubes){
-        List<ClubVO> clubesVO = new ArrayList<>();
-        for(Club club:listaClubes){
-            clubesVO.add(club.toVO());
-        }
-        return clubesVO;
-    }
-
     private ControladorClubes() {
     }
 
@@ -54,41 +46,33 @@ public class ControladorClubes {
         }
     }
 
-    public ClubVO getClubById(Integer idClub) {
-        try {
-            return ClubDao.getInstancia().getClubById(idClub).toVO();
-        } catch (ClubException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public ClubVO getClubById(Integer idClub) throws ClubException {
+        return ClubDao.getInstancia().getClubById(idClub).toVO();
+
     }
 
-    public List<ClubVO> getClubes() {
-        try {
-            return transformarAListaVO(ClubDao.getInstancia().getClubes());
-        } catch (ClubException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<ClubVO> getClubes() throws ClubException {
+        return transformarAListaVO(ClubDao.getInstancia().getClubes());
+
     }
 
-    public List<ClubVO> getClubesByCampeonato(Integer idCampeonato) {
-        try {
-            return transformarAListaVO(ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(idCampeonato));
-        } catch (ClubesCampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<ClubVO> getClubesByCampeonato(Integer idCampeonato) throws ClubesCampeonatoException {
+        return transformarAListaVO(ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(idCampeonato));
+
     }
 
 
-    public List<ClubVO> getClubesHabiltadosPorCategoria(int categoria) {
-        try {
-            return transformarAListaVO(ClubDao.getInstancia().getClubesHabilitadosPorCategoria(categoria));
-        } catch (ClubException e) {
-            System.out.println(e.getMessage());
+    public List<ClubVO> getClubesHabiltadosPorCategoria(int categoria) throws ClubException {
+        return transformarAListaVO(ClubDao.getInstancia().getClubesHabilitadosPorCategoria(categoria));
+
+    }
+
+    private List<ClubVO> transformarAListaVO(List<Club> listaClubes) {
+        List<ClubVO> clubesVO = new ArrayList<>();
+        for (Club club : listaClubes) {
+            clubesVO.add(club.toVO());
         }
-        return null;
+        return clubesVO;
     }
 
 }

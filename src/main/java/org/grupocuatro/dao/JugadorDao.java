@@ -41,7 +41,7 @@ public class JugadorDao extends AbstractDao {
         List<Jugador> jugadores = getEntityManager().createQuery("FROM Jugador WHERE nombre = '" + nombre + "' AND apellido = '" + apellido + "'").getResultList();
         if (!jugadores.isEmpty())
             return jugadores;
-        throw new JugadorException("No existen jugadores con el nombre " + nombre + " " + apellido);
+        throw new JugadorException("No existen jugadores con el nombre y apellido: " + nombre + " " + apellido);
     }
 
     public List<Jugador> getJugadores() throws JugadorException {
@@ -65,13 +65,13 @@ public class JugadorDao extends AbstractDao {
         throw new JugadorException("No existen jugadores para la categoria: " + categoria);
     }
 
-    public List<Jugador> getJugadoresHabilitadosCategoriaClub (Integer club, int categoria) throws JugadorException {
+    public List<Jugador> getJugadoresHabilitadosCategoriaClub(Integer club, int categoria) throws JugadorException {
         String qlString = "FROM Jugador WHERE categoria >= ?1 and estado = true and idClub = ?2 ";
         Query query = getEntityManager().createQuery(qlString);
         query.setParameter(1, categoria);
-        query.setParameter(2,club);
+        query.setParameter(2, club);
         List<Jugador> jugadores = query.getResultList();
-        if(!jugadores.isEmpty()) return jugadores;
+        if (!jugadores.isEmpty()) return jugadores;
         throw new JugadorException("No existen jugadores en dicho club con categoria menor o igual a " + categoria);
 
     }

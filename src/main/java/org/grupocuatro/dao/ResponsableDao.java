@@ -2,6 +2,7 @@ package org.grupocuatro.dao;
 
 import org.grupocuatro.excepciones.ResponsableException;
 import org.grupocuatro.modelo.Responsable;
+
 import javax.persistence.NoResultException;
 
 import javax.persistence.NoResultException;
@@ -29,14 +30,14 @@ public class ResponsableDao extends AbstractDao {
     public List<Responsable> getResponsablesByClub(Integer club) throws ResponsableException {
         List<Responsable> responsables = getEntityManager().createQuery("FROM Responsable WHERE idClub = " + club).getResultList();
         if (!responsables.isEmpty()) return responsables;
-        throw new ResponsableException("No existen responsables para el club " + club);
+        throw new ResponsableException("No existen responsables para el club de id: " + club);
     }
 
     public Responsable getResponsableByNroDocAndClub(Integer nroDoc, Integer club) throws ResponsableException {
-        try{
-            return (Responsable) getEntityManager().createQuery("FROM Responsable WHERE documento = '" + nroDoc + "' and idClub = " + club ).getSingleResult();
+        try {
+            return (Responsable) getEntityManager().createQuery("FROM Responsable WHERE documento = '" + nroDoc + "' and idClub = " + club).getSingleResult();
         } catch (NoResultException e) {
-            throw new ResponsableException("No existe un responsable con numero de documento " + nroDoc + " en el club " + club);
+            throw new ResponsableException("No existe un responsable con numero de documento " + nroDoc + " en el club de id: " + club);
         }
 
     }
@@ -45,7 +46,7 @@ public class ResponsableDao extends AbstractDao {
         try {
             return (Responsable) getEntityManager().createQuery("FROM Responsable WHERE idRepresentante = " + id).getSingleResult();
         } catch (Exception e) {
-            throw new ResponsableException("No existe el responsable de id " + id);
+            throw new ResponsableException("No existe el responsable de id: " + id);
         }
 
     }

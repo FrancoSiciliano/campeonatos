@@ -29,10 +29,10 @@ public class ClubesCampeonatoDao extends AbstractDao {
             for (ClubesCampeonato cc : result) {
                 clubes.add(cc.getClub());
             }
-            return  clubes;
+            return clubes;
 
         } else {
-            throw new ClubesCampeonatoException("No existen clubes registrados en el campeonato de id " + idCampeonato);
+            throw new ClubesCampeonatoException("No existen clubes registrados en el campeonato de id: " + idCampeonato);
         }
 
     }
@@ -44,18 +44,18 @@ public class ClubesCampeonatoDao extends AbstractDao {
             for (ClubesCampeonato cc : result) {
                 campeonatos.add(cc.getCampeonato());
             }
-            return  campeonatos;
+            return campeonatos;
 
         }
-        throw new ClubesCampeonatoException("El club de id " + idClub + " no esta registrado en ningun campeonato");
+        throw new ClubesCampeonatoException("El club de id: " + idClub + " no esta registrado en ningun campeonato");
     }
 
-    public ClubesCampeonato getClubCampeonato (Integer idClub, Integer idCampeonato) throws ClubesCampeonatoException {
-        try{
+    public ClubesCampeonato getClubCampeonato(Integer idClub, Integer idCampeonato) throws ClubesCampeonatoException {
+        try {
             ClubesCampeonato result = (ClubesCampeonato) getEntityManager().createQuery("FROM ClubesCampeonato WHERE idClub = " + idClub + " and idCampeonato = " + idCampeonato).getSingleResult();
             return result;
-        }catch (NoResultException e) {
-            throw new ClubesCampeonatoException("El club de id " + idClub + " no esta registrado en el campeonato " + idCampeonato);
+        } catch (NoResultException e) {
+            throw new ClubesCampeonatoException("El club de id: " + idClub + " no esta registrado en el campeonato de id: " + idCampeonato);
         }
     }
 }

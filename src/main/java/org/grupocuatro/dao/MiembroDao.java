@@ -54,7 +54,7 @@ public class MiembroDao extends AbstractDao {
         try {
             return (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idPartido = " + idPartido + " AND idJugador = " + idJugador).getSingleResult();
         } catch (NoResultException e) {
-            throw new MiembroException("No existe un miembro con el idJugador: " + idJugador + ", en el partido " + idPartido);
+            throw new MiembroException("No existe un miembro con el idJugador: " + idJugador + ", en el partido de id: " + idPartido);
         }
     }
 
@@ -62,7 +62,7 @@ public class MiembroDao extends AbstractDao {
         try {
             return (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idClub = " + idClub + " AND idPartido = " + idPartido + " AND idJugador = " + idJugador).getSingleResult();
         } catch (NoResultException e) {
-            throw new MiembroException("El club de id: " + idClub + " no posee una lista para el jugador " + idJugador + " en el partido " + idPartido);
+            throw new MiembroException("El club de id: " + idClub + " no posee una lista para el jugador de id: " + idJugador + " en el partido de id: " + idPartido);
         }
     }
 
@@ -71,10 +71,10 @@ public class MiembroDao extends AbstractDao {
         CriteriaQuery<Miembro> cq = cb.createQuery(Miembro.class);
         Root<Miembro> r = cq.from(Miembro.class);
         Join<Miembro, Partido> join = r.join("partido", JoinType.INNER);
-        Predicate fechaPred = cb.equal(join.get("fechaPartido"),fecha);
+        Predicate fechaPred = cb.equal(join.get("fechaPartido"), fecha);
         Predicate jugador = cb.equal(join.getParent().get("jugador"), idJugador);
         cq.where(cb.and(fechaPred, jugador));
-        List<Miembro> result =  getEntityManager().createQuery(cq).getResultList();
+        List<Miembro> result = getEntityManager().createQuery(cq).getResultList();
         if (!result.isEmpty()) return result;
         throw new MiembroException("No existen partidos ese dia par el jugador");
     }

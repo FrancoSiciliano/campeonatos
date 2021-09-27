@@ -28,15 +28,15 @@ public class TablaPosicionDao extends AbstractDao {
         try {
             return (TablaPosiciones) getEntityManager().createQuery("FROM TablaPosiciones WHERE idClub = " + idClub + "and idCampeonato = " + idCampeonato).getSingleResult();
         } catch (NoResultException e) {
-            throw new TablaPosicionException("El club de id: " + idClub + " nó jugo el torneo " + idCampeonato);
+            throw new TablaPosicionException("El club de id: " + idClub + " nó jugo el campeonato de id: " + idCampeonato);
         }
 
     }
 
     public List<TablaPosiciones> getTablaPosicionesByCampeonato(Integer id) throws TablaPosicionException {
-       List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE idCampeonato = " + id).getResultList();
-       if (!tablas.isEmpty()) return tablas;
-       throw new TablaPosicionException("No existe el torneo de id: " + id);
+        List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE idCampeonato = " + id).getResultList();
+        if (!tablas.isEmpty()) return tablas;
+        throw new TablaPosicionException("No existe el campeonato de id: " + id);
     }
 
 

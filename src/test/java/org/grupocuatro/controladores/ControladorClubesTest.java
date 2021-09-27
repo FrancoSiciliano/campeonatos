@@ -5,6 +5,7 @@ import org.grupocuatro.controlador.ControladorCampeonatos;
 import org.grupocuatro.controlador.ControladorClubes;
 import org.grupocuatro.controlador.ControladorJugadores;
 import org.grupocuatro.excepciones.ClubException;
+import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.modelo.Club;
 
 import java.util.List;
@@ -31,23 +32,40 @@ public class ControladorClubesTest extends TestCase {
     }
 
     public void testGetClubes() {
-        //List<Club> clubes = ControladorClubes.getInstancia().getClubes();
-        //System.out.println(clubes);
+        try {
+            System.out.println(ControladorClubes.getInstancia().getClubes());
+        } catch (ClubException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void testGetClubById() {
-        Club c = ControladorClubes.getInstancia().getClubById(3).toModelo();
-        System.out.println(c);
+        try {
+            System.out.println(ControladorClubes.getInstancia().getClubById(3).toModelo());
+        } catch (ClubException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void testgetClubesByCampeonato() {
-        //List<Club> clubes = ControladorClubes.getInstancia().getClubesByCampeonato(1);
-        //System.out.println(clubes);
+        try {
+            System.out.println(ControladorClubes.getInstancia().getClubesByCampeonato(1));
+        } catch (ClubesCampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void testgetClubesHabilitadosPorCategoria() {
-        System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(85));
-        System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(100));
-        System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(0));
+        try {
+            System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(85));
+            System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(100));
+            System.out.println(ControladorClubes.getInstancia().getClubesHabiltadosPorCategoria(0));
+        } catch (ClubException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }

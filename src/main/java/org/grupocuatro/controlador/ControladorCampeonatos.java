@@ -43,7 +43,7 @@ public class ControladorCampeonatos {
     // TODO LA CATEGORIA LA CONTROLA LA VISTA
     // SI SE LE PASA 0 COMO CANTIDAD DE ZONAS EL TORNEO ES POR PUNTOS.
 
-    public void definirTipoCampeonatoAndCategoria(int cantidadZonas, Integer idCampeonato, int categoria) {
+    public void definirTipoCampeonatoAndCategoria(int cantidadZonas, Integer idCampeonato, int categoria) throws ClubesCampeonatoException {
         try {
             Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
             int cantEquipos = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato).size();
