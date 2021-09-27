@@ -45,8 +45,14 @@ public class ControladorPartidos {
         Club local = clubes.getClubById(idClubLocal).toModelo();
         Club visitante = clubes.getClubById(idClubVisitante).toModelo();
 
-        Partido p = new Partido(nroZona, categoria, local, visitante, c);
-        p.save();
+        Partido p;
+        if (PartidoDao.getInstancia().existePartido(nroZona, categoria, idClubLocal, idClubVisitante, idCampeonato)) {
+            p = new Partido(nroZona, categoria, local, visitante, c);
+            p.save();
+
+        } else {
+            throw new PartidoException("Ya existe el partido que se esta intentando crear. Sugerencia: Si debe jugarse el mismo partido, cambiar el nroZona a uno no existente");
+        }
 
         return p.getIdPartido();
 

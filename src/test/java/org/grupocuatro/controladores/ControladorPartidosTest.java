@@ -161,7 +161,11 @@ public class ControladorPartidosTest extends TestCase {
     }
 
     public void testCargarNroFechaYFecha() {
-        ControladorPartidos.getInstancia().cargarNroFechaYFecha(1, 1, LocalDate.of(2021,5,2));
+        try {
+            ControladorPartidos.getInstancia().cargarNroFechaYFecha(1, 1, LocalDate.of(2021,5,2));
+        } catch (PartidoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
