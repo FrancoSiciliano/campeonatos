@@ -2,6 +2,8 @@ package org.grupocuatro.strategy;
 
 import org.grupocuatro.controlador.ControladorClubes;
 import org.grupocuatro.controlador.ControladorPartidos;
+import org.grupocuatro.excepciones.CampeonatoException;
+import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Campeonato;
@@ -25,7 +27,7 @@ public class GenerarPuntosImpar implements GeneracionPartidosStrategy{
     }
 
     @Override
-    public void generarPartidosCampeonato(Campeonato campeonato, int categoria) throws ClubesCampeonatoException, PartidoException {
+    public void generarPartidosCampeonato(Campeonato campeonato, int categoria) throws ClubesCampeonatoException, PartidoException, CampeonatoException, ClubException {
 
         List<Club> clubesInscriptos = transformarAListaModelo(ControladorClubes.getInstancia().getClubesByCampeonato(campeonato.getIdCampeonato()));
         HashMap<Integer, Club> map = new HashMap<>();

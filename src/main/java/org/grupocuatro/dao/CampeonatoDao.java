@@ -4,6 +4,8 @@ import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.modelo.Campeonato;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import java.time.LocalDate;
 import java.util.List;
 
 public class CampeonatoDao extends AbstractDao {
@@ -42,5 +44,22 @@ public class CampeonatoDao extends AbstractDao {
         throw new CampeonatoException("No existen campeonatos en estado: " + estado);
     }
 
+    public boolean existeCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
+        String qlString = "FROM Campeonato WHERE descripcion = ?1 AND fechaInicio = ?2 AND fechaFin = ?3 AND estado = ?4";
+        Query query = getEntityManager().createQuery(qlString);
+
+        query.setParameter(1, descripcion);
+        query.setParameter(2, fechaInicio);
+        query.setParameter(3, fechaFin);
+        query.setParameter(4, estado);
+
+        try {
+            query.getSingleResult();
+            return true;
+
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
 
 }

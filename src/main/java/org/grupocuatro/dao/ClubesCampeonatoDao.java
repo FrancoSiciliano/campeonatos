@@ -58,4 +58,13 @@ public class ClubesCampeonatoDao extends AbstractDao {
             throw new ClubesCampeonatoException("El club de id: " + idClub + " no esta registrado en el campeonato de id: " + idCampeonato);
         }
     }
+
+    public boolean existeClubCampeonato(Integer idClub, Integer idCampeonato) {
+        try {
+            getEntityManager().createQuery("FROM ClubesCampeonato WHERE idClub = " + idClub + " AND idCampeonato = " + idCampeonato).getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
 }
