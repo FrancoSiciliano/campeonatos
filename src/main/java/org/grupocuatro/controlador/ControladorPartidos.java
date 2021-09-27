@@ -35,14 +35,14 @@ public class ControladorPartidos {
 
     // SE SACÓ EL NROFECHA Y LA FECHA COMO PARÁMETROS, YA QUE SE ASIGNAN A POSTERIORI DE LA CREACIÓN DE LOS PARTIDOS
 
-    public Integer crearPartido(int nroZona, int categoria, Integer idClubLocal, Integer idClubVisitante, Integer idCampeonato) throws PartidoException {
+    public Integer crearPartido(int nroZona, int categoria, Integer idClubLocal, Integer idClubVisitante, Integer idCampeonato) throws PartidoException, CampeonatoException, ClubException {
         ControladorCampeonatos cc = ControladorCampeonatos.getInstancia();
         ControladorPartidos cp = ControladorPartidos.getInstancia();
         ControladorClubes cclubes = ControladorClubes.getInstancia();
 
         Campeonato c = cc.encontrarCampeonato(idCampeonato).toModelo();
-        Club local = cclubes.getClubById(idClubLocal);
-        Club visitante = cclubes.getClubById(idClubVisitante);
+        Club local = cclubes.getClubById(idClubLocal).toModelo();
+        Club visitante = cclubes.getClubById(idClubVisitante).toModelo();
 
         Partido p = null;
 
@@ -106,7 +106,7 @@ public class ControladorPartidos {
         p.update();
     }
 
-    public void validadoPorClubLocal(Integer idClubL, Integer idPartido) throws PartidoException {
+    public void validadoPorClubLocal(Integer idClubL, Integer idPartido) throws PartidoException, CampeonatoException, ClubException {
         Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
         if (Objects.equals(idClubL, partido.getClubLocal().getIdClub())) {
             partido.setConvalidaLocal();
@@ -118,7 +118,7 @@ public class ControladorPartidos {
         }
     }
 
-    public void validadoPorClubVisitante(Integer idClubV, Integer idPartido) throws PartidoException {
+    public void validadoPorClubVisitante(Integer idClubV, Integer idPartido) throws PartidoException, CampeonatoException, ClubException {
         Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
         if (Objects.equals(idClubV, partido.getClubVisitante().getIdClub())) {
             partido.setConvalidaVisitante();
@@ -130,7 +130,7 @@ public class ControladorPartidos {
 
     }
 
-    private void modificarTablaPosiciones(Partido partido) {
+    private void modificarTablaPosiciones(Partido partido) throws CampeonatoException, ClubException {
         if (chequearValidacion(partido)) {
             if (partido.isEmpate()) {
                 actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesLocal(), partido.getGolesVisitante());
@@ -146,7 +146,7 @@ public class ControladorPartidos {
         return partido.isValidado();
     }
 
-    private void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) {
+    private void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) throws ClubException, CampeonatoException {
         TablaPosiciones tp;
         ControladorClubes controladorClubes = ControladorClubes.getInstancia();
         ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
@@ -154,7 +154,7 @@ public class ControladorPartidos {
         try {
             tp = TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(idClub, idCampeonato);
         } catch (TablaPosicionException e) {
-            tp = new TablaPosiciones(controladorClubes.getClubById(idClub), controladorCampeonatos.encontrarCampeonato(idCampeonato).toModelo());
+            tp = new TablaPosiciones(controladorClubes.getClubById(idClub).toModelo(), controladorCampeonatos.encontrarCampeonato(idCampeonato).toModelo());
             tp.save();
         }
 

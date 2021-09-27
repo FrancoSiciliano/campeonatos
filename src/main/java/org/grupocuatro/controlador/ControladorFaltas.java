@@ -2,7 +2,9 @@ package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.FaltaDao;
 import org.grupocuatro.excepciones.FaltaException;
+import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.excepciones.MiembroException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Falta;
 import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Miembro;
@@ -25,9 +27,9 @@ public class ControladorFaltas {
         return instancia;
     }
 
-    public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) throws MiembroException {
-        Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador);
-        Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
+    public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) throws MiembroException, JugadorException, PartidoException {
+        Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador).toModelo();
+        Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido).toModelo();
         Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador).toModelo();
 
         if (minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) {

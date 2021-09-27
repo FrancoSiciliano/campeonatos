@@ -42,7 +42,7 @@ public class ControladorJugadoresTest extends TestCase {
 
     public void testEncontrarJugador()  {
         try {
-            Jugador j = ControladorJugadores.getInstancia().encontrarJugador(9);
+            Jugador j = ControladorJugadores.getInstancia().encontrarJugador(9).toModelo();
             System.out.println(j.getNombre());
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
@@ -82,7 +82,7 @@ public class ControladorJugadoresTest extends TestCase {
     public void testModificarDireccion() {
         try {
             ControladorJugadores.getInstancia().modificarDireccion(1, "Su casa siempre sera la 22 (modificado)");
-            Jugador j = ControladorJugadores.getInstancia().encontrarJugador(1);
+            Jugador j = ControladorJugadores.getInstancia().encontrarJugador(1).toModelo();
             System.out.println(ControladorJugadores.getInstancia().encontrarJugador(1).getDireccion());
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
@@ -121,9 +121,9 @@ public class ControladorJugadoresTest extends TestCase {
     }
     public void testperteneceAlClub() {
         try {
-            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(1),2 ));
-            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(2),-1 ));
-            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(3),1 ));
+            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(1).toModelo(),2 ));
+            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(2).toModelo(),-1 ));
+            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(3).toModelo(),1 ));
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
         }
