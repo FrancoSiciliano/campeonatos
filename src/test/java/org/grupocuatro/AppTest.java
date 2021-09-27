@@ -261,7 +261,7 @@ public class AppTest {
 //
 //        controladorGoles.cargarGol(15,3,85, "a favor");
 //
-     controladorFaltas.cargarFalta(16,3,8,"roja");
+//     controladorFaltas.cargarFalta(16,3,8,"roja");
 //
 //        //PARTIDO 4
 //        controladorPartidos.crearPartido(2,1,80,4,3, LocalDate.of(2021,10,17),1); //INDEPENDIENTE RACING
