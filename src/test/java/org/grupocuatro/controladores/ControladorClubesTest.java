@@ -31,18 +31,18 @@ public class ControladorClubesTest extends TestCase {
     }
 
     public void testGetClubes() {
-        List<Club> clubes = ControladorClubes.getInstancia().getClubes();
-        System.out.println(clubes);
+        //List<Club> clubes = ControladorClubes.getInstancia().getClubes();
+        //System.out.println(clubes);
     }
 
     public void testGetClubById() {
-        Club c = ControladorClubes.getInstancia().getClubById(3);
+        Club c = ControladorClubes.getInstancia().getClubById(3).toModelo();
         System.out.println(c);
     }
 
     public void testgetClubesByCampeonato() {
-        List<Club> clubes = ControladorClubes.getInstancia().getClubesByCampeonato(1);
-        System.out.println(clubes);
+        //List<Club> clubes = ControladorClubes.getInstancia().getClubesByCampeonato(1);
+        //System.out.println(clubes);
     }
 
     public void testgetClubesHabilitadosPorCategoria() {

@@ -2,15 +2,26 @@ package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.GolDao;
 import org.grupocuatro.excepciones.GolException;
+import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Gol;
 import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Partido;
+import org.grupocuatro.vo.ClubVO;
+import org.grupocuatro.vo.GolVO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ControladorGoles {
     private static ControladorGoles instancia;
+    private List<GolVO> transformarAListaVO(List<Gol> listaGoles){
+        List<GolVO> listaGolesVo = new ArrayList<>();
+        for(Gol gol:listaGoles){
+            listaGolesVo.add(gol.toVO());
+        }
+        return listaGolesVo;
+    }
 
     private ControladorGoles() {
     }
@@ -67,63 +78,63 @@ public class ControladorGoles {
         }
     }
 
-    public List<Gol> getGoles() {
+    public List<GolVO> getGoles() {
         try {
-            return GolDao.getInstancia().getGoles();
+            return transformarAListaVO(GolDao.getInstancia().getGoles());
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public Gol getGolById(Integer idGol) {
+    public GolVO getGolById(Integer idGol) {
         try {
-            return GolDao.getInstancia().getGolById(idGol);
+            return GolDao.getInstancia().getGolById(idGol).toVO();
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public List<Gol> getGolesByPartido(Integer idPartido) {
+    public List<GolVO> getGolesByPartido(Integer idPartido) {
         try {
-            return GolDao.getInstancia().getGolesByPartido(idPartido);
+            return transformarAListaVO(GolDao.getInstancia().getGolesByPartido(idPartido));
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public List<Gol> getGolesByPartidoAndClub(Integer idPartido, Integer idClubAContar, Integer idClubRival) {
+    public List<GolVO> getGolesByPartidoAndClub(Integer idPartido, Integer idClubAContar, Integer idClubRival) {
         try {
-            return GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClubAContar, idClubRival);
+            return transformarAListaVO(GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClubAContar, idClubRival));
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public List<Gol> getGolesByPartidoAndSentido(Integer idPartido, String sentido) {
+    public List<GolVO> getGolesByPartidoAndSentido(Integer idPartido, String sentido) {
         try {
-            return GolDao.getInstancia().getGolesByPartidoAndSentido(idPartido, sentido);
+            return transformarAListaVO(GolDao.getInstancia().getGolesByPartidoAndSentido(idPartido, sentido));
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public List<Gol> getGolesByJugadorAndPartido(Integer idPartido, Integer idJugador) {
+    public List<GolVO> getGolesByJugadorAndPartido(Integer idPartido, Integer idJugador) {
         try {
-            return GolDao.getInstancia().getGolesByJugadorAndPartido(idPartido, idJugador);
+            return transformarAListaVO(GolDao.getInstancia().getGolesByJugadorAndPartido(idPartido, idJugador));
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public List<Gol> getGolesByJugador(Integer idJugador) {
+    public List<GolVO> getGolesByJugador(Integer idJugador) {
         try {
-            return GolDao.getInstancia().getGolesByJugador(idJugador);
+            return transformarAListaVO(GolDao.getInstancia().getGolesByJugador(idJugador));
         } catch (GolException e) {
             System.out.println(e.getMessage());
         }

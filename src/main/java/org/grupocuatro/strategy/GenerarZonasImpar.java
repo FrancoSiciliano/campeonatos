@@ -5,6 +5,7 @@ import org.grupocuatro.controlador.ControladorPartidos;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
+import org.grupocuatro.vo.ClubVO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,10 +19,17 @@ public class GenerarZonasImpar implements GeneracionPartidosStrategy {
     public GenerarZonasImpar(int cantZonas) {
         this.cantZonas = cantZonas;
     }
+    private List<Club> transformarAListaModelo(List<ClubVO> listaClubesVO){
+        List<Club> clubes = new ArrayList<>();
+        for(ClubVO club:listaClubesVO){
+            clubes.add(club.toModelo());
+        }
+        return clubes;
+    }
 
     @Override
     public void generarPartidosCampeonato(Campeonato campeonato, int categoria) {
-        List<Club> clubesInscriptos = ControladorClubes.getInstancia().getClubesByCampeonato(campeonato.getIdCampeonato());
+        List<Club> clubesInscriptos = transformarAListaModelo(ControladorClubes.getInstancia().getClubesByCampeonato(campeonato.getIdCampeonato()));
 
         if (cantZonas % 2 != 0 || clubesInscriptos.size() % cantZonas != 0 || clubesInscriptos.size() % 2 != 0 || cantZonas == clubesInscriptos.size()) {
             System.out.println("No se puede crear");

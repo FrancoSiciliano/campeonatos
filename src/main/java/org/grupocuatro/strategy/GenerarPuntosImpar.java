@@ -5,17 +5,27 @@ import org.grupocuatro.controlador.ControladorPartidos;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
+import org.grupocuatro.vo.ClubVO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
 public class GenerarPuntosImpar implements GeneracionPartidosStrategy{
+    private List<Club> transformarAListaModelo(List<ClubVO> listaClubesVO){
+        List<Club> clubes = new ArrayList<>();
+        for(ClubVO club:listaClubesVO){
+            clubes.add(club.toModelo());
+        }
+        return clubes;
+    }
 
     @Override
     public void generarPartidosCampeonato(Campeonato campeonato, int categoria) {
-        List<Club> clubesInscriptos = ControladorClubes.getInstancia().getClubesByCampeonato(campeonato.getIdCampeonato());
+
+        List<Club> clubesInscriptos = transformarAListaModelo(ControladorClubes.getInstancia().getClubesByCampeonato(campeonato.getIdCampeonato()));
         HashMap<Integer, Club> map = new HashMap<>();
 
         int numRondas = clubesInscriptos.size();

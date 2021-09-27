@@ -6,12 +6,22 @@ import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.ResponsableException;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Responsable;
+import org.grupocuatro.vo.ClubVO;
+import org.grupocuatro.vo.ResponsableVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorResponsables {
 
     private static ControladorResponsables instancia;
+    private List<ResponsableVO> transformarAListaVO(List<Responsable> listaResponsables){
+        List<ResponsableVO> responsablesVO = new ArrayList<>();
+        for(Responsable responsable:listaResponsables){
+            responsablesVO.add(responsable.toVO());
+        }
+        return responsablesVO;
+    }
 
     private ControladorResponsables() {
     }
@@ -58,36 +68,36 @@ public class ControladorResponsables {
         }
     }
 
-    public Responsable getResponsable(Integer idResponsable) {
+    public ResponsableVO getResponsable(Integer idResponsable) {
         try {
-            return ResponsableDao.getInstancia().getResponsable(idResponsable);
+            return ResponsableDao.getInstancia().getResponsable(idResponsable).toVO();
         } catch (ResponsableException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public List<Responsable> getResponsables() {
+    public List<ResponsableVO> getResponsables() {
         try {
-            return ResponsableDao.getInstancia().getResponsables();
+            return transformarAListaVO(ResponsableDao.getInstancia().getResponsables());
         } catch (ResponsableException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public Responsable getResponsableByNroDocAndClub(Integer doc, Integer idClub) {
+    public ResponsableVO getResponsableByNroDocAndClub(Integer doc, Integer idClub) {
         try {
-            return ResponsableDao.getInstancia().getResponsableByNroDocAndClub(doc, idClub);
+            return ResponsableDao.getInstancia().getResponsableByNroDocAndClub(doc, idClub).toVO();
         } catch (ResponsableException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public List<Responsable> getResponsablesByClub(Integer idClub) {
+    public List<ResponsableVO> getResponsablesByClub(Integer idClub) {
         try {
-            return ResponsableDao.getInstancia().getResponsablesByClub(idClub);
+            return transformarAListaVO(ResponsableDao.getInstancia().getResponsablesByClub(idClub));
         } catch (ResponsableException e) {
             System.out.println(e.getMessage());
         }
