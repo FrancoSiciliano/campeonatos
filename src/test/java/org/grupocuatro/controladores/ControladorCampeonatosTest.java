@@ -18,10 +18,14 @@ public class ControladorCampeonatosTest extends TestCase {
     }
 
     public void testdefinirTipoCampeonatoAndCategoria() {
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(0,1,90);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(2,2,90);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(4,3,90);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(0,4,90);
+        try {
+            ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(0,4,90);
+            ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(0,1,90);
+            ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(2,2,90);
+            ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(4,3,90);
+        } catch (ClubesCampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testterminarCampeonato() {
