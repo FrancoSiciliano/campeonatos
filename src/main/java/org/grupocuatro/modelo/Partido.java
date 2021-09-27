@@ -63,7 +63,7 @@ public class Partido {
 
     public Partido(int nroZona, int categoria, Club clubLocal, Club clubVisitante, Campeonato campeonato) {
         this.nroZona = nroZona;
-        this.nroFecha = 99;
+        this.nroFecha = 0;
         this.categoria = categoria;
         this.clubLocal = clubLocal;
         this.clubVisitante = clubVisitante;
