@@ -1,6 +1,8 @@
 package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.TablaPosicionDao;
+import org.grupocuatro.excepciones.CampeonatoException;
+import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.TablaPosicionException;
 import org.grupocuatro.modelo.TablaPosiciones;
 import org.grupocuatro.vo.TablaPosicionesVO;
@@ -19,6 +21,46 @@ public class ControladorTablasPosiciones {
         if (instancia == null)
             instancia = new ControladorTablasPosiciones();
         return instancia;
+    }
+
+    public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) throws ClubException, CampeonatoException {
+        TablaPosiciones tp;
+        ControladorClubes controladorClubes = ControladorClubes.getInstancia();
+        ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
+
+        try {
+            tp = TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(idClub, idCampeonato);
+        } catch (TablaPosicionException e) {
+            tp = new TablaPosiciones(controladorClubes.getClubById(idClub).toModelo(), controladorCampeonatos.encontrarCampeonato(idCampeonato).toModelo());
+            tp.save();
+        }
+
+
+        switch (puntos) {
+            case 0:
+                tp.setCantidadPerdidos(tp.getCantidadPerdidos() + 1);
+                break;
+            case 1:
+                tp.setCantidadEmpatados(tp.getCantidadEmpatados() + 1);
+                break;
+            case 3:
+                tp.setCantidadGanados(tp.getCantidadGanados() + 1);
+                break;
+        }
+
+        tp.setPuntos(tp.getPuntos() + puntos);
+
+        int difGoles = golesFavor - golesContra;
+
+        tp.setDiferenciaGoles(tp.getDiferenciaGoles() + difGoles);
+        tp.setGolesFavor(tp.getGolesFavor() + golesFavor);
+        tp.setGolesContra(tp.getGolesContra() + golesContra);
+
+        float ptos = tp.getPuntos();
+        float partidosJugados = tp.getCantidadJugados();
+
+        tp.setPromedio(ptos / partidosJugados);
+        tp.update();
     }
 
     public List<TablaPosicionesVO> getTablasPosicionesByClub(Integer idClub) throws TablaPosicionException {
