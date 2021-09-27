@@ -3,8 +3,11 @@ package org.grupocuatro.controlador;
 import org.grupocuatro.dao.*;
 import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.*;
+import org.grupocuatro.vo.JugadorVO;
 
+import javax.persistence.NoResultException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorJugadores {
@@ -38,114 +41,71 @@ public class ControladorJugadores {
         return null;
     }
 
-    public void modificarDireccion(int idJugador, String direccion) {
-        try {
-            Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-            j.setDireccion(direccion);
-            j.update();
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
+    public void modificarDireccion(int idJugador, String direccion) throws JugadorException {
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        j.setDireccion(direccion);
+        j.update();
     }
 
-    public void modificarMail(int idJugador, String mail) {
-        try {
-            Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-            j.setMail(mail);
-            j.update();
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
+    public void modificarMail(int idJugador, String mail) throws JugadorException {
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        j.setMail(mail);
+        j.update();
     }
 
-    public void modificarTelefono(int idJugador, String telefono) {
-        try {
-            Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-            j.setTelefono(telefono);
-            j.update();
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
+    public void modificarTelefono(int idJugador, String telefono) throws JugadorException {
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        j.setTelefono(telefono);
+        j.update();
     }
 
-    public void modificarEstado(int idJugador) { //habilita al jugador
-        try {
-            Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-            j.setEstado(!j.isEstado());
-            j.update();
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
+    public void modificarEstado(int idJugador) throws JugadorException {
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        if (j.isEstado() == true)
+            j.setEstado(false);
+        else {
+            j.setEstado(true);
         }
+        j.update();
     }
 
-    public List<Jugador> getJugadores() {
-        try {
-            return JugadorDao.getInstancia().getJugadores();
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-    public Jugador encontrarJugador(int idJugador) {
-        JugadorDao jugadordao = JugadorDao.getInstancia();
-        Jugador jugador;
-        try {
-            jugador = jugadordao.getJugadorById(idJugador);
-            return jugador;
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public Jugador encontrarJugador(int idJugador) throws JugadorException {
+        return JugadorDao.getInstancia().getJugadorById(idJugador);
     }
 
     public boolean perteneceAlClub(Jugador jugador, Integer idClub) {
         return jugador.isSuClub(idClub);
     }
 
-    public Jugador getJugadorByDocumento(Integer nroDoc, String tipoDocumento) {
-        try {
-            return JugadorDao.getInstancia().getJugadorByDocumento(nroDoc, tipoDocumento);
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<JugadorVO> getJugadores() throws JugadorException {
+        return transformarAListaVO(JugadorDao.getInstancia().getJugadores());
     }
 
-    public List<Jugador> getJugadorByNombre(String nombre, String apellido) {
-        try {
-            return JugadorDao.getInstancia().getJugadorByNombre(nombre, apellido);
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public JugadorVO getJugadorByDocumento(Integer nroDoc, String tipoDocumento) throws JugadorException {
+        return JugadorDao.getInstancia().getJugadorByDocumento(nroDoc, tipoDocumento).toVO();
     }
 
-    public List<Jugador> getJugadoresByClub(Integer idClub) {
-        try {
-            return JugadorDao.getInstancia().getJugadoresByClub(idClub);
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<JugadorVO> getJugadorByNombre(String nombre, String apellido) throws JugadorException {
+        return transformarAListaVO(JugadorDao.getInstancia().getJugadorByNombre(nombre, apellido));
     }
 
-    public List<Jugador> getJugadoresByCategoria(int categoria) {
-        try {
-            return JugadorDao.getInstancia().getJugadoresByCategoria(categoria);
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<JugadorVO> getJugadoresByClub(Integer idClub) throws JugadorException {
+        return transformarAListaVO(JugadorDao.getInstancia().getJugadoresByClub(idClub));
     }
 
-    public List<Jugador> getJugadoresHabilitadosCategoriaClub (Integer club, int categoria) {
-        try{
-            return JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(club,categoria);
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<JugadorVO> getJugadoresByCategoria(int categoria) throws JugadorException {
+        return transformarAListaVO(JugadorDao.getInstancia().getJugadoresByCategoria(categoria));
+    }
+
+    public List<JugadorVO> getJugadoresHabilitadosCategoriaClub (Integer club, int categoria) throws JugadorException {
+        return transformarAListaVO(JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(club,categoria));
+    }
+
+    private List<JugadorVO> transformarAListaVO(List<Jugador> listaModelo) {
+        List<JugadorVO> listaVO = new ArrayList<>();
+        for (Jugador j : listaModelo)
+            listaVO.add(j.toVO());
+        return listaVO;
     }
 
     //TODO ESTA PARTE ES PARA LAS PROXIMAS ETAPAS DEL TRABAJO (IGNORAR)

@@ -5,6 +5,7 @@ import org.grupocuatro.controlador.ControladorJugadores;
 import org.grupocuatro.controlador.ControladorPartidos;
 import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.modelo.Jugador;
+import org.grupocuatro.vo.JugadorVO;
 
 import javax.naming.ldap.Control;
 import java.time.LocalDate;
@@ -23,80 +24,80 @@ public class ControladorJugadoresTest extends TestCase {
         ControladorJugadores.getInstancia().agregarJugador("DNI", 37852136, "Washington Fernando", "Camacho", 8, LocalDate.of(1986, 4, 8), "Su casa 8", "wcamacho@mail.com", "546712893");
     }
 
-    public void testGetJugadores() {
-        List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadores();
-        for (Jugador j : jugadores)
+    public void testGetJugadores() throws JugadorException {
+        List<JugadorVO> jugadores = ControladorJugadores.getInstancia().getJugadores();
+        for (JugadorVO j : jugadores)
             System.out.println(j.getNombre() + " " + j.getApellido() + " " + j.getCategoria());
     }
 
-    public void testGetJugadoresByClub() {
-        List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadoresByClub(3);
-        for (Jugador j : jugadores)
+    public void testGetJugadoresByClub() throws JugadorException {
+        List<JugadorVO> jugadores = ControladorJugadores.getInstancia().getJugadoresByClub(3);
+        for (JugadorVO j : jugadores)
             System.out.println(j.getNombre() + " " + j.getApellido());
     }
 
-    public void testEncontrarJugador() {
+    public void testEncontrarJugador() throws JugadorException {
         Jugador j = ControladorJugadores.getInstancia().encontrarJugador(9);
         if (j != null)
             System.out.println(j.getNombre());
     }
 
-    public void testGetJugadorByDocumento() {
-        Jugador j = ControladorJugadores.getInstancia().getJugadorByDocumento(28754213, "DNI");
+    public void testGetJugadorByDocumento() throws JugadorException {
+        JugadorVO j = ControladorJugadores.getInstancia().getJugadorByDocumento(28754213, "DNI");
         if (j != null)
             System.out.println(j.getNombre());
     }
 
-    public void testGetJugadorByNombre() {
-        List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadorByNombre("Diego Alberto", "Milito");
-        for (Jugador j : jugadores)
+    public void testGetJugadorByNombre() throws JugadorException {
+        List<JugadorVO> jugadores = ControladorJugadores.getInstancia().getJugadorByNombre("Diego Alberto", "Milito");
+        for (JugadorVO j : jugadores)
             System.out.println(j.getNombre() + " " + j.getApellido());
     }
 
-    public void testGetJugadorByCategoria() {
-        List<Jugador> jugadores = ControladorJugadores.getInstancia().getJugadoresByCategoria(78);
-        for (Jugador j : jugadores)
+    public void testGetJugadorByCategoria() throws JugadorException {
+        List<JugadorVO> jugadores = ControladorJugadores.getInstancia().getJugadoresByCategoria(78);
+        for (JugadorVO j : jugadores)
             System.out.println(j.getNombre() + " " + j.getCategoria());
     }
 
 
-    public void testModificarDireccion() {
+    public void testModificarDireccion() throws JugadorException {
         ControladorJugadores.getInstancia().modificarDireccion(1, "Su casa siempre sera la 22 (modificado)");
         Jugador j = ControladorJugadores.getInstancia().encontrarJugador(1);
         if (j != null)
             System.out.println(j.getDireccion());
     }
 
-    public void testModificarMail() {
+    public void testModificarMail() throws JugadorException {
         ControladorJugadores.getInstancia().modificarMail(1, "elprincipe@mail.com");
         Jugador j = ControladorJugadores.getInstancia().encontrarJugador(1);
         if (j != null)
             System.out.println(j.getMail());
     }
 
-    public void testModificarTelefono() {
+    public void testModificarTelefono() throws JugadorException {
         ControladorJugadores.getInstancia().modificarTelefono(1, "222222222");
         Jugador j = ControladorJugadores.getInstancia().encontrarJugador(1);
         if (j != null)
             System.out.println(j.getTelefono());
     }
 
-    public void testModificarEstado() {
+    public void testModificarEstado() throws JugadorException {
         ControladorJugadores.getInstancia().modificarEstado(1);
         Jugador j = ControladorJugadores.getInstancia().encontrarJugador(1);
         if (j != null)
             System.out.println(j.isEstado());
     }
 
-    public void testGetStatsByCampeonato() {
+    public void testGetStatsByCampeonato() throws JugadorException {
         System.out.println(ControladorJugadores.getInstancia().getStatsByCampeonato(15, 1));
     }
-    public void testperteneceAlClub(){
+    public void testperteneceAlClub() throws JugadorException {
         System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(1),2 ));
         System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(2),-1 ));
         System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(3),1 ));
     }
-    public void testgetJugadoresHabilitadosCategoriaClub(){
+    public void testgetJugadoresHabilitadosCategoriaClub() throws JugadorException {
         System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(1,20));
         System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(2,30));
         System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(3,40));
