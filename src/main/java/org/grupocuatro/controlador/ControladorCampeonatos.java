@@ -6,6 +6,7 @@ import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.modelo.*;
 import org.grupocuatro.strategy.*;
+import org.grupocuatro.vo.CampeonatoVO;
 
 
 import java.time.LocalDate;
@@ -83,36 +84,19 @@ public class ControladorCampeonatos {
         }
     }
 
-    public Campeonato encontrarCampeonato(Integer idCampeonato) {
-        CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
-        Campeonato campeonato;
-        try {
-            campeonato = campeonatoDao.getCampeonato(idCampeonato);
-            return campeonato;
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public CampeonatoVO encontrarCampeonato(Integer idCampeonato) throws CampeonatoException {
+        return CampeonatoDao.getInstancia().getCampeonato(idCampeonato).toVO();
+
     }
 
-    public List<Campeonato> getCampeonatos() {
-        try {
-            return CampeonatoDao.getInstancia().getCampeonatos();
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
+    public List<CampeonatoVO> getCampeonatos() throws CampeonatoException {
+        return transformarAListaVO(CampeonatoDao.getInstancia().getCampeonatos());
 
-        return null;
     }
 
-    public List<Campeonato> getCampeonatosByEstado(String estado) {
-        try {
-            return CampeonatoDao.getInstancia().getCampeonatosByEstado(estado);
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
+    public List<CampeonatoVO> getCampeonatosByEstado(String estado) throws CampeonatoException {
+        return transformarAListaVO(CampeonatoDao.getInstancia().getCampeonatosByEstado(estado));
 
-        return null;
     }
 
     public boolean estaEnLaFecha(Campeonato campeonato, LocalDate fecha) {
@@ -140,13 +124,16 @@ public class ControladorCampeonatos {
         }
     }
 
-    public List<Campeonato> getCampeonatosByClub(Integer idClub) {
-        try {
-            return ClubesCampeonatoDao.getInstancia().getCampeonatosClub(idClub);
-        } catch (ClubesCampeonatoException e) {
-            System.out.println(e.getMessage());
+    public List<CampeonatoVO> getCampeonatosByClub(Integer idClub) throws ClubesCampeonatoException {
+        return transformarAListaVO  (ClubesCampeonatoDao.getInstancia().getCampeonatosClub(idClub));
+    }
+
+    private List<CampeonatoVO> transformarAListaVO (List<Campeonato> lista){
+        List<CampeonatoVO> result = new ArrayList<>();
+        for(Campeonato item : lista){
+            result.add(item.toVO());
         }
-        return null;
+        return result;
     }
 
 }

@@ -2,6 +2,7 @@ package org.grupocuatro.controladores;
 
 import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorTablasPosiciones;
+import org.grupocuatro.excepciones.TablaPosicionException;
 import org.grupocuatro.modelo.TablaPosiciones;
 
 import java.util.List;
@@ -9,24 +10,38 @@ import java.util.List;
 public class ControladorTablasPosicionesTest extends TestCase {
 
     public void testGetTablasPosicionesByClub() {
-        List<TablaPosiciones> tablas = ControladorTablasPosiciones.getInstancia().getTablasPosicionesByClub(1);
-        System.out.println(tablas);
+        try {
+            System.out.println(ControladorTablasPosiciones.getInstancia().getTablasPosicionesByClub(1));
+        } catch (TablaPosicionException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void testGetTablaPosicionesByClubAndCampeonato() {
-        TablaPosiciones tabla = ControladorTablasPosiciones.getInstancia().getTablaPosicionesByClubAndCampeonato(1,1);
-        if (tabla != null) System.out.println(tabla);
+        try {
+            System.out.println(ControladorTablasPosiciones.getInstancia().getTablaPosicionesByClubAndCampeonato(1, 1));
+        } catch (TablaPosicionException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void testGetTablaPosicionesByCampeonato() {
-        List<TablaPosiciones> tablas = ControladorTablasPosiciones.getInstancia().getTablasPosicionesByCampeonato(1);
-        System.out.println(tablas);
-
+        try {
+            System.out.println(ControladorTablasPosiciones.getInstancia().getTablasPosicionesByCampeonato(1));
+        } catch (TablaPosicionException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testGetTablaPosicionesByPuntos() {
-        List<TablaPosiciones> tablas = ControladorTablasPosiciones.getInstancia().getTablaPosicionesByPuntos(4);
-        System.out.println(tablas);
+        try {
+            System.out.println(ControladorTablasPosiciones.getInstancia().getTablaPosicionesByPuntos(4));
+        } catch (TablaPosicionException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }

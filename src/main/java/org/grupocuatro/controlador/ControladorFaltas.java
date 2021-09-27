@@ -2,11 +2,14 @@ package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.FaltaDao;
 import org.grupocuatro.excepciones.FaltaException;
+import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.modelo.Falta;
 import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Miembro;
 import org.grupocuatro.modelo.Partido;
+import org.grupocuatro.vo.FaltaVO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,12 +25,12 @@ public class ControladorFaltas {
         return instancia;
     }
 
-    public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) {
+    public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) throws MiembroException {
         Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador);
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
-        Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador);
+        Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador).toModelo();
 
-        if (jugador != null && partido != null && miembro != null && minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) {
+        if (minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) {
             FaltaDao faltadao = FaltaDao.getInstancia();
             Falta falta = null;
             falta = new Falta(jugador, partido, minuto, tipo);
@@ -56,103 +59,75 @@ public class ControladorFaltas {
         return listaFaltas.size() == 2;
     }
 
-    public List<Falta> getFaltas() {
-        try {
-            return FaltaDao.getInstancia().getFaltas();
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<FaltaVO> getFaltas() throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltas());
+
     }
 
-    public Falta getFaltaById(Integer id) {
-        try {
-            return FaltaDao.getInstancia().getFaltaById(id);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public FaltaVO getFaltaById(Integer id) throws FaltaException {
+        return FaltaDao.getInstancia().getFaltaById(id).toVO();
+
     }
 
-    public List<Falta> getFaltasPartido(Integer idPartido) {
-        try {
-            return FaltaDao.getInstancia().getFaltasByPartido(idPartido);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<FaltaVO> getFaltasPartido(Integer idPartido) throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByPartido(idPartido));
+
     }
 
-    public List<Falta> getFaltasByTipoAndPartido(Integer idPartido, String tipo) {
-        try {
-            return FaltaDao.getInstancia().getFaltasByPartidoAndTipo(idPartido, tipo);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<FaltaVO> getFaltasByTipoAndPartido(Integer idPartido, String tipo) throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByPartidoAndTipo(idPartido, tipo));
+
     }
 
-    public List<Falta> getFaltasByCampeonato(Integer idCampeonato) {
-        try {
-            return FaltaDao.getInstancia().getFaltasByCampeonato(idCampeonato);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<FaltaVO> getFaltasByCampeonato(Integer idCampeonato) throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByCampeonato(idCampeonato));
+
     }
 
-    public List<Falta> getFaltasByJugadorAndPartido(Integer idJugador, Integer idPartido) {
-        try {
-            return FaltaDao.getInstancia().getFaltasByJugadorAndPartido(idJugador, idPartido);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<FaltaVO> getFaltasByJugadorAndPartido(Integer idJugador, Integer idPartido) throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByJugadorAndPartido(idJugador, idPartido));
+
     }
 
-    public List<Falta> getFaltasByJugadorAndTipoAndPartido(Integer jugador, String tipo, Integer partido) {
-        try {
-            return FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador,tipo, partido);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<FaltaVO> getFaltasByJugadorAndTipoAndPartido(Integer jugador, String tipo, Integer partido) throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador, tipo, partido));
+
     }
 
-    public List<Falta> getFaltasByJugadorAndCampeonato(Integer jugador, Integer campeonato) {
-        try {
-            return FaltaDao.getInstancia().getFaltasByJugadorAndCampeonato(jugador, campeonato);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
+    public List<FaltaVO> getFaltasByJugadorAndCampeonato(Integer jugador, Integer campeonato) throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByJugadorAndCampeonato(jugador, campeonato));
 
-        return null;
     }
 
-    public List<Falta> getFaltasByJugadorAndPartidoAndTipo(Integer jugador, Integer partido, String tipo) {
-        try {
-            return FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador, tipo, partido);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<FaltaVO> getFaltasByJugadorAndPartidoAndTipo(Integer jugador, Integer partido, String tipo) throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador, tipo, partido));
+
     }
 
-    public List<Falta> getFaltasByJugador(Integer idJugador) {
-        try {
-            return FaltaDao.getInstancia().getFaltasByJugador(idJugador);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<FaltaVO> getFaltasByJugador(Integer idJugador) throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByJugador(idJugador));
+
     }
 
-    public List<Falta> getFaltasByTipo(String tipo) {
-        try {
-            return FaltaDao.getInstancia().getFaltasByTipo(tipo);
-        } catch (FaltaException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<FaltaVO> getFaltasByTipo(String tipo) throws FaltaException {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByTipo(tipo));
+
     }
+    public List<Falta> transformarALista(List<FaltaVO> lista) {
+        List<Falta> result = new ArrayList<>();
+        for (FaltaVO item : lista) {
+            result.add(item.toModelo());
+        }
+        return result;
+    }
+
+    private List<FaltaVO> transformarAListaVO(List<Falta> lista) {
+        List<FaltaVO> result = new ArrayList<>();
+        for (Falta item : lista) {
+            result.add(item.toVO());
+        }
+        return result;
+    }
+
+
 }

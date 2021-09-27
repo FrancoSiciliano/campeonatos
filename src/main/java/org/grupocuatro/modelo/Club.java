@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "clubes")
-public class Club implements Comparable<Club> {
+public class Club implements Comparable<Club>{
 
     @Id
     @Column(name = "idClub")

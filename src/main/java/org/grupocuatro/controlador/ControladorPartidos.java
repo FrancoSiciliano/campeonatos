@@ -40,7 +40,7 @@ public class ControladorPartidos {
         ControladorPartidos cp = ControladorPartidos.getInstancia();
         ControladorClubes cclubes = ControladorClubes.getInstancia();
 
-        Campeonato c = cc.encontrarCampeonato(idCampeonato);
+        Campeonato c = cc.encontrarCampeonato(idCampeonato).toModelo();
         Club local = cclubes.getClubById(idClubLocal);
         Club visitante = cclubes.getClubById(idClubVisitante);
 
@@ -154,7 +154,7 @@ public class ControladorPartidos {
         try {
             tp = TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(idClub, idCampeonato);
         } catch (TablaPosicionException e) {
-            tp = new TablaPosiciones(controladorClubes.getClubById(idClub), controladorCampeonatos.encontrarCampeonato(idCampeonato));
+            tp = new TablaPosiciones(controladorClubes.getClubById(idClub), controladorCampeonatos.encontrarCampeonato(idCampeonato).toModelo());
             tp.save();
         }
 

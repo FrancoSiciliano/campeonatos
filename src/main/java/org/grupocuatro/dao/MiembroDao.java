@@ -41,20 +41,20 @@ public class MiembroDao extends AbstractDao {
     public List<Miembro> getMiembrosByClub(Integer idClub) throws MiembroException {
         List<Miembro> miembros = getEntityManager().createQuery("FROM Miembro WHERE idClub = " + idClub).getResultList();
         if (!miembros.isEmpty()) return miembros;
-        throw new MiembroException("El club " + idClub + " no posee una lista");
+        throw new MiembroException("El club de id: " + idClub + " no posee una lista");
     }
 
     public List<Miembro> getMiembrosByClubAndPartido(Integer idClub, Integer idPartido) throws MiembroException {
         List<Miembro> miembros = getEntityManager().createQuery("FROM Miembro WHERE idClub = " + idClub + " and idPartido = " + idPartido).getResultList();
         if (!miembros.isEmpty()) return miembros;
-        throw new MiembroException("El club " + idClub + " no posee una lista para el partido " + idPartido);
+        throw new MiembroException("El club de id: " + idClub + " no posee una lista para el partido " + idPartido);
     }
 
     public Miembro getMiembroByPartidoAndJugador(int idPartido, int idJugador) throws MiembroException {
         try {
             return (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idPartido = " + idPartido + " AND idJugador = " + idJugador).getSingleResult();
         } catch (NoResultException e) {
-            throw new MiembroException("No existe un miembro con el idJugador " + idJugador + ", en el partido " + idPartido);
+            throw new MiembroException("No existe un miembro con el idJugador: " + idJugador + ", en el partido " + idPartido);
         }
     }
 
@@ -62,7 +62,7 @@ public class MiembroDao extends AbstractDao {
         try {
             return (Miembro) getEntityManager().createQuery("FROM Miembro WHERE idClub = " + idClub + " AND idPartido = " + idPartido + " AND idJugador = " + idJugador).getSingleResult();
         } catch (NoResultException e) {
-            throw new MiembroException("El club " + idClub + " no posee una lista para el jugador " + idJugador + " en el partido " + idPartido);
+            throw new MiembroException("El club de id: " + idClub + " no posee una lista para el jugador " + idJugador + " en el partido " + idPartido);
         }
     }
 

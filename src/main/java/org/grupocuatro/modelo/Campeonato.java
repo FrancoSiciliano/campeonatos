@@ -5,16 +5,14 @@ import org.grupocuatro.vo.CampeonatoVO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Entity
 @Table(name = "campeonatos")
-public class Campeonato implements Comparable<Campeonato> {
+public class Campeonato implements Comparable<Campeonato>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

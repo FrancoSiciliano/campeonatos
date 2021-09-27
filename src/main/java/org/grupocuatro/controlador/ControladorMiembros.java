@@ -1,10 +1,15 @@
 package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.MiembroDao;
+import org.grupocuatro.excepciones.FaltaException;
+import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.excepciones.MiembroException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
+import org.grupocuatro.vo.MiembroVO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorMiembros {
@@ -20,7 +25,7 @@ public class ControladorMiembros {
         return instancia;
     }
 
-    public void agregarJugadoresEnLista(Integer idClub, Integer idPartido, Integer idJugador) {
+    public void agregarJugadoresEnLista(Integer idClub, Integer idPartido, Integer idJugador) throws PartidoException, JugadorException {
         /*
         CONTROLES:
         - Categoria: Que no participen en categorías menor que poseen (categoria >= categoriaPartido)
@@ -68,67 +73,38 @@ public class ControladorMiembros {
         }
     }
 
-    public List<Miembro> getMiembros() {
-        try {
-            return MiembroDao.getInstancia().getMiembros();
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<MiembroVO> getMiembros() throws MiembroException {
+        return transformarAListaVO(MiembroDao.getInstancia().getMiembros());
+
     }
 
-    public Miembro getMiembroById(Integer idMiembro) {
-        try {
-            return MiembroDao.getInstancia().getMiembroById(idMiembro);
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    public MiembroVO getMiembroById(Integer idMiembro) throws MiembroException {
+        return MiembroDao.getInstancia().getMiembroById(idMiembro).toVO();
+
     }
 
-    public List<Miembro> getMiembrosByClub(Integer idClub) {
-        try {
-            return MiembroDao.getInstancia().getMiembrosByClub(idClub);
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<MiembroVO> getMiembrosByClub(Integer idClub) throws MiembroException {
+        return transformarAListaVO(MiembroDao.getInstancia().getMiembrosByClub(idClub));
+
     }
 
-    public List<Miembro> getMiembrosByClubAndPartido(Integer idClub, Integer idPartido) {
-        try {
-            return MiembroDao.getInstancia().getMiembrosByClubAndPartido(idClub, idPartido);
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<MiembroVO> getMiembrosByClubAndPartido(Integer idClub, Integer idPartido) throws MiembroException {
+        return transformarAListaVO(MiembroDao.getInstancia().getMiembrosByClubAndPartido(idClub, idPartido));
+
     }
 
-    public Miembro getMiembroByPartidoAndJugador(Integer idPartido, Integer idJugador) {
-        try {
-            return MiembroDao.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador);
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public MiembroVO getMiembroByPartidoAndJugador(Integer idPartido, Integer idJugador) throws MiembroException {
+        return MiembroDao.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador).toVO();
+
     }
 
-    public Miembro getMiembroByClubAndPartidoAndJugador(Integer idClub, Integer idPartido, Integer idJugador) {
-        try {
-            return MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(idClub, idPartido, idJugador);
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public MiembroVO getMiembroByClubAndPartidoAndJugador(Integer idClub, Integer idPartido, Integer idJugador) throws MiembroException {
+        return MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(idClub, idPartido, idJugador).toVO();
     }
 
-    public List<Miembro> getMiembroByJugadorAndFecha(Integer idJugador, LocalDate fecha) {
-        try {
-            return MiembroDao.getInstancia().getMiembroByJugadorAndFecha(idJugador, fecha);
-        } catch (MiembroException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<MiembroVO> getMiembroByJugadorAndFecha(Integer idJugador, LocalDate fecha) throws MiembroException {
+        return transformarAListaVO(MiembroDao.getInstancia().getMiembroByJugadorAndFecha(idJugador, fecha));
+
     }
 
     private boolean perteneceAlEquipo(Integer idClub, Jugador jugador) {
@@ -164,20 +140,26 @@ public class ControladorMiembros {
         return !campeonato.getFechaInicio().isAfter(jugador.getFechaAlta());
     }
 
-    private boolean estaHabilitadoParaJugar(Partido partido, Jugador jugador) {
+    private boolean estaHabilitadoParaJugar(Partido partido, Jugador jugador) throws PartidoException, FaltaException {
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         int nroFecha = partido.getNroFecha();
         Campeonato campeonato = partido.getCampeonato();
 
         if (jugador.isEstado()) {
-            Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub().getIdClub(), campeonato.getIdCampeonato(), nroFecha);
-            if (ultimoPartido != null) {
-                List<Falta> faltas = ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido());
-                return faltas == null;
-            } else {
-                return true;
-            }
+            Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub().getIdClub(), campeonato.getIdCampeonato(), nroFecha).toModelo();
+            List<Falta> faltas = ControladorFaltas.getInstancia().transformarALista(ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido())) ;
+            return faltas.isEmpty();
         }
         return false;
     }
+
+    private List<MiembroVO> transformarAListaVO(List<Miembro> lista) {
+        List<MiembroVO> result = new ArrayList<>();
+        for (Miembro item : lista) {
+            result.add(item.toVO());
+        }
+        return result;
+    }
+
+
 }

@@ -15,9 +15,10 @@ import java.util.List;
 public class ControladorResponsables {
 
     private static ControladorResponsables instancia;
-    private List<ResponsableVO> transformarAListaVO(List<Responsable> listaResponsables){
+
+    private List<ResponsableVO> transformarAListaVO(List<Responsable> listaResponsables) {
         List<ResponsableVO> responsablesVO = new ArrayList<>();
-        for(Responsable responsable:listaResponsables){
+        for (Responsable responsable : listaResponsables) {
             responsablesVO.add(responsable.toVO());
         }
         return responsablesVO;
@@ -68,39 +69,23 @@ public class ControladorResponsables {
         }
     }
 
-    public ResponsableVO getResponsable(Integer idResponsable) {
-        try {
-            return ResponsableDao.getInstancia().getResponsable(idResponsable).toVO();
-        } catch (ResponsableException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public ResponsableVO getResponsable(Integer idResponsable) throws ResponsableException {
+        return ResponsableDao.getInstancia().getResponsable(idResponsable).toVO();
+
     }
 
-    public List<ResponsableVO> getResponsables() {
-        try {
-            return transformarAListaVO(ResponsableDao.getInstancia().getResponsables());
-        } catch (ResponsableException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<ResponsableVO> getResponsables() throws ResponsableException {
+        return transformarAListaVO(ResponsableDao.getInstancia().getResponsables());
+
     }
 
-    public ResponsableVO getResponsableByNroDocAndClub(Integer doc, Integer idClub) {
-        try {
-            return ResponsableDao.getInstancia().getResponsableByNroDocAndClub(doc, idClub).toVO();
-        } catch (ResponsableException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public ResponsableVO getResponsableByNroDocAndClub(Integer doc, Integer idClub) throws ResponsableException {
+        return ResponsableDao.getInstancia().getResponsableByNroDocAndClub(doc, idClub).toVO();
+
     }
 
-    public List<ResponsableVO> getResponsablesByClub(Integer idClub) {
-        try {
-            return transformarAListaVO(ResponsableDao.getInstancia().getResponsablesByClub(idClub));
-        } catch (ResponsableException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<ResponsableVO> getResponsablesByClub(Integer idClub) throws ResponsableException {
+        return transformarAListaVO(ResponsableDao.getInstancia().getResponsablesByClub(idClub));
+
     }
 }

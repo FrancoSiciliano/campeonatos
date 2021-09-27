@@ -24,14 +24,10 @@ public class ControladorJugadoresTest extends TestCase {
         ControladorJugadores.getInstancia().agregarJugador("DNI", 37852136, "Washington Fernando", "Camacho", 8, LocalDate.of(1986, 4, 8), "Su casa 8", "wcamacho@mail.com", "546712893");
     }
 
-    public void testGetJugadores()  {
-        try {
-            List<JugadorVO> jugadores = ControladorJugadores.getInstancia().getJugadores();
-            for (JugadorVO j : jugadores)
-                System.out.println(j.getNombre() + " " + j.getApellido() + " " + j.getCategoria());
-        } catch (JugadorException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testGetJugadores() throws JugadorException {
+        List<JugadorVO> jugadores = ControladorJugadores.getInstancia().getJugadores();
+        for (JugadorVO j : jugadores)
+            System.out.println(j.getNombre() + " " + j.getApellido() + " " + j.getCategoria());
     }
 
     public void testGetJugadoresByClub() {

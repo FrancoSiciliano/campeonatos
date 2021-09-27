@@ -30,22 +30,38 @@ public class ControladorResponsablesTest extends TestCase {
     }
 
     public void testGetResponsable() {
-        //Responsable r = ControladorResponsables.getInstancia().getResponsable(1);
-        //if (r != null) System.out.println(r.getNombre());
+        try {
+            System.out.println(ControladorResponsables.getInstancia().getResponsable(1));
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void testGetResponsableByNroDocumentoAndClub() {
-        //Responsable r = ControladorResponsables.getInstancia().getResponsableByNroDocAndClub(35785412, 1);
-        //if (r != null) System.out.println(r.getNombre());
+        try {
+            System.out.println(ControladorResponsables.getInstancia().getResponsableByNroDocAndClub(35785412, 1));
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void testGetResponsablesByClub() {
-        //List<Responsable> responsables = ControladorResponsables.getInstancia().getResponsablesByClub(1);
-        //System.out.println(responsables);
+        try {
+            System.out.println(ControladorResponsables.getInstancia().getResponsablesByClub(1));
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void testGetResponsables() {
-        //List<Responsable> responsables = ControladorResponsables.getInstancia().getResponsables();
-        //System.out.println(responsables);
+        try {
+            System.out.println(ControladorResponsables.getInstancia().getResponsables());
+        } catch (ResponsableException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }
