@@ -3,6 +3,9 @@ package org.grupocuatro.controladores;
 import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorFaltas;
 import org.grupocuatro.excepciones.FaltaException;
+import org.grupocuatro.excepciones.JugadorException;
+import org.grupocuatro.excepciones.MiembroException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Falta;
 
 import java.util.List;
@@ -12,8 +15,12 @@ public class ControladorFaltasTest extends TestCase {
 
 
     public void testCargarFalta() {
-        ControladorFaltas.getInstancia().cargarFalta(2, 2, 78, "amarilla");
-        ControladorFaltas.getInstancia().cargarFalta(3, 1, 23, "roja");
+        try {
+            ControladorFaltas.getInstancia().cargarFalta(2, 2, 78, "amarilla");
+            ControladorFaltas.getInstancia().cargarFalta(3, 1, 23, "roja");
+        } catch (MiembroException | JugadorException | PartidoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testGetFaltasPartido() {
@@ -44,7 +51,7 @@ public class ControladorFaltasTest extends TestCase {
 
     public void testGetFaltasByJugadorAndPartido() {
         try {
-            System.out.println(ControladorFaltas.getInstancia().getFaltasByJugadorAndPartido(2, 2);
+            System.out.println(ControladorFaltas.getInstancia().getFaltasByJugadorAndPartido(2, 2));
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }

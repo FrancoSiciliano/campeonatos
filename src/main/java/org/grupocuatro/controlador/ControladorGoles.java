@@ -2,6 +2,8 @@ package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.GolDao;
 import org.grupocuatro.excepciones.GolException;
+import org.grupocuatro.excepciones.JugadorException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Gol;
 import org.grupocuatro.modelo.Jugador;
@@ -26,13 +28,13 @@ public class ControladorGoles {
         return instancia;
     }
 
-    public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo) {
+    public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo) throws JugadorException, PartidoException {
 
         ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
-        Jugador jugador = controladorJugadores.encontrarJugador(idJugador);
+        Jugador jugador = controladorJugadores.encontrarJugador(idJugador).toModelo();
 
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
-        Partido partido = controladorPartidos.encontrarPartido(idPartido);
+        Partido partido = controladorPartidos.encontrarPartido(idPartido).toModelo();
 
         Gol gol = null;
 
@@ -44,9 +46,9 @@ public class ControladorGoles {
         return (gol != null) ? gol.getIdGol() : null;
     }
 
-    public int contarCantidadGoles(Integer idClub, Integer idPartido) {
+    public int contarCantidadGoles(Integer idClub, Integer idPartido) throws PartidoException {
 
-        Partido p = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
+        Partido p = ControladorPartidos.getInstancia().encontrarPartido(idPartido).toModelo();
 
         int cantGoles = 0;
 

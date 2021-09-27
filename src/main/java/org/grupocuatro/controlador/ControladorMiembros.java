@@ -1,10 +1,7 @@
 package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.MiembroDao;
-import org.grupocuatro.excepciones.FaltaException;
-import org.grupocuatro.excepciones.JugadorException;
-import org.grupocuatro.excepciones.MiembroException;
-import org.grupocuatro.excepciones.PartidoException;
+import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.*;
 import org.grupocuatro.vo.MiembroVO;
 
@@ -25,7 +22,7 @@ public class ControladorMiembros {
         return instancia;
     }
 
-    public void agregarJugadoresEnLista(Integer idClub, Integer idPartido, Integer idJugador) throws PartidoException, JugadorException {
+    public void agregarJugadoresEnLista(Integer idClub, Integer idPartido, Integer idJugador) throws PartidoException, JugadorException, ClubException, FaltaException {
         /*
         CONTROLES:
         - Categoria: Que no participen en categorías menor que poseen (categoria >= categoriaPartido)
@@ -35,9 +32,9 @@ public class ControladorMiembros {
         - Campeonato: No poder participar en campeonatos ya arrancados.
          */
 
-        Club club = ControladorClubes.getInstancia().getClubById(idClub);
-        Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido);
-        Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador);
+        Club club = ControladorClubes.getInstancia().getClubById(idClub).toModelo();
+        Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido).toModelo();
+        Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador).toModelo();
 
         Miembro miembro = new Miembro(club, partido);
 

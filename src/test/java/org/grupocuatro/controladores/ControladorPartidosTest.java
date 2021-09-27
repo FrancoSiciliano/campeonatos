@@ -21,7 +21,7 @@ public class ControladorPartidosTest extends TestCase {
             ControladorPartidos.getInstancia().crearPartido(2,1,78,3,4);
             ControladorPartidos.getInstancia().crearPartido(3,1,86,5,6);
             ControladorPartidos.getInstancia().crearPartido(4,1,83,7,8);
-        } catch (PartidoException e) {
+        } catch (PartidoException  | CampeonatoException  | ClubException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -55,7 +55,7 @@ public class ControladorPartidosTest extends TestCase {
             ControladorPartidos.getInstancia().validadoPorClubVisitante(4,2);
             ControladorPartidos.getInstancia().validadoPorClubVisitante(6,3);
             ControladorPartidos.getInstancia().validadoPorClubVisitante(8,4);
-        } catch (PartidoException e) {
+        } catch (PartidoException | CampeonatoException | ClubException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -66,7 +66,7 @@ public class ControladorPartidosTest extends TestCase {
             ControladorPartidos.getInstancia().validadoPorClubLocal(3,2);
             ControladorPartidos.getInstancia().validadoPorClubLocal(5,3);
             ControladorPartidos.getInstancia().validadoPorClubLocal(7,4);
-        } catch (PartidoException e) {
+        } catch (PartidoException | CampeonatoException | ClubException e) {
             System.out.println(e.getMessage());
         }
     }
