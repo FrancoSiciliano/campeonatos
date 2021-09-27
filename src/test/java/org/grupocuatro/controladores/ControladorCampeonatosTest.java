@@ -3,13 +3,15 @@ package org.grupocuatro.controladores;
 import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorCampeonatos;
 import org.grupocuatro.excepciones.CampeonatoException;
+import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
+import org.grupocuatro.excepciones.PartidoException;
 
 import java.time.LocalDate;
 
 public class ControladorCampeonatosTest extends TestCase {
 
-    public void testgetCampeonatos(){
+    public void testgetCampeonatos() {
         try {
             System.out.println(ControladorCampeonatos.getInstancia().getCampeonatos());
         } catch (CampeonatoException e) {
@@ -18,16 +20,24 @@ public class ControladorCampeonatosTest extends TestCase {
     }
 
     public void testdefinirTipoCampeonatoAndCategoria() {
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(0,1,90);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(2,2,90);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(4,3,90);
-        ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(0,4,90);
+        try {
+            ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(0, 1, 90);
+            ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(2, 2, 90);
+            ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(4, 3, 90);
+            ControladorCampeonatos.getInstancia().definirTipoCampeonatoAndCategoria(0, 4, 90);
+        } catch (ClubesCampeonatoException | PartidoException | CampeonatoException | ClubException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testterminarCampeonato() {
-        ControladorCampeonatos.getInstancia().terminarCampeonato(1);
-        ControladorCampeonatos.getInstancia().terminarCampeonato(5);
-        ControladorCampeonatos.getInstancia().terminarCampeonato(3);
+        try {
+            ControladorCampeonatos.getInstancia().terminarCampeonato(1);
+            ControladorCampeonatos.getInstancia().terminarCampeonato(5);
+            ControladorCampeonatos.getInstancia().terminarCampeonato(3);
+        } catch (CampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -56,14 +66,19 @@ public class ControladorCampeonatosTest extends TestCase {
     }
 
     public void testagregarClubACampeonato() {
-        ControladorCampeonatos.getInstancia().agregarClubACampeonato(1,1);
-        ControladorCampeonatos.getInstancia().agregarClubACampeonato(2,1);
-        ControladorCampeonatos.getInstancia().agregarClubACampeonato(3,1);
-        ControladorCampeonatos.getInstancia().agregarClubACampeonato(4,1);
-        ControladorCampeonatos.getInstancia().agregarClubACampeonato(5,1);
-        ControladorCampeonatos.getInstancia().agregarClubACampeonato(6,1);
-        ControladorCampeonatos.getInstancia().agregarClubACampeonato(7,1);
-        ControladorCampeonatos.getInstancia().agregarClubACampeonato(8,1);
+
+        try {
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(1, 1);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(2, 1);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(3, 1);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(4, 1);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(5, 1);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(6, 1);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(7, 1);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(8, 1);
+        } catch (CampeonatoException | ClubException | ClubesCampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testgetCampeonatosByClub() {
@@ -78,10 +93,15 @@ public class ControladorCampeonatosTest extends TestCase {
 
     }
 
-    public void testCrearCampeonatos(){
-        System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("SuperLiga", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"activo"));
-        System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("La Champions", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"activo"));
-        System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("La Premier", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"activo"));
-        System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("La EuroCopa", LocalDate.of(2020,9,10),LocalDate.of(2021,9,10),"activo"));
+    public void testCrearCampeonatos() {
+
+        try {
+            System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("SuperLiga", LocalDate.of(2020, 9, 10), LocalDate.of(2021, 9, 10), "activo"));
+            System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("La Champions", LocalDate.of(2020, 9, 10), LocalDate.of(2021, 9, 10), "activo"));
+            System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("La Premier", LocalDate.of(2020, 9, 10), LocalDate.of(2021, 9, 10), "activo"));
+            System.out.println(ControladorCampeonatos.getInstancia().crearCampeonato("La EuroCopa", LocalDate.of(2020, 9, 10), LocalDate.of(2021, 9, 10), "activo"));
+        } catch (CampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
