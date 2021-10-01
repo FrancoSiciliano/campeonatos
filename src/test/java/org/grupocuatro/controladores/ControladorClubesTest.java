@@ -13,18 +13,14 @@ import java.util.List;
 public class ControladorClubesTest extends TestCase {
 
     public void testCrearClub() {
-        try {
-            ControladorClubes.getInstancia().crearClub(1, "Boca", "La Boca 100");
-            ControladorClubes.getInstancia().crearClub(2, "River", "Nuñez 200");
-            ControladorClubes.getInstancia().crearClub(3, "Racing", "Pasaje Corbatta 300");
-            ControladorClubes.getInstancia().crearClub(4, "Independiente", "Avellaneda 400");
-            ControladorClubes.getInstancia().crearClub(5, "San Lorenzo", "Boedo 440");
-            ControladorClubes.getInstancia().crearClub(6, "Ferrocarril Oeste", "Caballito 505");
-            ControladorClubes.getInstancia().crearClub(7, "Banfield", "Banfield 1450");
-            ControladorClubes.getInstancia().crearClub(8, "Defensa y Justicia", "Florencio Varela 30");
-        } catch (ClubException e) {
-            System.out.println(e.getMessage());
-        }
+        ControladorClubes.getInstancia().crearClub(1, "Boca", "La Boca 100");
+        ControladorClubes.getInstancia().crearClub(2, "River", "Nuñez 200");
+        ControladorClubes.getInstancia().crearClub(3, "Racing", "Pasaje Corbatta 300");
+        ControladorClubes.getInstancia().crearClub(4, "Independiente", "Avellaneda 400");
+        ControladorClubes.getInstancia().crearClub(5, "San Lorenzo", "Boedo 440");
+        ControladorClubes.getInstancia().crearClub(6, "Ferrocarril Oeste", "Caballito 505");
+        ControladorClubes.getInstancia().crearClub(7, "Banfield", "Banfield 1450");
+        ControladorClubes.getInstancia().crearClub(8, "Defensa y Justicia", "Florencio Varela 30");
     }
 
     public void testModificarClub() {
