@@ -2,13 +2,14 @@ package org.grupocuatro.controladores;
 
 import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorJugadores;
-import org.grupocuatro.controlador.ControladorPartidos;
+import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.JugadorException;
+import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.vo.JugadorVO;
+import org.grupocuatro.vo.StatsVO;
 
-import javax.naming.ldap.Control;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class ControladorJugadoresTest extends TestCase {
         }
     }
 
-    public void testEncontrarJugador()  {
+    public void testEncontrarJugador() {
         try {
             Jugador j = ControladorJugadores.getInstancia().encontrarJugador(9).toModelo();
             System.out.println(j.getNombre());
@@ -73,7 +74,7 @@ public class ControladorJugadoresTest extends TestCase {
         }
     }
 
-    public void testGetJugadorByCategoria()  {
+    public void testGetJugadorByCategoria() {
         try {
             List<JugadorVO> jugadores = ControladorJugadores.getInstancia().getJugadoresByCategoria(78);
             for (JugadorVO j : jugadores)
@@ -94,7 +95,7 @@ public class ControladorJugadoresTest extends TestCase {
         }
     }
 
-    public void testModificarMail()  {
+    public void testModificarMail() {
         try {
             ControladorJugadores.getInstancia().modificarMail(1, "elprincipe@mail.com");
             System.out.println(ControladorJugadores.getInstancia().encontrarJugador(1).getMail());
@@ -103,7 +104,7 @@ public class ControladorJugadoresTest extends TestCase {
         }
     }
 
-    public void testModificarTelefono()  {
+    public void testModificarTelefono() {
         try {
             ControladorJugadores.getInstancia().modificarTelefono(1, "222222222");
             System.out.println(ControladorJugadores.getInstancia().encontrarJugador(1).getTelefono());
@@ -122,39 +123,59 @@ public class ControladorJugadoresTest extends TestCase {
     }
 
     public void testGetStatsByCampeonato() {
-        System.out.println(ControladorJugadores.getInstancia().getStatsByCampeonato(15, 1));
+        try {
+            StatsVO a = ControladorJugadores.getInstancia().getStatsByCampeonato(15, 1);
+            System.out.println(a.getIdJugador());
+            System.out.println(a.getNombreJugador());
+            System.out.println(a.getApellido());
+            System.out.println(a.getIdClub());
+            System.out.println(a.getNombreClub());
+            System.out.println(a.getIdCampeonato());
+            System.out.println(a.getDescripcion());
+            System.out.println(a.getCantJugados());
+            System.out.println(a.getCantGoles());
+            System.out.println(a.getCantAmarillas());
+            System.out.println(a.getCantRojas());
+        } catch (JugadorException | CampeonatoException | PartidoException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
     public void testperteneceAlClub() {
         try {
-            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(1).toModelo(),2 ));
-            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(2).toModelo(),-1 ));
-            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(3).toModelo(),1 ));
+            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(1).toModelo(), 2));
+            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(2).toModelo(), -1));
+            System.out.println(ControladorJugadores.getInstancia().perteneceAlClub(ControladorJugadores.getInstancia().encontrarJugador(3).toModelo(), 1));
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
         }
     }
+
     public void testgetJugadoresHabilitadosCategoriaClub() {
         try {
-            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(1,20));
-            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(2,30));
-            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(3,40));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(1, 20));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(2, 30));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(3, 40));
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void testGetStatsByClub() {
-        System.out.println(ControladorJugadores.getInstancia().getStatsByClub(16, 2));
-        System.out.println(ControladorJugadores.getInstancia().getStatsByClub(8, 1));
-        System.out.println(ControladorJugadores.getInstancia().getStatsByClub(7, 3));
-        System.out.println(ControladorJugadores.getInstancia().getStatsByClub(5, 2));
-    }
-    public void testgetStatsByCampeonato(){
-        System.out.println(ControladorJugadores.getInstancia().getStatsByCampeonato(1,2));
-        System.out.println(ControladorJugadores.getInstancia().getStatsByCampeonato(2,1));
-        System.out.println(ControladorJugadores.getInstancia().getStatsByCampeonato(3,6));
-        System.out.println(ControladorJugadores.getInstancia().getStatsByCampeonato(4,1));
-        System.out.println(ControladorJugadores.getInstancia().getStatsByCampeonato(5,2));
+        try {
+            StatsVO a = ControladorJugadores.getInstancia().getStatsByClub(15, 1);
+            System.out.println(a.getIdJugador());
+            System.out.println(a.getNombreJugador());
+            System.out.println(a.getApellido());
+            System.out.println(a.getIdClub());
+            System.out.println(a.getNombreClub());
+            System.out.println(a.getCantJugados());
+            System.out.println(a.getCantGoles());
+            System.out.println(a.getCantAmarillas());
+            System.out.println(a.getCantRojas());
+        } catch (JugadorException | ClubException | PartidoException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }
