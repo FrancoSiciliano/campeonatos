@@ -23,22 +23,17 @@ public class ControladorJugadores {
         return instancia;
     }
 
-    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, Integer idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono) {
+    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, Integer idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono) throws ClubException, JugadorException {
         JugadorDao dao = JugadorDao.getInstancia();
-        try {
-            dao.getJugadorByDocumento(documento, tipoDocumento);
-            System.out.println("Ya existe el jugador que se esta intentando agregar");
-        } catch (JugadorException e) {
-            try {
-                Club club = ClubDao.getInstancia().getClubById(idClub);
-                Jugador j = new Jugador(tipoDocumento, documento, nombre, apellido, club, fechaNacimiento, direccion, mail, telefono);
-                j.save();
-                return j.getIdJugador();
-            } catch (ClubException e2) {
-                System.out.println(e2.getMessage());
-            }
+        if (dao.yaExisteJugador(documento, tipoDocumento)) {
+            Club club = ClubDao.getInstancia().getClubById(idClub);
+            Jugador j = new Jugador(tipoDocumento, documento, nombre, apellido, club, fechaNacimiento, direccion, mail, telefono);
+            j.save();
+            return j.getIdJugador();
+
+        } else {
+            throw new JugadorException("Ya existe un jugador con " + tipoDocumento + ": " + documento);
         }
-        return null;
     }
 
     public void modificarDireccion(int idJugador, String direccion) throws JugadorException {
@@ -61,11 +56,7 @@ public class ControladorJugadores {
 
     public void modificarEstado(int idJugador) throws JugadorException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-        if (j.isEstado() == true)
-            j.setEstado(false);
-        else {
-            j.setEstado(true);
-        }
+        j.setEstado(!j.isEstado());
         j.update();
     }
 
@@ -97,8 +88,8 @@ public class ControladorJugadores {
         return transformarAListaVO(JugadorDao.getInstancia().getJugadoresByCategoria(categoria));
     }
 
-    public List<JugadorVO> getJugadoresHabilitadosCategoriaClub (Integer club, int categoria) throws JugadorException {
-        return transformarAListaVO(JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(club,categoria));
+    public List<JugadorVO> getJugadoresHabilitadosCategoriaClub(Integer club, int categoria) throws JugadorException {
+        return transformarAListaVO(JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(club, categoria));
     }
 
     private List<JugadorVO> transformarAListaVO(List<Jugador> listaModelo) {
@@ -137,7 +128,7 @@ public class ControladorJugadores {
                         cantAmarillas = cantAmarillas;
                     }
                     try {
-                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador,  "Roja",p.getIdPartido()).size();
+                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
                     } catch (FaltaException e) {
                         cantRojas = cantRojas;
                     }
@@ -175,12 +166,12 @@ public class ControladorJugadores {
                         cantGoles = cantGoles;
                     }
                     try {
-                        cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla",p.getIdPartido()).size();
+                        cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla", p.getIdPartido()).size();
                     } catch (FaltaException e) {
                         cantAmarillas = cantAmarillas;
                     }
                     try {
-                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja",p.getIdPartido()).size();
+                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
                     } catch (FaltaException e) {
                         cantRojas = cantRojas;
                     }

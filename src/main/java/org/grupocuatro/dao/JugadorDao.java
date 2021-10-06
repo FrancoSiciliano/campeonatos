@@ -75,4 +75,13 @@ public class JugadorDao extends AbstractDao {
         throw new JugadorException("No existen jugadores en dicho club con categoria menor o igual a " + categoria);
 
     }
+
+    public boolean yaExisteJugador(int documento, String tipoDoc) {
+        try {
+            getEntityManager().createQuery("FROM Jugador WHERE numeroDocumento = " + documento + " AND tipoDocumento = " + tipoDoc);
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
 }
