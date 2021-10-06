@@ -19,9 +19,13 @@ public class ControladorMiembrosTest extends TestCase {
 
 
     public void testAgregarJugadoresEnLista() throws FaltaException, PartidoException, JugadorException, MiembroException {
+        try {
             controladorMiembros.agregarJugadoresEnLista(9, 1, 3);
             controladorMiembros.agregarJugadoresEnLista(9, 4, 4);
             controladorMiembros.agregarJugadoresEnLista(9, 6, 1);
+        } catch (ClubException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 

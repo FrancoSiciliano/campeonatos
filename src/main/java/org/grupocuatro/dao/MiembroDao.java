@@ -75,8 +75,7 @@ public class MiembroDao extends AbstractDao {
         Predicate jugador = cb.equal(join.getParent().get("jugador"), idJugador);
         cq.where(cb.and(fechaPred, jugador));
         List<Miembro> result = getEntityManager().createQuery(cq).getResultList();
-        if (!result.isEmpty()) return result;
-        throw new MiembroException("No existen partidos ese dia par el jugador");
+        return result;
     }
 
 }

@@ -1,10 +1,7 @@
 package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.MiembroDao;
-import org.grupocuatro.excepciones.FaltaException;
-import org.grupocuatro.excepciones.JugadorException;
-import org.grupocuatro.excepciones.MiembroException;
-import org.grupocuatro.excepciones.PartidoException;
+import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.*;
 import org.grupocuatro.vo.FaltaVO;
 import org.grupocuatro.vo.MiembroVO;
@@ -26,7 +23,7 @@ public class ControladorMiembros {
         return instancia;
     }
 
-    public void agregarJugadoresEnLista(Integer idClub, Integer idPartido, Integer idJugador) throws PartidoException, JugadorException, MiembroException, FaltaException {
+    public void agregarJugadoresEnLista(Integer idClub, Integer idPartido, Integer idJugador) throws PartidoException, JugadorException, MiembroException, FaltaException, ClubException {
         /*
         CONTROLES:
         - Categoria: Que no participen en categorías menor que poseen (categoria >= categoriaPartido)
@@ -40,6 +37,7 @@ public class ControladorMiembros {
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido).toModelo();
         Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador).toModelo();
         Miembro miembro = new Miembro(club, partido);
+
         if (perteneceAlEquipo(miembro.getClub().getIdClub(), jugador) &&
                 puedeJugarPorCategoria(partido, jugador) &&
                 puedeJugarPorDia(partido, jugador) &&
@@ -48,10 +46,7 @@ public class ControladorMiembros {
                 estaHabilitadoParaJugar(partido, jugador)) {
             miembro.setJugador(jugador);
             miembro.save();
-        } else {
-            System.out.println("El jugador no puede ser inscripto en el partido");
         }
-
     }
 
     public void definirIngresoEgreso(Integer idMiembro, int ingreso, int egreso) throws MiembroException {
@@ -95,44 +90,53 @@ public class ControladorMiembros {
         return jugador.isSuClub(idClub);
     }
 
-    private boolean puedeJugarPorCategoria(Partido partido, Jugador jugador) {
+    private boolean puedeJugarPorCategoria(Partido partido, Jugador jugador) throws MiembroException {
         int categoriaPartido = partido.getCategoria();
         int categoriaJugador = jugador.getCategoria();
-        return categoriaPartido <= categoriaJugador;
+        if (categoriaPartido <= categoriaJugador) {
+            return true;
+        } else {
+            throw new MiembroException("No se puede registrar al jugador ya que su categoria (" + categoriaJugador + ") es menor a la del partido (" + categoriaPartido + ")");
+        }
     }
 
     private boolean puedeJugarPorDia(Partido partido, Jugador jugador) throws MiembroException {
         LocalDate fechaPartido = partido.getFechaPartido();
         List<Miembro> miembro = MiembroDao.getInstancia().getMiembroByJugadorAndFecha(jugador.getIdJugador(), fechaPartido);
-        if (miembro != null) {
-            return false;
-        }
-        return true;
+        if (miembro.isEmpty())
+            return true;
+        else
+            throw new MiembroException("El jugador no puede registrarse ya que juega otro partido el mismo dia");
     }
 
     private boolean hayLugarEnElEquipo(Integer idClub, Integer idPartido) throws MiembroException {
-        return MiembroDao.getInstancia().getMiembrosByClubAndPartido(idClub, idPartido).size() < 17;
+        if (MiembroDao.getInstancia().getMiembrosByClubAndPartido(idClub, idPartido).size() < 17)
+            return true;
+        else
+            throw new MiembroException("El equipo ya cuenta con 17 jugadores, el nuevo jugador no puede ser registrado");
 
     }
 
-    private boolean elCampeonatoComenzo(Campeonato campeonato, Jugador jugador) {
-        return !campeonato.getFechaInicio().isAfter(jugador.getFechaAlta());
+    private boolean elCampeonatoComenzo(Campeonato campeonato, Jugador jugador) throws MiembroException {
+        if (!campeonato.getFechaInicio().isAfter(jugador.getFechaAlta()))
+            return false;
+        else
+            throw new MiembroException("El jugador no puede registrarse ya que fue inscripto en una fecha posterior a la creación del torneo");
     }
 
-    private boolean estaHabilitadoParaJugar(Partido partido, Jugador jugador) throws PartidoException, FaltaException {
+    private boolean estaHabilitadoParaJugar(Partido partido, Jugador jugador) throws MiembroException {
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         int nroFecha = partido.getNroFecha();
         Campeonato campeonato = partido.getCampeonato();
         if (jugador.isEstado()) {
-            Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub().getIdClub(), campeonato.getIdCampeonato(), nroFecha).toModelo();
-            if (ultimoPartido != null) {
+            try {
+                Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub().getIdClub(), campeonato.getIdCampeonato(), nroFecha).toModelo();
                 List<Falta> faltas = transformarAListaModelo(ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido()));
-                return faltas == null;
-            } else {
+            } catch (PartidoException | FaltaException e) {
                 return true;
             }
         }
-        return false;
+        throw new MiembroException("El miembro no se encuentra habilitado para jugar el partido");
     }
 
     private List<MiembroVO> transformarAListaVO(List<Miembro> listaMiembro) {
