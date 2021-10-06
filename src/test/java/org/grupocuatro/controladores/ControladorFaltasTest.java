@@ -7,19 +7,26 @@ import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.Falta;
-import org.grupocuatro.modelo.Partido;
 
 import java.util.List;
 
 public class ControladorFaltasTest extends TestCase {
 
 
+
     public void testCargarFalta() {
+
         try {
             ControladorFaltas.getInstancia().cargarFalta(2, 2, 78, "amarilla");
             ControladorFaltas.getInstancia().cargarFalta(3, 1, 23, "roja");
-        } catch (MiembroException | JugadorException | PartidoException e) {
-            System.out.println(e.getMessage());
+        } catch (MiembroException e) {
+            e.printStackTrace();
+        } catch (JugadorException e) {
+            e.printStackTrace();
+        } catch (PartidoException e) {
+            e.printStackTrace();
+        } catch (FaltaException e) {
+            e.printStackTrace();
         }
     }
 
@@ -34,7 +41,7 @@ public class ControladorFaltasTest extends TestCase {
 
     public void testGetFaltasByTipoAndPartido() {
         try {
-            System.out.println(ControladorFaltas.getInstancia().getFaltasByTipoAndPartido(2, "amarilla"));
+            System.out.println(ControladorFaltas.getInstancia().getFaltasByTipoAndPartido(2, "amarilla")) ;
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }
@@ -77,7 +84,7 @@ public class ControladorFaltasTest extends TestCase {
 
     public void testGetFaltasByJugadorAndPartidoAndTipoAndCampeonato() {
         try {
-            System.out.println(ControladorFaltas.getInstancia().getFaltasByJugadorAndPartidoAndTipo(2, 2, "amarilla"));
+            System.out.println(ControladorFaltas.getInstancia().getFaltasByJugadorAndPartidoAndTipo(2, 2, "amarilla")) ;
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }

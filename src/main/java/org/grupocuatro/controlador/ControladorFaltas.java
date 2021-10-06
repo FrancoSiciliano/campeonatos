@@ -27,7 +27,7 @@ public class ControladorFaltas {
         return instancia;
     }
 
-    public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) throws MiembroException, JugadorException, PartidoException {
+    public Integer cargarFalta(Integer idJugador, Integer idPartido, Integer minuto, String tipo) throws MiembroException, JugadorException, PartidoException, FaltaException {
         Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador).toModelo();
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido).toModelo();
         Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador).toModelo();
@@ -39,16 +39,12 @@ public class ControladorFaltas {
             falta.save();
 
             if (!tipo.equals("roja")) {
-                try {
-                    if (correspondeRoja(idJugador, idPartido)) {
-                        falta = new Falta(jugador, partido, minuto, "roja");
-                        falta.save();
-                        return falta.getIdFalta();
-                    }
+                if (correspondeRoja(idJugador, idPartido)) {
+                    falta = new Falta(jugador, partido, minuto, "roja");
+                    falta.save();
                     return falta.getIdFalta();
-                } catch (FaltaException e) {
-                    System.out.println(e.getMessage());
                 }
+                return falta.getIdFalta();
             } else {
                 return falta.getIdFalta();
             }
