@@ -17,8 +17,6 @@ import java.util.Objects;
 
 public class ControladorGoles {
     private static ControladorGoles instancia;
-
-
     private ControladorGoles() {
     }
 
@@ -29,45 +27,30 @@ public class ControladorGoles {
     }
 
     public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo) throws JugadorException, PartidoException {
-
         ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
         Jugador jugador = controladorJugadores.encontrarJugador(idJugador).toModelo();
-
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         Partido partido = controladorPartidos.encontrarPartido(idPartido).toModelo();
-
         Gol gol = null;
-
         if (jugador != null && partido != null) {
             gol = new Gol(jugador, partido, minuto, tipo);
             gol.save();
         }
-
         return (gol != null) ? gol.getIdGol() : null;
     }
 
-    public int contarCantidadGoles(Integer idClub, Integer idPartido) throws PartidoException {
-
-        Partido p = ControladorPartidos.getInstancia().encontrarPartido(idPartido).toModelo();
-
+    public int contarCantidadGoles(Integer idClub, Integer idPartido) throws PartidoException, GolException {
+        Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido).toModelo();
         int cantGoles = 0;
-
-        if (p != null) {
-            try {
+        if (partido != null) {
                 List<Gol> goles;
-
-                if (Objects.equals(idClub, p.getClubLocal().getIdClub())) {
-                    goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubVisitante().getIdClub());
+                if (Objects.equals(idClub, partido.getClubLocal().getIdClub())) {
+                    goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, partido.getClubVisitante().getIdClub());
                 } else {
-                    goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, p.getClubLocal().getIdClub());
+                    goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, partido.getClubLocal().getIdClub());
                 }
-
                 cantGoles = goles.size();
                 return cantGoles;
-
-            } catch (GolException e) {
-                return cantGoles;
-            }
         } else {
             System.out.println("No existe el partido indicado");
             return 0;
