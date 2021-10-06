@@ -43,11 +43,10 @@ public class ControladorCampeonatos {
     public void definirTipoCampeonatoAndCategoria(int cantidadZonas, Integer idCampeonato, int categoria) throws ClubesCampeonatoException, PartidoException, CampeonatoException, ClubException {
         Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
         int cantEquipos = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato).size();
-        campeonato.update();
         generarPartidos(campeonato, categoria, cantidadZonas, cantEquipos);
     }
 
-    private void generarPartidos(Campeonato campeonato, int categoria, int cantidadZonas, int cantEquipos) throws CampeonatoException, ClubesCampeonatoException, ClubException, PartidoException {
+    private void generarPartidos(Campeonato campeonato, int categoria, float cantidadZonas, float cantEquipos) throws CampeonatoException, ClubesCampeonatoException, ClubException, PartidoException {
         GeneracionPartidosStrategy strategy;
 
         if ((cantidadZonas == 0)) {
@@ -58,13 +57,17 @@ public class ControladorCampeonatos {
             else
                 strategy = new GenerarPuntosImpar();
 
-        } else {
+        } else if (cantEquipos % 2 == 0) {
             campeonato.setTipoCampeonato("Zonas");
 
             if ((cantEquipos / cantidadZonas) % 2 == 0)
-                strategy = new GenerarZonasPar(cantidadZonas);
+                strategy = new GenerarZonasPar(Integer.parseInt(String.valueOf(cantidadZonas)));
             else
-                strategy = new GenerarZonasImpar(cantidadZonas);
+                strategy = new GenerarZonasImpar(Integer.parseInt(String.valueOf(cantidadZonas)));
+
+        } else {
+            throw new PartidoException("No pueden generase los partidos");
+
         }
 
         campeonato.update();
