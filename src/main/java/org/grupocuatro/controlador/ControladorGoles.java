@@ -17,6 +17,7 @@ import java.util.Objects;
 
 public class ControladorGoles {
     private static ControladorGoles instancia;
+
     private ControladorGoles() {
     }
 
@@ -31,30 +32,30 @@ public class ControladorGoles {
         Jugador jugador = controladorJugadores.encontrarJugador(idJugador).toModelo();
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         Partido partido = controladorPartidos.encontrarPartido(idPartido).toModelo();
+
         Gol gol = null;
-        if (jugador != null && partido != null) {
-            gol = new Gol(jugador, partido, minuto, tipo);
-            gol.save();
-        }
-        return (gol != null) ? gol.getIdGol() : null;
+
+        gol = new Gol(jugador, partido, minuto, tipo);
+        gol.save();
+
+        return gol.getIdGol();
     }
 
     public int contarCantidadGoles(Integer idClub, Integer idPartido) throws PartidoException, GolException {
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido).toModelo();
-        int cantGoles = 0;
-        if (partido != null) {
-                List<Gol> goles;
-                if (Objects.equals(idClub, partido.getClubLocal().getIdClub())) {
-                    goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, partido.getClubVisitante().getIdClub());
-                } else {
-                    goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, partido.getClubLocal().getIdClub());
-                }
-                cantGoles = goles.size();
-                return cantGoles;
+        int cantGoles;
+
+        List<Gol> goles;
+
+        if (Objects.equals(idClub, partido.getClubLocal().getIdClub())) {
+            goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, partido.getClubVisitante().getIdClub());
+
         } else {
-            System.out.println("No existe el partido indicado");
-            return 0;
+            goles = GolDao.getInstancia().getGolesByPartidoAndClub(idPartido, idClub, partido.getClubLocal().getIdClub());
         }
+
+        cantGoles = goles.size();
+        return cantGoles;
     }
 
     public List<GolVO> getGoles() throws GolException {

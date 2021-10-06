@@ -41,8 +41,7 @@ public class GolDao extends AbstractDao {
         cq.where(cb.and(p4, pFinal));
         Query query = getEntityManager().createQuery(cq);
         List<Gol> goles = query.getResultList();
-        if (!goles.isEmpty()) return goles;
-        throw new GolException("El club de id:  " + idClubAContar + " no hizo goles en el partido de id: " + idPartido);
+        return goles;
     }
 
     public List<Gol> getGolesByPartidoAndSentido(Integer idPartido, String sentido) throws GolException {
