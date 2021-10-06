@@ -43,7 +43,7 @@ public class ControladorPartidos {
         Club visitante = clubes.getClubById(idClubVisitante).toModelo();
 
         Partido p;
-        if (PartidoDao.getInstancia().existePartido(nroZona, categoria, idClubLocal, idClubVisitante, idCampeonato)) {
+        if (!PartidoDao.getInstancia().existePartido(nroZona, categoria, idClubLocal, idClubVisitante, idCampeonato)) {
             p = new Partido(nroZona, categoria, local, visitante, c);
             p.save();
 

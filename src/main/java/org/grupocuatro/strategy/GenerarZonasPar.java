@@ -112,11 +112,13 @@ public class GenerarZonasPar implements GeneracionPartidosStrategy {
                 //IDA
                 for (int i = 0; i < numRondas; i++) {
                     for (int j = 0; j < partidosPorRonda; j++) {
-                        int idp = ControladorPartidos.getInstancia().crearPartido(auxPartidos[i][j].getNroZona(), auxPartidos[i][j].getCategoria(), auxPartidos[i][j].getClubLocal().getIdClub(), auxPartidos[i][j].getClubVisitante().getIdClub(), campeonato.getIdCampeonato());
-                        Partido p = ControladorPartidos.getInstancia().encontrarPartido(idp).toModelo();
-                        p.setNroFecha(i + 1);
-                        p.setFechaPartido(fechaInicial);
-                        p.update();
+                        Partido p = new Partido(auxPartidos[i][j].getNroZona(),
+                                auxPartidos[i][j].getCategoria(),
+                                auxPartidos[i][j].getClubLocal(),
+                                auxPartidos[i][j].getClubVisitante(),
+                                campeonato,
+                                fechaInicial, i + 1);
+                        p.save();
                     }
                     fechaInicial = fechaInicial.plusDays(1);
                 }
@@ -126,11 +128,13 @@ public class GenerarZonasPar implements GeneracionPartidosStrategy {
                 //VUELTA
                 for (int i = 0; i < numRondas; i++) {
                     for (int j = 0; j < partidosPorRonda; j++) {
-                        int idp = ControladorPartidos.getInstancia().crearPartido(auxPartidos[i][j].getNroZona(), auxPartidos[i][j].getCategoria(), auxPartidos[i][j].getClubVisitante().getIdClub(), auxPartidos[i][j].getClubLocal().getIdClub(), campeonato.getIdCampeonato());
-                        Partido p = ControladorPartidos.getInstancia().encontrarPartido(idp).toModelo();
-                        p.setNroFecha(auxFecha);
-                        p.setFechaPartido(fechaInicial);
-                        p.update();
+                        Partido p = new Partido(auxPartidos[i][j].getNroZona(),
+                                auxPartidos[i][j].getCategoria(),
+                                auxPartidos[i][j].getClubVisitante(),
+                                auxPartidos[i][j].getClubLocal(),
+                                campeonato,
+                                fechaInicial, auxFecha);
+                        p.save();
                     }
                     fechaInicial = fechaInicial.plusDays(1);
                     auxFecha++;

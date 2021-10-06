@@ -75,6 +75,21 @@ public class Partido {
         this.incidentes = "";
     }
 
+    public Partido(int nroZona, int categoria, Club clubLocal, Club clubVisitante, Campeonato campeonato, LocalDate fechaPartido, int nroFecha) {
+        this.nroZona = nroZona;
+        this.nroFecha = nroFecha;
+        this.categoria = categoria;
+        this.clubLocal = clubLocal;
+        this.clubVisitante = clubVisitante;
+        this.golesLocal = null;
+        this.golesVisitante = null;
+        this.convalidaLocal = false;
+        this.convalidaVisitante = false;
+        this.campeonato = campeonato;
+        this.incidentes = "";
+        this.fechaPartido = fechaPartido;
+    }
+
     public Partido() {
         jugadoresLocales = new ArrayList<>();
         jugadoresVisitantes = new ArrayList<>();
