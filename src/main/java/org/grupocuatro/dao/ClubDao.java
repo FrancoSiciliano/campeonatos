@@ -51,4 +51,13 @@ public class ClubDao extends AbstractDao {
         throw new ClubException("No existen clubes con suficientes jugadores");
     }
 
+    public boolean yaExisteElClub(Integer idClub) {
+        try {
+            Club club = (Club) getEntityManager().createQuery("FROM Club WHERE idClub = " + idClub).getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
+
 }

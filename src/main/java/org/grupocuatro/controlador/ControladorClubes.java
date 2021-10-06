@@ -24,14 +24,15 @@ public class ControladorClubes {
 
     public void crearClub(Integer id, String nombre, String direccion) throws ClubException {
         Club c;
-        try {
-            ClubDao.getInstancia().getClubById(id);
-        } catch (ClubException e) {
+
+        if (!ClubDao.getInstancia().yaExisteElClub(id)) {
             c = new Club(id, nombre, direccion);
             c.save();
+
+        } else {
+            throw new ClubException("Ya existe el club con id: " + id);
         }
 
-        throw new ClubException("Ya existe el club con id: " + id);
     }
 
     public void modificarClub(Integer idClub, String nombre, String direccion) throws ClubException {
