@@ -4,10 +4,7 @@ import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubDao;
 import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.dao.TablaPosicionDao;
-import org.grupocuatro.excepciones.CampeonatoException;
-import org.grupocuatro.excepciones.ClubException;
-import org.grupocuatro.excepciones.PartidoException;
-import org.grupocuatro.excepciones.TablaPosicionException;
+import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
@@ -94,7 +91,7 @@ public class ControladorPartidos {
 
     }
 
-    public void cargarResultadoPartido(Integer idPartido, String incidentes) throws PartidoException {
+    public void cargarResultadoPartido(Integer idPartido, String incidentes) throws PartidoException, GolException {
         ControladorGoles cont = ControladorGoles.getInstancia();
         Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
 
@@ -109,7 +106,7 @@ public class ControladorPartidos {
         p.update();
     }
 
-    public void validadoPorClubLocal(Integer idClubL, Integer idPartido) throws PartidoException, CampeonatoException, ClubException {
+    public void validadoPorClubLocal(Integer idClubL, Integer idPartido) throws PartidoException, CampeonatoException, ClubException, TablaPosicionException {
         Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
 
         if (Objects.equals(idClubL, partido.getClubLocal().getIdClub())) {
@@ -122,7 +119,7 @@ public class ControladorPartidos {
         }
     }
 
-    public void validadoPorClubVisitante(Integer idClubV, Integer idPartido) throws PartidoException, CampeonatoException, ClubException {
+    public void validadoPorClubVisitante(Integer idClubV, Integer idPartido) throws PartidoException, CampeonatoException, ClubException, TablaPosicionException {
         Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
 
         if (Objects.equals(idClubV, partido.getClubVisitante().getIdClub())) {
@@ -136,7 +133,7 @@ public class ControladorPartidos {
 
     }
 
-    private void cargarResultadoEnTabla(Partido partido) throws CampeonatoException, ClubException {
+    private void cargarResultadoEnTabla(Partido partido) throws CampeonatoException, ClubException, TablaPosicionException {
         ControladorTablasPosiciones controladorTablasPosiciones = ControladorTablasPosiciones.getInstancia();
 
         if (chequearValidacion(partido)) {

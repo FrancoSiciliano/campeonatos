@@ -7,6 +7,7 @@ import org.grupocuatro.excepciones.TablaPosicionException;
 import org.grupocuatro.modelo.TablaPosiciones;
 import org.grupocuatro.vo.TablaPosicionesVO;
 
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +24,14 @@ public class ControladorTablasPosiciones {
         return instancia;
     }
 
-    public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) throws ClubException, CampeonatoException {
+    public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) throws ClubException, CampeonatoException, TablaPosicionException {
         TablaPosiciones tp;
         ControladorClubes controladorClubes = ControladorClubes.getInstancia();
         ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
 
         try {
             tp = TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(idClub, idCampeonato);
-        } catch (TablaPosicionException e) {
+        } catch (NoResultException e) {
             tp = new TablaPosiciones(controladorClubes.getClubById(idClub).toModelo(), controladorCampeonatos.encontrarCampeonato(idCampeonato).toModelo());
             tp.save();
         }
