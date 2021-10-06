@@ -31,10 +31,9 @@ public class ControladorFaltas {
         Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador).toModelo();
         Partido partido = ControladorPartidos.getInstancia().encontrarPartido(idPartido).toModelo();
         Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador).toModelo();
+        Falta falta = null;
 
         if (minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) {
-            FaltaDao faltadao = FaltaDao.getInstancia();
-            Falta falta = null;
             falta = new Falta(jugador, partido, minuto, tipo);
             falta.save();
 
@@ -42,14 +41,11 @@ public class ControladorFaltas {
                 if (correspondeRoja(idJugador, idPartido)) {
                     falta = new Falta(jugador, partido, minuto, "roja");
                     falta.save();
-                    return falta.getIdFalta();
                 }
-                return falta.getIdFalta();
-            } else {
-                return falta.getIdFalta();
             }
+
         }
-        return null;
+        return falta.getIdFalta();
     }
 
     private boolean correspondeRoja(Integer idJugador, Integer idPartido) throws FaltaException {
