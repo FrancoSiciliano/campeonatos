@@ -4,8 +4,7 @@ import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorCampeonatos;
 import org.grupocuatro.controlador.ControladorClubes;
 import org.grupocuatro.controlador.ControladorPartidos;
-import org.grupocuatro.excepciones.GolException;
-import org.grupocuatro.excepciones.PartidoException;
+import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.Partido;
 import org.grupocuatro.vo.PartidoVO;
 
@@ -15,10 +14,14 @@ import java.util.List;
 public class ControladorPartidosTest extends TestCase {
 
     public void testcrearPartido() throws PartidoException {
-        ControladorPartidos.getInstancia().crearPartido(1,1,80,1,2);
-        ControladorPartidos.getInstancia().crearPartido(2,1,78,3,4);
-        ControladorPartidos.getInstancia().crearPartido(3,1,86,5,6);
-        ControladorPartidos.getInstancia().crearPartido(4,1,83,7,8);
+        try {
+            ControladorPartidos.getInstancia().crearPartido(1,1,80,1,2);
+            ControladorPartidos.getInstancia().crearPartido(2,1,78,3,4);
+            ControladorPartidos.getInstancia().crearPartido(3,1,86,5,6);
+            ControladorPartidos.getInstancia().crearPartido(4,1,83,7,8);
+        } catch (CampeonatoException | ClubException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -39,17 +42,25 @@ public class ControladorPartidosTest extends TestCase {
 
 
     public void testvalidadoPorClubVisitante() throws PartidoException {
-        ControladorPartidos.getInstancia().validadoPorClubVisitante(2,1);
-        ControladorPartidos.getInstancia().validadoPorClubVisitante(4,2);
-        ControladorPartidos.getInstancia().validadoPorClubVisitante(6,3);
-        ControladorPartidos.getInstancia().validadoPorClubVisitante(8,4);
+        try {
+            ControladorPartidos.getInstancia().validadoPorClubVisitante(2,1);
+            ControladorPartidos.getInstancia().validadoPorClubVisitante(4,2);
+            ControladorPartidos.getInstancia().validadoPorClubVisitante(6,3);
+            ControladorPartidos.getInstancia().validadoPorClubVisitante(8,4);
+        } catch (CampeonatoException | ClubException | TablaPosicionException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testvalidadoPorClubLocal() throws PartidoException {
-        ControladorPartidos.getInstancia().validadoPorClubLocal(1,1);
-        ControladorPartidos.getInstancia().validadoPorClubLocal(3,2);
-        ControladorPartidos.getInstancia().validadoPorClubLocal(5,3);
-        ControladorPartidos.getInstancia().validadoPorClubLocal(7,4);
+        try {
+            ControladorPartidos.getInstancia().validadoPorClubLocal(1,1);
+            ControladorPartidos.getInstancia().validadoPorClubLocal(3,2);
+            ControladorPartidos.getInstancia().validadoPorClubLocal(5,3);
+            ControladorPartidos.getInstancia().validadoPorClubLocal(7,4);
+        } catch (CampeonatoException | ClubException | TablaPosicionException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testGetAllPartidos() throws PartidoException {
@@ -82,7 +93,7 @@ public class ControladorPartidosTest extends TestCase {
         System.out.println(partidos);
     }
 
-    public void testGetUltimoPartidoByClubAndCampeonato() throws PartidoException {
+    public void testGetUltimoPartidoByClubAndCampeonato() throws PartidoException, ClubException, CampeonatoException {
         PartidoVO partido = ControladorPartidos.getInstancia().getUltimoPartidoByClubAndCampeonato(ControladorClubes.getInstancia().getClubById(1).getIdClub(), ControladorCampeonatos.getInstancia().encontrarCampeonato(1).getIdCampeonato(), 1);
         if (partido != null) System.out.println(partido.getIdPartido());
     }
@@ -99,7 +110,7 @@ public class ControladorPartidosTest extends TestCase {
             System.out.println(partido.getIdPartido());
     }
 
-    public void testCargarNroFechaYFecha() {
+    public void testCargarNroFechaYFecha() throws PartidoException {
         ControladorPartidos.getInstancia().cargarNroFechaYFecha(1, 1, LocalDate.of(2021,5,2));
     }
 
