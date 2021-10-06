@@ -22,28 +22,26 @@ public class ControladorClubes {
         return instancia;
     }
 
-    public void crearClub(Integer id, String nombre, String direccion) {
+    public void crearClub(Integer id, String nombre, String direccion) throws ClubException {
         Club c;
         try {
             ClubDao.getInstancia().getClubById(id);
-            System.out.println("Ya existe un club con ese ID");
         } catch (ClubException e) {
             c = new Club(id, nombre, direccion);
             c.save();
         }
+
+        throw new ClubException("Ya existe el club con id: " + id);
     }
 
-    public void modificarClub(Integer idClub, String nombre, String direccion) {
+    public void modificarClub(Integer idClub, String nombre, String direccion) throws ClubException {
         ClubDao dao = ClubDao.getInstancia();
-        try {
-            Club club = dao.getClubById(idClub);
-            club.setNombre(nombre);
-            club.setDireccion(direccion);
-            club.update();
 
-        } catch (ClubException e) {
-            System.out.print(e.getMessage());
-        }
+        Club club = dao.getClubById(idClub);
+        club.setNombre(nombre);
+        club.setDireccion(direccion);
+        club.update();
+
     }
 
     public ClubVO getClubById(Integer idClub) throws ClubException {
