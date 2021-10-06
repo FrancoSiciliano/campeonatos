@@ -48,7 +48,15 @@ public class ResponsableDao extends AbstractDao {
         } catch (Exception e) {
             throw new ResponsableException("No existe el responsable de id: " + id);
         }
+    }
 
+    public boolean existeResponsableEnClub(Integer documento, Integer idClub) {
+        try {
+            getEntityManager().createQuery("FROM Responsable WHERE documento = " + documento + " AND idClub = " + idClub).getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
     }
 
 
