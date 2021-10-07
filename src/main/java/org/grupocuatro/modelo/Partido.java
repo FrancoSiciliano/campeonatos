@@ -2,8 +2,6 @@ package org.grupocuatro.modelo;
 
 
 import org.grupocuatro.dao.PartidoDao;
-import org.grupocuatro.vo.CampeonatoVO;
-import org.grupocuatro.vo.ClubVO;
 import org.grupocuatro.vo.PartidoVO;
 
 import javax.persistence.*;
@@ -53,11 +51,9 @@ public class Partido {
     @OneToMany(mappedBy = "partido")
     private List<Miembro> jugadoresVisitantes;
 
-    //agregamos lista de faltas del partido
     @OneToMany(mappedBy = "partido")
     private List<Falta> faltas;
 
-    //agregamos lista de goles del partido
     @OneToMany(mappedBy = "partido")
     private List<Gol> goles;
 

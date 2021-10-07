@@ -35,7 +35,6 @@ public class ControladorPartidos {
     public Integer crearPartido(int nroZona, int categoria, Integer idClubLocal, Integer idClubVisitante, Integer idCampeonato) throws PartidoException, CampeonatoException, ClubException {
 
         ControladorCampeonatos cc = ControladorCampeonatos.getInstancia();
-        ControladorPartidos cp = ControladorPartidos.getInstancia();
         ControladorClubes clubes = ControladorClubes.getInstancia();
 
         Campeonato c = cc.encontrarCampeonato(idCampeonato).toModelo();
