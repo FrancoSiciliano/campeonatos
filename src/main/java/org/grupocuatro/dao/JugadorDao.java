@@ -72,7 +72,7 @@ public class JugadorDao extends AbstractDao {
         query.setParameter(2, club);
         List<Jugador> jugadores = query.getResultList();
         if (!jugadores.isEmpty()) return jugadores;
-        throw new JugadorException("No existen jugadores en dicho club con categoria menor o igual a " + categoria);
+        throw new JugadorException("No existen jugadores en dicho club con categoria mayor o igual a " + categoria);
 
     }
 
