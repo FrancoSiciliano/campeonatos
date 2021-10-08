@@ -61,9 +61,9 @@ public class ControladorCampeonatos {
             campeonato.setTipoCampeonato("Zonas");
 
             if ((cantEquipos / cantidadZonas) % 2 == 0)
-                strategy = new GenerarZonasPar(Integer.valueOf(String.valueOf(cantidadZonas)));
+                strategy = new GenerarZonasPar((int) cantidadZonas);
             else
-                strategy = new GenerarZonasImpar(Integer.valueOf(String.valueOf(cantidadZonas)));
+                strategy = new GenerarZonasImpar((int)cantidadZonas);
 
         } else {
             throw new PartidoException("No pueden generase los partidos");
