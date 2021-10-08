@@ -26,7 +26,7 @@ public class ControladorResponsablesTest extends TestCase {
 
     public void testModificarResponsable() {
         try {
-            ControladorResponsables.getInstancia().modificarResponsable(10, 87545621, "Pablo Modificado", 2);
+            ControladorResponsables.getInstancia().modificarResponsable(10, "Pablo Modificado", 2);
             System.out.println(ResponsableDao.getInstancia().getResponsable(10).getNombre());
         } catch (ResponsableException | ClubException e) {
             System.out.println(e.getMessage());

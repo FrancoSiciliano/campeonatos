@@ -58,6 +58,8 @@ public class ControladorMiembros {
             m.setIngreso(ingreso);
             m.setEgreso(egreso);
             m.update();
+        } else {
+            throw new MiembroException("El minuto de ingreso no puede ser mayor o igual al de egreso");
         }
     }
 
