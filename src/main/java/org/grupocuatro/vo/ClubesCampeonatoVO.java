@@ -1,6 +1,7 @@
 package org.grupocuatro.vo;
 
 import org.grupocuatro.dao.ClubesCampeonatoDao;
+import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.ClubesCampeonato;
 
@@ -13,9 +14,10 @@ public class ClubesCampeonatoVO implements Serializable {
     private ClubVO idClub;
     private CampeonatoVO idCampeonato;
 
-    public ClubesCampeonatoVO () {}
+    public ClubesCampeonatoVO() {
+    }
 
-    public ClubesCampeonatoVO (Integer idClubesCampeonatos, ClubVO idClub, CampeonatoVO idCampeonato) {
+    public ClubesCampeonatoVO(Integer idClubesCampeonatos, ClubVO idClub, CampeonatoVO idCampeonato) {
         this.idClubesCampeonatos = idClubesCampeonatos;
         this.idClub = idClub;
         this.idCampeonato = idCampeonato;
@@ -46,11 +48,12 @@ public class ClubesCampeonatoVO implements Serializable {
     }
 
     public ClubesCampeonato toModelo() {
-        ClubesCampeonato cc = ClubesCampeonatoDao.getInstancia().traerClubCampeonato(this.idClub.getIdClub(), this.idCampeonato.getIdCampeonato());
-        if(cc == null)
-            return new ClubesCampeonato(this.idClub.toModelo(), this.idCampeonato.toModelo());
-        else
+        try {
+            ClubesCampeonato cc = ClubesCampeonatoDao.getInstancia().getClubCampeonato(this.idClub.getIdClub(), this.idCampeonato.getIdCampeonato());
             return cc;
+        } catch (ClubesCampeonatoException e) {
+            return new ClubesCampeonato(this.idClub.toModelo(), this.idCampeonato.toModelo());
+        }
     }
 
     @Override

@@ -67,13 +67,4 @@ public class ClubesCampeonatoDao extends AbstractDao {
             return false;
         }
     }
-
-    public ClubesCampeonato traerClubCampeonato(Integer idClub, Integer idCampeonato) {
-        try {
-            ClubesCampeonato cc = (ClubesCampeonato) getEntityManager().createQuery("FROM ClubesCampeonato WHERE idClub = " + idClub + " AND idCampeonato = " + idCampeonato).getSingleResult();
-            return cc;
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
 }
