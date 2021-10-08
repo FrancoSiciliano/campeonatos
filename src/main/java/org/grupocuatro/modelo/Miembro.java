@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.MiembroDao;
+import org.grupocuatro.utiles.EntityManagerUtil;
 import org.grupocuatro.vo.MiembroVO;
 
 import javax.persistence.*;
@@ -93,7 +94,11 @@ public class Miembro {
     public void setEgreso(Integer egreso) {this.egreso = egreso;}
 
     public void save() {
-        MiembroDao.getInstancia().save(this);
+        EntityManager em = EntityManagerUtil.getEntityManager();
+        em.getTransaction().begin();
+        em.persist(this);
+        em.getTransaction().commit();
+
     }
 
     public void update() {

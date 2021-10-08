@@ -1,5 +1,7 @@
 package org.grupocuatro.vo;
 
+import org.grupocuatro.dao.ResponsableDao;
+import org.grupocuatro.excepciones.ResponsableException;
 import org.grupocuatro.modelo.Falta;
 import org.grupocuatro.modelo.Responsable;
 
@@ -56,7 +58,13 @@ public class ResponsableVO implements Serializable {
     }
 
     public Responsable toModelo() {
-        return new Responsable(documento, nombre, club.toModelo());
+        try {
+            Responsable resp = ResponsableDao.getInstancia().getResponsableByNroDocAndClub(documento, club.getIdClub());
+            return resp;
+        } catch (ResponsableException e) {
+            return new Responsable(documento, nombre, club.toModelo());
+        }
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package org.grupocuatro.vo;
 
+import org.grupocuatro.dao.MiembroDao;
+import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.modelo.Miembro;
 import org.grupocuatro.modelo.Partido;
 
@@ -65,6 +67,12 @@ public class MiembroVO implements Serializable {
     }
 
     public Miembro toModelo() {
-        return new Miembro(this.club.toModelo(), this.partido.toModelo(), this.jugador.toModelo());}
+        try {
+            Miembro m = MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(this.club.getIdClub(), this.partido.getIdPartido(), this.jugador.getIdJugador());
+            return m;
+        } catch (MiembroException e) {
+            return new Miembro(this.club.toModelo(), this.partido.toModelo(), this.jugador.toModelo());}
+        }
+
 
 }

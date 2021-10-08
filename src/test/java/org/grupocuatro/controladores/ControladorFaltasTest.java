@@ -17,8 +17,9 @@ public class ControladorFaltasTest extends TestCase {
     public void testCargarFalta() {
 
         try {
-            ControladorFaltas.getInstancia().cargarFalta(2, 2, 78, "amarilla");
-            ControladorFaltas.getInstancia().cargarFalta(3, 1, 23, "roja");
+//            ControladorFaltas.getInstancia().cargarFalta(2, 2, 78, "amarilla");
+            ControladorFaltas.getInstancia().cargarFalta(11, 8, 23, "roja");
+
         } catch (MiembroException | JugadorException | PartidoException | FaltaException e) {
             System.out.println(e.getMessage());
         }

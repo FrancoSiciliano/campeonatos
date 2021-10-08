@@ -1,5 +1,7 @@
 package org.grupocuatro.vo;
 
+import org.grupocuatro.dao.TablaPosicionDao;
+import org.grupocuatro.excepciones.TablaPosicionException;
 import org.grupocuatro.modelo.TablaPosiciones;
 
 import java.io.Serializable;
@@ -97,6 +99,11 @@ public class TablaPosicionesVO implements Serializable {
     }
 
     public TablaPosiciones toModelo() {
-        return new TablaPosiciones(this.id.toModelo(), this.campeonato.toModelo());
+        try {
+            TablaPosiciones tp = TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(this.id.getIdClub(), this.campeonato.getIdCampeonato());
+            return tp;
+        } catch (TablaPosicionException e) {
+            return new TablaPosiciones(this.id.toModelo(), this.campeonato.toModelo());
+        }
     }
 }

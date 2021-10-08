@@ -9,12 +9,13 @@ import org.grupocuatro.excepciones.PartidoException;
 public class ControladorGolesTest extends TestCase {
     ControladorGoles controladorGoles = ControladorGoles.getInstancia();
 
-    public void testCargarGol() throws PartidoException, JugadorException {
-        System.out.println(controladorGoles.cargarGol(3, 1, 5, "a favor"));
-        System.out.println(controladorGoles.cargarGol(3, 1, 10, "a favor"));
-        System.out.println(controladorGoles.cargarGol(3, 1, 15, "a favor"));
-        System.out.println(controladorGoles.cargarGol(4, 1, 12, "a favor"));
-        System.out.println(controladorGoles.cargarGol(4, 1, 12, "en contra"));
+    public void testCargarGol() {
+        try {
+            System.out.println(controladorGoles.cargarGol(11, 8, 5, "a favor"));
+        } catch (JugadorException | PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void testContarCantidadGoles() throws GolException, PartidoException {

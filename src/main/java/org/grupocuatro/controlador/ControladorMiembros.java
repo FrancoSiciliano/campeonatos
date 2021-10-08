@@ -43,11 +43,12 @@ public class ControladorMiembros {
                 puedeJugarPorCategoria(partido, jugador) &&
                 puedeJugarPorDia(partido, jugador) &&
                 hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
-                !elCampeonatoComenzo(partido.getCampeonato(), jugador) &&
+                elCampeonatoNoComenzo(partido.getCampeonato(), jugador) &&
                 estaHabilitadoParaJugar(partido, jugador)) {
-            System.out.println("hola");
+
             miembro.setJugador(jugador);
             miembro.save();
+
         }
     }
 
@@ -126,9 +127,9 @@ public class ControladorMiembros {
 
     }
 
-    private boolean elCampeonatoComenzo(Campeonato campeonato, Jugador jugador) throws MiembroException {
-        if (!campeonato.getFechaInicio().isAfter(jugador.getFechaAlta()))
-            return false;
+    private boolean elCampeonatoNoComenzo(Campeonato campeonato, Jugador jugador) throws MiembroException {
+        if (campeonato.getFechaInicio().isAfter(jugador.getFechaAlta()))
+            return true;
         else
             throw new MiembroException("El jugador no puede registrarse ya que fue inscripto en una fecha posterior a la creación del torneo");
     }

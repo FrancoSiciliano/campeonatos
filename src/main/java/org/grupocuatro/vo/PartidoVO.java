@@ -1,5 +1,6 @@
 package org.grupocuatro.vo;
 
+import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
@@ -150,7 +151,10 @@ public class PartidoVO implements Serializable {
     }
 
     public Partido toModelo(){
-        return new Partido(this.nroZona, this.categoria, this.clubLocal.toModelo(), this.clubVisitante.toModelo(), this.campeonato.toModelo());
+        Partido part = PartidoDao.getInstancia().traerPartido(this.nroZona, this.categoria, this.clubLocal.getIdClub(), this.clubVisitante.getIdClub(), this.campeonato.getIdCampeonato());
+        if(part == null)
+            return new Partido(this.nroZona, this.categoria, this.clubLocal.toModelo(), this.clubVisitante.toModelo(), this.campeonato.toModelo());
+        return part;
     }
 
     @Override

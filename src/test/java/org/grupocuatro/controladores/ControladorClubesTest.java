@@ -30,7 +30,8 @@ public class ControladorClubesTest extends TestCase {
 //            ControladorClubes.getInstancia().crearClub(6, "Ferrocarril Oeste", "Caballito 505");
 //            ControladorClubes.getInstancia().crearClub(7, "Banfield", "Banfield 1450");
 //            ControladorClubes.getInstancia().crearClub(8, "Inter", "Piazzale Angelo Moratti");
-            ControladorClubes.getInstancia().crearClub(9, "PSG", "Parc Des Princes");
+//            ControladorClubes.getInstancia().crearClub(9, "PSG", "Parc Des Princes");
+            ControladorClubes.getInstancia().crearClub(11, "ClubPrueba2", "ClubPrueba2");
         } catch (ClubException e) {
             System.out.println(e.getMessage());
         }

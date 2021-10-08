@@ -1,5 +1,7 @@
 package org.grupocuatro.vo;
 
+import org.grupocuatro.dao.ClubDao;
+import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Jugador;
 
@@ -45,7 +47,12 @@ public class ClubVO implements Serializable {
     }
 
     public Club toModelo(){
-        return new Club(this.idClub, this.nombre, this.direccion);
+        try {
+            Club club = ClubDao.getInstancia().getClubByNombre(this.nombre);
+            return club;
+        } catch (ClubException e) {
+            return new Club(this.idClub, this.nombre, this.direccion);
+        }
     }
 
     @Override

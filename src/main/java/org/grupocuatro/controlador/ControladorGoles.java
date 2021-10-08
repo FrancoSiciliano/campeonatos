@@ -36,8 +36,9 @@ public class ControladorGoles {
         Gol gol = null;
 
         gol = new Gol(jugador, partido, minuto, tipo);
-        gol.save();
 
+        gol.save();
+        System.out.println("LLEGUE");
         return gol.getIdGol();
     }
 

@@ -84,4 +84,12 @@ public class JugadorDao extends AbstractDao {
             return false;
         }
     }
+
+    public Jugador traerJugador(int documento, String tipoDoc) {
+        try {
+            return (Jugador) getEntityManager().createQuery("FROM Jugador WHERE numeroDocumento = " + documento + " AND tipoDocumento = " + tipoDoc).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

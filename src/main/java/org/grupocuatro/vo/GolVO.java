@@ -1,5 +1,6 @@
 package org.grupocuatro.vo;
 
+import org.grupocuatro.dao.GolDao;
 import org.grupocuatro.modelo.Gol;
 
 import java.io.Serializable;
@@ -76,6 +77,9 @@ public class GolVO implements Serializable {
     }
 
     public Gol toModelo() {
-        return new Gol(jugador.toModelo() , partido.toModelo() ,minuto, tipo);
+        Gol gol = GolDao.getInstancia().traerGol(jugador.getIdJugador(), partido.getIdPartido(), minuto, tipo);
+        if (gol == null)
+            return new Gol(jugador.toModelo(), partido.toModelo(), minuto, tipo);
+        return gol;
     }
 }

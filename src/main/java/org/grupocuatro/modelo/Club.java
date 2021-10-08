@@ -2,6 +2,7 @@ package org.grupocuatro.modelo;
 
 
 import org.grupocuatro.dao.ClubDao;
+import org.grupocuatro.utiles.EntityManagerUtil;
 import org.grupocuatro.vo.ClubVO;
 
 import javax.persistence.*;
@@ -93,7 +94,10 @@ public class Club implements Comparable<Club>{
     }
 
     public void save() {
-        ClubDao.getInstancia().save(this);
+        EntityManager em = EntityManagerUtil.getEntityManager();
+        em.getTransaction().begin();
+        em.persist(this);
+        em.getTransaction().commit();
     }
 
     public void update() {

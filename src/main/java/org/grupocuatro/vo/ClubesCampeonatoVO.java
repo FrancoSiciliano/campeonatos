@@ -1,5 +1,6 @@
 package org.grupocuatro.vo;
 
+import org.grupocuatro.dao.ClubesCampeonatoDao;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.ClubesCampeonato;
 
@@ -45,7 +46,11 @@ public class ClubesCampeonatoVO implements Serializable {
     }
 
     public ClubesCampeonato toModelo() {
-        return new ClubesCampeonato(idClub.toModelo(), idCampeonato.toModelo());
+        ClubesCampeonato cc = ClubesCampeonatoDao.getInstancia().traerClubCampeonato(this.idClub.getIdClub(), this.idCampeonato.getIdCampeonato());
+        if(cc == null)
+            return new ClubesCampeonato(this.idClub.toModelo(), this.idCampeonato.toModelo());
+        else
+            return cc;
     }
 
     @Override

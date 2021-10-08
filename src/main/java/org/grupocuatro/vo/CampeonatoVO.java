@@ -1,5 +1,6 @@
 package org.grupocuatro.vo;
 
+import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.modelo.Campeonato;
 
 import java.io.Serializable;
@@ -75,7 +76,11 @@ public class CampeonatoVO implements Serializable {
     }
 
     public Campeonato toModelo(){
-        return new Campeonato(this.descripcion, this.fechaInicio, this.fechaFin, this.estado);
+        Campeonato camp = CampeonatoDao.getInstancia().traerCampeonato(this.descripcion, this.fechaInicio, this.fechaFin, this.estado);
+        if(camp == null)
+            return new Campeonato(this.descripcion, this.fechaInicio, this.fechaFin, this.estado);
+        else
+            return camp;
     }
 
     @Override

@@ -60,4 +60,5 @@ public class ClubDao extends AbstractDao {
         }
     }
 
+
 }
