@@ -100,10 +100,6 @@ public class ControladorJugadores {
         return listaVO;
     }
 
-    //TODO ESTA PARTE ES PARA LAS PROXIMAS ETAPAS DEL TRABAJO (IGNORAR)
-
-    // FIXME AGREGAR CONSULTA DE PROGRESO DEL EQUIPO DEL JUGADOR EN UN CAMPEONATO
-
     public StatsVO getStatsByCampeonato(int idJugador, int idCampeonato) throws JugadorException, CampeonatoException, PartidoException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
         Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
