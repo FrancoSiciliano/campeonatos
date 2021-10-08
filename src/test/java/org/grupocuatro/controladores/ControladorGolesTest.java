@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorGoles;
 import org.grupocuatro.excepciones.GolException;
 import org.grupocuatro.excepciones.JugadorException;
+import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.excepciones.PartidoException;
 
 public class ControladorGolesTest extends TestCase {
@@ -12,7 +13,7 @@ public class ControladorGolesTest extends TestCase {
     public void testCargarGol() {
         try {
             System.out.println(controladorGoles.cargarGol(15, 8, 5, "a favor"));
-        } catch (JugadorException | PartidoException | GolException e) {
+        } catch (JugadorException | PartidoException | GolException | MiembroException e) {
             System.out.println(e.getMessage());
         }
     }
