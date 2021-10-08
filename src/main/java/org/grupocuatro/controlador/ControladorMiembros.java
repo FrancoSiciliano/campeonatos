@@ -9,6 +9,7 @@ import org.grupocuatro.vo.MiembroVO;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ControladorMiembros {
 
@@ -38,12 +39,13 @@ public class ControladorMiembros {
         Jugador jugador = ControladorJugadores.getInstancia().encontrarJugador(idJugador).toModelo();
         Miembro miembro = new Miembro(club, partido);
 
-        if (perteneceAlEquipo(miembro.getClub().getIdClub(), jugador) &&
+        if (perteneceAlEquipo(miembro.getClub().getIdClub(), jugador, partido) &&
                 puedeJugarPorCategoria(partido, jugador) &&
                 puedeJugarPorDia(partido, jugador) &&
                 hayLugarEnElEquipo(jugador.getClub().getIdClub(), partido.getIdPartido()) &&
                 !elCampeonatoComenzo(partido.getCampeonato(), jugador) &&
                 estaHabilitadoParaJugar(partido, jugador)) {
+            System.out.println("hola");
             miembro.setJugador(jugador);
             miembro.save();
         }
@@ -86,8 +88,15 @@ public class ControladorMiembros {
         return transformarAListaVO(MiembroDao.getInstancia().getMiembroByJugadorAndFecha(idJugador, fecha));
     }
 
-    private boolean perteneceAlEquipo(Integer idClub, Jugador jugador) {
-        return jugador.isSuClub(idClub);
+    private boolean perteneceAlEquipo(Integer idClub, Jugador jugador, Partido partido) throws MiembroException {
+        if (jugador.isSuClub(idClub) && (Objects.equals(idClub, partido.getClubLocal().getIdClub()) || Objects.equals(idClub, partido.getClubVisitante().getIdClub())))
+            return true;
+        else {
+            if (jugador.isSuClub(idClub))
+                throw new MiembroException("El club: " + idClub + " no juega el partido: " + partido.getIdPartido());
+            else
+                throw new MiembroException("El jugador: " + idClub + " no peretenece al club: " + idClub);
+        }
     }
 
     private boolean puedeJugarPorCategoria(Partido partido, Jugador jugador) throws MiembroException {
