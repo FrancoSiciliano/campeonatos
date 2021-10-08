@@ -77,4 +77,11 @@ public class GolDao extends AbstractDao {
         throw new GolException("No existen goles");
     }
 
+    public Gol traerGol(Integer idJugador, Integer idPartido, int min, String tipo) {
+        try {
+            return (Gol) getEntityManager().createQuery("FROM Gol WHERE idJugador = " + idJugador + " idPartido = " + idPartido + " minuto = " + min + " tipo = " + tipo).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

@@ -27,19 +27,22 @@ public class ControladorGoles {
         return instancia;
     }
 
-    public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo) throws JugadorException, PartidoException {
+    public Integer cargarGol(Integer idJugador, Integer idPartido, int minuto, String tipo) throws JugadorException, PartidoException, GolException {
         ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
         Jugador jugador = controladorJugadores.encontrarJugador(idJugador).toModelo();
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         Partido partido = controladorPartidos.encontrarPartido(idPartido).toModelo();
 
-        Gol gol = null;
+        Gol gol = GolDao.getInstancia().traerGol(idJugador,idPartido,minuto,tipo);
+        if( gol == null){
+            gol = new Gol(jugador, partido, minuto, tipo);
+            gol.save();
+            return gol.getIdGol();
+        }else
+            throw new GolException("El gol ya se encuentra registrado");
 
-        gol = new Gol(jugador, partido, minuto, tipo);
 
-        gol.save();
-        System.out.println("LLEGUE");
-        return gol.getIdGol();
+
     }
 
     public int contarCantidadGoles(Integer idClub, Integer idPartido) throws PartidoException, GolException {
