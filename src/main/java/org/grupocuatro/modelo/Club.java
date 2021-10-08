@@ -94,10 +94,7 @@ public class Club implements Comparable<Club>{
     }
 
     public void save() {
-        EntityManager em = EntityManagerUtil.getEntityManager();
-        em.getTransaction().begin();
-        em.persist(this);
-        em.getTransaction().commit();
+        ClubDao.getInstancia().save(this);
     }
 
     public void update() {

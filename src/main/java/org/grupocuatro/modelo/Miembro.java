@@ -94,11 +94,7 @@ public class Miembro {
     public void setEgreso(Integer egreso) {this.egreso = egreso;}
 
     public void save() {
-        EntityManager em = EntityManagerUtil.getEntityManager();
-        em.getTransaction().begin();
-        em.persist(this);
-        em.getTransaction().commit();
-
+        MiembroDao.getInstancia().save(this);
     }
 
     public void update() {
