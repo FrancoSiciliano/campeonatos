@@ -59,7 +59,7 @@ public class ResponsableVO implements Serializable {
 
     public Responsable toModelo() {
         try {
-            Responsable resp = ResponsableDao.getInstancia().getResponsableByNroDocAndClub(documento, club.getIdClub());
+            Responsable resp = ResponsableDao.getInstancia().getResponsable(legajo);
             return resp;
         } catch (ResponsableException e) {
             return new Responsable(documento, nombre, club.toModelo());

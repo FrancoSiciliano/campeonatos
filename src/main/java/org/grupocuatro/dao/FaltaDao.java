@@ -91,14 +91,4 @@ public class FaltaDao extends AbstractDao {
 
     }
 
-    public Falta traerFalta (Integer idJugador, Integer idPartido, int minuto, String tipo) {
-        try{
-            return (Falta) getEntityManager().createQuery("FROM Falta where idPartido = " + idPartido + " AND idJugador = " + idJugador + " AND tipo = " + tipo + " AND minuto = " + minuto).getSingleResult();
-        }catch (NoResultException e){
-            return null;
-        }
-
-
-    }
-
 }

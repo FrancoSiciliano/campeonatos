@@ -62,21 +62,4 @@ public class CampeonatoDao extends AbstractDao {
         }
     }
 
-    public Campeonato traerCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
-        String qlString = "FROM Campeonato WHERE descripcion = ?1 AND fechaInicio = ?2 AND fechaFin = ?3 AND estado = ?4";
-        Query query = getEntityManager().createQuery(qlString);
-
-        query.setParameter(1, descripcion);
-        query.setParameter(2, fechaInicio);
-        query.setParameter(3, fechaFin);
-        query.setParameter(4, estado);
-
-        try {
-            return (Campeonato) query.getSingleResult();
-
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-
 }

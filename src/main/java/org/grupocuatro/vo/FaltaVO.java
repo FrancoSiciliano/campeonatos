@@ -1,6 +1,7 @@
 package org.grupocuatro.vo;
 
 import org.grupocuatro.dao.FaltaDao;
+import org.grupocuatro.excepciones.FaltaException;
 import org.grupocuatro.modelo.Falta;
 import org.grupocuatro.modelo.Jugador;
 
@@ -67,10 +68,13 @@ public class FaltaVO implements Serializable {
     }
 
     public Falta toModelo() {
-        Falta f = FaltaDao.getInstancia().traerFalta(jugador.getIdJugador(), partido.getIdPartido(), minuto, tipo);
-        if(f == null)
+        try {
+            Falta f = FaltaDao.getInstancia().getFaltaById(idFalta);
+            return f;
+        } catch (FaltaException e) {
             return new Falta(jugador.toModelo(), partido.toModelo(), minuto, tipo);
-        return f;
+        }
+
     }
 
     @Override

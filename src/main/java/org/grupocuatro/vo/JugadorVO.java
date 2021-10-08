@@ -1,6 +1,7 @@
 package org.grupocuatro.vo;
 
 import org.grupocuatro.dao.JugadorDao;
+import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Jugador;
 
@@ -149,10 +150,13 @@ public class JugadorVO implements Serializable {
     }
 
     public Jugador toModelo(){
-        Jugador j = JugadorDao.getInstancia().traerJugador(this.documento, this.tipoDocumento);
-        if(j == null )
+        try {
+            Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+            return j;
+        } catch (JugadorException e) {
             return new Jugador(this.tipoDocumento, this.documento, this.nombre, this.apellido, this.club.toModelo(), this.fechaNacimiento, this.direccion, this.mail, this.telefono);
-        return null;
+        }
+
     }
 
     @Override

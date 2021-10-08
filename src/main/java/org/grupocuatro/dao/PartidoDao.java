@@ -123,19 +123,4 @@ public class PartidoDao extends AbstractDao {
         }
     }
 
-    public Partido traerPartido(int nroZona, int categoria, Integer idClubLocal, Integer idClubVisitante, Integer idCampeonato) { //se asume que los partidos despues de zonas tendran una zona nueva
-        String qlString = "FROM Partido WHERE nroZona = ?1 AND categoria = ?2 AND idClubLocal = ?3 AND idClubVisitante = ?4 AND idCampeonato = ?5";
-        Query query = getEntityManager().createQuery(qlString);
-        query.setParameter(1, nroZona);
-        query.setParameter(2, categoria);
-        query.setParameter(3, idClubLocal);
-        query.setParameter(4, idClubVisitante);
-        query.setParameter(5, idCampeonato);
-        try {
-            return (Partido) query.getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-
 }

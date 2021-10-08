@@ -68,7 +68,7 @@ public class MiembroVO implements Serializable {
 
     public Miembro toModelo() {
         try {
-            Miembro m = MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(this.club.getIdClub(), this.partido.getIdPartido(), this.jugador.getIdJugador());
+            Miembro m = MiembroDao.getInstancia().getMiembroById(idLista);
             return m;
         } catch (MiembroException e) {
             return new Miembro(this.club.toModelo(), this.partido.toModelo(), this.jugador.toModelo());}

@@ -48,7 +48,7 @@ public class ClubVO implements Serializable {
 
     public Club toModelo(){
         try {
-            Club club = ClubDao.getInstancia().getClubByNombre(this.nombre);
+            Club club = ClubDao.getInstancia().getClubById(this.idClub);
             return club;
         } catch (ClubException e) {
             return new Club(this.idClub, this.nombre, this.direccion);
