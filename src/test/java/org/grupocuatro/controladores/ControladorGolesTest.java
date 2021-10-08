@@ -11,11 +11,10 @@ public class ControladorGolesTest extends TestCase {
 
     public void testCargarGol() {
         try {
-            System.out.println(controladorGoles.cargarGol(11, 8, 5, "a favor"));
+            System.out.println(controladorGoles.cargarGol(15, 8, 5, "a favor"));
         } catch (JugadorException | PartidoException | GolException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     public void testContarCantidadGoles() throws GolException, PartidoException {

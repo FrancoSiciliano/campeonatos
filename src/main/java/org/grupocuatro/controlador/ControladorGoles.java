@@ -33,15 +33,9 @@ public class ControladorGoles {
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         Partido partido = controladorPartidos.encontrarPartido(idPartido).toModelo();
 
-        Gol gol = GolDao.getInstancia().traerGol(idJugador,idPartido,minuto,tipo);
-        if( gol == null){
-            gol = new Gol(jugador, partido, minuto, tipo);
-            gol.save();
-            return gol.getIdGol();
-        }else
-            throw new GolException("El gol ya se encuentra registrado");
-
-
+        Gol gol = new Gol(jugador, partido, minuto, tipo);
+        gol.save();
+        return gol.getIdGol();
 
     }
 
