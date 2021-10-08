@@ -19,8 +19,8 @@ public class ControladorGolesTest extends TestCase {
     }
 
     public void testContarCantidadGoles() throws GolException, PartidoException {
-        System.out.println(controladorGoles.contarCantidadGoles(1,1));
-        System.out.println(controladorGoles.contarCantidadGoles(2,1));
+        System.out.println(controladorGoles.contarCantidadGoles(1,8));
+
     }
 
     public void testGetGoles() throws GolException {

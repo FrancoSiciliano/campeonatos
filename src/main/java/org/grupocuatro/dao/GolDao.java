@@ -51,7 +51,7 @@ public class GolDao extends AbstractDao {
     }
 
     public List<Gol> getGolesByJugadorAndPartido(Integer idPartido, Integer idJugador) throws GolException {
-        List<Gol> goles = getEntityManager().createQuery("FROM Gol WHERE idPartido = " + idPartido + " and idJugador = '" + idJugador + "' and sentido = 'a favor' ").getResultList();
+        List<Gol> goles = getEntityManager().createQuery("FROM Gol WHERE idPartido = " + idPartido + " and idJugador = " + idJugador ).getResultList();
         if (!goles.isEmpty()) return goles;
         throw new GolException("El jugador de id:  " + idJugador + " no realizó goles en el partido de id: " + idPartido);
     }

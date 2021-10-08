@@ -113,7 +113,8 @@ public class ControladorMiembrosTest extends TestCase {
 
     public void testDefinirIngresoEgreso(){
         try {
-            controladorMiembros.definirIngresoEgreso(1, 0, 90);
+            controladorMiembros.definirIngresoEgreso(6, 0, 45);
+            controladorMiembros.definirIngresoEgreso(7, 0, 70);
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
         }

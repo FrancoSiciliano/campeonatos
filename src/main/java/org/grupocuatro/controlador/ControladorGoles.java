@@ -5,10 +5,7 @@ import org.grupocuatro.excepciones.GolException;
 import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.excepciones.PartidoException;
-import org.grupocuatro.modelo.Club;
-import org.grupocuatro.modelo.Gol;
-import org.grupocuatro.modelo.Jugador;
-import org.grupocuatro.modelo.Partido;
+import org.grupocuatro.modelo.*;
 import org.grupocuatro.vo.ClubVO;
 import org.grupocuatro.vo.GolVO;
 
@@ -35,12 +32,13 @@ public class ControladorGoles {
         Partido partido = controladorPartidos.encontrarPartido(idPartido).toModelo();
 
 
-        ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido,idJugador);
-        Gol gol = new Gol(jugador, partido, minuto, tipo);
-        gol.save();
-
-
-        return gol.getIdGol();
+        Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido,idJugador).toModelo();
+        if(miembro.getIngreso()<= minuto && miembro.getEgreso() >= minuto){
+            Gol gol = new Gol(jugador, partido, minuto, tipo);
+            gol.save();
+            return gol.getIdGol();
+        }
+        throw new GolException("El jugador de id: " + idJugador + " no se encontraba en el campo en el minuto indicado (" + minuto + ")");
 
     }
 
