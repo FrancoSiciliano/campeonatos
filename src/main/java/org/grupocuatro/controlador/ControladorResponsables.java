@@ -49,6 +49,7 @@ public class ControladorResponsables {
         r.setClub(c);
         r.setNombre(nombre);
         r.update();
+
     }
 
     public ResponsableVO getResponsable(Integer idResponsable) throws ResponsableException {
