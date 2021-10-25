@@ -71,7 +71,7 @@ public class ControladorJugadores {
             ListadoJugadoresDeshabilitados jugadorDeshabilitado = new ListadoJugadoresDeshabilitados(j, c);
             System.out.println(jugadorDeshabilitado.getJugador().getIdJugador());
             System.out.println(jugadorDeshabilitado.getCampeonato().getIdCampeonato());
-            jugadorDeshabilitado.save();
+            jugadorDeshabilitado.update();
         }
     }
 

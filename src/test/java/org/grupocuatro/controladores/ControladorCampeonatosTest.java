@@ -84,7 +84,7 @@ public class ControladorCampeonatosTest extends TestCase {
             ControladorCampeonatos.getInstancia().agregarClubACampeonato(4, 4);
             ControladorCampeonatos.getInstancia().agregarClubACampeonato(5, 4);
             ControladorCampeonatos.getInstancia().agregarClubACampeonato(8, 3);
-        } catch (CampeonatoException | ClubException | ClubesCampeonatoException e) {
+        } catch (CampeonatoException | ClubException e) {
             System.out.println(e.getMessage());
         }
     }

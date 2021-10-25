@@ -54,12 +54,6 @@ public class ListadoJugadoresDeshabilitados implements Serializable {
                 '}';
     }
 
-    public void save() {
-        EntityManager em = EntityManagerUtil.getEntityManager();
-        em.getTransaction().begin();
-        em.persist(this);
-        em.getTransaction().commit();}
-
     public void update() {ListadoJugadoresDeshabilitadosDao.getInstancia().update(this);}
 
     public void delete() {ListadoJugadoresDeshabilitadosDao.getInstancia().delete(this);}
