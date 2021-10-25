@@ -17,8 +17,8 @@ public class ControladorJugadoresTest extends TestCase {
 
     public void testCrearJugador() {
         try {
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 31222222, "Diego Alberto", "Milito", 3, LocalDate.of(1979, 6, 12), "Su casa 22", "dmilito@mail.com", "123456789");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 28754213, "Ricardo Enrique", "Bochini", 4, LocalDate.of(1954, 1, 25), "Su casa 10", "rbochini@mail.com", "987654321");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 31222222, "Diego Alberto", "Milito", 1, LocalDate.of(1979, 6, 12), "Su casa 22", "dmilito@mail.com", "123456789");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 28754213, "Ricardo Enrique", "Bochini", 1, LocalDate.of(1954, 1, 25), "Su casa 10", "rbochini@mail.com", "987654321");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 31123456, "Juan Roman", "Riquelme", 1, LocalDate.of(1978, 6, 24), "Su casa 5", "rriquelme@mail.com", "123789456");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 30458741, "Marcelo Daniel", "Gallardo", 2, LocalDate.of(1976, 1, 18), "Su casa 15", "mgallardo@mail.com", "456123789");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 35487541, "Sebastian Alberto", "Torrico", 5, LocalDate.of(1980, 2, 22), "Su casa 1", "storrico@mail.com", "852741963");
@@ -299,6 +299,17 @@ public class ControladorJugadoresTest extends TestCase {
             System.out.println(a.getCantAmarillas());
             System.out.println(a.getCantRojas());
         } catch (JugadorException | ClubException | PartidoException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void testModificarEstadoCampeonato() {
+        try {
+            ControladorJugadores.getInstancia().modificarEstadoCampeonato(1,1);
+            ControladorJugadores.getInstancia().modificarEstadoCampeonato(2,1);
+            ControladorJugadores.getInstancia().modificarEstadoCampeonato(3,1);
+        } catch (CampeonatoException | JugadorException e) {
             System.out.println(e.getMessage());
         }
 
