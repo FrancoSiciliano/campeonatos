@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.CampeonatoDao;
+import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.vo.CampeonatoVO;
 
 import javax.persistence.*;
@@ -125,5 +126,9 @@ public class Campeonato implements Comparable<Campeonato>{
 
     public CampeonatoVO toVO(){
         return new CampeonatoVO(this.idCampeonato,this.descripcion,this.fechaInicio,this.fechaFin,this.estado, this.tipoCampeonato);
+    }
+    //AGREGADOS
+    public void inscribirClub(Club club) throws ClubException {
+        club.participar(this);
     }
 }

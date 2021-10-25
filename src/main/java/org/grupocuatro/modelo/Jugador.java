@@ -74,7 +74,7 @@ public class Jugador implements Comparable<Jugador> {
 
     public String getEstadisticasCampeonato(Integer camp, int cantGoles, int cantAmarillas, int cantRojas, int cantJugados) {
         return "Jugador: \n" +
-                "- Id: " + idJugador + "\n"+
+                "- Id: " + idJugador + "\n" +
                 "- Documento: " + documento + "\n" +
                 "- Nombre: " + nombre + "\n" +
                 "- Apellido: " + apellido + "\n" +
@@ -226,8 +226,17 @@ public class Jugador implements Comparable<Jugador> {
                 '}';
     }
 
-    public JugadorVO toVO(){
+    public JugadorVO toVO() {
         return new JugadorVO(this.idJugador, this.tipoDocumento, this.documento, this.nombre, this.apellido, this.club.toVO(), this.fechaNacimiento, this.direccion, this.mail, this.telefono, this.estado, this.categoria);
+    }
+
+    //AGREGAR
+    public void agregarGol(Gol gol) {
+        gol.save();
+    }
+
+    public void agregarFalta(Falta falta) {
+        falta.save();
     }
 
 }

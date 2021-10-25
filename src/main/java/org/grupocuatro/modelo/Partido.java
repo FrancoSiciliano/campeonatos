@@ -221,11 +221,11 @@ public class Partido {
         return Objects.equals(golesLocal, golesVisitante);
     }
 
-    public int getGolesGanador () {
+    public int getGolesGanador() {
         return (golesLocal > golesVisitante) ? golesLocal : golesVisitante;
     }
 
-    public int getGolesPerdedor () {
+    public int getGolesPerdedor() {
         return (golesVisitante < golesLocal) ? golesVisitante : golesLocal;
     }
 
@@ -248,8 +248,25 @@ public class Partido {
                 '}';
     }
 
-    public PartidoVO toVO(){
-        return new PartidoVO (this.idPartido, this.nroZona, this.categoria, this.clubLocal.toVO(), this.clubVisitante.toVO(), this.campeonato.toVO());
+    public PartidoVO toVO() {
+        return new PartidoVO(this.idPartido, this.nroZona, this.categoria, this.clubLocal.toVO(), this.clubVisitante.toVO(), this.campeonato.toVO());
+    }
+
+    public boolean isClubLocal(Club club) {
+        return Objects.equals(club, clubLocal);
+    }
+
+    public boolean isClubVisitante(Club club) {
+        return Objects.equals(club, clubVisitante);
+    }
+
+    // AGREGAR
+    public void agregarJugadoresLocales(Miembro miembro) {
+        miembro.save();
+    }
+
+    public void agregarJugadoresVisitantes(Miembro miembro) {
+        miembro.save();
     }
 
 }

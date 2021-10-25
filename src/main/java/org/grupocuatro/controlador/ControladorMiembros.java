@@ -46,8 +46,10 @@ public class ControladorMiembros {
                 elCampeonatoNoComenzo(partido.getCampeonato(), jugador) &&
                 estaHabilitadoParaJugar(partido, jugador)) {
 
-            miembro.setJugador(jugador);
-            miembro.save();
+            if (partido.isClubLocal(club))
+                club.agregarJugadoresToListaLocal(jugador, partido);
+            else
+                club.agregarJugadoresToListaVisitante(jugador, partido);
 
         }
     }
