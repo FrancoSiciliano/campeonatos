@@ -6,8 +6,6 @@ import org.grupocuatro.controlador.ControladorJugadores;
 import org.grupocuatro.controlador.ControladorMiembros;
 import org.grupocuatro.controlador.ControladorPartidos;
 import org.grupocuatro.excepciones.*;
-import org.grupocuatro.modelo.Jugador;
-import org.grupocuatro.modelo.Partido;
 
 import java.time.LocalDate;
 
@@ -20,9 +18,9 @@ public class ControladorMiembrosTest extends TestCase {
 
     public void testAgregarJugadoresEnLista() throws FaltaException, PartidoException, JugadorException, MiembroException {
         try {
-           // controladorMiembros.agregarJugadoresEnLista(1, 8, 15);
-            controladorMiembros.agregarJugadoresEnLista(1, 8, 16);
-            controladorMiembros.agregarJugadoresEnLista(1, 8, 17);
+           // controladorMiembros.agregarJugadorEnLista(1, 8, 15);
+            controladorMiembros.agregarJugadorEnLista(1, 8, 16);
+            controladorMiembros.agregarJugadorEnLista(1, 8, 17);
 
         } catch (ClubException e) {
             System.out.println(e.getMessage());

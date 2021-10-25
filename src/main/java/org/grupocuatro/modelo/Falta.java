@@ -36,7 +36,9 @@ public class Falta {
     public Falta() {
 
     }
-
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
     public Jugador getJugador() {
         return jugador;
     }
@@ -83,12 +85,5 @@ public class Falta {
                 ", tipo='" + tipo + '\'' +
                 '}';
     }
-    //AGREGADOS
-    public Campeonato getCampeonato() {
-        return campeonato;
-    }
 
-    public void setCampeonato(Campeonato campeonato) {
-        this.campeonato = campeonato;
-    }
 }

@@ -232,10 +232,12 @@ public class Jugador implements Comparable<Jugador> {
 
     //AGREGAR
     public void agregarGol(Gol gol) {
+        gol.setJugador(this);
         gol.save();
     }
 
     public void agregarFalta(Falta falta) {
+        falta.setJugador(this);
         falta.save();
     }
 

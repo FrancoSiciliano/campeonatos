@@ -34,13 +34,13 @@ public class ControladorFaltas {
         Falta falta = null;
 
         if (minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) {
-            falta = new Falta(jugador, partido, minuto, tipo);
-            falta.save();
+            falta = new Falta(null, partido, minuto, tipo);
+            jugador.agregarFalta(falta);
 
             if (!tipo.equals("roja")) {
                 if (correspondeRoja(idJugador, idPartido)) {
-                    falta = new Falta(jugador, partido, minuto, "roja");
-                    falta.save();
+                    falta = new Falta(null, partido, minuto, "roja");
+                    jugador.agregarFalta(falta);
                 }
             }
 

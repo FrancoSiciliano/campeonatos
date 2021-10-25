@@ -34,8 +34,8 @@ public class ControladorGoles {
 
         Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido,idJugador).toModelo();
         if(miembro.getIngreso()<= minuto && miembro.getEgreso() >= minuto){
-            Gol gol = new Gol(jugador, partido, minuto, tipo);
-            gol.save();
+            Gol gol = new Gol(null, partido, minuto, tipo);
+            jugador.agregarGol(gol);
             return gol.getIdGol();
         }
         throw new GolException("El jugador de id: " + idJugador + " no se encontraba en el campo en el minuto indicado (" + minuto + ")");

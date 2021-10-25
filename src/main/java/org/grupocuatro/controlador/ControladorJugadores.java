@@ -28,8 +28,8 @@ public class ControladorJugadores {
         JugadorDao dao = JugadorDao.getInstancia();
         if (dao.yaExisteJugador(documento, tipoDocumento)) {
             Club club = ClubDao.getInstancia().getClubById(idClub);
-            Jugador j = new Jugador(tipoDocumento, documento, nombre, apellido, club, fechaNacimiento, direccion, mail, telefono);
-            j.save();
+            Jugador j = new Jugador(tipoDocumento, documento, nombre, apellido, null, fechaNacimiento, direccion, mail, telefono);
+            club.agregarJugador(j);
             return j.getIdJugador();
 
         } else {

@@ -103,17 +103,10 @@ public class ControladorCampeonatos {
 
     //PARTE DE CLUBES CAMPEONATO
 
-    public void agregarClubACampeonato(Integer idClub, Integer idCampeonato) throws CampeonatoException, ClubException, ClubesCampeonatoException {
+    public void agregarClubACampeonato(Integer idClub, Integer idCampeonato) throws CampeonatoException, ClubException {
         Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
         Club club = ControladorClubes.getInstancia().getClubById(idClub).toModelo();
-
-        if (ClubesCampeonatoDao.getInstancia().existeClubCampeonato(idClub, idCampeonato))
-            throw new ClubesCampeonatoException("El club: " + idClub + " ya participa en el campeonato: " + idCampeonato);
-        else {
-            ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
-            nuevocc.save();
-        }
-
+        campeonato.inscribirClub(club);
     }
 
     public List<CampeonatoVO> getCampeonatosByClub(Integer idClub) throws ClubesCampeonatoException {

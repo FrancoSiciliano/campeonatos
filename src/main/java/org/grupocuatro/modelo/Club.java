@@ -115,13 +115,16 @@ public class Club implements Comparable<Club> {
     public ClubVO toVO() {
         return new ClubVO(this.idClub, this.nombre, this.direccion);
     }
+
     //AGREGADOS
 
     public void asignarResponsable(Responsable responsable) {
+        responsable.setClub(this);
         responsable.save();
     }
 
     public void agregarJugador(Jugador jugador) {
+        jugador.setClub(this);
         jugador.save();
     }
 

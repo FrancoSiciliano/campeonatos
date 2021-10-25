@@ -213,11 +213,11 @@ public class AppTest {
 //        controladorPartidos.crearPartido(1,1,80,1,2, LocalDate.of(2021,10,16),1); //BOCA RIVER
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(1), controladorPartidos.encontrarPartido(1));
-//        controladorMiembros.agregarJugadoresEnLista(1, controladorJugadores.encontrarJugador(2));
+//        controladorMiembros.agregarJugadorEnLista(1, controladorJugadores.encontrarJugador(2));
 //        controladorMiembros.definirIngresoEgreso(1,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(1), controladorPartidos.encontrarPartido(1));
-//        controladorMiembros.agregarJugadoresEnLista(2, controladorJugadores.encontrarJugador(6));
+//        controladorMiembros.agregarJugadorEnLista(2, controladorJugadores.encontrarJugador(6));
 //        controladorMiembros.definirIngresoEgreso(2,0,90);
 //
 //        controladorGoles.cargarGol(2,1,5, "a favor");
@@ -231,15 +231,15 @@ public class AppTest {
 //        controladorPartidos.crearPartido(1,1,80,3,4, LocalDate.of(2021,10,16),1); //RACING INDEPENDIENTE
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(2));
-//        controladorMiembros.agregarJugadoresEnLista(3, controladorJugadores.encontrarJugador(26));
+//        controladorMiembros.agregarJugadorEnLista(3, controladorJugadores.encontrarJugador(26));
 //        controladorMiembros.definirIngresoEgreso(3,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(2));
-//        controladorMiembros.agregarJugadoresEnLista(4, controladorJugadores.encontrarJugador(32));
+//        controladorMiembros.agregarJugadorEnLista(4, controladorJugadores.encontrarJugador(32));
 //        controladorMiembros.definirIngresoEgreso(4,0,82);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(4), controladorPartidos.encontrarPartido(2));
-//        controladorMiembros.agregarJugadoresEnLista(5, controladorJugadores.encontrarJugador(45));
+//        controladorMiembros.agregarJugadorEnLista(5, controladorJugadores.encontrarJugador(45));
 //        controladorMiembros.definirIngresoEgreso(5,0,90);
 //
 //
@@ -252,11 +252,11 @@ public class AppTest {
 //        controladorPartidos.crearPartido(2,1,80,2,1, LocalDate.of(2021,10,17),1); //RIVER BOCA
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(3));
-//        controladorMiembros.agregarJugadoresEnLista(6, controladorJugadores.encontrarJugador(15));
+//        controladorMiembros.agregarJugadorEnLista(6, controladorJugadores.encontrarJugador(15));
 //        controladorMiembros.definirIngresoEgreso(6,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(3));
-//        controladorMiembros.agregarJugadoresEnLista(7, controladorJugadores.encontrarJugador(16));
+//        controladorMiembros.agregarJugadorEnLista(7, controladorJugadores.encontrarJugador(16));
 //        controladorMiembros.definirIngresoEgreso(7,0,90);
 //
 //        controladorGoles.cargarGol(15,3,85, "a favor");
@@ -267,15 +267,15 @@ public class AppTest {
 //        controladorPartidos.crearPartido(2,1,80,4,3, LocalDate.of(2021,10,17),1); //INDEPENDIENTE RACING
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(4));
-//        controladorMiembros.agregarJugadoresEnLista(8, controladorJugadores.encontrarJugador(26));
+//        controladorMiembros.agregarJugadorEnLista(8, controladorJugadores.encontrarJugador(26));
 //        controladorMiembros.definirIngresoEgreso(8,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(3), controladorPartidos.encontrarPartido(4));
-//        controladorMiembros.agregarJugadoresEnLista(9, controladorJugadores.encontrarJugador(30));
+//        controladorMiembros.agregarJugadorEnLista(9, controladorJugadores.encontrarJugador(30));
 //        controladorMiembros.definirIngresoEgreso(9,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(4), controladorPartidos.encontrarPartido(4));
-//        controladorMiembros.agregarJugadoresEnLista(10, controladorJugadores.encontrarJugador(47));
+//        controladorMiembros.agregarJugadorEnLista(10, controladorJugadores.encontrarJugador(47));
 //        controladorMiembros.definirIngresoEgreso(10,0,90);
 //
 //        controladorGoles.cargarGol(26,4,6, "a favor");
@@ -293,11 +293,11 @@ public class AppTest {
 //        controladorPartidos.crearPartido(4,1,80,6,5, LocalDate.of(2021,10,19),1); //FERRO CASLA
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(5), controladorPartidos.encontrarPartido(7));
-//        controladorMiembros.agregarJugadoresEnLista(11, controladorJugadores.encontrarJugador(52));
+//        controladorMiembros.agregarJugadorEnLista(11, controladorJugadores.encontrarJugador(52));
 //        controladorMiembros.definirIngresoEgreso(11,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(6), controladorPartidos.encontrarPartido(7));
-//        controladorMiembros.agregarJugadoresEnLista(12, controladorJugadores.encontrarJugador(59));
+//        controladorMiembros.agregarJugadorEnLista(12, controladorJugadores.encontrarJugador(59));
 //        controladorMiembros.definirIngresoEgreso(12,0,90);
 //
 //        controladorGoles.cargarGol(52,7,54, "en contra");
@@ -307,11 +307,11 @@ public class AppTest {
 //        controladorPartidos.crearPartido(4,1,80,2,7, LocalDate.of(2021,10,19),1); // RIVER BANFIELD
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(8));
-//        controladorMiembros.agregarJugadoresEnLista(13, controladorJugadores.encontrarJugador(13));
+//        controladorMiembros.agregarJugadorEnLista(13, controladorJugadores.encontrarJugador(13));
 //        controladorMiembros.definirIngresoEgreso(13,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(2), controladorPartidos.encontrarPartido(8));
-//        controladorMiembros.agregarJugadoresEnLista(14, controladorJugadores.encontrarJugador(14));
+//        controladorMiembros.agregarJugadorEnLista(14, controladorJugadores.encontrarJugador(14));
 //        controladorMiembros.definirIngresoEgreso(14,0,90);
 //
 //
@@ -325,15 +325,15 @@ public class AppTest {
 //        controladorPartidos.crearPartido(1,1, 85,8,9, LocalDate.of(2021, 10, 22),2);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(8), controladorPartidos.encontrarPartido(9));
-//        controladorMiembros.agregarJugadoresEnLista(15, controladorJugadores.encontrarJugador(82));
+//        controladorMiembros.agregarJugadorEnLista(15, controladorJugadores.encontrarJugador(82));
 //        controladorMiembros.definirIngresoEgreso(15,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(9));
-//        controladorMiembros.agregarJugadoresEnLista(16, controladorJugadores.encontrarJugador(83));
+//        controladorMiembros.agregarJugadorEnLista(16, controladorJugadores.encontrarJugador(83));
 //        controladorMiembros.definirIngresoEgreso(16,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(8), controladorPartidos.encontrarPartido(9));
-//        controladorMiembros.agregarJugadoresEnLista(17, controladorJugadores.encontrarJugador(79));
+//        controladorMiembros.agregarJugadorEnLista(17, controladorJugadores.encontrarJugador(79));
 //        controladorMiembros.definirIngresoEgreso(17,0,90);
 //
 //        controladorGoles.cargarGol(82,9,79, "a favor");
@@ -345,11 +345,11 @@ public class AppTest {
 //        controladorPartidos.crearPartido(2,1, 85,9,8, LocalDate.of(2021, 10, 23),2);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(8), controladorPartidos.encontrarPartido(8));
-//        controladorMiembros.agregarJugadoresEnLista(18, controladorJugadores.encontrarJugador(80));
+//        controladorMiembros.agregarJugadorEnLista(18, controladorJugadores.encontrarJugador(80));
 //        controladorMiembros.definirIngresoEgreso(18,0,90);
 //
 //        controladorMiembros.crearListaJugadores(controladorClubes.getClubById(9), controladorPartidos.encontrarPartido(8));
-//        controladorMiembros.agregarJugadoresEnLista(19, controladorJugadores.encontrarJugador(86));
+//        controladorMiembros.agregarJugadorEnLista(19, controladorJugadores.encontrarJugador(86));
 //        controladorMiembros.definirIngresoEgreso(19,0,90);
 //
 //        controladorFaltas.cargarFalta(80,10,89,"roja");

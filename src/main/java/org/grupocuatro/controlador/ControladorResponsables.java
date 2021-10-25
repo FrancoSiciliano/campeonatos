@@ -37,8 +37,8 @@ public class ControladorResponsables {
         if (ResponsableDao.getInstancia().existeResponsableEnClub(documento, idClub)) {
             throw new ResponsableException("Ya existe el responsable de DNI " + documento + " en el club de id " + idClub);
         } else {
-            Responsable r = new Responsable(documento, nombre, c);
-            r.save();
+            Responsable r = new Responsable(documento, nombre, null);
+            c.asignarResponsable(r);
             return r.getLegajo();
         }
     }

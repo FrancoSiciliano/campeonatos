@@ -49,6 +49,10 @@ public class Gol {
         return minuto;
     }
 
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
+
     public String getTipo() {
         return tipo;
     }

@@ -24,7 +24,7 @@ public class ControladorMiembros {
         return instancia;
     }
 
-    public void agregarJugadoresEnLista(Integer idClub, Integer idPartido, Integer idJugador) throws PartidoException, JugadorException, MiembroException, FaltaException, ClubException {
+    public void agregarJugadorEnLista(Integer idClub, Integer idPartido, Integer idJugador) throws PartidoException, JugadorException, MiembroException, FaltaException, ClubException {
         /*
         CONTROLES:
         - Categoria: Que no participen en categorías menor que poseen (categoria >= categoriaPartido)
