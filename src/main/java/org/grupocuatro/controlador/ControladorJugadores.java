@@ -61,6 +61,20 @@ public class ControladorJugadores {
         j.update();
     }
 
+    public void modificarEstadoCampeonato(int idJugador, int idCampeonato) throws CampeonatoException, JugadorException {
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        Campeonato c = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
+        try {
+            ListadoJugadoresDeshabilitados registro = ListadoJugadoresDeshabilitadosDao.getInstancia().getByJugadorAndCampeonato(idJugador, idCampeonato);
+            registro.delete();
+        } catch (ListadoJugadoresDeshabilitadosException e) {
+            ListadoJugadoresDeshabilitados jugadorDeshabilitado = new ListadoJugadoresDeshabilitados(j, c);
+            System.out.println(jugadorDeshabilitado.getJugador().getIdJugador());
+            System.out.println(jugadorDeshabilitado.getCampeonato().getIdCampeonato());
+            jugadorDeshabilitado.save();
+        }
+    }
+
     public JugadorVO encontrarJugador(int idJugador) throws JugadorException {
         return JugadorDao.getInstancia().getJugadorById(idJugador).toVO();
     }

@@ -45,6 +45,8 @@ public class Jugador implements Comparable<Jugador> {
     @OneToMany(mappedBy = "jugador")
     private List<Miembro> partidos;
 
+    @OneToMany(mappedBy = "jugador")
+    private List<ListadoJugadoresDeshabilitados> listadoDeshabilitado;
 
     public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, LocalDate fechaNacimiento, String direccion, String mail, String telefono) {
         this.idJugador = null;
@@ -69,6 +71,7 @@ public class Jugador implements Comparable<Jugador> {
         goles = new ArrayList<>();
         faltas = new ArrayList<>();
         partidos = new ArrayList<>();
+        listadoDeshabilitado = new ArrayList<>();
     }
 
 

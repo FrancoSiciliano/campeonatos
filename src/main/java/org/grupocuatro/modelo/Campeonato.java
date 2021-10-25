@@ -32,9 +32,11 @@ public class Campeonato implements Comparable<Campeonato>{
     @OneToMany(mappedBy = "campeonato")
     private List<Partido> partidos;
 
-
     @OneToMany(mappedBy = "campeonato")
     private List<TablaPosiciones> tablaPosiciones;
+
+    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.MERGE)
+    private List<ListadoJugadoresDeshabilitados> listaDeshabilitados;
 
     public Campeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
         this.idCampeonato = null;
@@ -49,6 +51,7 @@ public class Campeonato implements Comparable<Campeonato>{
         partidos = new ArrayList<>();
         inscriptos = new ArrayList<>();
         tablaPosiciones = new ArrayList<>();
+        listaDeshabilitados = new ArrayList<>();
     }
 
     public List<TablaPosiciones> getTablaPosiciones() {
