@@ -190,6 +190,17 @@ public class ControladorPartidos {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonatoAndClub(idCampeonato, nroFecha, idClub));
     }
 
+    public List<PartidoVO> getPartidosByCampeonatoAndClubLocal(Integer idClub, Integer idCampeonato) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonatoAndClubLocal(idClub, idCampeonato));
+    }
+
+    public List<PartidoVO> getPartidosByCampeonatoAndClubVisitante(Integer idClub, Integer idCampeonato) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonatoAndClubVisitante(idClub, idCampeonato));
+    }
+    public List<PartidoVO> getPartidosByCampeonatoAndNroZona(int NroZona, Integer idCampeonato) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonatoAndNroZona(NroZona, idCampeonato));
+    }
+
     private List<PartidoVO> transformarAListaVO(List<Partido> listaModelo) {
         List<PartidoVO> listaVO = new ArrayList<>();
         for (Partido p : listaModelo)
