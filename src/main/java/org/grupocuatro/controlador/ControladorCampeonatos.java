@@ -107,6 +107,7 @@ public class ControladorCampeonatos {
         Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
         Club club = ControladorClubes.getInstancia().getClubById(idClub).toModelo();
         campeonato.inscribirClub(club);
+
     }
 
     public List<CampeonatoVO> getCampeonatosByClub(Integer idClub) throws ClubesCampeonatoException {

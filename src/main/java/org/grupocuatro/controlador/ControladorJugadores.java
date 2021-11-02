@@ -69,8 +69,6 @@ public class ControladorJugadores {
             registro.delete();
         } catch (ListadoJugadoresDeshabilitadosException e) {
             ListadoJugadoresDeshabilitados jugadorDeshabilitado = new ListadoJugadoresDeshabilitados(j, c);
-            System.out.println(jugadorDeshabilitado.getJugador().getIdJugador());
-            System.out.println(jugadorDeshabilitado.getCampeonato().getIdCampeonato());
             jugadorDeshabilitado.update();
         }
     }

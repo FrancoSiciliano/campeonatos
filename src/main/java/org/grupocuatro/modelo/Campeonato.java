@@ -133,5 +133,8 @@ public class Campeonato implements Comparable<Campeonato>{
     //AGREGADOS
     public void inscribirClub(Club club) throws ClubException {
         club.participar(this);
+        TablaPosiciones tp = new TablaPosiciones(club, this);
+        tp.save();
+
     }
 }
