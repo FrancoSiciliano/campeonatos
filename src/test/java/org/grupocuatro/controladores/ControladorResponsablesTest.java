@@ -15,10 +15,16 @@ public class ControladorResponsablesTest extends TestCase {
     public void testCrearResponsable() {
 
         try {
-            System.out.println(ControladorResponsables.getInstancia().crearResponsable(87545621, "Pablo", 2));;
-            ControladorResponsables.getInstancia().crearResponsable(34521879, "Gerardo Gonzalez", 2);
+            ControladorResponsables.getInstancia().crearResponsable(35754562, "Jorge Ameal", 1);
+            ControladorResponsables.getInstancia().crearResponsable(32457412, "Rodolfo Donofrio", 2);
             ControladorResponsables.getInstancia().crearResponsable(34852369, "Horacio Lopez", 3);
             ControladorResponsables.getInstancia().crearResponsable(35412789, "Rodolfo Mendez", 4);
+            ControladorResponsables.getInstancia().crearResponsable(24478954, "Marcelo Tinelli", 5);
+            ControladorResponsables.getInstancia().crearResponsable(21548796, "Daniel Pandolfi", 6);
+            ControladorResponsables.getInstancia().crearResponsable(25654789, "Lucía Barbuto", 7);
+            ControladorResponsables.getInstancia().crearResponsable(30214754, "Steven Zhang", 8);
+            ControladorResponsables.getInstancia().crearResponsable(23545687, "Nasser Al-Khelaifi", 9);
+            ControladorResponsables.getInstancia().crearResponsable(30254879, "Victor Blanco", 10);
         } catch (ClubException | ResponsableException e) {
             System.out.println(e.getMessage());
         }

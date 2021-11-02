@@ -1,5 +1,6 @@
 package org.grupocuatro.controlador;
 
+import org.grupocuatro.dao.ListadoJugadoresDeshabilitadosDao;
 import org.grupocuatro.dao.MiembroDao;
 import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.*;
@@ -142,7 +143,8 @@ public class ControladorMiembros {
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         int nroFecha = partido.getNroFecha();
         Campeonato campeonato = partido.getCampeonato();
-        if (jugador.isEstado()) {
+        ListadoJugadoresDeshabilitadosDao listadoDeshabilitados = ListadoJugadoresDeshabilitadosDao.getInstancia();
+        if (jugador.isEstado() && !listadoDeshabilitados.isJugadorDeshabilitado(jugador.getIdJugador(), campeonato.getIdCampeonato())) {
             try {
                 Partido ultimoPartido = controladorPartidos.getUltimoPartidoByClubAndCampeonato(jugador.getClub().getIdClub(), campeonato.getIdCampeonato(), nroFecha).toModelo();
                 List<Falta> faltas = transformarAListaModelo(ControladorFaltas.getInstancia().getFaltasByJugadorAndTipoAndPartido(jugador.getIdJugador(), "roja", ultimoPartido.getIdPartido()));

@@ -17,14 +17,8 @@ public class ControladorJugadoresTest extends TestCase {
 
     public void testCrearJugador() {
         try {
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 31222222, "Diego Alberto", "Milito", 1, LocalDate.of(1979, 6, 12), "Su casa 22", "dmilito@mail.com", "123456789");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 28754213, "Ricardo Enrique", "Bochini", 1, LocalDate.of(1954, 1, 25), "Su casa 10", "rbochini@mail.com", "987654321");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 31123456, "Juan Roman", "Riquelme", 1, LocalDate.of(1978, 6, 24), "Su casa 5", "rriquelme@mail.com", "123789456");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 30458741, "Marcelo Daniel", "Gallardo", 2, LocalDate.of(1976, 1, 18), "Su casa 15", "mgallardo@mail.com", "456123789");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 35487541, "Sebastian Alberto", "Torrico", 5, LocalDate.of(1980, 2, 22), "Su casa 1", "storrico@mail.com", "852741963");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 36875123, "Luis Angel", "Salmeron", 6, LocalDate.of(1982, 3, 18), "Su casa 9", "lsalmeron@mail.com", "258147369");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 40528741, "James David", "Rodriguez", 7, LocalDate.of(1991, 7, 12), "Su casa 100", "jrodriguez@mail.com", "963741852");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 37852136, "Washington Fernando", "Camacho", 8, LocalDate.of(1986, 4, 8), "Su casa 8", "wcamacho@mail.com", "546712893");
+
+            //BOCA 1-11
             ControladorJugadores.getInstancia().agregarJugador("DNI", 31123456, "Juan Roman", "Riquelme", 1, LocalDate.of(1978, 6, 24), "Su casa 1", "rriquelme@mail.com", "+54 11 1928-1339");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 93353922, "Agustin", "Rossi", 1, LocalDate.of(1995, 8, 21), "Su casa 2", "arossi@mail.com", "+54 11 6258-7830");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 70111576, "Carlos", "Izquierdoz", 1, LocalDate.of(1988, 11, 3), "Su casa 3", "cali@mail.com", "+54 11 2884-7437");
@@ -105,51 +99,62 @@ public class ControladorJugadoresTest extends TestCase {
             ControladorJugadores.getInstancia().agregarJugador("DNI", 97471727, "Alexis", "Maldonado", 7, LocalDate.of(1997, 9, 2), "Su casa 62", "amaldonado@mail.com", "+54 11 9379-3762");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 81923228, "Luciano", "Lollo", 7, LocalDate.of(1987, 3, 29), "Su casa 63", "llollo@mail.com", "+54 11 8502-0749");
 
-            //INTER 65 - 82
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 93497503, "Diego Alberto", "Milito", 8, LocalDate.of(1979, 6, 12), "Su casa 22", "dmilito@mail.com", "+54 11 5930-6875");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 17110900, "Samir", "Handanovic", 8, LocalDate.of(1984, 7, 14), "Su casa 4002", "shandanovic@mail.com", "+54 11 5635-8574");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 88241271, "Milan", "Skriniar", 8, LocalDate.of(1995, 2, 11), "Su casa 8362", "mskriniar@mail.com", "+54 11 9830-5406");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 65660187, "Alessandro", "Bastoni", 8, LocalDate.of(1999, 4, 13), "Su casa 3775", "abastoni@mail.com", "+54 11 8048-9715");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 81412861, "Stefan", "De Vrij", 8, LocalDate.of(1992, 2, 5), "Su casa 8769", "sdevrij@mail.com", "+54 11 3316-7343");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 87978298, "Aleksandar", "Kolarov", 8, LocalDate.of(1985, 11, 10), "Su casa 822", "akolarov@mail.com", "+54 11 6438-6574");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 10951889, "Marcelo", "Brozovic", 8, LocalDate.of(1992, 11, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 56936715, "Nicolo", "Barella", 8, LocalDate.of(1997, 2, 7), "Su casa 5715", "nbarella@mail.com", "+54 11 8081-7598");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 21885890, "Roberto", "Gagliardini", 8, LocalDate.of(1994, 4, 7), "Su casa 5647", "rgagliardini@mail.com", "+54 11 5417-1072");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 54285773, "Matias", "Vecino", 8, LocalDate.of(1991, 8, 24), "Su casa 8519", "mvecino@mail.com", "+54 11 8112-2505");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 85358523, "Arturo", "Vidal", 8, LocalDate.of(1987, 5, 22), "Su casa 9204", "avidal@mail.com", "+54 11 1611-5356");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 38185802, "Denzel", "Dumfries", 8, LocalDate.of(1996, 4, 18), "Su casa 7620", "ddumfries@mail.com", "+54 11 2114-2884");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 84748359, "Ivan", "Perisic", 8, LocalDate.of(1989, 2, 2), "Su casa 1685", "iperisic@mail.com", "+54 11 1256-5249");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 43899977, "Christian", "Eriksen", 8, LocalDate.of(1992, 2, 14), "Su casa 2929", "ceriksen@mail.com", "+54 11 9429-2538");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 35341545, "Hakan", "Calhanoglu", 8, LocalDate.of(1994, 2, 8), "Su casa 7808", "hcalhanoglu@mail.com", "+54 11 3579-9514");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 47135866, "Joaquin", "Correa", 8, LocalDate.of(1994, 8, 13), "Su casa 8275", "jcorrea@mail.com", "+54 11 6619-5289");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 48672637, "Lautaro", "Martinez", 8, LocalDate.of(1997, 8, 22), "Su casa 1288", "lmartinez@mail.com", "+54 11 8135-4107");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 51394560, "Romelu", "Lukaku", 8, LocalDate.of(1993, 5, 13), "Su casa 8180", "rlukaku@mail.com", "+54 11 6513-2168");
 
-            //PSG 83 - 104
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 36737643, "Lionel Andres", "Messi", 9, LocalDate.of(1987, 6, 24), "Su casa 4888", "lmessi@mail.com", "+54 11 8341-9359");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 83352880, "Gianluigi", "Donnarumma", 9, LocalDate.of(1999, 2, 25), "Su casa 7569", "gdonnarumma@mail.com", "+54 11 4157-2774");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 92847000, "Keylor", "Navas", 9, LocalDate.of(1986, 12, 15), "Su casa 3429", "knavas@mail.com", "+54 11 2688-9081");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 18340039, "Marcos", "Aoas Correa", 9, LocalDate.of(1994, 5, 14), "Su casa 7631", "marquinhos@mail.com", "+54 11 5020-9152");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 94183510, "Presnel", "Kimpembe", 9, LocalDate.of(1995, 8, 13), "Su casa 2722", "pkimpembe@mail.com", "+54 11 6878-6800");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 50784515, "Abdou", "Diallo", 9, LocalDate.of(1996, 5, 4), "Su casa 4292", "adiallo@mail.com", "+54 11 9674-8635");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 66432572, "Thilo", "Kherer", 9, LocalDate.of(1996, 9, 21), "Su casa 1471", "tkherer@mail.com", "+54 11 7518-9420");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 15232475, "Sergio", "Ramos", 9, LocalDate.of(1986, 3, 30), "Su casa 589", "sramos@mail.com", "+54 11 1997-2781");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 44438218, "Layvin", "Kurzawa", 9, LocalDate.of(1992, 9, 4), "Su casa 6667", "lkurzawa@mail.com", "+54 11 7839-5356");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 65975262, "Achraf", "Hakimi", 9, LocalDate.of(1998, 11, 4), "Su casa 8829", "ahakimi@mail.com", "+54 11 7930-3962");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 78043813, "Leandro", "Paredes", 9, LocalDate.of(1994, 6, 29), "Su casa 9273", "lparedes@mail.com", "+54 11 1156-8936");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 67286073, "Danilo", "Pereira", 9, LocalDate.of(1991, 9, 9), "Su casa 9389", "dpereira@mail.com", "+54 11 6230-3396");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 84370509, "Idrissa", "Gueye", 9, LocalDate.of(1989, 9, 26), "Su casa 2137", "igueye@mail.com", "+54 11 3248-6271");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 39402441, "Marco", "Verratti", 9, LocalDate.of(1992, 11, 5), "Su casa 8251", "mverratti@mail.com", "+54 11 7786-4982");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 52489401, "Georginio", "Wijnaldum", 9, LocalDate.of(1990, 11, 11), "Su casa 151", "gwijnaldum@mail.com", "+54 11 5334-0960");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 90948126, "Ander", "Herrera", 9, LocalDate.of(1989, 8, 14), "Su casa 3107", "aherrera@mail.com", "+54 11 4255-7928");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 37570073, "Xavi", "Simons", 9, LocalDate.of(2003, 4, 21), "Su casa 1749", "xsimons@mail.com", "+54 11 7068-8009");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 10484727, "Neymar", "Da Silva Santos Junior", 9, LocalDate.of(1992, 2, 5), "Su casa 5912", "neymar@mail.com", "+54 11 7974-0457");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 59535357, "Julian", "Draxler", 9, LocalDate.of(1993, 9, 2), "Su casa 8278", "jdraxler@mail.com", "+54 11 5760-9789");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 36290571, "Angel", "Di Maria", 9, LocalDate.of(1988, 2, 14), "Su casa 1183", "adimaria@mail.com", "+54 11 7688-3754");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 69989515, "Kylian", "Mbappe", 9, LocalDate.of(1998, 12, 20), "Su casa 8888", "kmbappe@mail.com", "+54 11 4768-2837");
-            ControladorJugadores.getInstancia().agregarJugador("DNI", 96986200, "Mauro", "Icardi", 9, LocalDate.of(1993, 2, 19), "Su casa 1490", "micardi@mail.com", "+54 11 6106-5305");
+            //DEFENSA Y JUSTICIA 65-72
+
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 12548754, "Washington", "Camacho", 8, LocalDate.of(1991, 11, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 10951889, "Nelson", "Acevedo", 8, LocalDate.of(1990, 11, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 10951889, "Mati", "Rojas", 8, LocalDate.of(1993, 11, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 10951889, "Facha", "Gutierrez", 8, LocalDate.of(1994, 11, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 10951889, "Brian", "Fernandez", 8, LocalDate.of(1993, 12, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 10951889, "Hermano de Brian", "Fernandez", 8, LocalDate.of(1991, 7, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 10951889, "El Defensa", "Defensor", 8, LocalDate.of(1990, 9, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 10951889, "Yo", "Nueve de Area", 8, LocalDate.of(1993, 10, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
 
 
+            //INTER 73 - 90
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 93497503, "Diego Alberto", "Milito", 9, LocalDate.of(1979, 6, 12), "Su casa 22", "dmilito@mail.com", "+54 11 5930-6875");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 17110900, "Samir", "Handanovic", 9, LocalDate.of(1984, 7, 14), "Su casa 4002", "shandanovic@mail.com", "+54 11 5635-8574");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 88241271, "Milan", "Skriniar", 9, LocalDate.of(1995, 2, 11), "Su casa 8362", "mskriniar@mail.com", "+54 11 9830-5406");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 65660187, "Alessandro", "Bastoni", 9, LocalDate.of(1999, 4, 13), "Su casa 3775", "abastoni@mail.com", "+54 11 8048-9715");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 81412861, "Stefan", "De Vrij", 9, LocalDate.of(1992, 2, 5), "Su casa 8769", "sdevrij@mail.com", "+54 11 3316-7343");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 87978298, "Aleksandar", "Kolarov", 9, LocalDate.of(1985, 11, 10), "Su casa 822", "akolarov@mail.com", "+54 11 6438-6574");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 10951889, "Marcelo", "Brozovic", 9, LocalDate.of(1992, 11, 16), "Su casa 8099", "mbrozovic@mail.com", "+54 11 1303-9702");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 56936715, "Nicolo", "Barella", 9, LocalDate.of(1997, 2, 7), "Su casa 5715", "nbarella@mail.com", "+54 11 8081-7598");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 21885890, "Roberto", "Gagliardini", 9, LocalDate.of(1994, 4, 7), "Su casa 5647", "rgagliardini@mail.com", "+54 11 5417-1072");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 54285773, "Matias", "Vecino", 9, LocalDate.of(1991, 8, 24), "Su casa 8519", "mvecino@mail.com", "+54 11 8112-2505");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 85358523, "Arturo", "Vidal", 9, LocalDate.of(1987, 5, 22), "Su casa 9204", "avidal@mail.com", "+54 11 1611-5356");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 38185802, "Denzel", "Dumfries", 9, LocalDate.of(1996, 4, 18), "Su casa 7620", "ddumfries@mail.com", "+54 11 2114-2884");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 84748359, "Ivan", "Perisic", 9, LocalDate.of(1989, 2, 2), "Su casa 1685", "iperisic@mail.com", "+54 11 1256-5249");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 43899977, "Christian", "Eriksen", 9, LocalDate.of(1992, 2, 14), "Su casa 2929", "ceriksen@mail.com", "+54 11 9429-2538");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 35341545, "Hakan", "Calhanoglu", 9, LocalDate.of(1994, 2, 8), "Su casa 7808", "hcalhanoglu@mail.com", "+54 11 3579-9514");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 47135866, "Joaquin", "Correa", 9, LocalDate.of(1994, 8, 13), "Su casa 8275", "jcorrea@mail.com", "+54 11 6619-5289");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 48672637, "Lautaro", "Martinez", 9, LocalDate.of(1997, 8, 22), "Su casa 1288", "lmartinez@mail.com", "+54 11 8135-4107");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 51394560, "Romelu", "Lukaku", 9, LocalDate.of(1993, 5, 13), "Su casa 8180", "rlukaku@mail.com", "+54 11 6513-2168");
+
+            //PSG 91 - 112
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 36737643, "Lionel Andres", "Messi", 10, LocalDate.of(1987, 6, 24), "Su casa 4888", "lmessi@mail.com", "+54 11 8341-9359");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 83352880, "Gianluigi", "Donnarumma", 10, LocalDate.of(1999, 2, 25), "Su casa 7569", "gdonnarumma@mail.com", "+54 11 4157-2774");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 92847000, "Keylor", "Navas", 10, LocalDate.of(1986, 12, 15), "Su casa 3429", "knavas@mail.com", "+54 11 2688-9081");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 18340039, "Marcos", "Aoas Correa", 10, LocalDate.of(1994, 5, 14), "Su casa 7631", "marquinhos@mail.com", "+54 11 5020-9152");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 94183510, "Presnel", "Kimpembe", 10, LocalDate.of(1995, 8, 13), "Su casa 2722", "pkimpembe@mail.com", "+54 11 6878-6800");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 50784515, "Abdou", "Diallo", 10, LocalDate.of(1996, 5, 4), "Su casa 4292", "adiallo@mail.com", "+54 11 9674-8635");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 66432572, "Thilo", "Kherer", 10, LocalDate.of(1996, 9, 21), "Su casa 1471", "tkherer@mail.com", "+54 11 7518-9420");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 15232475, "Sergio", "Ramos", 10, LocalDate.of(1986, 3, 30), "Su casa 589", "sramos@mail.com", "+54 11 1997-2781");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 44438218, "Layvin", "Kurzawa", 10, LocalDate.of(1992, 9, 4), "Su casa 6667", "lkurzawa@mail.com", "+54 11 7839-5356");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 65975262, "Achraf", "Hakimi", 10, LocalDate.of(1998, 11, 4), "Su casa 8829", "ahakimi@mail.com", "+54 11 7930-3962");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 78043813, "Leandro", "Paredes", 10, LocalDate.of(1994, 6, 29), "Su casa 9273", "lparedes@mail.com", "+54 11 1156-8936");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 67286073, "Danilo", "Pereira", 10, LocalDate.of(1991, 9, 9), "Su casa 9389", "dpereira@mail.com", "+54 11 6230-3396");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 84370509, "Idrissa", "Gueye", 10, LocalDate.of(1989, 9, 26), "Su casa 2137", "igueye@mail.com", "+54 11 3248-6271");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 39402441, "Marco", "Verratti", 10, LocalDate.of(1992, 11, 5), "Su casa 8251", "mverratti@mail.com", "+54 11 7786-4982");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 52489401, "Georginio", "Wijnaldum", 10, LocalDate.of(1990, 11, 11), "Su casa 151", "gwijnaldum@mail.com", "+54 11 5334-0960");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 90948126, "Ander", "Herrera", 10, LocalDate.of(1989, 8, 14), "Su casa 3107", "aherrera@mail.com", "+54 11 4255-7928");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 37570073, "Xavi", "Simons", 10, LocalDate.of(2003, 4, 21), "Su casa 1749", "xsimons@mail.com", "+54 11 7068-8009");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 10484727, "Neymar", "Da Silva Santos Junior", 10, LocalDate.of(1992, 2, 5), "Su casa 5912", "neymar@mail.com", "+54 11 7974-0457");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 59535357, "Julian", "Draxler", 10, LocalDate.of(1993, 9, 2), "Su casa 8278", "jdraxler@mail.com", "+54 11 5760-9789");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 36290571, "Angel", "Di Maria", 10, LocalDate.of(1988, 2, 14), "Su casa 1183", "adimaria@mail.com", "+54 11 7688-3754");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 69989515, "Kylian", "Mbappe", 10, LocalDate.of(1998, 12, 20), "Su casa 8888", "kmbappe@mail.com", "+54 11 4768-2837");
+            ControladorJugadores.getInstancia().agregarJugador("DNI", 96986200, "Mauro", "Icardi", 10, LocalDate.of(1993, 2, 19), "Su casa 1490", "micardi@mail.com", "+54 11 6106-5305");
         } catch (ClubException | JugadorException e) {
             System.out.println(e.getMessage());
         }
