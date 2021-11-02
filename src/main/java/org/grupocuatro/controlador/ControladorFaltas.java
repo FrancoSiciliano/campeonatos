@@ -107,6 +107,11 @@ public class ControladorFaltas {
         return transformarAListaVO(FaltaDao.getInstancia().getFaltasByTipo(tipo));
 
     }
+
+    public List<FaltaVO> getFaltasByClubAndPartido(Integer idClub, Integer partido) {
+        return transformarAListaVO(FaltaDao.getInstancia().getFaltasByClubAndPartido(idClub, partido));
+    }
+
     public List<Falta> transformarALista(List<FaltaVO> lista) {
         List<Falta> result = new ArrayList<>();
         for (FaltaVO item : lista) {

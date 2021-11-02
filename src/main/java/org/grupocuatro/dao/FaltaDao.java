@@ -91,4 +91,9 @@ public class FaltaDao extends AbstractDao {
 
     }
 
+    public List<Falta> getFaltasByClubAndPartido(Integer idClub, Integer Partido){
+        List<Falta> faltas = getEntityManager().createQuery("FROM Falta WHERE idPartido = " + Partido + " AND idJugador IN (FROM Jugador WHERE idClub = " + idClub + ")").getResultList();
+        return faltas;
+    }
+
 }
