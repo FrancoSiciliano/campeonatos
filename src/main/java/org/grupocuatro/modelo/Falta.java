@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.FaltaDao;
+import org.grupocuatro.vo.FaltaVO;
 
 import javax.persistence.*;
 
@@ -21,19 +22,13 @@ public class Falta {
     @JoinColumn(name = "idPartido")
     private Partido partido;
 
-
-    @ManyToOne
-    @JoinColumn(name = "idCampeonato")
-    private Campeonato campeonato;
-
     private int minuto;
     private String tipo;
 
-    public Falta(Jugador jugador, Partido partido, Campeonato campeonato, int minuto, String tipo) {
+    public Falta(Jugador jugador, Partido partido, int minuto, String tipo) {
         this.idFalta = null;
         this.jugador = jugador;
         this.partido = partido;
-        this.campeonato = campeonato;
         this.minuto = minuto;
         this.tipo = tipo;
     }
@@ -41,7 +36,9 @@ public class Falta {
     public Falta() {
 
     }
-
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
     public Jugador getJugador() {
         return jugador;
     }
@@ -66,14 +63,6 @@ public class Falta {
         this.idFalta = idFalta;
     }
 
-    public Campeonato getCampeonato() {
-        return campeonato;
-    }
-
-    public void setCampeonato(Campeonato campeonato) {
-        this.campeonato = campeonato;
-    }
-
     public void save() {
         FaltaDao.getInstancia().save(this);
     }
@@ -82,15 +71,19 @@ public class Falta {
         FaltaDao.getInstancia().update(this);
     }
 
+    public FaltaVO toVO(){
+        return new FaltaVO(idFalta, jugador.toVO(), partido.toVO(), minuto, tipo);
+    }
+
     @Override
     public String toString() {
         return "Falta{" +
                 "idFalta=" + idFalta +
                 ", jugador=" + jugador +
                 ", partido=" + partido +
-                ", campeonato=" + campeonato +
                 ", minuto=" + minuto +
                 ", tipo='" + tipo + '\'' +
                 '}';
     }
+
 }

@@ -2,37 +2,41 @@ package org.grupocuatro.controladores;
 
 import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorGoles;
+import org.grupocuatro.excepciones.GolException;
+import org.grupocuatro.excepciones.JugadorException;
+import org.grupocuatro.excepciones.MiembroException;
+import org.grupocuatro.excepciones.PartidoException;
 
 public class ControladorGolesTest extends TestCase {
     ControladorGoles controladorGoles = ControladorGoles.getInstancia();
 
     public void testCargarGol() {
-        System.out.println(controladorGoles.cargarGol(3, 1, 5, "a favor"));
-        System.out.println(controladorGoles.cargarGol(3, 1, 10, "a favor"));
-        System.out.println(controladorGoles.cargarGol(3, 1, 15, "a favor"));
-        System.out.println(controladorGoles.cargarGol(4, 1, 12, "a favor"));
-        System.out.println(controladorGoles.cargarGol(4, 1, 12, "en contra"));
+        try {
+            System.out.println(controladorGoles.cargarGol(15, 8, 5, "a favor"));
+        } catch (JugadorException | PartidoException | GolException | MiembroException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void testContarCantidadGoles() {
-        System.out.println(controladorGoles.contarCantidadGoles(1,1));
-        System.out.println(controladorGoles.contarCantidadGoles(2,1));
+    public void testContarCantidadGoles() throws GolException, PartidoException {
+        System.out.println(controladorGoles.contarCantidadGoles(1,8));
+
     }
 
-    public void testGetGoles() {
+    public void testGetGoles() throws GolException {
         System.out.println(controladorGoles.getGoles());
     }
 
-    public void testGetGolesByPartido() {
+    public void testGetGolesByPartido() throws GolException {
         System.out.println(controladorGoles.getGolesByPartido(1));
     }
 
-    public void testGetGolesByPartidoAndClub() {
+    public void testGetGolesByPartidoAndClub() throws GolException {
         System.out.println(controladorGoles.getGolesByPartidoAndClub(1, 1,2));
         System.out.println(controladorGoles.getGolesByPartidoAndClub(1,2,1));
     }
 
-    public void testGetGolesByPartidoAndSentido() {
+    public void testGetGolesByPartidoAndSentido() throws GolException {
         System.out.println(controladorGoles.getGolesByPartidoAndSentido(1, "en contra"));
         System.out.println(controladorGoles.getGolesByPartidoAndSentido(1, "a favor"));
         System.out.println(controladorGoles.getGolesByPartidoAndSentido(1, "sentidoDesconocido"));
@@ -40,13 +44,13 @@ public class ControladorGolesTest extends TestCase {
 
     }
 
-    public void testGetGolesByJugadorAndPartido() {
+    public void testGetGolesByJugadorAndPartido() throws GolException {
         System.out.println(controladorGoles.getGolesByJugadorAndPartido(1,3));
         System.out.println(controladorGoles.getGolesByJugadorAndPartido(1,4));
         System.out.println(controladorGoles.getGolesByJugadorAndPartido(1,5));
     }
 
-    public void testGetGolesByJugador() {
+    public void testGetGolesByJugador() throws GolException {
         System.out.println(controladorGoles.getGolesByJugador(1));
         System.out.println(controladorGoles.getGolesByJugador(2));
         System.out.println(controladorGoles.getGolesByJugador(3));
@@ -57,7 +61,7 @@ public class ControladorGolesTest extends TestCase {
         System.out.println(controladorGoles.getGolesByJugador(8));
     }
 
-    public void testGetGolById() {
+    public void testGetGolById() throws GolException {
         System.out.println(controladorGoles.getGolById(1));
         System.out.println(controladorGoles.getGolById(2));
         System.out.println(controladorGoles.getGolById(3));

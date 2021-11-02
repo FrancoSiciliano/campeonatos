@@ -30,4 +30,14 @@ public class ClubDaoTest extends TestCase {
             System.out.println(e.getMessage());
         }
     }
+    public void testgetClubesHabilitadosPorCategoria() {
+        try {
+            System.out.println(ClubDao.getInstancia().getClubesHabilitadosPorCategoria(10));
+            System.out.println(ClubDao.getInstancia().getClubesHabilitadosPorCategoria(20));
+            System.out.println(ClubDao.getInstancia().getClubesHabilitadosPorCategoria(30));
+            System.out.println(ClubDao.getInstancia().getClubesHabilitadosPorCategoria(40));
+        } catch (ClubException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

@@ -2,6 +2,7 @@ package org.grupocuatro.modelo;
 
 
 import org.grupocuatro.dao.PartidoDao;
+import org.grupocuatro.vo.PartidoVO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -50,27 +51,39 @@ public class Partido {
     @OneToMany(mappedBy = "partido")
     private List<Miembro> jugadoresVisitantes;
 
-    //agregamos lista de faltas del partido
     @OneToMany(mappedBy = "partido")
     private List<Falta> faltas;
 
-    //agregamos lista de goles del partido
     @OneToMany(mappedBy = "partido")
     private List<Gol> goles;
 
-    public Partido(int nroFecha, int nroZona, int categoria, Club clubLocal, Club clubVisitante, LocalDate fechaPartido, Campeonato campeonato) {
-        this.nroFecha = nroFecha;
+    public Partido(int nroZona, int categoria, Club clubLocal, Club clubVisitante, Campeonato campeonato) {
         this.nroZona = nroZona;
+        this.nroFecha = 0;
         this.categoria = categoria;
         this.clubLocal = clubLocal;
         this.clubVisitante = clubVisitante;
         this.golesLocal = null;
         this.golesVisitante = null;
-        this.fechaPartido = fechaPartido;
         this.convalidaLocal = false;
         this.convalidaVisitante = false;
         this.campeonato = campeonato;
         this.incidentes = "";
+    }
+
+    public Partido(int nroZona, int categoria, Club clubLocal, Club clubVisitante, Campeonato campeonato, LocalDate fechaPartido, int nroFecha) {
+        this.nroZona = nroZona;
+        this.nroFecha = nroFecha;
+        this.categoria = categoria;
+        this.clubLocal = clubLocal;
+        this.clubVisitante = clubVisitante;
+        this.golesLocal = null;
+        this.golesVisitante = null;
+        this.convalidaLocal = false;
+        this.convalidaVisitante = false;
+        this.campeonato = campeonato;
+        this.incidentes = "";
+        this.fechaPartido = fechaPartido;
     }
 
     public Partido() {
@@ -208,11 +221,11 @@ public class Partido {
         return Objects.equals(golesLocal, golesVisitante);
     }
 
-    public int getGolesGanador () {
+    public int getGolesGanador() {
         return (golesLocal > golesVisitante) ? golesLocal : golesVisitante;
     }
 
-    public int getGolesPerdedor () {
+    public int getGolesPerdedor() {
         return (golesVisitante < golesLocal) ? golesVisitante : golesLocal;
     }
 
@@ -233,6 +246,27 @@ public class Partido {
                 ", convalidaVisitante=" + convalidaVisitante +
                 ", campeonato=" + campeonato +
                 '}';
+    }
+
+    public PartidoVO toVO() {
+        return new PartidoVO(this.idPartido, this.nroZona, this.categoria, this.clubLocal.toVO(), this.clubVisitante.toVO(), this.campeonato.toVO());
+    }
+
+    public boolean isClubLocal(Club club) {
+        return Objects.equals(club, clubLocal);
+    }
+
+    public boolean isClubVisitante(Club club) {
+        return Objects.equals(club, clubVisitante);
+    }
+
+    // AGREGAR
+    public void agregarJugadoresLocales(Miembro miembro) {
+        miembro.save();
+    }
+
+    public void agregarJugadoresVisitantes(Miembro miembro) {
+        miembro.save();
     }
 
 }

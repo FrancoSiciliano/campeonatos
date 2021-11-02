@@ -3,15 +3,16 @@ package org.grupocuatro.controlador;
 import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubesCampeonatoDao;
 import org.grupocuatro.excepciones.CampeonatoException;
+import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
-import org.grupocuatro.modelo.Campeonato;
-import org.grupocuatro.modelo.Club;
-import org.grupocuatro.modelo.ClubesCampeonato;
+import org.grupocuatro.excepciones.PartidoException;
+import org.grupocuatro.modelo.*;
+import org.grupocuatro.strategy.*;
+import org.grupocuatro.vo.CampeonatoVO;
 
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ControladorCampeonatos {
     private static ControladorCampeonatos instancia;
@@ -25,102 +26,100 @@ public class ControladorCampeonatos {
         return instancia;
     }
 
-    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
-
+    public Integer crearCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) throws CampeonatoException {
         Campeonato nuevoCampeonato = new Campeonato(descripcion, fechaInicio, fechaFin, estado);
-        try {
-            for (Campeonato c : CampeonatoDao.getInstancia().getCampeonatos()) {
-                if (Objects.equals(descripcion, c.getDescripcion()) && Objects.equals(c.getFechaInicio(), fechaInicio) && Objects.equals(c.getFechaFin(), fechaFin) && Objects.equals(c.getEstado(), "activo")) {
-                    System.out.println("Ya existe el campeonato que se esta intentando ingresar");
-                    return null;
-                }
-            }
-            throw new CampeonatoException("");
-        } catch (CampeonatoException e) {
+
+        if (CampeonatoDao.getInstancia().existeCampeonato(descripcion, fechaInicio, fechaFin, estado))
+            throw new CampeonatoException("Ya existe el campeonato que se está intentando crear");
+        else
             nuevoCampeonato.save();
-        }
+
         return nuevoCampeonato.getIdCampeonato();
     }
 
-    public void definirTipoCampeonato(String tipo, Integer idCampeonato) {
-        try {
-            Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-            campeonato.setTipoCampeonato(tipo);
-            campeonato.update();
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
+    // TODO LA CATEGORIA LA CONTROLA LA VISTA
+    // SI SE LE PASA 0 COMO CANTIDAD DE ZONAS EL TORNEO ES POR PUNTOS.
+
+    public void definirTipoCampeonatoAndCategoria(int cantidadZonas, Integer idCampeonato, int categoria) throws ClubesCampeonatoException, PartidoException, CampeonatoException, ClubException {
+        Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
+        int cantEquipos = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato).size();
+        generarPartidos(campeonato, categoria, cantidadZonas, cantEquipos);
     }
 
-    public void terminarCampeonato(Integer idCampeonato) {
-        try {
-            Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-            campeonato.setEstado("inactivo");
-            campeonato.update();
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
+    private void generarPartidos(Campeonato campeonato, int categoria, float cantidadZonas, float cantEquipos) throws CampeonatoException, ClubesCampeonatoException, ClubException, PartidoException {
+        GeneracionPartidosStrategy strategy;
+
+        if ((cantidadZonas == 0)) {
+            campeonato.setTipoCampeonato("Puntos");
+
+            if (cantEquipos % 2 == 0)
+                strategy = new GenerarPuntosPar();
+            else
+                strategy = new GenerarPuntosImpar();
+
+        } else if (cantEquipos % 2 == 0) {
+            campeonato.setTipoCampeonato("Zonas");
+
+            if ((cantEquipos / cantidadZonas) % 2 == 0)
+                strategy = new GenerarZonasPar((int) cantidadZonas);
+            else
+                strategy = new GenerarZonasImpar((int)cantidadZonas);
+
+        } else {
+            throw new PartidoException("No pueden generase los partidos");
+
         }
+
+        campeonato.update();
+        strategy.generarPartidosCampeonato(campeonato, categoria);
     }
 
-    public Campeonato encontrarCampeonato(Integer idCampeonato) {
-        CampeonatoDao campeonatoDao = CampeonatoDao.getInstancia();
-        Campeonato campeonato;
-        try {
-            campeonato = campeonatoDao.getCampeonato(idCampeonato);
-            return campeonato;
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public void terminarCampeonato(Integer idCampeonato) throws CampeonatoException {
+
+        Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
+        campeonato.setEstado("inactivo");
+        campeonato.update();
+
     }
 
-    public List<Campeonato> getCampeonatos() {
-        try {
-            return CampeonatoDao.getInstancia().getCampeonatos();
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
+    public CampeonatoVO encontrarCampeonato(Integer idCampeonato) throws CampeonatoException {
+        return CampeonatoDao.getInstancia().getCampeonato(idCampeonato).toVO();
 
-        return null;
     }
 
-    public List<Campeonato> getCampeonatosByEstado(String estado) {
-        try {
-            return CampeonatoDao.getInstancia().getCampeonatosByEstado(estado);
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
+    public List<CampeonatoVO> getCampeonatos() throws CampeonatoException {
+        return transformarAListaVO(CampeonatoDao.getInstancia().getCampeonatos());
 
-        return null;
+    }
+
+    public List<CampeonatoVO> getCampeonatosByEstado(String estado) throws CampeonatoException {
+        return transformarAListaVO(CampeonatoDao.getInstancia().getCampeonatosByEstado(estado));
+
+    }
+
+    public boolean estaEnLaFecha(Campeonato campeonato, LocalDate fecha) {
+        return campeonato.estaEnLaFecha(fecha);
     }
 
     //PARTE DE CLUBES CAMPEONATO
 
-    public void agregarClubACampeonato(Integer idClub, Integer idCampeonato) {
-        try {
-            Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-            Club club = ControladorClubes.getInstancia().getClubById(idClub);
-            if (club != null) {
-                try {
-                    ClubesCampeonatoDao.getInstancia().getClubCampeonato(idClub, idCampeonato);
-                } catch (ClubesCampeonatoException e2) {
-                    ClubesCampeonato nuevocc = new ClubesCampeonato(club, campeonato);
-                    nuevocc.save();
-                }
-            } else System.out.println("No existe el club ingresado");
+    public void agregarClubACampeonato(Integer idClub, Integer idCampeonato) throws CampeonatoException, ClubException {
+        Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
+        Club club = ControladorClubes.getInstancia().getClubById(idClub).toModelo();
+        campeonato.inscribirClub(club);
 
-        } catch (CampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
-    public List<Campeonato> getCampeonatosByClub(Integer idClub) {
-        try {
-            return ClubesCampeonatoDao.getInstancia().getCampeonatosClub(idClub);
-        } catch (ClubesCampeonatoException e) {
-            System.out.println(e.getMessage());
+    public List<CampeonatoVO> getCampeonatosByClub(Integer idClub) throws ClubesCampeonatoException {
+        return transformarAListaVO(ClubesCampeonatoDao.getInstancia().getCampeonatosClub(idClub));
+    }
+
+    private List<CampeonatoVO> transformarAListaVO(List<Campeonato> lista) {
+        List<CampeonatoVO> result = new ArrayList<>();
+        for (Campeonato item : lista) {
+            result.add(item.toVO());
         }
-        return null;
+        return result;
     }
 
 }

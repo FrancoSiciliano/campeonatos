@@ -18,30 +18,31 @@ public class TablaPosicionDao extends AbstractDao {
         return instancia;
     }
 
-    public List<TablaPosiciones> getTablaPosicionesByClub(int id) throws TablaPosicionException {
+    public List<TablaPosiciones> getTablasPosicionesByClub(Integer id) throws TablaPosicionException {
         List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE idClub = " + id).getResultList();
         if (!tablas.isEmpty()) return tablas;
-        throw new TablaPosicionException("El club de id " + id + " no tiene tabla asociada");
+        throw new TablaPosicionException("El club de id: " + id + " no tiene tabla asociada");
     }
 
-    public TablaPosiciones getTablaPosicionesByClubAndCampeonato(int idClub, int idCampeonato) throws TablaPosicionException {
+    public TablaPosiciones getTablaPosicionesByClubAndCampeonato(Integer idClub, Integer idCampeonato) throws TablaPosicionException {
         try {
             return (TablaPosiciones) getEntityManager().createQuery("FROM TablaPosiciones WHERE idClub = " + idClub + "and idCampeonato = " + idCampeonato).getSingleResult();
         } catch (NoResultException e) {
-            throw new TablaPosicionException("El club " + idClub + " nó jugo el torneo " + idCampeonato);
+            throw new TablaPosicionException("El club de id: " + idClub + " nó jugo el campeonato de id: " + idCampeonato);
         }
 
     }
 
-    public List<TablaPosiciones> getTablaPosicionesByCampeonato(int id) throws TablaPosicionException {
+    public List<TablaPosiciones> getTablaPosicionesByCampeonato(Integer id) throws TablaPosicionException {
         List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE idCampeonato = " + id).getResultList();
         if (!tablas.isEmpty()) return tablas;
-        throw new TablaPosicionException("No existe el torneo " + id);
+        throw new TablaPosicionException("No existe el campeonato de id: " + id);
     }
+
 
     public List<TablaPosiciones> getTablaPosicionesByPuntos(int puntos) throws TablaPosicionException {
         List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE puntos = " + puntos).getResultList();
         if (!tablas.isEmpty()) return tablas;
-        throw new TablaPosicionException("No existe una Tabla con ese puntaje");
+        throw new TablaPosicionException("No existe una tabla con ese puntaje");
     }
 }

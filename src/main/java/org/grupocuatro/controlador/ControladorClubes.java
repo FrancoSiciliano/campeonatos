@@ -5,7 +5,9 @@ import org.grupocuatro.dao.ClubesCampeonatoDao;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.modelo.Club;
+import org.grupocuatro.vo.ClubVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorClubes {
@@ -20,55 +22,56 @@ public class ControladorClubes {
         return instancia;
     }
 
-    public void crearClub(Integer id, String nombre, String direccion) {
-
+    public void crearClub(Integer id, String nombre, String direccion) throws ClubException {
         Club c;
-        try {
-            ClubDao.getInstancia().getClubById(id);
-            System.out.println("Ya existe un club con ese ID");
-        } catch (ClubException e) {
+
+        if (!ClubDao.getInstancia().yaExisteElClub(id)) {
             c = new Club(id, nombre, direccion);
             c.save();
+
+        } else {
+            throw new ClubException("Ya existe el club con id: " + id);
         }
+
     }
 
-    public void modificarClub(Integer idClub, String nombre, String direccion) {
+    public void modificarClub(Integer idClub, String nombre, String direccion) throws ClubException {
         ClubDao dao = ClubDao.getInstancia();
-        try {
-            Club club = dao.getClubById(idClub);
-            club.setNombre(nombre);
-            club.setDireccion(direccion);
-            club.update();
 
-        } catch (ClubException e) {
-            System.out.print(e.getMessage());
-        }
+        Club club = dao.getClubById(idClub);
+        club.setNombre(nombre);
+        club.setDireccion(direccion);
+        club.update();
+
     }
 
-    public Club getClubById(Integer idClub) {
-        try {
-            return ClubDao.getInstancia().getClubById(idClub);
-        } catch (ClubException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public ClubVO getClubById(Integer idClub) throws ClubException {
+        return ClubDao.getInstancia().getClubById(idClub).toVO();
+
     }
 
-    public List<Club> getClubes() {
-        try {
-            return ClubDao.getInstancia().getClubes();
-        } catch (ClubException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<ClubVO> getClubes() throws ClubException {
+        return transformarAListaVO(ClubDao.getInstancia().getClubes());
+
     }
 
-    public List<Club> getClubesByCampeonato(Integer idCampeonato) {
-        try {
-            return ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(idCampeonato);
-        } catch (ClubesCampeonatoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<ClubVO> getClubesByCampeonato(Integer idCampeonato) throws ClubesCampeonatoException {
+        return transformarAListaVO(ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(idCampeonato));
+
     }
+
+
+    public List<ClubVO> getClubesHabiltadosPorCategoria(int categoria) throws ClubException {
+        return transformarAListaVO(ClubDao.getInstancia().getClubesHabilitadosPorCategoria(categoria));
+
+    }
+
+    private List<ClubVO> transformarAListaVO(List<Club> listaClubes) {
+        List<ClubVO> clubesVO = new ArrayList<>();
+        for (Club club : listaClubes) {
+            clubesVO.add(club.toVO());
+        }
+        return clubesVO;
+    }
+
 }

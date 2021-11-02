@@ -4,17 +4,16 @@ import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubDao;
 import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.dao.TablaPosicionDao;
-import org.grupocuatro.excepciones.CampeonatoException;
-import org.grupocuatro.excepciones.ClubException;
-import org.grupocuatro.excepciones.PartidoException;
-import org.grupocuatro.excepciones.TablaPosicionException;
+import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.Partido;
 import org.grupocuatro.modelo.TablaPosiciones;
+import org.grupocuatro.vo.PartidoVO;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -31,88 +30,118 @@ public class ControladorPartidos {
         return instancia;
     }
 
-    public Integer crearPartido(int nroFecha, int nroZona, int categoria, Integer idClubLocal, Integer idClubVisitante, LocalDate fecha, Integer idCampeonato) {
+    // SE SACÓ EL NROFECHA Y LA FECHA COMO PARÁMETROS, YA QUE SE ASIGNAN A POSTERIORI DE LA CREACIÓN DE LOS PARTIDOS
+
+    public Integer crearPartido(int nroZona, int categoria, Integer idClubLocal, Integer idClubVisitante, Integer idCampeonato) throws PartidoException, CampeonatoException, ClubException {
+
         ControladorCampeonatos cc = ControladorCampeonatos.getInstancia();
-        ControladorPartidos cp = ControladorPartidos.getInstancia();
-        ControladorClubes cclubes = ControladorClubes.getInstancia();
+        ControladorClubes clubes = ControladorClubes.getInstancia();
 
-        Campeonato c = cc.encontrarCampeonato(idCampeonato);
-        Club local = cclubes.getClubById(idClubLocal);
-        Club visitante = cclubes.getClubById(idClubVisitante);
+        Campeonato c = cc.encontrarCampeonato(idCampeonato).toModelo();
+        Club local = clubes.getClubById(idClubLocal).toModelo();
+        Club visitante = clubes.getClubById(idClubVisitante).toModelo();
 
-        Partido p = null;
-
-        if (c != null && local != null && visitante != null) {
-            p = new Partido(nroFecha, nroZona, categoria, local, visitante, fecha, c);
+        Partido p;
+        if (!PartidoDao.getInstancia().existePartido(nroZona, categoria, idClubLocal, idClubVisitante, idCampeonato)) {
+            p = new Partido(nroZona, categoria, local, visitante, c);
             p.save();
+
+        } else {
+            throw new PartidoException("Ya existe el partido que se esta intentando crear. Sugerencia: Si debe jugarse el mismo partido, cambiar el nroZona a uno no existente");
         }
 
-        return (p == null) ? p.getIdPartido() : null;
+        return p.getIdPartido();
 
     }
 
-    public void cargarResultadoPartido(int idPartido, String incidentes) {
-        try {
-            ControladorGoles cont = ControladorGoles.getInstancia();
-            Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
+    //SE ASUME QUE UNA FECHA NO DURA MAS DE UN DIA, ES DECIR QUE 1 FECHA = 1 DIA
+    public void cargarNroFechaYFecha(Integer idPartido, int nroFecha, LocalDate fecha) throws PartidoException {
+        Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
 
-            int clubLocal = p.getClubLocal().getIdClub();
-            int clubVisitante = p.getClubVisitante().getIdClub();
-            int cantGolesLocal = cont.contarCantidadGoles(clubLocal, idPartido);
-            int cantGolesVisitante = cont.contarCantidadGoles(clubVisitante, idPartido);
-            p.setGolesLocal(cantGolesLocal);
-            p.setGolesVisitante(cantGolesVisitante);
-            p.setIncidentes(incidentes);
+        if (ControladorCampeonatos.getInstancia().estaEnLaFecha(p.getCampeonato(), fecha) && p.getNroFecha() == 0 && p.getFechaPartido() == null) {
+            List<Partido> partidosLocal = PartidoDao.getInstancia().getPartidosByCampeonatoAndClub(p.getClubLocal().getIdClub(), p.getCampeonato().getIdCampeonato());
+            List<Partido> partidosVisitante = PartidoDao.getInstancia().getPartidosByCampeonatoAndClub(p.getClubVisitante().getIdClub(), p.getCampeonato().getIdCampeonato());
 
+
+            for (Partido pp : partidosLocal) {
+                if (pp.getNroFecha() == nroFecha) {
+                    throw new PartidoException("El club: " + pp.getClubLocal().getIdClub() + " ya juega en la fecha: " + nroFecha);
+                }
+            }
+
+            for (Partido pp : partidosVisitante) {
+                if (pp.getNroFecha() == nroFecha) {
+                    throw new PartidoException("El club: " + pp.getClubVisitante().getIdClub() + " ya juega en la fecha: " + nroFecha);
+                }
+            }
+
+            p.setNroFecha(nroFecha);
+            p.setFechaPartido(fecha);
             p.update();
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    public void validadoPorClubLocal(Integer idClubL, Integer idPartido) {
-        try {
-            Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
-            if (Objects.equals(idClubL, partido.getClubLocal().getIdClub())) {
-                partido.setConvalidaLocal();
-                partido.update();
-                modificarTablaPosiciones(partido);
+        } else {
 
-            } else {
-                System.out.println("El club ingresado no corresponde al club local");
-            }
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
+            if (p.getNroFecha() != 0)
+                throw new PartidoException("El partido: " + nroFecha + " ya posee una fecha");
+            else
+                throw new PartidoException("La fecha: " + nroFecha + " no esta comprendida entre las fechas del torneo");
         }
+
 
     }
 
-    public void validadoPorClubVisitante(Integer idClubV, Integer idPartido) {
-        try {
-            Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
-            if (Objects.equals(idClubV, partido.getClubVisitante().getIdClub())) {
-                partido.setConvalidaVisitante();
-                partido.update();
-                modificarTablaPosiciones(partido);
+    public void cargarResultadoPartido(Integer idPartido, String incidentes) throws PartidoException, GolException {
+        ControladorGoles cont = ControladorGoles.getInstancia();
+        Partido p = PartidoDao.getInstancia().getPartidoById(idPartido);
 
-            } else {
-                System.out.println("El club ingresado no corresponde al club visitante");
-            }
+        int clubLocal = p.getClubLocal().getIdClub();
+        int clubVisitante = p.getClubVisitante().getIdClub();
+        int cantGolesLocal = cont.contarCantidadGoles(clubLocal, idPartido);
+        int cantGolesVisitante = cont.contarCantidadGoles(clubVisitante, idPartido);
 
+        p.setGolesLocal(cantGolesLocal);
+        p.setGolesVisitante(cantGolesVisitante);
+        p.setIncidentes(incidentes);
+        p.update();
+    }
 
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
+    public void validadoPorClubLocal(Integer idClubL, Integer idPartido) throws PartidoException, CampeonatoException, ClubException, TablaPosicionException {
+        Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
+
+        if (Objects.equals(idClubL, partido.getClubLocal().getIdClub())) {
+            partido.setConvalidaLocal();
+            partido.update();
+            cargarResultadoEnTabla(partido);
+
+        } else {
+            throw new PartidoException("El club: " + idClubL + " no es el club local en el partido: " + idPartido);
         }
     }
 
-    private void modificarTablaPosiciones(Partido partido) {
+    public void validadoPorClubVisitante(Integer idClubV, Integer idPartido) throws PartidoException, CampeonatoException, ClubException, TablaPosicionException {
+        Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
+
+        if (Objects.equals(idClubV, partido.getClubVisitante().getIdClub())) {
+            partido.setConvalidaVisitante();
+            partido.update();
+            cargarResultadoEnTabla(partido);
+
+        } else {
+            throw new PartidoException("El club: " + idClubV + " no es el club local en el partido: " + idPartido);
+        }
+
+    }
+
+    private void cargarResultadoEnTabla(Partido partido) throws CampeonatoException, ClubException, TablaPosicionException {
+        ControladorTablasPosiciones controladorTablasPosiciones = ControladorTablasPosiciones.getInstancia();
+
         if (chequearValidacion(partido)) {
             if (partido.isEmpate()) {
-                actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesLocal(), partido.getGolesVisitante());
-                actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesVisitante(), partido.getGolesLocal());
+                controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesLocal(), partido.getGolesVisitante());
+                controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesVisitante(), partido.getGolesLocal());
             } else {
-                actualizarTablaPosiciones(partido.getGanador().getIdClub(), partido.getCampeonato().getIdCampeonato(), 3, partido.getGolesGanador(), partido.getGolesPerdedor());
-                actualizarTablaPosiciones(partido.getPerdedor().getIdClub(), partido.getCampeonato().getIdCampeonato(), 0, partido.getGolesPerdedor(), partido.getGolesGanador());
+                controladorTablasPosiciones.actualizarTablaPosiciones(partido.getGanador().getIdClub(), partido.getCampeonato().getIdCampeonato(), 3, partido.getGolesGanador(), partido.getGolesPerdedor());
+                controladorTablasPosiciones.actualizarTablaPosiciones(partido.getPerdedor().getIdClub(), partido.getCampeonato().getIdCampeonato(), 0, partido.getGolesPerdedor(), partido.getGolesGanador());
             }
         }
     }
@@ -121,128 +150,63 @@ public class ControladorPartidos {
         return partido.isValidado();
     }
 
-    public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) {
-        TablaPosiciones tp;
-        ControladorClubes controladorClubes = ControladorClubes.getInstancia();
-        ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
-
-        try {
-            tp = TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(idClub, idCampeonato);
-        } catch (TablaPosicionException e) {
-            tp = new TablaPosiciones(controladorClubes.getClubById(idClub), controladorCampeonatos.encontrarCampeonato(idCampeonato));
-            tp.save();
-        }
-
-
-        switch (puntos) {
-            case 0:
-                tp.setCantidadPerdidos(tp.getCantidadPerdidos() + 1);
-                break;
-            case 1:
-                tp.setCantidadEmpatados(tp.getCantidadEmpatados() + 1);
-                break;
-            case 3:
-                tp.setCantidadGanados(tp.getCantidadGanados() + 1);
-                break;
-        }
-
-        tp.setPuntos(tp.getPuntos() + puntos);
-
-        int difGoles = golesFavor - golesContra;
-
-        tp.setDiferenciaGoles(tp.getDiferenciaGoles() + difGoles);
-        tp.setGolesFavor(tp.getGolesFavor() + golesFavor);
-        tp.setGolesContra(tp.getGolesContra() + golesContra);
-
-        float ptos = tp.getPuntos();
-        float partidosJugados = tp.getCantidadJugados();
-
-        tp.setPromedio(ptos / partidosJugados);
-        tp.update();
+    public List<PartidoVO> getAllPartidos() throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getAllPartidos());
     }
 
-    public List<Partido> getAllPartidos() {
-        try {
-            return PartidoDao.getInstancia().getAllPartidos();
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public PartidoVO encontrarPartido(Integer idPartido) throws PartidoException {
+        return PartidoDao.getInstancia().getPartidoById(idPartido).toVO();
     }
 
-    public Partido encontrarPartido(Integer idPartido) {
-        PartidoDao partidodao = PartidoDao.getInstancia();
-        Partido partido = null;
-        try {
-            partido = partidodao.getInstancia().getPartidoById(idPartido);
-            return partido;
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<PartidoVO> getPartidosByCampeonato(Integer idCampeonato) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonato(idCampeonato));
     }
 
-    public List<Partido> getPartidosByCampeonato(Integer idCampeonato) {
-        try {
-            return PartidoDao.getInstancia().getPartidosByCampeonato(idCampeonato);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    public List<PartidoVO> getPartidosByCategoria(int categoria) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCategoria(categoria));
     }
 
-    public List<Partido> getPartidosByCategoria(int categoria) {
-        try {
-            return PartidoDao.getInstancia().getPartidosByCategoria(categoria);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public PartidoVO getUltimoPartidoByClubAndCampeonato(Integer idClub, Integer idCampeonato, int nroFechaActual) throws PartidoException {
+        return PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(idClub, idCampeonato, nroFechaActual).toVO();
     }
 
-    public Partido getUltimoPartidoByClubAndCampeonato(Club club, Campeonato campeonato, int nroFechaActual) {
-        try {
-            return PartidoDao.getInstancia().getUltimoPartidoByClubAndCampeonato(club.getIdClub(), campeonato.getIdCampeonato(), nroFechaActual);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<PartidoVO> getPartidosByNroFechaAndCampeonato(Integer idCampeonato, int nroFecha) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonato(idCampeonato, nroFecha));
     }
 
-    public List<Partido> getPartidosByNroFecha(int nroFecha) {
-        try {
-            return PartidoDao.getInstancia().getPartidosByNroFecha(nroFecha);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<PartidoVO> getPartidosByNroZona(int NroZona) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByNroZona(NroZona));
     }
 
-    public List<Partido> getPartidosByNroZona(int NroZona) {
-        try {
-            return PartidoDao.getInstancia().getPartidosByNroZona(NroZona);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<PartidoVO> getPartidosByClubLocal(int idClub) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByClubLocal(idClub));
     }
 
-    public List<Partido> getPartidosByClubLocal(int idClub) {
-        try {
-            return PartidoDao.getInstancia().getPartidosByClubLocal(idClub);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<PartidoVO> getPartidosByClubVisitante(int idClub) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByClubVisitante(idClub));
     }
 
-    public List<Partido> getPartidosByClubVisitante(int idClub) {
-        try {
-            return PartidoDao.getInstancia().getPartidosByClubVisitante(idClub);
-        } catch (PartidoException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public List<PartidoVO> getPartidosByNroFechaAndCampeonatoAndClub(Integer idCampeonato, int nroFecha, Integer idClub) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonatoAndClub(idCampeonato, nroFecha, idClub));
     }
+
+    public List<PartidoVO> getPartidosByCampeonatoAndClubLocal(Integer idClub, Integer idCampeonato) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonatoAndClubLocal(idClub, idCampeonato));
+    }
+
+    public List<PartidoVO> getPartidosByCampeonatoAndClubVisitante(Integer idClub, Integer idCampeonato) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonatoAndClubVisitante(idClub, idCampeonato));
+    }
+    public List<PartidoVO> getPartidosByCampeonatoAndNroZona(int NroZona, Integer idCampeonato) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonatoAndNroZona(NroZona, idCampeonato));
+    }
+
+    private List<PartidoVO> transformarAListaVO(List<Partido> listaModelo) {
+        List<PartidoVO> listaVO = new ArrayList<>();
+        for (Partido p : listaModelo)
+            listaVO.add(p.toVO());
+        return listaVO;
+    }
+
 
 }

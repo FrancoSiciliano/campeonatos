@@ -2,6 +2,10 @@ package org.grupocuatro.modelo;
 
 
 import org.grupocuatro.dao.ClubDao;
+import org.grupocuatro.dao.ClubesCampeonatoDao;
+import org.grupocuatro.excepciones.ClubException;
+import org.grupocuatro.utiles.EntityManagerUtil;
+import org.grupocuatro.vo.ClubVO;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -106,5 +110,42 @@ public class Club implements Comparable<Club> {
                 ", nombre='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
                 '}';
+    }
+
+    public ClubVO toVO() {
+        return new ClubVO(this.idClub, this.nombre, this.direccion);
+    }
+
+    //AGREGADOS
+
+    public void asignarResponsable(Responsable responsable) {
+        responsable.setClub(this);
+        responsable.save();
+    }
+
+    public void agregarJugador(Jugador jugador) {
+        jugador.setClub(this);
+        jugador.save();
+    }
+
+    public boolean participa(Campeonato campeonato) {
+        return ClubesCampeonatoDao.getInstancia().existeClubCampeonato(this.idClub, campeonato.getIdCampeonato());
+    }
+
+    public void participar(Campeonato campeonato) throws ClubException {
+        if (!participa(campeonato)) {
+            ClubesCampeonato cc = new ClubesCampeonato(this, campeonato);
+            cc.save();
+        } else {
+            throw new ClubException("El club " + this.idClub + " ya participa en el campeonato " + campeonato.getIdCampeonato());
+        }
+    }
+
+    public void agregarJugadoresToListaLocal(Jugador jugador, Partido partido) {
+        partido.agregarJugadoresLocales(new Miembro(this, partido, jugador));
+    }
+
+    public void agregarJugadoresToListaVisitante(Jugador jugador, Partido partido) {
+        partido.agregarJugadoresVisitantes(new Miembro(this, partido, jugador));
     }
 }

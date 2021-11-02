@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.JugadorDao;
+import org.grupocuatro.vo.JugadorVO;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -44,6 +45,8 @@ public class Jugador implements Comparable<Jugador> {
     @OneToMany(mappedBy = "jugador")
     private List<Miembro> partidos;
 
+    @OneToMany(mappedBy = "jugador")
+    private List<ListadoJugadoresDeshabilitados> listadoDeshabilitado;
 
     public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, LocalDate fechaNacimiento, String direccion, String mail, String telefono) {
         this.idJugador = null;
@@ -68,36 +71,35 @@ public class Jugador implements Comparable<Jugador> {
         goles = new ArrayList<>();
         faltas = new ArrayList<>();
         partidos = new ArrayList<>();
+        listadoDeshabilitado = new ArrayList<>();
     }
 
 
     public String getEstadisticasCampeonato(Integer camp, int cantGoles, int cantAmarillas, int cantRojas, int cantJugados) {
-        return "Jugador {" +
-                "Id: " + idJugador + ", " +
-                "Documento: " + documento + ", " +
-                "Nombre: " + nombre + ", " +
-                "Apellido: " + apellido + ", " +
-                "Club: '" + this.getClub().getNombre() + "', " +
-                "Campeonato: " + camp + ", " +
-                "Partidos jugados: " + cantJugados + ", " +
-                "Goles: " + cantGoles + ", " +
-                "Amarillas: " + cantAmarillas + ", " +
-                "Rojas: " + cantRojas + ", " +
-                "}";
+        return "Jugador: \n" +
+                "- Id: " + idJugador + "\n" +
+                "- Documento: " + documento + "\n" +
+                "- Nombre: " + nombre + "\n" +
+                "- Apellido: " + apellido + "\n" +
+                "- Club: " + this.getClub().getNombre() + "\n" +
+                "- Campeonato: " + camp + "\n" +
+                "- Partidos jugados: " + cantJugados + "\n" +
+                "- Goles: " + cantGoles + "\n" +
+                "- Amarillas: " + cantAmarillas + "\n" +
+                "- Rojas: " + cantRojas + "\n";
     }
 
     public String getEstadisticasClub(int cantGoles, int cantAmarillas, int cantRojas, int cantJugados) {
-        return "Jugador {" +
-                "Id: " + idJugador + ", " +
-                "Documento: " + documento + ", " +
-                "Nombre: " + nombre + ", " +
-                "Apellido: " + apellido + ", " +
-                "Club: '" + this.getClub().getNombre() + "', " +
-                "Partidos jugados: " + cantJugados + ", " +
-                "Goles: " + cantGoles + ", " +
-                "Amarillas: " + cantAmarillas + ", " +
-                "Rojas: " + cantRojas + ", " +
-                "}";
+        return "Jugador: \n" +
+                "- Id: " + idJugador + "\n" +
+                "- Documento: " + documento + "\n" +
+                "- Nombre: " + nombre + "\n" +
+                "- Apellido: " + apellido + "\n" +
+                "- Club: " + this.getClub().getNombre() + "\n" +
+                "- Partidos jugados: " + cantJugados + "\n" +
+                "- Goles: " + cantGoles + "\n" +
+                "- Amarillas: " + cantAmarillas + "\n" +
+                "- Rojas: " + cantRojas + "\n";
     }
 
     public LocalDate getFechaAlta() {
@@ -226,4 +228,20 @@ public class Jugador implements Comparable<Jugador> {
                 ", fechaAlta=" + fechaAlta +
                 '}';
     }
+
+    public JugadorVO toVO() {
+        return new JugadorVO(this.idJugador, this.tipoDocumento, this.documento, this.nombre, this.apellido, this.club.toVO(), this.fechaNacimiento, this.direccion, this.mail, this.telefono, this.estado, this.categoria);
+    }
+
+    //AGREGAR
+    public void agregarGol(Gol gol) {
+        gol.setJugador(this);
+        gol.save();
+    }
+
+    public void agregarFalta(Falta falta) {
+        falta.setJugador(this);
+        falta.save();
+    }
+
 }
