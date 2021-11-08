@@ -102,12 +102,29 @@ public class Jugador implements Comparable<Jugador> {
                 "- Rojas: " + cantRojas + "\n";
     }
 
-    public LocalDate getFechaAlta() {
-        return fechaAlta;
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
-    public void setFechaAlta(LocalDate fechaAlta) {
-        this.fechaAlta = fechaAlta;
+    public void setDocumento(Integer documento) {
+        this.documento = documento;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+        setCategoria(fechaNacimiento.getYear()-1900);
+    }
+
+    public void setCategoria(int categoria) {
+        this.categoria = categoria;
+    }
+
+    public LocalDate getFechaAlta() {
+        return fechaAlta;
     }
 
     public String getApellido() {

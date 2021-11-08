@@ -61,6 +61,37 @@ public class ControladorJugadores {
         j.update();
     }
 
+    public void modificarNombre (int idJugador, String nombre) throws JugadorException{
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        j.setNombre(nombre);
+        j.update();
+    }
+
+    public void modificarApellido (int idJugador, String apellido) throws JugadorException{
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        j.setApellido(apellido);
+        j.update();
+    }
+
+    public void modificarFechaNac (int idJugador, LocalDate fechaNac) throws JugadorException{
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        j.setFechaNacimiento(fechaNac);
+        j.update();
+    }
+
+    public void modificarDocumento (int idJugador, int doc) throws JugadorException{
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        j.setDocumento(doc);
+        j.update();
+    }
+
+    public void modificarTipoDocumento (int idJugador, String tipodoc) throws JugadorException{
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        j.setTipoDocumento(tipodoc);
+        j.update();
+    }
+
+
     public void modificarEstadoCampeonato(int idJugador, int idCampeonato) throws CampeonatoException, JugadorException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
         Campeonato c = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
