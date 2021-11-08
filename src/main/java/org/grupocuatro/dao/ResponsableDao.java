@@ -59,5 +59,14 @@ public class ResponsableDao extends AbstractDao {
         }
     }
 
+    public boolean validarResponsable(String mail, String password) {
+        try {
+            getEntityManager().createQuery("FROM Responsable WHERE mail = '" + mail + "' AND password = '" + password + "'").getSingleResult();
+            return true;
+        } catch (NoResultException c) {
+            return false;
+        }
+    }
+
 
 }

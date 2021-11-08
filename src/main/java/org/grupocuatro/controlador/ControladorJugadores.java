@@ -24,17 +24,29 @@ public class ControladorJugadores {
         return instancia;
     }
 
-    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, Integer idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono) throws ClubException, JugadorException {
+    public Integer agregarJugador(String tipoDocumento, int documento, String nombre, String apellido, Integer idClub, LocalDate fechaNacimiento, String direccion, String mail, String telefono, String password) throws ClubException, JugadorException {
         JugadorDao dao = JugadorDao.getInstancia();
         if (dao.yaExisteJugador(documento, tipoDocumento)) {
             Club club = ClubDao.getInstancia().getClubById(idClub);
-            Jugador j = new Jugador(tipoDocumento, documento, nombre, apellido, null, fechaNacimiento, direccion, mail, telefono);
+            Jugador j = new Jugador(tipoDocumento, documento, nombre, apellido, null, fechaNacimiento, direccion, mail, telefono, password);
             club.agregarJugador(j);
             return j.getIdJugador();
 
         } else {
             throw new JugadorException("Ya existe un jugador con " + tipoDocumento + ": " + documento);
         }
+    }
+
+    public boolean validarJugador(String mail, String password) {
+        if (JugadorDao.getInstancia().validarJugador(mail, password))
+            return true;
+        return false;
+    }
+
+    public void cambiarPassword(Integer idJugador, String password) throws JugadorException {
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        j.setPassword(password);
+        j.update();
     }
 
     public void modificarDireccion(int idJugador, String direccion) throws JugadorException {

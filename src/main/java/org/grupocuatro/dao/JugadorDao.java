@@ -85,4 +85,13 @@ public class JugadorDao extends AbstractDao {
         }
     }
 
+    public boolean validarJugador(String mail, String password) {
+        try {
+            getEntityManager().createQuery("FROM Jugador WHERE mail = '" + mail + "' AND password = '" + password + "'").getSingleResult();
+            return true;
+        } catch (NoResultException c){
+            return false;
+        }
+    }
+
 }
