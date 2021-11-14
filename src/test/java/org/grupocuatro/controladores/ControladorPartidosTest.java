@@ -16,7 +16,7 @@ public class ControladorPartidosTest extends TestCase {
 
     public void testcrearPartido(){
         try {
-            ControladorPartidos.getInstancia().crearPartido(1,90,1,2,6);
+            ControladorPartidos.getInstancia().crearPartido(1,90,1,2,2008);
 //            ControladorPartidos.getInstancia().crearPartido(2,1,78,3,4);
 //            ControladorPartidos.getInstancia().crearPartido(3,1,86,5,6);
 //            ControladorPartidos.getInstancia().crearPartido(4,1,83,7,8);
@@ -130,7 +130,7 @@ public class ControladorPartidosTest extends TestCase {
     public void testGetPartidosByCampeonato(){
         List<PartidoVO> partidos = null;
         try {
-            partidos = ControladorPartidos.getInstancia().getPartidosByCampeonato(1);
+            partidos = ControladorPartidos.getInstancia().getPartidosByCampeonato(2008);
             System.out.println(partidos);
         } catch (PartidoException e) {
             System.out.println(e.getMessage());

@@ -12,7 +12,7 @@ import org.grupocuatro.vo.StatsVO;
 
 import java.time.LocalDate;
 import java.util.List;
-
+/*/
 public class ControladorJugadoresTest extends TestCase {
 
     public void testCrearJugador() {
@@ -30,7 +30,7 @@ public class ControladorJugadoresTest extends TestCase {
             ControladorJugadores.getInstancia().agregarJugador("DNI", 88941666, "Marcelo", "Weigandt", 1, LocalDate.of(2000, 1, 11), "Su casa 9", "mweigandt@mail.com", "+54 11 2016-5915", "1234");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 91867074, "Luis", "Advincula", 1, LocalDate.of(1990, 3, 2), "Su casa 10", "ladvincula@mail.com", "+54 11 2042-7052", "1234");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 97678613, "Alan", "Varela", 1, LocalDate.of(2001, 7, 4), "Su casa 11", "avarela@mail.com", "+54 11 1142-3898", "1234");
-
+        }}}
             //RIVER 12 - 23
             ControladorJugadores.getInstancia().agregarJugador("DNI", 30458741, "Marcelo Daniel", "Gallardo", 2, LocalDate.of(1976, 1, 18), "Su casa 15", "mgallardo@mail.com", "+54 11 1945-6216", "1234");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 31587652, "Franco", "Armani", 2, LocalDate.of(1986, 10, 16), "Su casa 12", "farmani@mail.com", "+54 11 8372-6286", "1234");
@@ -333,3 +333,4 @@ public class ControladorJugadoresTest extends TestCase {
 
     }
 }
+/*/

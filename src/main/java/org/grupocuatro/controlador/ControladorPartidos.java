@@ -185,6 +185,10 @@ public class ControladorPartidos {
     public List<PartidoVO> getPartidosByClubVisitante(int idClub) throws PartidoException {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByClubVisitante(idClub));
     }
+    public List<PartidoVO> getPartidosByClub(int idClub) throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosByClub(idClub));
+    }
+
 
     public List<PartidoVO> getPartidosByNroFechaAndCampeonatoAndClub(Integer idCampeonato, int nroFecha, Integer idClub) throws PartidoException {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonatoAndClub(idCampeonato, nroFecha, idClub));

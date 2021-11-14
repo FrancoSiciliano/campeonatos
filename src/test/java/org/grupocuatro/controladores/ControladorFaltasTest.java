@@ -77,14 +77,14 @@ public class ControladorFaltasTest extends TestCase {
 
     }
 
-    public void testGetFaltasByJugadorAndPartidoAndTipoAndCampeonato() {
+    /*/public void testGetFaltasByJugadorAndPartidoAndTipoAndCampeonato() {
         try {
             System.out.println(ControladorFaltas.getInstancia().getFaltasByJugadorAndPartidoAndTipo(2, 2, "amarilla")) ;
         } catch (FaltaException e) {
             System.out.println(e.getMessage());
         }
 
-    }
+    }/*/
 
     public void testGetFaltas() {
         try {
