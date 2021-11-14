@@ -161,8 +161,8 @@ public class ControladorJugadoresTest extends TestCase {
     }
 
     public void testValidarLogin() {
-        System.out.println(ControladorJugadores.getInstancia().validarJugador("aherrera@mail.com", "1234"));
-        System.out.println(ControladorJugadores.getInstancia().validarJugador("aherrera@mail.com", "123"));
+        System.out.println(ControladorJugadores.getInstancia().loginJugador("aherrera@mail.com", "1234"));
+        System.out.println(ControladorJugadores.getInstancia().loginJugador("aherrera@mail.com", "123"));
     }
 
     public void testCambiarPassword() {

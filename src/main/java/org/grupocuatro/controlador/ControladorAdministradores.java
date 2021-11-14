@@ -25,10 +25,8 @@ public class ControladorAdministradores {
         }
     }
 
-    public boolean validarAdministrador(String mail, String password) {
-        if (AdministradorDao.getInstancia().validarAdministrador(mail, password))
-            return true;
-        return false;
+    public Integer loginAdministrador(String mail, String password) throws AdministradorException {
+        return AdministradorDao.getInstancia().loginAdministrador(mail, password);
     }
 
     public void cambiarPassword(Integer idAdmin, String password) throws AdministradorException {

@@ -6,7 +6,6 @@ import org.grupocuatro.modelo.*;
 import org.grupocuatro.vo.JugadorVO;
 import org.grupocuatro.vo.StatsVO;
 
-import javax.persistence.NoResultException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +36,8 @@ public class ControladorJugadores {
         }
     }
 
-    public boolean validarJugador(String mail, String password) {
-        if (JugadorDao.getInstancia().validarJugador(mail, password))
-            return true;
-        return false;
+    public Integer loginJugador(String mail, String password) throws JugadorException {
+        return JugadorDao.getInstancia().loginJugador(mail, password);
     }
 
     public void cambiarPassword(Integer idJugador, String password) throws JugadorException {

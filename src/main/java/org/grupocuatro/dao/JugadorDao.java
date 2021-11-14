@@ -85,12 +85,12 @@ public class JugadorDao extends AbstractDao {
         }
     }
 
-    public boolean validarJugador(String mail, String password) {
+    public Integer loginJugador(String mail, String password) throws JugadorException {
         try {
-            getEntityManager().createQuery("FROM Jugador WHERE mail = '" + mail + "' AND password = '" + password + "'").getSingleResult();
-            return true;
+            Jugador j = (Jugador) getEntityManager().createQuery("FROM Jugador WHERE mail = '" + mail + "' AND password = '" + password + "'").getSingleResult();
+            return j.getIdJugador();
         } catch (NoResultException c){
-            return false;
+            throw new JugadorException("No existe un jugador con ese correo electrónico o contraseña");
         }
     }
 

@@ -59,12 +59,12 @@ public class ResponsableDao extends AbstractDao {
         }
     }
 
-    public boolean validarResponsable(String mail, String password) {
+    public Integer validarResponsable(String mail, String password) throws ResponsableException {
         try {
-            getEntityManager().createQuery("FROM Responsable WHERE mail = '" + mail + "' AND password = '" + password + "'").getSingleResult();
-            return true;
+            Responsable r = (Responsable) getEntityManager().createQuery("FROM Responsable WHERE mail = '" + mail + "' AND password = '" + password + "'").getSingleResult();
+            return r.getLegajo();
         } catch (NoResultException c) {
-            return false;
+            throw new ResponsableException("No existe un responsable con ese correo electrónico o contraseña");
         }
     }
 

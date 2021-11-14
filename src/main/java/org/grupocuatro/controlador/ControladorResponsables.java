@@ -43,10 +43,8 @@ public class ControladorResponsables {
         }
     }
 
-    public boolean validarResponsable(String mail, String password) {
-        if (ResponsableDao.getInstancia().validarResponsable(mail, password))
-            return true;
-        return false;
+    public Integer loginResponsable(String mail, String password) throws ResponsableException {
+        return ResponsableDao.getInstancia().validarResponsable(mail, password);
     }
 
     public void cambiarPassword(Integer idResponsable, String password) throws ResponsableException {

@@ -16,8 +16,12 @@ public class ControladorAdministradoresTest extends TestCase {
     }
 
     public void testValidarLogin() {
-        System.out.println(ControladorAdministradores.getInstancia().validarAdministrador("gonpaz@mail.com", "grupo2"));
-        System.out.println(ControladorAdministradores.getInstancia().validarAdministrador("gonpaz@mail.com", "grupo1"));
+        try {
+            System.out.println(ControladorAdministradores.getInstancia().loginAdministrador("gonpaz@mail.com", "grupo2"));
+            System.out.println(ControladorAdministradores.getInstancia().loginAdministrador("gonpaz@mail.com", "grupo1"));
+        } catch (AdministradorException e) {
+            e.printStackTrace();
+        }
     }
 
     public void testCambiarPassword() {

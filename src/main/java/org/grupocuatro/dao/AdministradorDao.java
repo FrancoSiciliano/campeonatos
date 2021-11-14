@@ -44,12 +44,13 @@ public class AdministradorDao extends AbstractDao {
         }
     }
 
-    public boolean validarAdministrador(String mail, String password) {
+    public Integer loginAdministrador(String mail, String password) throws AdministradorException {
         try {
-            getEntityManager().createQuery("FROM Administrador WHERE mail = '" + mail + "' AND password = '" + password + "'").getSingleResult();
-            return true;
+            Administrador a = (Administrador) getEntityManager().createQuery("FROM Administrador WHERE mail = '" + mail + "' AND password = '" + password + "'").getSingleResult();
+            return a.getIdAdmin();
+
         } catch (NoResultException c) {
-            return false;
+            throw new AdministradorException("No existe un administrador con ese correo electrónico o contraseña");
         }
     }
 
