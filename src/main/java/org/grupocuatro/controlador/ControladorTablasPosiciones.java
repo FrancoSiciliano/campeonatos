@@ -4,6 +4,8 @@ import org.grupocuatro.dao.TablaPosicionDao;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.TablaPosicionException;
+import org.grupocuatro.modelo.Campeonato;
+import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.TablaPosiciones;
 import org.grupocuatro.vo.TablaPosicionesVO;
 
@@ -24,17 +26,21 @@ public class ControladorTablasPosiciones {
         return instancia;
     }
 
+    public void generarTablaIncial(List<Club> clubes, Campeonato campeonato) throws CampeonatoException {
+        TablaPosiciones tp;
+
+        for (Club c : clubes) {
+            tp = new TablaPosiciones(c, campeonato);
+            tp.update();
+        }
+    }
+
     public void actualizarTablaPosiciones(Integer idClub, Integer idCampeonato, int puntos, int golesFavor, int golesContra) throws ClubException, CampeonatoException, TablaPosicionException {
         TablaPosiciones tp;
         ControladorClubes controladorClubes = ControladorClubes.getInstancia();
         ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
 
-        try {
-            tp = TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(idClub, idCampeonato);
-        } catch (NoResultException e) {
-            tp = new TablaPosiciones(controladorClubes.getClubById(idClub).toModelo(), controladorCampeonatos.encontrarCampeonato(idCampeonato).toModelo());
-            tp.save();
-        }
+        tp = TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(idClub, idCampeonato);
 
 
         switch (puntos) {
@@ -78,7 +84,7 @@ public class ControladorTablasPosiciones {
     }
 
     public List<TablaPosicionesVO> getTablaPosicionesByPuntos(int puntos) throws TablaPosicionException {
-        return transformarAListaVO (TablaPosicionDao.getInstancia().getTablaPosicionesByPuntos(puntos));
+        return transformarAListaVO(TablaPosicionDao.getInstancia().getTablaPosicionesByPuntos(puntos));
 
     }
 

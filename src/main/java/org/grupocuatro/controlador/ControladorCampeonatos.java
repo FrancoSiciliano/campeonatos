@@ -9,6 +9,7 @@ import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
 import org.grupocuatro.strategy.*;
 import org.grupocuatro.vo.CampeonatoVO;
+import org.grupocuatro.vo.ClubVO;
 
 
 import java.time.LocalDate;
@@ -42,8 +43,18 @@ public class ControladorCampeonatos {
 
     public void definirTipoCampeonatoAndCategoria(int cantidadZonas, Integer idCampeonato, int categoria) throws ClubesCampeonatoException, PartidoException, CampeonatoException, ClubException {
         Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
-        int cantEquipos = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato).size();
+
+        List<ClubVO> equiposVO = ControladorClubes.getInstancia().getClubesByCampeonato(idCampeonato);
+        List<Club> equipos = new ArrayList<>();
+
+        for(ClubVO c : equiposVO) {
+            equipos.add(c.toModelo());
+        }
+
+        int cantEquipos = equipos.size();
+
         generarPartidos(campeonato, categoria, cantidadZonas, cantEquipos);
+        ControladorTablasPosiciones.getInstancia().generarTablaIncial(equipos, campeonato);
     }
 
     private void generarPartidos(Campeonato campeonato, int categoria, float cantidadZonas, float cantEquipos) throws CampeonatoException, ClubesCampeonatoException, ClubException, PartidoException {
