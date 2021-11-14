@@ -52,10 +52,10 @@ public class ControladorPartidosTest extends TestCase {
 
     public void testvalidadoPorClubVisitante(){
         try {
-            ControladorPartidos.getInstancia().validadoPorClubVisitante(2,1);
-            ControladorPartidos.getInstancia().validadoPorClubVisitante(4,2);
-            ControladorPartidos.getInstancia().validadoPorClubVisitante(6,3);
-            ControladorPartidos.getInstancia().validadoPorClubVisitante(8,4);
+            ControladorPartidos.getInstancia().validadoPorClubVisitante(1,118);
+//            ControladorPartidos.getInstancia().validadoPorClubVisitante(4,2);
+//            ControladorPartidos.getInstancia().validadoPorClubVisitante(6,3);
+//            ControladorPartidos.getInstancia().validadoPorClubVisitante(8,4);
         } catch (CampeonatoException | ClubException | TablaPosicionException | PartidoException e) {
             System.out.println(e.getMessage());
         }
@@ -63,10 +63,10 @@ public class ControladorPartidosTest extends TestCase {
 
     public void testvalidadoPorClubLocal(){
         try {
-            ControladorPartidos.getInstancia().validadoPorClubLocal(1,1);
-            ControladorPartidos.getInstancia().validadoPorClubLocal(3,2);
-            ControladorPartidos.getInstancia().validadoPorClubLocal(5,3);
-            ControladorPartidos.getInstancia().validadoPorClubLocal(7,4);
+            ControladorPartidos.getInstancia().validadoPorClubLocal(3,118);
+//            ControladorPartidos.getInstancia().validadoPorClubLocal(3,2);
+//            ControladorPartidos.getInstancia().validadoPorClubLocal(5,3);
+//            ControladorPartidos.getInstancia().validadoPorClubLocal(7,4);
         } catch (CampeonatoException | ClubException | TablaPosicionException | PartidoException e) {
             System.out.println(e.getMessage());
         }

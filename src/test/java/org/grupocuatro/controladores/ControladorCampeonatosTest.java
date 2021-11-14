@@ -73,6 +73,18 @@ public class ControladorCampeonatosTest extends TestCase {
         }
     }
 
+    public void testCampeonatosADefinir(){
+        Integer goll= 1;
+        Integer golv = null;
+
+            System.out.println(goll>2);
+
+//        try{
+//            ControladorCampeonatos.getInstancia().campeonatosADefinir();
+//        }catch(CampeonatoException | PartidoException e){
+//            System.out.println(e.getMessage());
+//        }
+    }
     public void testterminarCampeonato() {
         try {
             ControladorCampeonatos.getInstancia().terminarCampeonato(1);
