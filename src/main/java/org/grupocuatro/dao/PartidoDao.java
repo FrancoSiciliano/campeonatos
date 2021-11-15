@@ -140,9 +140,4 @@ public class PartidoDao extends AbstractDao {
         throw new PartidoException("No existen partidos correspondientes al club visitante " + idClub + " en el campeonato " + idCampeonato);
     }
 
-    public List<Partido> getPartidosByCampeonatoValidados(Integer idCampeonato) throws PartidoException {
-        List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato = " + idCampeonato + " AND validadoLocal = 1 AND validadoVisitante = 1").getResultList();
-        if (!partidos.isEmpty()) return partidos;
-        throw new PartidoException("No existen partidos correspondientes al campeonato " + idCampeonato);
-    }
 }

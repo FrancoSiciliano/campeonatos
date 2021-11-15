@@ -127,7 +127,7 @@ public class ControladorPartidos {
             cargarResultadoEnTabla(partido);
 
         } else {
-            throw new PartidoException("El club: " + idClubV + " no es el club visitante en el partido: " + idPartido);
+            throw new PartidoException("El club: " + idClubV + " no es el club local en el partido: " + idPartido);
         }
 
     }
@@ -137,35 +137,11 @@ public class ControladorPartidos {
 
         if (chequearValidacion(partido)) {
             if (partido.isEmpate()) {
-                if((partido.getGolesLocal() == null) && (partido.getGolesVisitante() == null)){
-                    partido.setGolesLocal(0);
-                    partido.setGolesVisitante(0);
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, 0, 0);
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, 0, 0);
-                }else{
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesLocal(), partido.getGolesVisitante());
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesVisitante(), partido.getGolesLocal());
-                }
-
+                controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesLocal(), partido.getGolesVisitante());
+                controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 1, partido.getGolesVisitante(), partido.getGolesLocal());
             } else {
-                if((partido.getGolesLocal() > partido.getGolesVisitante()) && (partido.getGolesVisitante() != null)){
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 3, partido.getGolesLocal(), partido.getGolesVisitante());
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 0, partido.getGolesVisitante(), partido.getGolesLocal());
-                } else if ((partido.getGolesVisitante() > partido.getGolesLocal()) && (partido.getGolesLocal() != null)){
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 0, partido.getGolesLocal(), partido.getGolesVisitante());
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 3, partido.getGolesVisitante(), partido.getGolesLocal());
-                } else if ((partido.getGolesVisitante() > partido.getGolesLocal()) && (partido.getGolesLocal() == null)){
-                    partido.setGolesLocal(0);
-                    partido.update();
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 0, 0, partido.getGolesVisitante());
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 3, partido.getGolesVisitante(), 0);
-                } else {
-                    partido.setGolesVisitante(0);
-                    partido.update();
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubLocal().getIdClub(), partido.getCampeonato().getIdCampeonato(), 3, partido.getGolesLocal(), 0);
-                    controladorTablasPosiciones.actualizarTablaPosiciones(partido.getClubVisitante().getIdClub(), partido.getCampeonato().getIdCampeonato(), 0, 0, partido.getGolesLocal());
-                }
-
+                controladorTablasPosiciones.actualizarTablaPosiciones(partido.getGanador().getIdClub(), partido.getCampeonato().getIdCampeonato(), 3, partido.getGolesGanador(), partido.getGolesPerdedor());
+                controladorTablasPosiciones.actualizarTablaPosiciones(partido.getPerdedor().getIdClub(), partido.getCampeonato().getIdCampeonato(), 0, partido.getGolesPerdedor(), partido.getGolesGanador());
             }
         }
     }

@@ -44,12 +44,6 @@ public class CampeonatoDao extends AbstractDao {
         throw new CampeonatoException("No existen campeonatos en estado: " + estado);
     }
 
-    public List<Campeonato> getCampeonatosZonasActivos () throws CampeonatoException {
-        List<Campeonato> campeonatos = getEntityManager().createQuery("FROM Campeonato WHERE estado = 'activo' and tipoCampeonato = 'Zonas' ").getResultList();
-        if(!campeonatos.isEmpty())
-            return campeonatos;
-        throw new CampeonatoException("No existen campeonatos por zonas en estado activo");
-    }
     public boolean existeCampeonato(String descripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado) {
         String qlString = "FROM Campeonato WHERE descripcion = ?1 AND fechaInicio = ?2 AND fechaFin = ?3 AND estado = ?4";
         Query query = getEntityManager().createQuery(qlString);

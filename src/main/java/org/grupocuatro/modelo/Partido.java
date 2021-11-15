@@ -209,10 +209,25 @@ public class Partido {
         return convalidaLocal && convalidaVisitante;
     }
 
+    public Club getGanador() {
+        return (golesLocal > golesVisitante) ? clubLocal : clubVisitante;
+    }
+
+    public Club getPerdedor() {
+        return (golesLocal < golesVisitante) ? clubLocal : clubVisitante;
+    }
+
     public boolean isEmpate() {
         return Objects.equals(golesLocal, golesVisitante);
     }
 
+    public int getGolesGanador() {
+        return (golesLocal > golesVisitante) ? golesLocal : golesVisitante;
+    }
+
+    public int getGolesPerdedor() {
+        return (golesVisitante < golesLocal) ? golesVisitante : golesLocal;
+    }
 
     @Override
     public String toString() {
