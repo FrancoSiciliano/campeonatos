@@ -249,7 +249,19 @@ public class Partido {
     }
 
     public PartidoVO toVO() {
-        return new PartidoVO(this.idPartido, this.nroZona, this.categoria, this.clubLocal.toVO(), this.clubVisitante.toVO(), this.campeonato.toVO());
+        return new PartidoVO(this.idPartido,
+                this.nroZona,
+                this.categoria,
+                this.clubLocal.toVO(),
+                this.clubVisitante.toVO(),
+                this.campeonato.toVO(),
+                this.nroFecha,
+                this.golesLocal,
+                this.golesVisitante,
+                this.convalidaLocal,
+                this.convalidaVisitante,
+                this.incidentes,
+                this.fechaPartido);
     }
 
     public boolean isClubLocal(Club club) {

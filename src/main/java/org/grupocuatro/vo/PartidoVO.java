@@ -28,23 +28,37 @@ public class PartidoVO implements Serializable {
     private boolean convalidaVisitante;
     private CampeonatoVO campeonato;
 
-    public PartidoVO(){
+    public PartidoVO() {
 
     }
 
-    public PartidoVO(Integer idPartido,int nroZona, int categoria, ClubVO clubLocal, ClubVO clubVisitante, CampeonatoVO campeonato) {
+    public PartidoVO(Integer idPartido,
+                     int nroZona,
+                     int categoria,
+                     ClubVO clubLocal,
+                     ClubVO clubVisitante,
+                     CampeonatoVO campeonato,
+                     int nroFecha,
+                     Integer golesLocal,
+                     Integer golesVisitante,
+                     boolean convalidaLocal,
+                     boolean convalidaVisitante,
+                     String incidentes,
+                     LocalDate fechaPartido) {
+
         this.idPartido = idPartido;
         this.nroZona = nroZona;
-        this.nroFecha = 99;
+        this.nroFecha = nroFecha;
         this.categoria = categoria;
         this.clubLocal = clubLocal;
         this.clubVisitante = clubVisitante;
-        this.golesLocal = null;
-        this.golesVisitante = null;
-        this.convalidaLocal = false;
-        this.convalidaVisitante = false;
+        this.golesLocal = golesLocal;
+        this.golesVisitante = golesVisitante;
+        this.convalidaLocal = convalidaLocal;
+        this.convalidaVisitante = convalidaVisitante;
         this.campeonato = campeonato;
-        this.incidentes = "";
+        this.incidentes = incidentes;
+        this.fechaPartido = fechaPartido;
     }
 
     public Integer getIdPartido() {
@@ -151,7 +165,7 @@ public class PartidoVO implements Serializable {
         this.campeonato = campeonato;
     }
 
-    public Partido toModelo(){
+    public Partido toModelo() {
 
         try {
             Partido part = PartidoDao.getInstancia().getPartidoById(idPartido);
