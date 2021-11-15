@@ -140,4 +140,31 @@ public class PartidoDao extends AbstractDao {
         throw new PartidoException("No existen partidos correspondientes al club visitante " + idClub + " en el campeonato " + idCampeonato);
     }
 
+    public int getCantPartidosByCampeonatoValidados(Integer idCampeonato){
+        List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato = " + idCampeonato + " AND validadoLocal = 1 AND validadoVisitante = 1").getResultList();
+        if (!partidos.isEmpty()) return partidos.size();
+        else return 0;
+    }
+
+    public int getCantPartidosByCampeonato(Integer idCampeonato){
+        List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato = " + idCampeonato).getResultList();
+        if (!partidos.isEmpty()) return partidos.size();
+        else return 0;
+    }
+
+    public int getCantZonasCampeonato (Integer idCampeonato) throws PartidoException {
+        try{
+            return (int) getEntityManager().createQuery("SELECT MAX(nroZona) from Partido WHERE idCampeonato = " + idCampeonato).getSingleResult();
+        }catch (NoResultException e){
+            throw new PartidoException("No existen zonas en las que el campeonato " + idCampeonato + " esta dividido");
+        }
+    }
+
+    public int getZonaClubCampeonato (Integer idCampeonato, Integer idClub) throws PartidoException {
+        try{
+            return (int) getEntityManager().createQuery("SELECT nroZona FROM Partido WHERE idCampeonato = " + idCampeonato + " AND idClubLocal = " + idClub).getSingleResult();
+        }catch (NoResultException e){
+            throw new PartidoException("No existe la zona para el club " + idClub + " en el campeonato " + idCampeonato);
+        }
+    }
 }

@@ -1,9 +1,9 @@
 package org.grupocuatro.controlador;
 
+import org.grupocuatro.dao.ClubesCampeonatoDao;
+import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.dao.TablaPosicionDao;
-import org.grupocuatro.excepciones.CampeonatoException;
-import org.grupocuatro.excepciones.ClubException;
-import org.grupocuatro.excepciones.TablaPosicionException;
+import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.Campeonato;
 import org.grupocuatro.modelo.Club;
 import org.grupocuatro.modelo.TablaPosiciones;
@@ -86,6 +86,21 @@ public class ControladorTablasPosiciones {
     public List<TablaPosicionesVO> getTablaPosicionesByPuntos(int puntos) throws TablaPosicionException {
         return transformarAListaVO(TablaPosicionDao.getInstancia().getTablaPosicionesByPuntos(puntos));
 
+    }
+
+    public List<List<TablaPosicionesVO>> getTablaPosicionesPorZona (Integer idCampeonato) throws PartidoException, ClubesCampeonatoException, TablaPosicionException {
+        int cantZonas = PartidoDao.getInstancia().getCantZonasCampeonato(idCampeonato);
+        List<List<TablaPosicionesVO>> resultado = new ArrayList<>(cantZonas);
+        for(int i = 0; i < cantZonas; i++){
+            resultado.add(new ArrayList<>());
+        }
+        List<Club> clubes = ClubesCampeonatoDao.getInstancia().getClubesEnCampeonato(idCampeonato);
+        for(Club c : clubes){
+            int zona = PartidoDao.getInstancia().getZonaClubCampeonato(idCampeonato,c.getIdClub());
+            resultado.get(zona-1).add(TablaPosicionDao.getInstancia().getTablaPosicionesByClubAndCampeonato(c.getIdClub(),idCampeonato).toVO());
+        }
+
+        return resultado;
     }
 
     private List<TablaPosicionesVO> transformarAListaVO(List<TablaPosiciones> lista) {

@@ -2,6 +2,7 @@ package org.grupocuatro.controlador;
 
 import org.grupocuatro.dao.CampeonatoDao;
 import org.grupocuatro.dao.ClubesCampeonatoDao;
+import org.grupocuatro.dao.PartidoDao;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
@@ -112,6 +113,18 @@ public class ControladorCampeonatos {
         return campeonato.estaEnLaFecha(fecha);
     }
 
+    public List<CampeonatoVO> campeonatosADefinir () throws CampeonatoException {
+        List<CampeonatoVO> resultado = new ArrayList<>();
+        List<Campeonato> campeonatos = CampeonatoDao.getInstancia().getCampeonatosZonasActivos();
+        for(Campeonato c : campeonatos) {
+
+            if (PartidoDao.getInstancia().getCantPartidosByCampeonato(c.getIdCampeonato()) == PartidoDao.getInstancia().getCantPartidosByCampeonatoValidados(c.getIdCampeonato()))
+                resultado.add(c.toVO());
+        }
+
+        return resultado;
+    }
+
     //PARTE DE CLUBES CAMPEONATO
 
     public void agregarClubACampeonato(Integer idClub, Integer idCampeonato) throws CampeonatoException, ClubException {
@@ -132,5 +145,6 @@ public class ControladorCampeonatos {
         }
         return result;
     }
+
 
 }
