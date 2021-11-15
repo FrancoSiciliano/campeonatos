@@ -62,4 +62,11 @@ public class CampeonatoDao extends AbstractDao {
         }
     }
 
+    public List<Campeonato> getCampeonatosZonasActivos () throws CampeonatoException {
+        List<Campeonato> campeonatos = getEntityManager().createQuery("FROM Campeonato WHERE estado = 'activo' and tipoCampeonato = 'Zonas' ").getResultList();
+        if(!campeonatos.isEmpty())
+            return campeonatos;
+        throw new CampeonatoException("No existen campeonatos por zonas en estado activo");
+    }
+
 }

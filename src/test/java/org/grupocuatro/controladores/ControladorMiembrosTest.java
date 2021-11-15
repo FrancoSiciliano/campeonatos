@@ -20,9 +20,8 @@ public class ControladorMiembrosTest extends TestCase {
 
     public void testAgregarJugadoresEnLista() throws FaltaException, PartidoException, JugadorException, MiembroException {
         try {
-           // controladorMiembros.agregarJugadorEnLista(1, 8, 15);
-            controladorMiembros.agregarJugadorEnLista(1, 8, 16);
-            controladorMiembros.agregarJugadorEnLista(1, 8, 17);
+            controladorMiembros.agregarJugadorEnLista(4, 134, 48);
+            controladorMiembros.agregarJugadorEnLista(4, 134, 49);
 
         } catch (ClubException e) {
             System.out.println(e.getMessage());
@@ -113,8 +112,8 @@ public class ControladorMiembrosTest extends TestCase {
 
     public void testDefinirIngresoEgreso(){
         try {
-            controladorMiembros.definirIngresoEgreso(6, 0, 45);
-            controladorMiembros.definirIngresoEgreso(7, 0, 70);
+            controladorMiembros.definirIngresoEgreso(21, 0, 90);
+            controladorMiembros.definirIngresoEgreso(22, 0, 90);
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
         }
