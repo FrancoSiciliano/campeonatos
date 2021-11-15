@@ -109,8 +109,6 @@ public class Jugador implements Comparable<Jugador> {
 
     public String getPassword() {return this.password;}
 
-    public LocalDate getFechaAlta() {
-        return fechaAlta;
 
     public void setTipoDocumento(String tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
