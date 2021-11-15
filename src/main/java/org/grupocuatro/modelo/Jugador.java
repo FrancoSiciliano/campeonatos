@@ -26,6 +26,7 @@ public class Jugador implements Comparable<Jugador> {
     private String apellido;
     private String direccion;
     private String mail;
+    private String password;
     private String telefono;
     private int categoria;
     private boolean estado;
@@ -48,7 +49,7 @@ public class Jugador implements Comparable<Jugador> {
     @OneToMany(mappedBy = "jugador")
     private List<ListadoJugadoresDeshabilitados> listadoDeshabilitado;
 
-    public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, LocalDate fechaNacimiento, String direccion, String mail, String telefono) {
+    public Jugador(String tipoDocumento, int documento, String nombre, String apellido, Club club, LocalDate fechaNacimiento, String direccion, String mail, String telefono, String password) {
         this.idJugador = null;
         this.documento = documento;
         this.nombre = nombre;
@@ -61,6 +62,7 @@ public class Jugador implements Comparable<Jugador> {
         this.tipoDocumento = tipoDocumento;
         this.direccion = direccion;
         this.mail = mail;
+        this.password = password;
         this.telefono = telefono;
 
         int auxCategoria = fechaNacimiento.getYear();
@@ -102,6 +104,14 @@ public class Jugador implements Comparable<Jugador> {
                 "- Rojas: " + cantRojas + "\n";
     }
 
+
+    public void setPassword(String password) {this.password = password;}
+
+    public String getPassword() {return this.password;}
+
+    public LocalDate getFechaAlta() {
+        return fechaAlta;
+
     public void setTipoDocumento(String tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
@@ -117,6 +127,7 @@ public class Jugador implements Comparable<Jugador> {
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
         setCategoria(fechaNacimiento.getYear()-1900);
+
     }
 
     public void setCategoria(int categoria) {
@@ -247,7 +258,7 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     public JugadorVO toVO() {
-        return new JugadorVO(this.idJugador, this.tipoDocumento, this.documento, this.nombre, this.apellido, this.club.toVO(), this.fechaNacimiento, this.direccion, this.mail, this.telefono, this.estado, this.categoria);
+        return new JugadorVO(this.idJugador, this.tipoDocumento, this.documento, this.nombre, this.apellido, this.club.toVO(), this.fechaNacimiento, this.direccion, this.mail, this.telefono, this.estado, this.categoria, this.password);
     }
 
     //AGREGAR

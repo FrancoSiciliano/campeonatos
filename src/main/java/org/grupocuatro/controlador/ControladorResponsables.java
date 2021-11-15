@@ -32,15 +32,25 @@ public class ControladorResponsables {
         return instancia;
     }
 
-    public Integer crearResponsable(Integer documento, String nombre, Integer idClub) throws ClubException, ResponsableException {
+    public Integer crearResponsable(Integer documento, String nombre, String apellido, String mail, String password, Integer idClub) throws ClubException, ResponsableException {
         Club c = ClubDao.getInstancia().getClubById(idClub);
         if (ResponsableDao.getInstancia().existeResponsableEnClub(documento, idClub)) {
             throw new ResponsableException("Ya existe el responsable de DNI " + documento + " en el club de id " + idClub);
         } else {
-            Responsable r = new Responsable(documento, nombre, null);
+            Responsable r = new Responsable(documento, nombre, apellido, null, mail, password);
             c.asignarResponsable(r);
             return r.getLegajo();
         }
+    }
+
+    public Integer loginResponsable(String mail, String password) throws ResponsableException {
+        return ResponsableDao.getInstancia().validarResponsable(mail, password);
+    }
+
+    public void cambiarPassword(Integer idResponsable, String password) throws ResponsableException {
+        Responsable r = ResponsableDao.getInstancia().getResponsable(idResponsable);
+        r.setPassword(password);
+        r.update();
     }
 
     public void modificarResponsable(Integer legajoResponsable, String nombre, Integer idClub) throws ResponsableException, ClubException {

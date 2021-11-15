@@ -8,7 +8,7 @@ import org.grupocuatro.excepciones.ClubesCampeonatoException;
 import org.grupocuatro.excepciones.PartidoException;
 
 import java.time.LocalDate;
-
+/*/
 public class ControladorCampeonatosTest extends TestCase {
 
     public void testgetCampeonatos() {
@@ -92,6 +92,8 @@ public class ControladorCampeonatosTest extends TestCase {
         } catch (CampeonatoException e) {
             System.out.println(e.getMessage());
         }
+
+
     }
 
     public void testencontrarCampeonato() {
@@ -104,6 +106,28 @@ public class ControladorCampeonatosTest extends TestCase {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public void testagregarClubACampeonato() {
+
+        try {
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(1, 6);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(2, 6);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(3, 6);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(4, 6);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(5, 6);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(6, 6);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(7, 6);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(8, 6);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(1, 4);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(2, 4);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(3, 4);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(4, 4);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(5, 4);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(8, 3);
+        } catch (CampeonatoException | ClubException | ClubesCampeonatoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testgetCampeonatosByClub() {
@@ -119,3 +143,4 @@ public class ControladorCampeonatosTest extends TestCase {
 
 
 }
+/*/

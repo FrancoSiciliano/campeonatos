@@ -13,16 +13,22 @@ public class ResponsableVO implements Serializable {
     private Integer legajo;
     private Integer documento;
     private String nombre;
+    private String apellido;
     private ClubVO club;
+    private String mail;
+    private String password;
 
     public ResponsableVO() {
     }
 
-    public ResponsableVO(Integer legajo, Integer documento, String nombre, ClubVO club) {
+    public ResponsableVO(Integer legajo, Integer documento, String nombre, String apellido, String mail, String password, ClubVO club) {
         this.legajo = legajo;
         this.documento = documento;
         this.nombre = nombre;
         this.club = club;
+        this.apellido = apellido;
+        this.mail = mail;
+        this.password = password;
     }
 
     public Integer getLegajo() {
@@ -62,7 +68,7 @@ public class ResponsableVO implements Serializable {
             Responsable resp = ResponsableDao.getInstancia().getResponsable(legajo);
             return resp;
         } catch (ResponsableException e) {
-            return new Responsable(documento, nombre, club.toModelo());
+            return new Responsable(documento, nombre, apellido, club.toModelo(), mail, password);
         }
 
     }

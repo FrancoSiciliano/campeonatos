@@ -19,7 +19,6 @@ public class Campeonato implements Comparable<Campeonato>{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCampeonato")
     private Integer idCampeonato;
-
     private String descripcion;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;

@@ -19,6 +19,7 @@ public class JugadorVO implements Serializable {
     private String apellido;
     private String direccion;
     private String mail;
+    private String password;
     private String telefono;
     private int categoria;
     private boolean estado;
@@ -29,7 +30,7 @@ public class JugadorVO implements Serializable {
     public JugadorVO () {
 
     }
-    public JugadorVO(Integer idJugador,String tipoDocumento, int documento, String nombre, String apellido, ClubVO club, LocalDate fechaNacimiento, String direccion, String mail, String telefono, boolean estado, int categoria){
+    public JugadorVO(Integer idJugador,String tipoDocumento, int documento, String nombre, String apellido, ClubVO club, LocalDate fechaNacimiento, String direccion, String mail, String telefono, boolean estado, int categoria, String password){
         this.idJugador = idJugador;
         this.documento = documento;
         this.nombre = nombre;
@@ -43,7 +44,10 @@ public class JugadorVO implements Serializable {
         this.mail = mail;
         this.telefono = telefono;
         this.categoria = categoria;
+        this.password = password;
     }
+
+    public String getPassword(){return password;}
 
     public Integer getIdJugador() {
         return idJugador;
@@ -154,7 +158,7 @@ public class JugadorVO implements Serializable {
             Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
             return j;
         } catch (JugadorException e) {
-            return new Jugador(this.tipoDocumento, this.documento, this.nombre, this.apellido, this.club.toModelo(), this.fechaNacimiento, this.direccion, this.mail, this.telefono);
+            return new Jugador(this.tipoDocumento, this.documento, this.nombre, this.apellido, this.club.toModelo(), this.fechaNacimiento, this.direccion, this.mail, this.telefono, this.password);
         }
 
     }

@@ -6,6 +6,8 @@ import org.grupocuatro.controlador.ControladorJugadores;
 import org.grupocuatro.controlador.ControladorMiembros;
 import org.grupocuatro.controlador.ControladorPartidos;
 import org.grupocuatro.excepciones.*;
+import org.grupocuatro.modelo.Jugador;
+import org.grupocuatro.modelo.Partido;
 
 import java.time.LocalDate;
 
