@@ -127,7 +127,7 @@ public class ControladorPartidos {
             cargarResultadoEnTabla(partido);
 
         } else {
-            throw new PartidoException("El club: " + idClubV + " no es el club local en el partido: " + idPartido);
+            throw new PartidoException("El club: " + idClubV + " no es el club visitante en el partido: " + idPartido);
         }
 
     }
