@@ -68,5 +68,14 @@ public class ResponsableDao extends AbstractDao {
         }
     }
 
+    public boolean existeMailResponsable(String mail) {
+        try {
+           Responsable r = (Responsable) getEntityManager().createQuery("FROM Responsable WHERE mail = '" + mail + "'").getSingleResult();
+           return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
+
 
 }

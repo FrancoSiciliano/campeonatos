@@ -26,12 +26,12 @@ public class AdministradorDao extends AbstractDao {
         }
     }
 
-    public Administrador getAdministradorByMail(String mail) throws AdministradorException {
+    public boolean existeMailAdministrador(String mail) {
         try {
             Administrador a = (Administrador) getEntityManager().createQuery("FROM Administrador WHERE mail = '" + mail + "'").getSingleResult();
-            return a;
+            return true;
         } catch (NoResultException e) {
-            throw new AdministradorException("No existe un administrador con el mail " + mail);
+            return false;
         }
     }
 

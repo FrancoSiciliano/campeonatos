@@ -77,4 +77,8 @@ public class ControladorResponsables {
     public List<ResponsableVO> getResponsablesByClub(Integer idClub) throws ResponsableException {
         return transformarAListaVO(ResponsableDao.getInstancia().getResponsablesByClub(idClub));
     }
+
+    public boolean existeMailResponsable(String mail) {
+        return ResponsableDao.getInstancia().existeMailResponsable(mail);
+    }
 }

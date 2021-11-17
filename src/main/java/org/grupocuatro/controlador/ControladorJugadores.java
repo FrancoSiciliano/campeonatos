@@ -217,5 +217,8 @@ public class ControladorJugadores {
         return stats;
     }
 
+    public boolean existeMailJugador(String mail) {
+        return JugadorDao.getInstancia().existeMailJugador(mail);
+    }
 
 }

@@ -35,5 +35,9 @@ public class ControladorAdministradores {
         a.update();
     }
 
+    public boolean existeMailAdministrador(String mail) {
+        return AdministradorDao.getInstancia().existeMailAdministrador(mail);
+    }
+
 
 }

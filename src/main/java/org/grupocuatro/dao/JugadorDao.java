@@ -94,4 +94,13 @@ public class JugadorDao extends AbstractDao {
         }
     }
 
+    public boolean existeMailJugador(String mail) {
+        try {
+            Jugador j = (Jugador) getEntityManager().createQuery("FROM Jugador WHERE mail = '" + mail + "'").getSingleResult();
+            return true;
+        } catch (NoResultException c) {
+            return false;
+        }
+    }
+
 }
