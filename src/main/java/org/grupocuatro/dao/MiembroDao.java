@@ -77,4 +77,10 @@ public class MiembroDao extends AbstractDao {
         return result;
     }
 
+    public List<Miembro> getMiembroByPartido(Integer idPartido) throws MiembroException {
+        List<Miembro> miembros = getEntityManager().createQuery("FROM Miembro WHERE idPartido = " + idPartido).getResultList();
+        if (!miembros.isEmpty()) return miembros;
+        throw new MiembroException("No hay jugadores registrados para el partido " + idPartido);
+    }
+
 }
