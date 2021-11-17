@@ -8,8 +8,10 @@ import org.grupocuatro.controlador.ControladorPartidos;
 import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.modelo.Partido;
+import org.grupocuatro.vo.MiembroVO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ControladorMiembrosTest extends TestCase {
     ControladorMiembros controladorMiembros = ControladorMiembros.getInstancia();
@@ -20,8 +22,8 @@ public class ControladorMiembrosTest extends TestCase {
 
     public void testAgregarJugadoresEnLista() throws FaltaException, PartidoException, JugadorException, MiembroException {
         try {
-            controladorMiembros.agregarJugadorEnLista(4, 134, 48);
-            controladorMiembros.agregarJugadorEnLista(4, 134, 49);
+            controladorMiembros.agregarJugadorEnLista(1, 1, 3);
+            controladorMiembros.agregarJugadorEnLista(10, 1, 102);
 
         } catch (ClubException e) {
             System.out.println(e.getMessage());
@@ -114,6 +116,16 @@ public class ControladorMiembrosTest extends TestCase {
         try {
             controladorMiembros.definirIngresoEgreso(21, 0, 90);
             controladorMiembros.definirIngresoEgreso(22, 0, 90);
+        } catch (MiembroException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetMiembroByPartido() {
+        try {
+            List<MiembroVO> miembros = ControladorMiembros.getInstancia().getMiembroByPartido(1);
+            for (MiembroVO m : miembros)
+                System.out.println(m.getJugador().getIdJugador());
         } catch (MiembroException e) {
             System.out.println(e.getMessage());
         }

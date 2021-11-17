@@ -94,6 +94,10 @@ public class ControladorMiembros {
         return transformarAListaVO(MiembroDao.getInstancia().getMiembroByJugadorAndFecha(idJugador, fecha));
     }
 
+    public List<MiembroVO> getMiembroByPartido(Integer idPartido) throws MiembroException {
+        return transformarAListaVO(MiembroDao.getInstancia().getMiembroByPartido(idPartido));
+    }
+
     private boolean perteneceAlEquipo(Integer idClub, Jugador jugador, Partido partido) throws MiembroException {
         if (jugador.isSuClub(idClub) && (Objects.equals(idClub, partido.getClubLocal().getIdClub()) || Objects.equals(idClub, partido.getClubVisitante().getIdClub())))
             return true;
