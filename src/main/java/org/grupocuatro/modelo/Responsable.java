@@ -101,8 +101,11 @@ public class Responsable implements Comparable<Responsable> {
     public String toString() {
         return "Responsable{" +
                 "legajo=" + legajo +
-                ", documento='" + documento + '\'' +
+                ", documento=" + documento +
                 ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
                 ", club=" + club +
                 '}';
     }

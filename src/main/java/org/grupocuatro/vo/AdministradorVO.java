@@ -25,6 +25,10 @@ public class AdministradorVO implements Serializable {
         this.password = password;
     }
 
+    public void setIdAdmin(Integer idAdmin) {
+        this.idAdmin = idAdmin;
+    }
+
     public Integer getIdAdmin() {
         return idAdmin;
     }

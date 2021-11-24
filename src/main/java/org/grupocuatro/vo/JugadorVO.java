@@ -47,6 +47,10 @@ public class JugadorVO implements Serializable {
         this.password = password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getPassword(){return password;}
 
     public Integer getIdJugador() {

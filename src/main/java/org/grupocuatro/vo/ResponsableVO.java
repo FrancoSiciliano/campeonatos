@@ -55,6 +55,30 @@ public class ResponsableVO implements Serializable {
         this.nombre = nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public ClubVO getClub() {
         return club;
     }
@@ -79,7 +103,10 @@ public class ResponsableVO implements Serializable {
                 "legajo=" + legajo +
                 ", documento=" + documento +
                 ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
                 ", club=" + club +
+                ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
