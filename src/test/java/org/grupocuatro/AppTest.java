@@ -2,25 +2,29 @@ package org.grupocuatro;
 
 
 import org.grupocuatro.controlador.*;
+import org.grupocuatro.excepciones.*;
+import org.grupocuatro.modelo.Partido;
 import org.grupocuatro.strategy.GeneracionPartidosStrategy;
 import org.grupocuatro.strategy.GenerarZonasImpar;
 import org.grupocuatro.strategy.GenerarZonasPar;
+
+import java.time.LocalDate;
 
 /**
  * Unit test for simple App.
  */
 public class AppTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CampeonatoException, ClubException, ClubesCampeonatoException, PartidoException, GolException, ResponsableException, JugadorException {
 
-        ControladorClubes controladorClubes = ControladorClubes.getInstancia();
-        ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
-        ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
-        ControladorFaltas controladorFaltas = ControladorFaltas.getInstancia();
-        ControladorGoles controladorGoles = ControladorGoles.getInstancia();
-        ControladorMiembros controladorMiembros = ControladorMiembros.getInstancia();
-        ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
-        ControladorResponsables controladorResponsables = ControladorResponsables.getInstancia();
-
+//        ControladorClubes controladorClubes = ControladorClubes.getInstancia();
+//        ControladorCampeonatos controladorCampeonatos = ControladorCampeonatos.getInstancia();
+//        ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
+//        ControladorFaltas controladorFaltas = ControladorFaltas.getInstancia();
+//        ControladorGoles controladorGoles = ControladorGoles.getInstancia();
+//        ControladorMiembros controladorMiembros = ControladorMiembros.getInstancia();
+//        ControladorJugadores controladorJugadores = ControladorJugadores.getInstancia();
+//        ControladorResponsables controladorResponsables = ControladorResponsables.getInstancia();
+//
 //        //controladorCampeonatos.crearCampeonato("Campeonato Seis Clubes 222", LocalDate.of(2021,9,30), LocalDate.of(2021,10,30), "activo");
 //        controladorCampeonatos.agregarClubACampeonato(1, 5);
 //        controladorCampeonatos.agregarClubACampeonato(2, 5);
@@ -33,9 +37,9 @@ public class AppTest {
 //        //controladorCampeonatos.definirTipoCampeonatoAndCategoria("puntos", 5, 90);
 //
 //        GeneracionPartidosStrategy strategy = new GenerarZonasImpar(2);
-//        strategy.generarPartidosCampeonato(ControladorCampeonatos.getInstancia().encontrarCampeonato(5),90);
-
-
+//        strategy.generarPartidosCampeonato(ControladorCampeonatos.getInstancia().encontrarCampeonato(5).toModelo(),90);
+//
+//
 //        //CREACION DE CLUBES
 //        controladorClubes.crearClub(1, "Boca", "La Boca 100");
 //        controladorClubes.crearClub(2, "River", "Nuñez 200");
@@ -53,9 +57,9 @@ public class AppTest {
 //        controladorCampeonatos.crearCampeonato("Champions League", LocalDate.of(2021, 10, 22), LocalDate.of(2022, 5, 28), "activo");
 //        controladorCampeonatos.crearCampeonato("Serie A", LocalDate.of(2021, 10, 21), LocalDate.of(2022, 5, 22), "activo");
 //
-//        controladorCampeonatos.definirTipoCampeonatoYCategoria("Puntos", 1);
-//        controladorCampeonatos.definirTipoCampeonatoYCategoria("Zonas", 2);
-//        controladorCampeonatos.definirTipoCampeonatoYCategoria("Puntos", 3);
+////        controladorCampeonatos.definirTipoCampeonatoYCategoria("Puntos", 1);
+////        controladorCampeonatos.definirTipoCampeonatoYCategoria("Zonas", 2);
+////        controladorCampeonatos.definirTipoCampeonatoYCategoria("Puntos", 3);
 //
 //        controladorCampeonatos.agregarClubACampeonato(1,1);
 //        controladorCampeonatos.agregarClubACampeonato(2,1);

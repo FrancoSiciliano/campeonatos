@@ -53,11 +53,13 @@ public class ControladorResponsables {
         r.update();
     }
 
-    public void modificarResponsable(Integer legajoResponsable, String nombre, Integer idClub) throws ResponsableException, ClubException {
+    public void modificarResponsable(Integer legajoResponsable, String nombre, Integer idClub, String mail, String password) throws ResponsableException, ClubException {
         Club c = ClubDao.getInstancia().getClubById(idClub);
         Responsable r = ResponsableDao.getInstancia().getResponsable(legajoResponsable);
         r.setClub(c);
         r.setNombre(nombre);
+        r.setMail(mail);
+        r.setPassword(password);
         r.update();
 
     }

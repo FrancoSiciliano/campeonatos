@@ -50,6 +50,14 @@ public class ControladorCampeonatosTest extends TestCase {
             ControladorCampeonatos.getInstancia().agregarClubACampeonato(5, 2);
             ControladorCampeonatos.getInstancia().agregarClubACampeonato(6, 2);
 
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(7, 3);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(8, 3);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(9, 3);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(10, 3);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(1, 3);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(2, 3);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(3, 3);
+            ControladorCampeonatos.getInstancia().agregarClubACampeonato(4, 3);
 
             ControladorCampeonatos.getInstancia().agregarClubACampeonato(1, 8);
             ControladorCampeonatos.getInstancia().agregarClubACampeonato(2, 8);
