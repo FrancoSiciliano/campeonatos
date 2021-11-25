@@ -16,10 +16,7 @@ public class ControladorPartidosTest extends TestCase {
 
     public void testcrearPartido(){
         try {
-            ControladorPartidos.getInstancia().crearPartido(1,90,1,2,2008);
-            ControladorPartidos.getInstancia().crearPartido(2,1,78,3,4);
-            ControladorPartidos.getInstancia().crearPartido(3,1,86,5,6);
-            ControladorPartidos.getInstancia().crearPartido(4,1,83,7,8);
+            ControladorPartidos.getInstancia().crearPartido(0,80,1,2,8);
         } catch (CampeonatoException | ClubException | PartidoException e) {
             System.out.println(e.getMessage());
         }

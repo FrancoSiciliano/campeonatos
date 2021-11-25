@@ -167,4 +167,12 @@ public class PartidoDao extends AbstractDao {
             throw new PartidoException("No existe la zona para el club " + idClub + " en el campeonato " + idCampeonato);
         }
     }
+
+    public List<Partido> getPartidosNoCargados () throws PartidoException {
+        List<Partido> result = getEntityManager().createQuery("FROM Partido WHERE golesLocal is null AND golesVisitante is null ").getResultList();
+        if(!result.isEmpty())
+            return result;
+        throw new PartidoException("No existen partidos a cargar");
+
+    }
 }

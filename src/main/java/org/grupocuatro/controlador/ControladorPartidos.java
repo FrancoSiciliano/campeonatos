@@ -205,6 +205,9 @@ public class ControladorPartidos {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonatoAndNroZona(NroZona, idCampeonato));
     }
 
+    public List<PartidoVO> getPartidosNoCargados() throws PartidoException {
+        return transformarAListaVO(PartidoDao.getInstancia().getPartidosNoCargados());
+    }
     private List<PartidoVO> transformarAListaVO(List<Partido> listaModelo) {
         List<PartidoVO> listaVO = new ArrayList<>();
         for (Partido p : listaModelo)

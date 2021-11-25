@@ -44,6 +44,8 @@ public class ControladorFaltas {
                 }
             }
 
+        }else{
+            throw new FaltaException("El jugador no se encontraba en el campo de juego en el minuto indicado (" + minuto + ")" );
         }
         return falta.getIdFalta();
     }

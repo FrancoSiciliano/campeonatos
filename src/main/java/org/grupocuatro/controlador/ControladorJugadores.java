@@ -67,6 +67,7 @@ public class ControladorJugadores {
     public void modificarEstado(int idJugador) throws JugadorException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
         j.setEstado(!j.isEstado());
+        System.out.println(j);
         j.update();
     }
 
