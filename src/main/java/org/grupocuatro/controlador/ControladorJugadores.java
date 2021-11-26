@@ -252,4 +252,12 @@ public class ControladorJugadores {
         return JugadorDao.getInstancia().existeMailJugador(mail);
     }
 
+    public boolean existeTelefonoJugador(String telefono) {
+        return JugadorDao.getInstancia().existeTelefonoJugador(telefono);
+    }
+
+    public boolean existeDocumentoJugador(Integer documento) {
+        return JugadorDao.getInstancia().existeDocumentoJugador(documento);
+    }
+
 }

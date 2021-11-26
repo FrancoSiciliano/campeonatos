@@ -103,4 +103,23 @@ public class JugadorDao extends AbstractDao {
         }
     }
 
+    public boolean existeTelefonoJugador(String telefono) {
+        try {
+            Jugador j = (Jugador) getEntityManager().createQuery("FROM Jugador WHERE telefono = '" + telefono + "'").getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
+
+    public boolean existeDocumentoJugador(Integer documento) {
+        try {
+            Jugador j = (Jugador) getEntityManager().createQuery("FROM Jugador WHERE documento = " + documento).getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+
+    }
+
 }
