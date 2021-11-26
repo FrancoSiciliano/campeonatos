@@ -296,9 +296,9 @@ public class ControladorJugadoresTest extends TestCase {
 
     public void testgetJugadoresHabilitadosCategoriaClub() {
         try {
-            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(1, 20));
-            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(2, 30));
-            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(3, 40));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(1, 20));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(2, 30));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(3, 40));
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
         }

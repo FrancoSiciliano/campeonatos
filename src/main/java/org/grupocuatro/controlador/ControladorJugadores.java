@@ -142,8 +142,8 @@ public class ControladorJugadores {
         return transformarAListaVO(JugadorDao.getInstancia().getJugadoresByCategoria(categoria));
     }
 
-    public List<JugadorVO> getJugadoresHabilitadosCategoriaClub(Integer club, int categoria) throws JugadorException {
-        return transformarAListaVO(JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClub(club, categoria));
+    public List<JugadorVO> getJugadoresHabilitadosCategoriaClubAndCampeoanto(Integer club, int categoria, Integer idCampeonato) throws JugadorException {
+        return transformarAListaVO(JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(club, categoria, idCampeonato));
     }
 
     private List<JugadorVO> transformarAListaVO(List<Jugador> listaModelo) {
