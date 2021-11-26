@@ -77,5 +77,14 @@ public class ResponsableDao extends AbstractDao {
         }
     }
 
+    public boolean existeDocumentoResponsable(Integer documento) {
+        try {
+            Responsable r = (Responsable) getEntityManager().createQuery("FROM Responsable WHERE documento = " + documento).getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
+
 
 }

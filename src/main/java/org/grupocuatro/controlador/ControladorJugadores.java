@@ -3,6 +3,7 @@ package org.grupocuatro.controlador;
 import org.grupocuatro.dao.*;
 import org.grupocuatro.excepciones.*;
 import org.grupocuatro.modelo.*;
+import org.grupocuatro.vo.JugadorCampeonatoVO;
 import org.grupocuatro.vo.JugadorVO;
 import org.grupocuatro.vo.StatsVO;
 
@@ -71,31 +72,31 @@ public class ControladorJugadores {
         j.update();
     }
 
-    public void modificarNombre (int idJugador, String nombre) throws JugadorException{
+    public void modificarNombre(int idJugador, String nombre) throws JugadorException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
         j.setNombre(nombre);
         j.update();
     }
 
-    public void modificarApellido (int idJugador, String apellido) throws JugadorException{
+    public void modificarApellido(int idJugador, String apellido) throws JugadorException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
         j.setApellido(apellido);
         j.update();
     }
 
-    public void modificarFechaNac (int idJugador, LocalDate fechaNac) throws JugadorException{
+    public void modificarFechaNac(int idJugador, LocalDate fechaNac) throws JugadorException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
         j.setFechaNacimiento(fechaNac);
         j.update();
     }
 
-    public void modificarDocumento (int idJugador, int doc) throws JugadorException{
+    public void modificarDocumento(int idJugador, int doc) throws JugadorException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
         j.setDocumento(doc);
         j.update();
     }
 
-    public void modificarTipoDocumento (int idJugador, String tipodoc) throws JugadorException{
+    public void modificarTipoDocumento(int idJugador, String tipodoc) throws JugadorException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
         j.setTipoDocumento(tipodoc);
         j.update();
@@ -146,6 +147,27 @@ public class ControladorJugadores {
         return transformarAListaVO(JugadorDao.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(club, categoria, idCampeonato));
     }
 
+    public List<JugadorCampeonatoVO> getJugadoresWithEstadoCampeonato(Integer idCampeonato, Integer idClub) throws JugadorException {
+        List<JugadorCampeonatoVO> jugadores = new ArrayList<>();
+        List<Jugador> jugadoresClub = JugadorDao.getInstancia().getJugadoresByClub(idClub);
+        try {
+            List<ListadoJugadoresDeshabilitados> deshabilitados = ListadoJugadoresDeshabilitadosDao.getInstancia().getJugadoresDeshabilitadosCampeonato(idCampeonato);
+            List<Integer> id = new ArrayList<>();
+            for (ListadoJugadoresDeshabilitados d : deshabilitados)
+                id.add(d.getJugador().getIdJugador());
+            for (Jugador j : jugadoresClub) {
+                if (id.contains(j.getIdJugador()))
+                    jugadores.add(j.toJugadorCampeonato(idCampeonato, false));
+                else
+                    jugadores.add(j.toJugadorCampeonato(idCampeonato, true));
+            }
+        } catch (ListadoJugadoresDeshabilitadosException e) {
+            for (Jugador j : jugadoresClub)
+                jugadores.add(j.toJugadorCampeonato(idCampeonato, true));
+        }
+        return jugadores;
+    }
+
     private List<JugadorVO> transformarAListaVO(List<Jugador> listaModelo) {
         List<JugadorVO> listaVO = new ArrayList<>();
         for (Jugador j : listaModelo)
@@ -153,11 +175,15 @@ public class ControladorJugadores {
         return listaVO;
     }
 
-    public StatsVO getStatsByCampeonato(int idJugador, int idCampeonato) throws JugadorException, CampeonatoException, PartidoException {
+    public StatsVO getStatsByCampeonato(int idJugador, int idCampeonato) throws
+            JugadorException, CampeonatoException, PartidoException {
         Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
         Campeonato campeonato = CampeonatoDao.getInstancia().getCampeonato(idCampeonato);
         List<Partido> partidosClub = PartidoDao.getInstancia().getPartidosByCampeonatoAndClub(idCampeonato, j.getClub().getIdClub()); // Se buscan los partidos que corresponden al campeonato y al club al que pertenece el jugador
-        int cantGoles = 0; int cantAmarillas = 0; int cantRojas = 0; int cantJugados = 0;
+        int cantGoles = 0;
+        int cantAmarillas = 0;
+        int cantRojas = 0;
+        int cantJugados = 0;
         for (Partido p : partidosClub) {
             try {
                 MiembroDao.getInstancia().getMiembroByPartidoAndJugador(p.getIdPartido(), j.getIdJugador()); // De los partidos obtenidos anteriormente, se determina si el jugador en cuestión participó o no. Si no lo hizo, no se buscan las estadísticas.
@@ -186,40 +212,52 @@ public class ControladorJugadores {
     }
 
 
-    public StatsVO getStatsByClub(int idJugador, int idClub) throws JugadorException, ClubException, PartidoException {
-            Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-            Club c = ClubDao.getInstancia().getClubById(idClub);
-            int cantGoles = 0; int cantAmarillas = 0; int cantRojas = 0; int cantJugados = 0;
-            List<Partido> partidosClub = PartidoDao.getInstancia().getPartidosByClub(idClub);
-            for (Partido p : partidosClub) {
+    public StatsVO getStatsByClub(int idJugador, int idClub) throws
+            JugadorException, ClubException, PartidoException {
+        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
+        Club c = ClubDao.getInstancia().getClubById(idClub);
+        int cantGoles = 0;
+        int cantAmarillas = 0;
+        int cantRojas = 0;
+        int cantJugados = 0;
+        List<Partido> partidosClub = PartidoDao.getInstancia().getPartidosByClub(idClub);
+        for (Partido p : partidosClub) {
+            try {
+                MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(c.getIdClub(), p.getIdPartido(), j.getIdJugador());
+                cantJugados++;
                 try {
-                    MiembroDao.getInstancia().getMiembroByClubAndPartidoAndJugador(c.getIdClub(), p.getIdPartido(), j.getIdJugador());
-                    cantJugados++;
-                    try {
-                        cantGoles = cantGoles + GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
-                    } catch (GolException e) {
-                        cantGoles = cantGoles;
-                    }
-                    try {
-                        cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla", p.getIdPartido()).size();
-                    } catch (FaltaException e) {
-                        cantAmarillas = cantAmarillas;
-                    }
-                    try {
-                        cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
-                    } catch (FaltaException e) {
-                        cantRojas = cantRojas;
-                    }
-                } catch (MiembroException e) {
-                    cantJugados = cantJugados;
+                    cantGoles = cantGoles + GolDao.getInstancia().getGolesByJugadorAndPartido(p.getIdPartido(), idJugador).size();
+                } catch (GolException e) {
+                    cantGoles = cantGoles;
                 }
+                try {
+                    cantAmarillas = cantAmarillas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Amarilla", p.getIdPartido()).size();
+                } catch (FaltaException e) {
+                    cantAmarillas = cantAmarillas;
+                }
+                try {
+                    cantRojas = cantRojas + FaltaDao.getInstancia().getFaltasByJugadorAndTipoAndPartido(idJugador, "Roja", p.getIdPartido()).size();
+                } catch (FaltaException e) {
+                    cantRojas = cantRojas;
+                }
+            } catch (MiembroException e) {
+                cantJugados = cantJugados;
             }
+        }
         StatsVO stats = new StatsVO(cantGoles, cantRojas, cantAmarillas, cantJugados, j.getIdJugador(), j.getNombre(), j.getApellido(), j.getClub().getIdClub(), j.getClub().getNombre());
         return stats;
     }
 
     public boolean existeMailJugador(String mail) {
         return JugadorDao.getInstancia().existeMailJugador(mail);
+    }
+
+    public boolean existeTelefonoJugador(String telefono) {
+        return JugadorDao.getInstancia().existeTelefonoJugador(telefono);
+    }
+
+    public boolean existeDocumentoJugador(Integer documento) {
+        return JugadorDao.getInstancia().existeDocumentoJugador(documento);
     }
 
 }

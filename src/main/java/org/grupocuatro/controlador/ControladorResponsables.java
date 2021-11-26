@@ -83,4 +83,8 @@ public class ControladorResponsables {
     public boolean existeMailResponsable(String mail) {
         return ResponsableDao.getInstancia().existeMailResponsable(mail);
     }
+
+    public boolean existeDocumentoResponsable(Integer documento) {
+        return ResponsableDao.getInstancia().existeDocumentoResponsable(documento);
+    }
 }
