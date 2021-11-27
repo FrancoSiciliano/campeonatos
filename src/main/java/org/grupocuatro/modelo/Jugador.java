@@ -1,6 +1,7 @@
 package org.grupocuatro.modelo;
 
 import org.grupocuatro.dao.JugadorDao;
+import org.grupocuatro.vo.JugadorCampeonatoVO;
 import org.grupocuatro.vo.JugadorVO;
 
 import javax.persistence.*;
@@ -257,6 +258,13 @@ public class Jugador implements Comparable<Jugador> {
 
     public JugadorVO toVO() {
         return new JugadorVO(this.idJugador, this.tipoDocumento, this.documento, this.nombre, this.apellido, this.club.toVO(), this.fechaNacimiento, this.direccion, this.mail, this.telefono, this.estado, this.categoria, this.password);
+    }
+
+    public JugadorCampeonatoVO toJugadorCampeonato(Integer idCampeonato, boolean estadoCampeonato) {
+        return new JugadorCampeonatoVO(this.idJugador, this.tipoDocumento, this.documento, this.nombre,
+                this.apellido, this.direccion, this.mail, this.password, this.telefono, this.categoria,
+                this.estado, this.fechaNacimiento, this.fechaAlta, this.getClub().getIdClub(), estadoCampeonato,
+                idCampeonato);
     }
 
     //AGREGAR

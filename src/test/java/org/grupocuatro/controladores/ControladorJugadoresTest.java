@@ -10,9 +10,10 @@ import org.grupocuatro.modelo.Jugador;
 import org.grupocuatro.vo.JugadorVO;
 import org.grupocuatro.vo.StatsVO;
 
+import javax.naming.ldap.Control;
 import java.time.LocalDate;
 import java.util.List;
-/*/
+
 public class ControladorJugadoresTest extends TestCase {
 
     public void testCrearJugador() {
@@ -30,7 +31,7 @@ public class ControladorJugadoresTest extends TestCase {
             ControladorJugadores.getInstancia().agregarJugador("DNI", 88941666, "Marcelo", "Weigandt", 1, LocalDate.of(2000, 1, 11), "Su casa 9", "mweigandt@mail.com", "+54 11 2016-5915", "1234");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 91867074, "Luis", "Advincula", 1, LocalDate.of(1990, 3, 2), "Su casa 10", "ladvincula@mail.com", "+54 11 2042-7052", "1234");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 97678613, "Alan", "Varela", 1, LocalDate.of(2001, 7, 4), "Su casa 11", "avarela@mail.com", "+54 11 1142-3898", "1234");
-        }}}
+
             //RIVER 12 - 23
             ControladorJugadores.getInstancia().agregarJugador("DNI", 30458741, "Marcelo Daniel", "Gallardo", 2, LocalDate.of(1976, 1, 18), "Su casa 15", "mgallardo@mail.com", "+54 11 1945-6216", "1234");
             ControladorJugadores.getInstancia().agregarJugador("DNI", 31587652, "Franco", "Armani", 2, LocalDate.of(1986, 10, 16), "Su casa 12", "farmani@mail.com", "+54 11 8372-6286", "1234");
@@ -161,8 +162,12 @@ public class ControladorJugadoresTest extends TestCase {
     }
 
     public void testValidarLogin() {
-        System.out.println(ControladorJugadores.getInstancia().loginJugador("aherrera@mail.com", "1234"));
-        System.out.println(ControladorJugadores.getInstancia().loginJugador("aherrera@mail.com", "123"));
+        try {
+            System.out.println(ControladorJugadores.getInstancia().loginJugador("aherrera@mail.com", "1234"));
+            System.out.println(ControladorJugadores.getInstancia().loginJugador("aherrera@mail.com", "123"));
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testCambiarPassword() {
@@ -296,9 +301,9 @@ public class ControladorJugadoresTest extends TestCase {
 
     public void testgetJugadoresHabilitadosCategoriaClub() {
         try {
-            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(1, 20));
-            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(2, 30));
-            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClub(3, 40));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(1, 20));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(2, 30));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(3, 40));
         } catch (JugadorException e) {
             System.out.println(e.getMessage());
         }
@@ -330,7 +335,18 @@ public class ControladorJugadoresTest extends TestCase {
         } catch (CampeonatoException | JugadorException e) {
             System.out.println(e.getMessage());
         }
-
     }
+
+    public void testExisteDocumentoJugador() {
+        System.out.println(ControladorJugadores.getInstancia().existeDocumentoJugador(31153456));
+    }
+
+    public void testExisteTelefonoJugador() {
+        System.out.println(ControladorJugadores.getInstancia().existeTelefonoJugador("+54 11 1927-1339"));
+    }
+
+    public void testExisteMailJugador() {
+        System.out.println(ControladorJugadores.getInstancia().existeMailJugador("arrossi@mail.com"));
+    }
+
 }
-/*/

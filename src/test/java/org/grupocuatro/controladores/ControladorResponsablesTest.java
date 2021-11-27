@@ -55,7 +55,7 @@ public class ControladorResponsablesTest extends TestCase {
 
     public void testGetResponsable() {
         try {
-            System.out.println(ControladorResponsables.getInstancia().getResponsable(1));
+            System.out.println(ControladorResponsables.getInstancia().getResponsable(5));
         } catch (ResponsableException e) {
             System.out.println(e.getMessage());
         }
@@ -86,6 +86,9 @@ public class ControladorResponsablesTest extends TestCase {
         } catch (ResponsableException e) {
             System.out.println(e.getMessage());
         }
+    }
 
+    public void testExisteDocumento() {
+        System.out.println(ControladorResponsables.getInstancia().existeDocumentoResponsable(35758562));
     }
 }
