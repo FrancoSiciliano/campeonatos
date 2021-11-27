@@ -70,7 +70,6 @@ public class JugadorDao extends AbstractDao {
                 "FROM ListadoJugadoresDeshabilitados WHERE campeonato = " + idCampeonato + "))";
         List<Jugador> jugadores = getEntityManager().createQuery("FROM Jugador WHERE categoria >= " + categoria + " and estado = " + true +" and idClub = " + club + " and (idJugador not in (SELECT jugador " +
                 "FROM ListadoJugadoresDeshabilitados WHERE campeonato = " + idCampeonato + "))").getResultList();
-        System.out.println(jugadores);
         if (!jugadores.isEmpty()) return jugadores;
         throw new JugadorException("No existen jugadores en dicho club con categoria mayor o igual a " + categoria);
 

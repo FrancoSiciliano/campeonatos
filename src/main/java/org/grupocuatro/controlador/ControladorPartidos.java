@@ -189,6 +189,9 @@ public class ControladorPartidos {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByClub(idClub));
     }
 
+    public Integer getUltimoNroFechaByCampeonato(Integer campeonato) throws PartidoException {
+        return PartidoDao.getInstancia().getUltimoNroFechaByCampeonato(campeonato);
+    }
 
     public List<PartidoVO> getPartidosByNroFechaAndCampeonatoAndClub(Integer idCampeonato, int nroFecha, Integer idClub) throws PartidoException {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonatoAndClub(idCampeonato, nroFecha, idClub));
