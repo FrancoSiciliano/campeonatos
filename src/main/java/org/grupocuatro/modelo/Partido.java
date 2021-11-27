@@ -182,12 +182,13 @@ public class Partido {
     }
 
     public void setConvalidaLocal() {
-        this.convalidaLocal = true;
+        this.convalidaLocal = !convalidaLocal;
     }
 
     public void setConvalidaVisitante() {
-        this.convalidaVisitante = true;
+        this.convalidaVisitante = !convalidaVisitante;
     }
+
 
     public void setGolesLocal(int golesLocal) {
         this.golesLocal = golesLocal;

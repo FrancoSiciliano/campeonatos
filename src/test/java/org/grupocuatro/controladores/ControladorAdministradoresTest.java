@@ -8,7 +8,7 @@ public class ControladorAdministradoresTest extends TestCase {
 
     public void testCrearAdministrador() {
         try {
-            ControladorAdministradores.getInstancia().crearAdministrador("Gonzalo", "Paz", "DNI", 42724444, "gonpaz@mail.com", "grupo2");
+            //ControladorAdministradores.getInstancia().crearAdministrador("Gonzalo", "Paz", "DNI", 42724444, "gonpaz@mail.com", "grupo2");
             ControladorAdministradores.getInstancia().crearAdministrador("Julian", "Gamietea", "DNI", 42725456, "jgamietea@mail.com", "grupo2");
         } catch (AdministradorException e) {
             System.out.println(e.getMessage());
