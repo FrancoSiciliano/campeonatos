@@ -186,4 +186,14 @@ public class PartidoDao extends AbstractDao {
         throw new PartidoException("No existen partidos a cargar");
 
     }
+
+    public String getUltimaFechaJugadaByCampeonato(Integer campeonato) throws PartidoException {
+        try {
+            String fecha =  getEntityManager().createQuery("SELECT MAX(fechaPartido) FROM Partido WHERE idCampeonato = " + campeonato).getSingleResult().toString();
+            return fecha;
+        } catch (NoResultException e) {
+            throw new PartidoException("No existen partidos en el campeonato " + campeonato);
+        }
+
+    }
 }

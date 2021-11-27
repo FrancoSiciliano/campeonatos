@@ -208,6 +208,13 @@ public class ControladorPartidos {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonatoAndNroZona(NroZona, idCampeonato));
     }
 
+    public String getLimitesDeFechasByCampeonato(Integer idCampeonato) throws PartidoException, CampeonatoException {
+        Campeonato campeonato = ControladorCampeonatos.getInstancia().encontrarCampeonato(idCampeonato).toModelo();
+        String fechaIni = PartidoDao.getInstancia().getUltimaFechaJugadaByCampeonato(idCampeonato);
+        String fechaFin = campeonato.getFechaFin().toString();
+        return fechaIni + " " + fechaFin;
+    }
+
     public List<PartidoVO> getPartidosNoCargados() throws PartidoException {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosNoCargados());
     }

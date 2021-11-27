@@ -173,4 +173,8 @@ public class ControladorPartidosTest extends TestCase {
         }
     }
 
+    public void testFechas() throws CampeonatoException, PartidoException {
+        System.out.println(ControladorPartidos.getInstancia().getLimitesDeFechasByCampeonato(1));
+    }
+
 }
