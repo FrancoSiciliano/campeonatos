@@ -125,6 +125,11 @@ public class ControladorCampeonatos {
         return resultado;
     }
 
+
+    public int getCategoriaCampeonato(Integer idCampeonato) throws PartidoException {
+        return PartidoDao.getInstancia().getCategoriaCampeonato(idCampeonato);
+    }
+
     //PARTE DE CLUBES CAMPEONATO
 
     public void agregarClubACampeonato(Integer idClub, Integer idCampeonato) throws CampeonatoException, ClubException {

@@ -196,4 +196,13 @@ public class PartidoDao extends AbstractDao {
         }
 
     }
+
+    public int getCategoriaCampeonato(Integer idCampeonato) throws PartidoException {
+        try {
+            int categoria = (int) getEntityManager().createQuery("SELECT MAX(categoria) FROM Partido WHERE idCampeonato = " + idCampeonato).getSingleResult();
+            return categoria;
+        } catch (NoResultException e) {
+            throw new PartidoException("No existen partidos en el campeonato " + idCampeonato);
+        }
+    }
 }

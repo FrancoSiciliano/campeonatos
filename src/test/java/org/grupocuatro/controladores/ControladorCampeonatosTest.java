@@ -2,6 +2,7 @@ package org.grupocuatro.controladores;
 
 import junit.framework.TestCase;
 import org.grupocuatro.controlador.ControladorCampeonatos;
+import org.grupocuatro.controlador.ControladorJugadores;
 import org.grupocuatro.excepciones.CampeonatoException;
 import org.grupocuatro.excepciones.ClubException;
 import org.grupocuatro.excepciones.ClubesCampeonatoException;
@@ -130,6 +131,14 @@ public class ControladorCampeonatosTest extends TestCase {
         try{
             System.out.println(ControladorCampeonatos.getInstancia().campeonatosADefinir());
         }catch(CampeonatoException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void testGetCategoriaCampeonato() {
+        try {
+            System.out.println(ControladorCampeonatos.getInstancia().getCategoriaCampeonato(1));
+        } catch (PartidoException e) {
             System.out.println(e.getMessage());
         }
     }
