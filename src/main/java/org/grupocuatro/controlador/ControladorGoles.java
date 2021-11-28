@@ -62,7 +62,6 @@ public class ControladorGoles {
             goles = GolDao.getInstancia().getGolesByPartido(idPartido);
             for(Gol gol : goles ){
                 gol.delete();
-                gol.update();
             }
         } catch (GolException e) {
         }

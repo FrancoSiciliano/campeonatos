@@ -61,7 +61,6 @@ public class ControladorFaltas {
             faltas = FaltaDao.getInstancia().getFaltasByPartido(idPartido);
             for(Falta falta : faltas){
                 falta.delete();
-                falta.update();
             }
         } catch (FaltaException e) {
         }

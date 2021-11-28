@@ -142,11 +142,10 @@ public class ControladorPartidos {
         partido.setGolesLocal(null);
         partido.setGolesVisitante(null);
         partido.setIncidentes("");
-
         partido.update();
         ControladorGoles.getInstancia().resetearGolesPartido(idPartido);
         ControladorFaltas.getInstancia().resetearFaltasPartido(idPartido);
-        ControladorMiembros.getInstancia().resetearMiembrosPartido(idPartido);
+
 
     }
     private void cargarResultadoEnTabla(Partido partido) throws CampeonatoException, ClubException, TablaPosicionException {

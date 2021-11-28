@@ -66,19 +66,6 @@ public class ControladorMiembros {
         }
     }
 
-    public void resetearMiembrosPartido(Integer idPartido){
-        List<Miembro> miembros = null;
-        try {
-            miembros = MiembroDao.getInstancia().getMiembroByPartido(idPartido);
-            for(Miembro miembro : miembros) {
-                miembro.delete();
-                miembro.update();
-            }
-
-        } catch (MiembroException e) {
-        }
-
-    }
     public List<MiembroVO> getMiembros() throws MiembroException {
         return transformarAListaVO(MiembroDao.getInstancia().getMiembros());
     }

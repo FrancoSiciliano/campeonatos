@@ -24,6 +24,10 @@ public class ControladorGolesTest extends TestCase {
 
     }
 
+    public void testResetearGolesPartido() {
+        controladorGoles.resetearGolesPartido(135);
+    }
+
     public void testGetGoles() throws GolException {
         System.out.println(controladorGoles.getGoles());
     }
