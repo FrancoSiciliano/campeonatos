@@ -94,6 +94,16 @@ public class PartidoDao extends AbstractDao {
 
     }
 
+    public Integer getUltimoNroFechaByCampeonato(Integer campeonato) throws PartidoException {
+        try {
+            Integer integer = (Integer) getEntityManager().createQuery("SELECT MAX(nroFecha) FROM Partido WHERE idCampeonato = " + campeonato).getSingleResult();
+            return integer;
+        } catch (NoResultException e) {
+            throw new PartidoException("No existen partidos para el campeonato " + campeonato);
+        }
+
+    }
+
     public List<Partido> getPartidosByCampeonatoAndClub(int idCampeonato, int idClub) throws PartidoException {
         List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato =" + idCampeonato + " AND (idClubLocal = " + idClub + " OR idClubVisitante = " + idClub + ")").getResultList();
         if (!partidos.isEmpty()) return partidos;
@@ -128,6 +138,7 @@ public class PartidoDao extends AbstractDao {
         if (!partidos.isEmpty()) return partidos;
         throw new PartidoException("No existen partidos en la zona " + nroZona);
     }
+
     public List<Partido> getPartidosByCampeonatoAndClubLocal(Integer idClub, Integer idCampeonato) throws PartidoException {
         List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato = " + idCampeonato + " AND idClubLocal = " + idClub).getResultList();
         if (!partidos.isEmpty()) return partidos;
@@ -140,39 +151,58 @@ public class PartidoDao extends AbstractDao {
         throw new PartidoException("No existen partidos correspondientes al club visitante " + idClub + " en el campeonato " + idCampeonato);
     }
 
-    public int getCantPartidosByCampeonatoValidados(Integer idCampeonato){
+    public int getCantPartidosByCampeonatoValidados(Integer idCampeonato) {
         List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato = " + idCampeonato + " AND validadoLocal = 1 AND validadoVisitante = 1").getResultList();
         if (!partidos.isEmpty()) return partidos.size();
         else return 0;
     }
 
-    public int getCantPartidosByCampeonato(Integer idCampeonato){
+    public int getCantPartidosByCampeonato(Integer idCampeonato) {
         List<Partido> partidos = getEntityManager().createQuery("FROM Partido WHERE idCampeonato = " + idCampeonato).getResultList();
         if (!partidos.isEmpty()) return partidos.size();
         else return 0;
     }
 
-    public int getCantZonasCampeonato (Integer idCampeonato) throws PartidoException {
-        try{
+    public int getCantZonasCampeonato(Integer idCampeonato) throws PartidoException {
+        try {
             return (int) getEntityManager().createQuery("SELECT MAX(nroZona) from Partido WHERE idCampeonato = " + idCampeonato).getSingleResult();
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             throw new PartidoException("No existen zonas en las que el campeonato " + idCampeonato + " esta dividido");
         }
     }
 
-    public int getZonaClubCampeonato (Integer idCampeonato, Integer idClub) throws PartidoException {
-        try{
+    public int getZonaClubCampeonato(Integer idCampeonato, Integer idClub) throws PartidoException {
+        try {
             return (int) getEntityManager().createQuery("SELECT nroZona FROM Partido WHERE idCampeonato = " + idCampeonato + " AND idClubLocal = " + idClub).getSingleResult();
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             throw new PartidoException("No existe la zona para el club " + idClub + " en el campeonato " + idCampeonato);
         }
     }
 
-    public List<Partido> getPartidosNoCargados () throws PartidoException {
+    public List<Partido> getPartidosNoCargados() throws PartidoException {
         List<Partido> result = getEntityManager().createQuery("FROM Partido WHERE golesLocal is null AND golesVisitante is null ").getResultList();
-        if(!result.isEmpty())
+        if (!result.isEmpty())
             return result;
         throw new PartidoException("No existen partidos a cargar");
 
+    }
+
+    public String getUltimaFechaJugadaByCampeonato(Integer campeonato) throws PartidoException {
+        try {
+            String fecha =  getEntityManager().createQuery("SELECT MAX(fechaPartido) FROM Partido WHERE idCampeonato = " + campeonato).getSingleResult().toString();
+            return fecha;
+        } catch (NoResultException e) {
+            throw new PartidoException("No existen partidos en el campeonato " + campeonato);
+        }
+
+    }
+
+    public int getCategoriaCampeonato(Integer idCampeonato) throws PartidoException {
+        try {
+            int categoria = (int) getEntityManager().createQuery("SELECT MAX(categoria) FROM Partido WHERE idCampeonato = " + idCampeonato).getSingleResult();
+            return categoria;
+        } catch (NoResultException e) {
+            throw new PartidoException("No existen partidos en el campeonato " + idCampeonato);
+        }
     }
 }

@@ -206,6 +206,9 @@ public class ControladorPartidos {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByClub(idClub));
     }
 
+    public Integer getUltimoNroFechaByCampeonato(Integer campeonato) throws PartidoException {
+        return PartidoDao.getInstancia().getUltimoNroFechaByCampeonato(campeonato);
+    }
 
     public List<PartidoVO> getPartidosByNroFechaAndCampeonatoAndClub(Integer idCampeonato, int nroFecha, Integer idClub) throws PartidoException {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByNroFechaAndCampeonatoAndClub(idCampeonato, nroFecha, idClub));
@@ -220,6 +223,13 @@ public class ControladorPartidos {
     }
     public List<PartidoVO> getPartidosByCampeonatoAndNroZona(int NroZona, Integer idCampeonato) throws PartidoException {
         return transformarAListaVO(PartidoDao.getInstancia().getPartidosByCampeonatoAndNroZona(NroZona, idCampeonato));
+    }
+
+    public String getLimitesDeFechasByCampeonato(Integer idCampeonato) throws PartidoException, CampeonatoException {
+        Campeonato campeonato = ControladorCampeonatos.getInstancia().encontrarCampeonato(idCampeonato).toModelo();
+        String fechaIni = PartidoDao.getInstancia().getUltimaFechaJugadaByCampeonato(idCampeonato);
+        String fechaFin = campeonato.getFechaFin().toString();
+        return fechaIni + " " + fechaFin;
     }
 
     public List<PartidoVO> getPartidosNoCargados() throws PartidoException {

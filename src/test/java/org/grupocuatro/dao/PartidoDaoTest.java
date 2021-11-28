@@ -144,4 +144,8 @@ public class PartidoDaoTest extends TestCase {
         }
     }
 
+    public void testGetFecha() throws PartidoException {
+        System.out.println(PartidoDao.getInstancia().getUltimaFechaJugadaByCampeonato(1));
+    }
+
 }

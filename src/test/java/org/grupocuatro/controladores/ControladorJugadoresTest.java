@@ -300,13 +300,13 @@ public class ControladorJugadoresTest extends TestCase {
     }
 
     public void testgetJugadoresHabilitadosCategoriaClub() {
-//        try {
-//            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(1, 20));
-//            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(2, 30));
-//            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(3, 40));
-//        } catch (JugadorException e) {
-//            System.out.println(e.getMessage());
-//        }
+        try {
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(1, 20, 2));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(2, 30, 2));
+            System.out.println(ControladorJugadores.getInstancia().getJugadoresHabilitadosCategoriaClubAndCampeonato(3, 40, 2));
+        } catch (JugadorException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void testGetStatsByClub() {
