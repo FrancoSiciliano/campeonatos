@@ -33,7 +33,7 @@ public class ControladorFaltas {
         Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador).toModelo();
         Falta falta = null;
 
-        if ((minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) && (miembro.getIngreso() != 0 && miembro.getEgreso() != 0)) {
+        if ((minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) && (miembro.getIngreso() != 0 || miembro.getEgreso() != 0)) {
             falta = new Falta(null, partido, minuto, tipo);
             jugador.agregarFalta(falta);
 

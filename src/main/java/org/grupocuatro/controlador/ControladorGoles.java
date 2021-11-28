@@ -31,7 +31,7 @@ public class ControladorGoles {
         ControladorPartidos controladorPartidos = ControladorPartidos.getInstancia();
         Partido partido = controladorPartidos.encontrarPartido(idPartido).toModelo();
         Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador).toModelo();
-        if ((miembro.getIngreso() <= minuto && miembro.getEgreso() >= minuto) && (miembro.getIngreso() != 0 && miembro.getEgreso() != 0)) {
+        if ((miembro.getIngreso() <= minuto && miembro.getEgreso() >= minuto) && (miembro.getIngreso() != 0 || miembro.getEgreso() != 0)) {
             Gol gol = new Gol(null, partido, minuto, tipo);
             jugador.agregarGol(gol);
             return gol.getIdGol();
