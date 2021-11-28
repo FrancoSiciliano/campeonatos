@@ -33,7 +33,7 @@ public class ControladorFaltas {
         Miembro miembro = ControladorMiembros.getInstancia().getMiembroByPartidoAndJugador(idPartido, idJugador).toModelo();
         Falta falta = null;
 
-        if (minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) {
+        if ((minuto >= miembro.getIngreso() && minuto <= miembro.getEgreso()) && (miembro.getIngreso() != 0 && miembro.getEgreso() != 0)) {
             falta = new Falta(null, partido, minuto, tipo);
             jugador.agregarFalta(falta);
 
@@ -44,8 +44,8 @@ public class ControladorFaltas {
                 }
             }
 
-        }else{
-            throw new FaltaException("El jugador no se encontraba en el campo de juego en el minuto indicado (" + minuto + ")" );
+        } else {
+            throw new FaltaException("El jugador no se encontraba en el campo de juego en el minuto indicado (" + minuto + ")");
         }
         return falta.getIdFalta();
     }
