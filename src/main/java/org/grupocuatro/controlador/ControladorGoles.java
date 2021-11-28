@@ -6,7 +6,6 @@ import org.grupocuatro.excepciones.JugadorException;
 import org.grupocuatro.excepciones.MiembroException;
 import org.grupocuatro.excepciones.PartidoException;
 import org.grupocuatro.modelo.*;
-import org.grupocuatro.vo.ClubVO;
 import org.grupocuatro.vo.GolVO;
 
 import java.util.ArrayList;
@@ -57,6 +56,19 @@ public class ControladorGoles {
 
         cantGoles = goles.size();
         return cantGoles;
+    }
+
+    public void resetearGolesPartido(Integer idPartido){
+        List<Gol> goles = null;
+        try {
+            goles = GolDao.getInstancia().getGolesByPartido(idPartido);
+            for(Gol gol : goles ){
+                gol.delete();
+                gol.update();
+            }
+        } catch (GolException e) {
+        }
+
     }
 
     public List<GolVO> getGoles() throws GolException {

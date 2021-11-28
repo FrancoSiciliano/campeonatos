@@ -190,11 +190,11 @@ public class Partido {
     }
 
 
-    public void setGolesLocal(int golesLocal) {
+    public void setGolesLocal(Integer golesLocal) {
         this.golesLocal = golesLocal;
     }
 
-    public void setGolesVisitante(int golesVisitante) {
+    public void setGolesVisitante(Integer golesVisitante) {
         this.golesVisitante = golesVisitante;
     }
 

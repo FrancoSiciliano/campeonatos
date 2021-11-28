@@ -55,6 +55,18 @@ public class ControladorFaltas {
         return listaFaltas.size() == 2;
     }
 
+    public void resetearFaltasPartido (Integer idPartido){
+        List<Falta> faltas = null;
+        try {
+            faltas = FaltaDao.getInstancia().getFaltasByPartido(idPartido);
+            for(Falta falta : faltas){
+                falta.delete();
+                falta.update();
+            }
+        } catch (FaltaException e) {
+        }
+
+    }
     public List<FaltaVO> getFaltas() throws FaltaException {
         return transformarAListaVO(FaltaDao.getInstancia().getFaltas());
 

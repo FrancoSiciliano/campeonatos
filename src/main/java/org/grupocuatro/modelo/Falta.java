@@ -71,6 +71,7 @@ public class Falta {
         FaltaDao.getInstancia().update(this);
     }
 
+    public void delete() { FaltaDao.getInstancia().delete(this); }
     public FaltaVO toVO(){
         return new FaltaVO(idFalta, jugador.toVO(), partido.toVO(), minuto, tipo);
     }

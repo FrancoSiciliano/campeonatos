@@ -131,7 +131,24 @@ public class ControladorPartidos {
         }
 
     }
+    public void invalidarPartido (Integer idPartido) throws PartidoException{
+        Partido partido = PartidoDao.getInstancia().getPartidoById(idPartido);
+        if (partido.isConvalidaLocal()) {
+            partido.setConvalidaLocal();
+        }
+        if (partido.isConvalidaVisitante()) {
+            partido.setConvalidaVisitante();
+        }
+        partido.setGolesLocal(null);
+        partido.setGolesVisitante(null);
+        partido.setIncidentes("");
 
+        partido.update();
+        ControladorGoles.getInstancia().resetearGolesPartido(idPartido);
+        ControladorFaltas.getInstancia().resetearFaltasPartido(idPartido);
+        ControladorMiembros.getInstancia().resetearMiembrosPartido(idPartido);
+
+    }
     private void cargarResultadoEnTabla(Partido partido) throws CampeonatoException, ClubException, TablaPosicionException {
         ControladorTablasPosiciones controladorTablasPosiciones = ControladorTablasPosiciones.getInstancia();
 

@@ -101,6 +101,7 @@ public class Miembro {
         MiembroDao.getInstancia().update(this);
     }
 
+    public void delete() { MiembroDao.getInstancia().delete(this); }
     @Override
     public String toString() {
         return "Miembro{" +

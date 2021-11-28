@@ -73,6 +73,7 @@ public class Gol {
         GolDao.getInstancia().update(this);
     }
 
+    public void delete() { GolDao.getInstancia().delete(this);}
     public GolVO toVO() {
         return new GolVO(idGol, jugador.toVO(), partido.toVO(), minuto, tipo);
     }
