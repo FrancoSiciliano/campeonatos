@@ -34,7 +34,7 @@ public class TablaPosicionDao extends AbstractDao {
     }
 
     public List<TablaPosiciones> getTablaPosicionesByCampeonato(Integer id) throws TablaPosicionException {
-        List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE idCampeonato = " + id).getResultList();
+        List<TablaPosiciones> tablas = getEntityManager().createQuery("FROM TablaPosiciones WHERE idCampeonato = " + id + " ORDER BY puntos DESC").getResultList();
         if (!tablas.isEmpty()) return tablas;
         throw new TablaPosicionException("No existe el campeonato de id: " + id);
     }

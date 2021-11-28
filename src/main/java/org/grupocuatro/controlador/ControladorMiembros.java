@@ -57,7 +57,7 @@ public class ControladorMiembros {
 
     public void definirIngresoEgreso(Integer idMiembro, int ingreso, int egreso) throws MiembroException {
         Miembro m = MiembroDao.getInstancia().getMiembroById(idMiembro);
-        if (ingreso < egreso) {
+        if (ingreso < egreso || (ingreso == 0 && egreso == 0)) {
             m.setIngreso(ingreso);
             m.setEgreso(egreso);
             m.update();
