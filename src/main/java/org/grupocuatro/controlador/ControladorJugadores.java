@@ -90,10 +90,14 @@ public class ControladorJugadores {
         j.update();
     }
 
-    public void modificarDocumento(int idJugador, int doc) throws JugadorException {
-        Jugador j = JugadorDao.getInstancia().getJugadorById(idJugador);
-        j.setDocumento(doc);
-        j.update();
+    public void modificarDocumento(int idJugador, int doc, String tipoDoc) throws JugadorException {
+        if(JugadorDao.getInstancia().yaExisteJugador(doc,tipoDoc)){
+            throw new JugadorException("Ya existe un jugador con el numero de documento ingresado sdadaadsads");
+        }else{
+            Jugador jug = JugadorDao.getInstancia().getJugadorById(idJugador);
+            jug.setDocumento(doc);
+            jug.update();
+        }
     }
 
     public void modificarTipoDocumento(int idJugador, String tipodoc) throws JugadorException {

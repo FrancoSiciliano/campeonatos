@@ -77,7 +77,7 @@ public class JugadorDao extends AbstractDao {
 
     public boolean yaExisteJugador(int documento, String tipoDoc) {
         try {
-            getEntityManager().createQuery("FROM Jugador WHERE numeroDocumento = " + documento + " AND tipoDocumento = " + tipoDoc);
+            getEntityManager().createQuery("FROM Jugador WHERE documento = " + documento + " AND tipoDocumento = '" + tipoDoc +"'").getSingleResult();
             return true;
         } catch (NoResultException e) {
             return false;
